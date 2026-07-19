@@ -388,3 +388,41 @@ padding:13px;
     color:#fff;
     line-height:1.6;
 }
+/* QR Section */
+
+.qr-section{
+    margin-top:35px;
+    text-align:center;
+}
+
+.qr-image{
+    width:180px;
+    margin:20px auto;
+    display:block;
+    border-radius:18px;
+    background:#fff;
+    padding:10px;
+}
+
+.qr-section p{
+    color:#fff;
+}
+
+/* Map */
+
+.map-section{
+    margin-top:35px;
+}
+
+.map-section h2{
+    text-align:center;
+    color:#fff;
+    margin-bottom:15px;
+}
+
+.map-section iframe{
+    width:100%;
+    height:250px;
+    border:none;
+    border-radius:20px;
+}
