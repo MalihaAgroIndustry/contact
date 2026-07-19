@@ -1,3 +1,8 @@
+/* ==========================
+   Maliha Agro Industry
+   Premium Digital Card v2
+========================== */
+
 *{
     margin:0;
     padding:0;
@@ -6,155 +11,158 @@
 }
 
 body{
+
     min-height:100vh;
-    background:linear-gradient(135deg,#0f5132,#198754,#d4edda);
+
+    background:
+    linear-gradient(rgba(9,70,35,.75),rgba(9,70,35,.80)),
+    url("https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=1200&q=80");
+
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+
     display:flex;
     justify-content:center;
     align-items:center;
+
     padding:25px;
+
 }
 
 .container{
+
     width:100%;
     display:flex;
     justify-content:center;
+
 }
 
 .card{
+
     width:100%;
-    max-width:420px;
+    max-width:430px;
+
     background:rgba(255,255,255,.12);
+
     backdrop-filter:blur(18px);
-    border-radius:30px;
-    padding:35px 25px;
-    text-align:center;
+
     border:1px solid rgba(255,255,255,.25);
-    box-shadow:0 15px 45px rgba(0,0,0,.25);
-    animation:fadeUp .8s ease;
+
+    border-radius:30px;
+
+    padding:30px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+
+    animation:cardShow .8s ease;
+
 }
 
 .logo{
+
     width:120px;
     height:120px;
+
     object-fit:contain;
+
+    display:block;
+
+    margin:auto;
     margin-bottom:20px;
-}
-
-h1{
-    color:#fff;
-    font-size:30px;
-    margin-bottom:8px;
-}
-
-h3{
-    color:#FFE082;
-    margin-bottom:5px;
-    font-weight:600;
-}
-
-p{
-    color:#f8f9fa;
-    margin-bottom:30px;
-}
-
-.buttons{
-    display:flex;
-    flex-direction:column;
-    gap:15px;
-}
-
-.btn{
-    text-decoration:none;
-    color:#fff;
-    background:#198754;
-    padding:15px;
-    border-radius:15px;
-    font-size:18px;
-    font-weight:600;
-    transition:.35s;
-}
-
-.btn:hover{
-    background:#145c32;
-    transform:translateY(-3px);
-}
-
-@keyframes fadeUp{
-
-from{
-opacity:0;
-transform:translateY(30px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
-@media(max-width:500px){
-
-.card{
-padding:25px 18px;
-}
-
-h1{
-font-size:24px;
-}
-
-.btn{
-font-size:16px;
-}
 
 }
 
 .hero{
+
     text-align:center;
-    margin-bottom:25px;
+
 }
 
 .badge{
+
     display:inline-block;
+
     background:#FFD54F;
-    color:#14532d;
-    padding:8px 16px;
+
+    color:#205a22;
+
+    padding:8px 18px;
+
     border-radius:50px;
+
     font-size:13px;
+
     font-weight:700;
-    margin-bottom:15px;
+
+    margin-bottom:18px;
+
+}
+
+h1{
+
+    color:#fff;
+
+    font-size:30px;
+
+    margin-bottom:8px;
+
+}
+
+h2{
+
+    color:#C8FACC;
+
+    font-size:22px;
+
+    margin-bottom:12px;
+
+}
+
+h3{
+
+    color:#ffffff;
+
+    font-size:20px;
+
 }
 
 .designation{
-    color:#ffffff;
-    font-size:18px;
+
+    color:#FFE082;
+
+    margin-top:8px;
+
     font-weight:600;
+
 }
 
 .tagline{
-    color:#f5f5f5;
-    margin-top:12px;
-    line-height:1.7;
+
+    color:#F8F9FA;
+
+    margin-top:18px;
+
+    line-height:1.8;
+
     font-size:15px;
+
 }
 
-.quick-info{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin:25px 0;
-}
+@keyframes cardShow{
 
-.info-box{
-    background:rgba(255,255,255,.15);
-    border-radius:15px;
-    padding:15px 8px;
-    color:#fff;
-    font-size:14px;
-}
+    from{
 
-.info-box span{
-    display:block;
-    margin-top:8px;
-    font-size:13px;
+        opacity:0;
+        transform:translateY(35px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
 }
