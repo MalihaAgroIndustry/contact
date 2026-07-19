@@ -166,3 +166,71 @@ h3{
     }
 
 }
+
+/* ==========================
+   Quick Info
+========================== */
+
+.quick-info{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin:30px 0;
+}
+
+.info-box{
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:18px;
+    padding:15px 10px;
+    text-align:center;
+    color:#fff;
+    transition:.3s;
+}
+
+.info-box:hover{
+    transform:translateY(-5px);
+    background:rgba(255,255,255,.18);
+}
+
+.info-box span{
+    display:block;
+    margin-top:8px;
+    font-size:13px;
+    word-break:break-word;
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.buttons{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    margin-top:15px;
+}
+
+.btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    background:#1f8f4d;
+    color:#fff;
+    padding:15px;
+    border-radius:16px;
+    font-size:17px;
+    font-weight:600;
+    transition:.3s;
+    box-shadow:0 8px 20px rgba(0,0,0,.20);
+}
+
+.btn:hover{
+    background:#157347;
+    transform:translateY(-3px) scale(1.02);
+}
+
+.btn:active{
+    transform:scale(.98);
+}
