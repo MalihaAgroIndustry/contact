@@ -352,3 +352,39 @@ padding:13px;
 }
 
 }
+
+/* Product Section */
+
+.products{
+    margin-top:35px;
+}
+
+.products h2{
+    color:#fff;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.product-card{
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:15px;
+    transition:.3s;
+}
+
+.product-card:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.18);
+}
+
+.product-card h3{
+    color:#FFD54F;
+    margin-bottom:8px;
+}
+
+.product-card p{
+    color:#fff;
+    line-height:1.6;
+}
