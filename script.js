@@ -1,39 +1,30 @@
-// ===== MAI Digital Business Card =====
+// Share Button
+const shareBtn = document.getElementById("shareCard");
 
-// Welcome Message
-window.addEventListener("load", () => {
-    console.log("Welcome to Maliha Agro Industry");
-});
+if (shareBtn) {
+  shareBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-// Smooth Button Animation
-const buttons = document.querySelectorAll(".btn");
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Maliha Agro Industry",
+          text: "Maliha Agro Industry - Digital Business Card",
+          url: window.location.href
+        });
+      } catch (err) {}
+    } else {
+      alert("আপনার ব্রাউজারে Share সাপোর্ট করে না।");
+    }
+  });
+}
 
-buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-        btn.style.transform = "scale(0.96)";
-        setTimeout(() => {
-            btn.style.transform = "scale(1)";
-        }, 150);
-    });
-});
+// Save Contact Button
+const saveBtn = document.getElementById("saveContact");
 
-// Floating Effect
-const card = document.querySelector(".card");
-
-let move = 0;
-
-setInterval(() => {
-    move = move === 0 ? 8 : 0;
-    card.style.transform = `translateY(${move}px)`;
-}, 1800);
-
-// Greeting
-const hour = new Date().getHours();
-
-if(hour < 12){
-    console.log("Good Morning");
-}else if(hour < 18){
-    console.log("Good Afternoon");
-}else{
-    console.log("Good Evening");
+if (saveBtn) {
+  saveBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "contact.vcf";
+  });
 }
