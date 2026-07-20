@@ -54,3 +54,28 @@ document.querySelectorAll(".slider").forEach(slider => {
     }, 3000);
 
 });
+
+// Full Screen Image Preview
+
+const modal = document.getElementById("imageModal");
+const modalImg = document.getElementById("modalImage");
+const closeBtn = document.querySelector(".close-modal");
+
+document.querySelectorAll(".product-img").forEach(img => {
+
+    img.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
+    });
+
+});
+
+closeBtn.onclick = () => {
+    modal.style.display = "none";
+};
+
+modal.onclick = (e) => {
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
+};
