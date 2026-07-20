@@ -499,3 +499,24 @@ padding:13px;
     margin-top:8px;
 }
 
+/* Slider Dots */
+
+.slider-dots{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin:12px 0 15px;
+}
+
+.dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:rgba(255,255,255,.45);
+    transition:.3s;
+}
+
+.dot.active{
+    background:#FFD54F;
+    transform:scale(1.2);
+}
