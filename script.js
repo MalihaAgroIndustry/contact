@@ -1,3 +1,4 @@
+alert("JavaScript Working");
 // Share Button
 const shareBtn = document.getElementById("shareCard");
 
