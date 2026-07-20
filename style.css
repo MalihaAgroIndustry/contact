@@ -520,3 +520,31 @@ padding:13px;
     background:#FFD54F;
     transform:scale(1.2);
 }
+/* ==========================
+   Image Slider
+========================== */
+
+.slider{
+    position:relative;
+    width:100%;
+    height:220px;
+    overflow:hidden;
+    border-radius:15px;
+    margin-bottom:10px;
+}
+
+.slider .product-img{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity .6s ease-in-out;
+    border:3px solid #fff;
+}
+
+.slider .product-img.active{
+    opacity:1;
+}
