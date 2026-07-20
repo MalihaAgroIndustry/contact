@@ -88,3 +88,9 @@ if (modal && modalImg && closeBtn) {
     });
 
 }
+
+console.log("Script Loaded");
+
+document.querySelectorAll(".product-img").forEach(img => {
+    console.log(img.src);
+});
