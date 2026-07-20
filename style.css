@@ -548,3 +548,37 @@ padding:13px;
 .slider .product-img.active{
     opacity:1;
 }
+/* ==========================
+   Full Screen Image Preview
+========================== */
+
+.image-modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.9);
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.image-modal img{
+    max-width:95%;
+    max-height:90%;
+    border-radius:15px;
+    box-shadow:0 0 30px rgba(255,255,255,.25);
+}
+
+.close-modal{
+    position:absolute;
+    top:20px;
+    right:30px;
+    color:#fff;
+    font-size:40px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.slider .product-img{
+    cursor:pointer;
+}
