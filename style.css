@@ -365,20 +365,6 @@ padding:13px;
     margin-bottom:20px;
 }
 
-.product-card{
-    background:rgba(255,255,255,.10);
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:18px;
-    padding:18px;
-    margin-bottom:15px;
-    transition:.3s;
-}
-
-.product-card:hover{
-    transform:translateY(-4px);
-    background:rgba(255,255,255,.18);
-}
-
 .product-card h3{
     color:#FFD54F;
     margin-bottom:8px;
@@ -428,6 +414,7 @@ padding:13px;
 }
 
 .product-card{
+    position:relative;
     background:rgba(255,255,255,.10);
     border:1px solid rgba(255,255,255,.15);
     border-radius:18px;
@@ -459,7 +446,7 @@ padding:13px;
 
 .price{
     color:#00ff99;
-    font-size:20px;
+    font-size:22px;
     font-weight:bold;
     margin:8px 0;
 }
@@ -487,3 +474,28 @@ padding:13px;
 .product-card .btn:last-child:hover{
     background:#f57c00;
 }
+
+/* Offer Badge */
+
+.offer-badge{
+    position:absolute;
+    top:15px;
+    left:15px;
+    background:#ff3b30;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    z-index:10;
+}
+
+/* Old Price */
+
+.old-price{
+    color:#d9d9d9;
+    text-decoration:line-through;
+    font-size:16px;
+    margin-top:8px;
+}
+
