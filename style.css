@@ -647,3 +647,15 @@ border:5px solid red !important;
 .view-all-btn:hover span{
     transform:translateX(8px);
 }
+
+.view-all-section{
+    display:block !important;
+    visibility:visible !important;
+}
+
+.view-all-btn{
+    display:flex !important;
+    background:#ff5722 !important;
+    color:#fff !important;
+    border:3px solid #fff !important;
+}
