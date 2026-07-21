@@ -85,3 +85,40 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+// ==========================
+// Install PWA App
+// ==========================
+
+let deferredPrompt;
+
+const installBtn = document.getElementById("installApp");
+
+if (installBtn) {
+    installBtn.style.display = "none";
+
+    window.addEventListener("beforeinstallprompt", (e) => {
+        e.preventDefault();
+
+        deferredPrompt = e;
+
+        installBtn.style.display = "flex";
+    });
+
+    installBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        if (!deferredPrompt) return;
+
+        deferredPrompt.prompt();
+
+        await deferredPrompt.userChoice;
+
+        deferredPrompt = null;
+
+        installBtn.style.display = "none";
+    });
+
+    window.addEventListener("appinstalled", () => {
+        installBtn.style.display = "none";
+    });
+}
