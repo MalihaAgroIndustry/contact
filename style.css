@@ -796,3 +796,43 @@ body{
     color:#fff;
     font-size:14px;
 }
+
+/* ==========================
+   Customer Reviews
+========================== */
+
+.reviews{
+    margin:35px 0;
+}
+
+.reviews h2{
+    text-align:center;
+    color:#fff;
+    margin-bottom:20px;
+}
+
+.review-card{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:15px;
+    transition:.3s;
+}
+
+.review-card:hover{
+    transform:translateY(-4px);
+    background:rgba(255,255,255,.18);
+}
+
+.review-card p{
+    color:#fff;
+    line-height:1.7;
+    font-style:italic;
+}
+
+.review-card h4{
+    color:#FFD54F;
+    margin-top:15px;
+    text-align:right;
+}
