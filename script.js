@@ -122,3 +122,31 @@ if (installBtn) {
         installBtn.style.display = "none";
     });
 }
+
+// ==========================
+// Product Search
+// ==========================
+
+const searchInput = document.getElementById("searchProduct");
+
+if (searchInput) {
+
+    searchInput.addEventListener("keyup", function () {
+
+        const value = this.value.toLowerCase();
+
+        document.querySelectorAll(".product-card").forEach((card) => {
+
+            const name = card.querySelector("h3").textContent.toLowerCase();
+
+            if (name.includes(value)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+
+        });
+
+    });
+
+}
