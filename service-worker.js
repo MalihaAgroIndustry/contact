@@ -1,4 +1,4 @@
-const CACHE_NAME = "mai-v2";
+const CACHE_NAME = "mai-v3";
 
 const urlsToCache = [
   "./",
