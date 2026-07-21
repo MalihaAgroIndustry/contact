@@ -122,7 +122,3 @@ if (installBtn) {
         installBtn.style.display = "none";
     });
 }
-
-window.addEventListener("beforeinstallprompt", (e) => {
-    alert("Install Event Fired");
-});
