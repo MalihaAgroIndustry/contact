@@ -752,3 +752,47 @@ body{
     font-size:15px;
     font-weight:500;
 }
+
+/* ==========================
+   Company Statistics
+========================== */
+
+.stats{
+    margin:35px 0;
+}
+
+.stats h2{
+    text-align:center;
+    color:#fff;
+    margin-bottom:20px;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.stat-card{
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-5px);
+}
+
+.stat-card h3{
+    color:#FFD54F;
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.stat-card p{
+    color:#fff;
+    font-size:14px;
+}
