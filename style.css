@@ -649,8 +649,7 @@ border:5px solid red !important;
 }
 
 .view-all-section{
-    display:block !important;
-    visibility:visible !important;
+    margin:35px 0;
 }
 
 .view-all-btn{
