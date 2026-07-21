@@ -582,3 +582,18 @@ padding:13px;
 .slider .product-img{
     cursor:pointer;
 }
+
+/* Search Box */
+
+.search-box{
+    margin:20px 0 30px;
+}
+
+.search-box input{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:15px;
+    outline:none;
+    font-size:16px;
+}
