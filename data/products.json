@@ -1,1 +1,26 @@
-
+[
+  {
+    "id": 1,
+    "name": "Vermicompost",
+    "price": 480,
+    "oldPrice": 600,
+    "category": "Organic Fertilizer",
+    "image": "images/product1.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Tricho Compost",
+    "price": 510,
+    "oldPrice": 600,
+    "category": "Organic Fertilizer",
+    "image": "images/product2.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Egg Shell Powder",
+    "price": 72,
+    "oldPrice": 80,
+    "category": "Organic Fertilizer",
+    "image": "images/product3.jpg"
+  }
+]
