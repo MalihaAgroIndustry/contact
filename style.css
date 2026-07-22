@@ -985,3 +985,25 @@ body{
     line-height:1.8;
     margin-bottom:20px;
 }
+
+form{
+display:flex;
+flex-direction:column;
+gap:15px;
+margin-top:20px;
+}
+
+form input,
+form textarea{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+font-size:15px;
+outline:none;
+}
+
+form textarea{
+height:120px;
+resize:none;
+}
