@@ -249,7 +249,15 @@ if (detailsContainer) {
 
 <div class="gallery">
 
-<img src="${product.image}" class="main-image" id="mainImage">
+<img src="${product.gallery[0]}" class="main-image" id="mainImage">
+
+<div class="thumbnail-gallery">
+
+${product.gallery.map(img => `
+<img src="${img}" class="thumb">
+`).join("")}
+
+</div>
 
 </div>
 
