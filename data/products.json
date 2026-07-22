@@ -2,25 +2,49 @@
   {
     "id": 1,
     "name": "Vermicompost",
+    "category": "Organic Fertilizer",
     "price": 480,
     "oldPrice": 600,
-    "category": "Organic Fertilizer",
-    "image": "images/product1.jpg"
+    "stock": "In Stock",
+    "rating": "5.0",
+    "description": "১০০% প্রাকৃতিক কেঁচো সার। সবজি, ফল, ফুল ও কৃষি জমির জন্য উপযোগী।",
+    "image": "images/product1.jpg",
+    "gallery": [
+      "images/product1.jpg",
+      "images/product1-2.jpg",
+      "images/product1-3.jpg"
+    ]
   },
   {
     "id": 2,
     "name": "Tricho Compost",
+    "category": "Organic Fertilizer",
     "price": 510,
     "oldPrice": 600,
-    "category": "Organic Fertilizer",
-    "image": "images/product2.jpg"
+    "stock": "In Stock",
+    "rating": "5.0",
+    "description": "ট্রাইকো সমৃদ্ধ জৈব সার যা মাটির স্বাস্থ্য উন্নত করে এবং রোগ প্রতিরোধে সহায়তা করে।",
+    "image": "images/product2.jpg",
+    "gallery": [
+      "images/product2.jpg",
+      "images/product2-2.jpg",
+      "images/product2-3.jpg"
+    ]
   },
   {
     "id": 3,
     "name": "Egg Shell Powder",
+    "category": "Organic Fertilizer",
     "price": 72,
     "oldPrice": 80,
-    "category": "Organic Fertilizer",
-    "image": "images/product3.jpg"
+    "stock": "In Stock",
+    "rating": "5.0",
+    "description": "ক্যালসিয়াম সমৃদ্ধ জৈব সার, ফলন বৃদ্ধি ও গাছের শক্তিশালী বৃদ্ধিতে সহায়ক।",
+    "image": "images/product3.jpg",
+    "gallery": [
+      "images/product3.jpg",
+      "images/product3-2.jpg",
+      "images/product3-3.jpg"
+    ]
   }
 ]
