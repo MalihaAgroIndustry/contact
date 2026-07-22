@@ -222,61 +222,75 @@ fetch("data/products.json")
 
 });
 
-// ==========================
-// Product Details Page
-// ==========================
-
 const detailsContainer = document.getElementById("productDetails");
 
 if (detailsContainer) {
 
     const params = new URLSearchParams(window.location.search);
-    const productId = parseInt(params.get("id"));
+    const id = Number(params.get("id"));
 
     fetch("data/products.json")
-        .then(res => res.json())
-        .then(products => {
+    .then(res => res.json())
+    .then(products => {
 
-            const product = products.find(p => p.id === productId);
+        const product = products.find(p => p.id === id);
 
-            if (!product) {
-                detailsContainer.innerHTML = "<h2>❌ Product Not Found</h2>";
-                return;
-            }
+        if (!product) {
 
-            detailsContainer.innerHTML = `
-                <img src="${product.image}" class="product-img active">
+            detailsContainer.innerHTML = "<h2>Product Not Found</h2>";
 
-                <h1>${product.name}</h1>
+            return;
 
-                <p class="rating">
-                    ⭐ ${product.rating}
-                </p>
+        }
 
-                <p class="old-price">
-                    ৳${product.oldPrice}
-                </p>
+        detailsContainer.innerHTML = `
 
-                <p class="price">
-                    ৳${product.price}
-                </p>
+<div class="product-details">
 
-                <p>
-                    <b>Category:</b> ${product.category}
-                </p>
+<div class="gallery">
 
-                <p>
-                    <b>Stock:</b> ${product.stock}
-                </p>
+<img src="${product.image}" class="main-image" id="mainImage">
 
-                <p style="margin-top:15px;">
-                    ${product.description}
-                </p>
+</div>
 
-                <a href="https://wa.me/8801303679189?text=আমি ${product.name} অর্ডার করতে চাই" class="btn">
-                    🛒 Order Now
-                </a>
-            `;
-        });
+<h1>${product.name}</h1>
+
+<p class="rating">
+⭐⭐⭐⭐⭐ ${product.rating}
+</p>
+
+<p class="old-price">
+৳${product.oldPrice}
+</p>
+
+<p class="price">
+৳${product.price}
+</p>
+
+<p><b>Brand:</b> ${product.brand}</p>
+
+<p><b>SKU:</b> ${product.sku}</p>
+
+<p><b>Category:</b> ${product.category}</p>
+
+<p><b>Weight:</b> ${product.weight}</p>
+
+<p><b>Stock:</b> ${product.stock}</p>
+
+<p>${product.description}</p>
+
+<a href="https://wa.me/8801303679189?text=আমি ${product.name} অর্ডার করতে চাই" class="btn">
+🛒 Order Now
+</a>
+
+<button class="btn" id="shareProduct">
+📤 Share Product
+</button>
+
+</div>
+
+        `;
+
+    });
 
 }
