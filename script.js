@@ -319,8 +319,45 @@ setTimeout(() => {
 
     });
 
+const firstThumb = document.querySelector(".thumb");
+
+if (firstThumb) {
+    firstThumb.classList.add("active");
+}
+
 }, 100);
 
+const shareBtn = document.getElementById("shareProduct");
+
+if (shareBtn) {
+
+    shareBtn.addEventListener("click", async () => {
+
+        try {
+
+            if (navigator.share) {
+
+                await navigator.share({
+                    title: product.name,
+                    text: product.description,
+                    url: window.location.href
+                });
+
+            } else {
+
+                await navigator.clipboard.writeText(window.location.href);
+
+                alert("লিংক কপি হয়েছে ✅");
+
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+
+    });
+
+}
     });
 
 }
