@@ -299,6 +299,28 @@ ${product.gallery.map(img => `
 
         `;
 
+setTimeout(() => {
+
+    const mainImage = document.getElementById("mainImage");
+
+    const thumbs = document.querySelectorAll(".thumb");
+
+    thumbs.forEach(thumb => {
+
+        thumb.addEventListener("click", () => {
+
+            mainImage.src = thumb.src;
+
+            thumbs.forEach(t => t.classList.remove("active"));
+
+            thumb.classList.add("active");
+
+        });
+
+    });
+
+}, 100);
+
     });
 
 }
