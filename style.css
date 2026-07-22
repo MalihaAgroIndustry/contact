@@ -910,3 +910,19 @@ body{
     color:#fff;
     line-height:1.8;
 }
+
+/* Founder Image Fix */
+
+.founder-section{
+    text-align:center;
+}
+
+.founder-section .founder-img{
+    width:140px !important;
+    height:140px !important;
+    border-radius:50% !important;
+    object-fit:cover !important;
+    border:4px solid #FFD54F;
+    display:block;
+    margin:0 auto 15px;
+}
