@@ -181,3 +181,43 @@ counters.forEach(counter => {
     update();
 
 });
+
+// ==========================
+// Dynamic Products
+// ==========================
+
+fetch("data/products.json")
+  .then(response => response.json())
+  .then(products => {
+
+    const productList = document.getElementById("productList");
+
+    if (!productList) return;
+
+    productList.innerHTML = "";
+
+    products.forEach(product => {
+
+      productList.innerHTML += `
+        <div class="product-card">
+
+            <img src="${product.image}" class="product-img" alt="${product.name}">
+
+            <h3>${product.name}</h3>
+
+            <p class="old-price">৳${product.oldPrice}</p>
+
+            <p class="price">৳${product.price}</p>
+
+            <p>${product.category}</p>
+
+            <a href="product.html?id=${product.id}" class="btn">
+                📖 বিস্তারিত দেখুন
+            </a>
+
+        </div>
+      `;
+
+    });
+
+});
