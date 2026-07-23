@@ -198,27 +198,43 @@ fetch("data/products.json")
 
     products.forEach(product => {
 
-      productList.innerHTML += `
-        <div class="product-card">
+    productList.innerHTML += `
 
-            <img src="${product.image}" class="product-img" alt="${product.name}">
+    <div class="product-card">
 
-            <h3>${product.name}</h3>
+        ${product.offer ? '<span class="offer-badge">🔥 Offer</span>' : ''}
 
-            <p class="old-price">৳${product.oldPrice}</p>
+        <img src="${product.image}" class="product-img" alt="${product.name}">
 
-            <p class="price">৳${product.price}</p>
+        <h3>${product.name}</h3>
 
-            <p>${product.category}</p>
+        <p class="rating">
+            ⭐⭐⭐⭐⭐ (${product.rating})
+        </p>
 
-            <a href="product.html?id=${product.id}" class="btn">
-                📖 বিস্তারিত দেখুন
-            </a>
+        <p class="old-price">
+            ৳${product.oldPrice}
+        </p>
 
-        </div>
-      `;
+        <p class="price">
+            ৳${product.price}
+        </p>
 
-    });
+        <span class="stock">
+            🟢 ${product.stock}
+        </span>
+
+        <p>${product.description}</p>
+
+        <a href="product.html?id=${product.id}" class="btn">
+            📖 বিস্তারিত দেখুন
+        </a>
+
+    </div>
+
+    `;
+
+});
 
 });
 
