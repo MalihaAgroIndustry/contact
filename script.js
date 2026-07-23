@@ -188,6 +188,8 @@ counters.forEach(counter => {
 
 async function loadProducts() {
 
+alert("loadProducts চলছে");
+
     const productList = document.getElementById("productList");
 
     if (!productList) return;
