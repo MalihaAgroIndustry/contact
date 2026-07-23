@@ -200,10 +200,12 @@ alert("productList পাওয়া গেছে");
 
     const response = await fetch("data/products.json");
 
+alert("Status: " + response.status);
 alert("fetch সফল");
 
     const products = await response.json();
 
+alert("Products: " + products.length);
 alert("fetch সফল");
 
     productList.innerHTML = "";
