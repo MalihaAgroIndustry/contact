@@ -183,60 +183,74 @@ counters.forEach(counter => {
 });
 
 // ==========================
-// Dynamic Products
+// Dynamic Products V2
 // ==========================
 
-fetch("data/products.json")
-  .then(response => response.json())
-  .then(products => {
+async function loadProducts() {
 
     const productList = document.getElementById("productList");
 
     if (!productList) return;
 
+    const response = await fetch("data/products.json");
+
+    const products = await response.json();
+
     productList.innerHTML = "";
 
     products.forEach(product => {
 
-    productList.innerHTML += `
+        productList.innerHTML += `
 
-    <div class="product-card">
+        <div class="product-card">
 
-        ${product.offer ? '<span class="offer-badge">🔥 Offer</span>' : ''}
+            ${product.offer ? '<span class="offer-badge">🔥 Offer</span>' : ''}
 
-        <img src="${product.image}" class="product-img" alt="${product.name}">
+            <div class="slider">
 
-        <h3>${product.name}</h3>
+                ${product.gallery.map((img,index)=>`
 
-        <p class="rating">
-            ⭐⭐⭐⭐⭐ (${product.rating})
-        </p>
+                    <img src="${img}"
+                    class="product-img ${index===0?'active':''}"
+                    alt="${product.name}">
 
-        <p class="old-price">
-            ৳${product.oldPrice}
-        </p>
+                `).join("")}
 
-        <p class="price">
-            ৳${product.price}
-        </p>
+            </div>
 
-        <span class="stock">
-            🟢 ${product.stock}
-        </span>
+            <h3>${product.name}</h3>
 
-        <p>${product.description}</p>
+            <p class="rating">
+                ⭐⭐⭐⭐⭐ (${product.rating})
+            </p>
 
-        <a href="product.html?id=${product.id}" class="btn">
-            📖 বিস্তারিত দেখুন
-        </a>
+            <p class="old-price">
+                ৳${product.oldPrice}
+            </p>
 
-    </div>
+            <p class="price">
+                ৳${product.price}
+            </p>
 
-    `;
+            <span class="stock">
+                🟢 ${product.stock}
+            </span>
 
-});
+            <p>${product.description}</p>
 
-});
+            <a href="product.html?id=${product.id}" class="btn">
+                📖 বিস্তারিত দেখুন
+            </a>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+loadProducts();
 
 const detailsContainer = document.getElementById("productDetails");
 
