@@ -1,3 +1,6 @@
+window.onerror = function(message, source, line, col) {
+    alert("ERROR: " + message + " | Line: " + line);
+};
 alert("script.js লোড হয়েছে");
 
 // Share Button
