@@ -1,3 +1,5 @@
+alert("script.js লোড হয়েছে");
+
 // Share Button
 const shareBtn = document.getElementById("shareCard");
 
