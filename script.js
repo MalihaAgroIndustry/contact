@@ -194,11 +194,17 @@ alert("loadProducts চলছে");
 
     const productList = document.getElementById("productList");
 
+alert("productList পাওয়া গেছে");
+
     if (!productList) return;
 
     const response = await fetch("data/products.json");
 
+alert("fetch সফল");
+
     const products = await response.json();
+
+alert("fetch সফল");
 
     productList.innerHTML = "";
 
