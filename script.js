@@ -168,71 +168,15 @@ async function loadProducts() {
 
         const response = await fetch("data/products.json");
 
-        const products = await response.json();
+        alert("Status: " + response.status);
 
-        productList.innerHTML = "";
+        const text = await response.text();
 
-        products.forEach(product => {
-
-            let images = "";
-
-            if (product.gallery && product.gallery.length > 0) {
-
-                product.gallery.forEach((img, index) => {
-
-                    images += `
-                        <img src="${img}"
-                        class="product-img ${index === 0 ? "active" : ""}"
-                        alt="${product.name}">
-                    `;
-
-                });
-
-            }
-
-            productList.innerHTML += `
-            <div class="product-card">
-
-                ${product.offer ? '<span class="offer-badge">🔥 Offer</span>' : ""}
-
-                <div class="slider">
-                    ${images}
-                </div>
-
-                <h3>${product.name}</h3>
-
-                <p class="rating">
-                    ⭐⭐⭐⭐⭐ (${product.rating})
-                </p>
-
-                <p class="old-price">
-                    ৳${product.oldPrice}
-                </p>
-
-                <p class="price">
-                    ৳${product.price}
-                </p>
-
-                <span class="stock">
-                    🟢 ${product.stock}
-                </span>
-
-                <p>${product.description}</p>
-
-                <a href="product.html?id=${product.id}" class="btn">
-                    📖 বিস্তারিত দেখুন
-                </a>
-
-            </div>
-            `;
-
-        });
+        alert(text);
 
     } catch (err) {
 
-        console.error(err);
-
-        productList.innerHTML = "<h3>❌ Product Load Failed</h3>";
+        alert(err);
 
     }
 
