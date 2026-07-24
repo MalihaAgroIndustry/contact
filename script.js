@@ -232,6 +232,10 @@ console.log(products);
 
         const product = products.find(p => p.id === id);
 
+console.log("ID =", id);
+console.log("Products =", products);
+console.log("Found =", product);
+
         if (!product) {
 
             detailsContainer.innerHTML = "<h2>Product Not Found</h2>";
