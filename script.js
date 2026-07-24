@@ -197,7 +197,7 @@ alert("loadProducts চলছে");
 
     const productList = document.getElementById("productList");
 
-alert("productList পাওয়া গেছে");
+alert(productList ? "productList পাওয়া গেছে" : "productList পাওয়া যায়নি");
 
     if (!productList) return;
 
