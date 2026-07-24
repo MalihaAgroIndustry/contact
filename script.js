@@ -240,6 +240,8 @@ async function loadProducts() {
 
 loadProducts();
 
+alert("loadProducts কল হয়েছে");
+
 const detailsContainer = document.getElementById("productDetails");
 
 if (detailsContainer) {
