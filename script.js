@@ -343,3 +343,11 @@ if (shareBtn) {
     });
 
 }
+
+})
+    .catch(err => {
+        console.error(err);
+        detailsContainer.innerHTML = "<h2>❌ Product Load Failed</h2>";
+    });
+
+}
