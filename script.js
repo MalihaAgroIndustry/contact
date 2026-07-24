@@ -201,6 +201,8 @@ alert(productList ? "productList পাওয়া গেছে" : "productList
 
     if (!productList) return;
 
+alert("fetch শুরু");
+
     const response = await fetch("data/products.json");
 
 alert("Status: " + response.status);
