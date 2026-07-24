@@ -290,33 +290,21 @@ ${product.gallery.map(img => `
 
         `;
 
-setTimeout(() => {
+const mainImage = document.getElementById("mainImage");
+const thumbs = document.querySelectorAll(".thumb");
 
-    const mainImage = document.getElementById("mainImage");
+thumbs.forEach(thumb => {
+    thumb.addEventListener("click", () => {
+        mainImage.src = thumb.src;
 
-    const thumbs = document.querySelectorAll(".thumb");
-
-    thumbs.forEach(thumb => {
-
-        thumb.addEventListener("click", () => {
-
-            mainImage.src = thumb.src;
-
-            thumbs.forEach(t => t.classList.remove("active"));
-
-            thumb.classList.add("active");
-
-        });
-
+        thumbs.forEach(t => t.classList.remove("active"));
+        thumb.classList.add("active");
     });
+});
 
-const firstThumb = document.querySelector(".thumb");
-
-if (firstThumb) {
-    firstThumb.classList.add("active");
+if (thumbs.length > 0) {
+    thumbs[0].classList.add("active");
 }
-
-}, 100);
 
 const shareBtn = document.getElementById("shareProduct");
 
