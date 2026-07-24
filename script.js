@@ -158,114 +158,83 @@ if (searchInput) {
 
 // Animated Counter
 
-const counters = document.querySelectorAll(".counter");
-
-counters.forEach(counter => {
-
-    const update = () => {
-
-        const target = +counter.getAttribute("data-target");
-        const count = +counter.innerText;
-
-        const speed = target / 80;
-
-        if(count < target){
-
-            counter.innerText = Math.ceil(count + speed);
-
-            setTimeout(update,20);
-
-        }else{
-
-            counter.innerText = target + "+";
-
-        }
-
-    };
-
-    update();
-
-});
-
-// ==========================
-// Dynamic Products V2
-// ==========================
-
 async function loadProducts() {
-
-alert("loadProducts চলছে");
 
     const productList = document.getElementById("productList");
 
-alert(productList ? "productList পাওয়া গেছে" : "productList পাওয়া যায়নি");
-
     if (!productList) return;
 
-alert("fetch শুরু");
+    try {
 
-    const response = await fetch("data/products.json");
+        const response = await fetch("data/products.json");
 
-alert("Status: " + response.status);
-alert("fetch সফল");
+        const products = await response.json();
 
-    const products = await response.json();
+        productList.innerHTML = "";
 
-alert("Products: " + products.length);
-alert("fetch সফল");
+        products.forEach(product => {
 
-    productList.innerHTML = "";
+            let images = "";
 
-    products.forEach(product => {
+            if (product.gallery && product.gallery.length > 0) {
 
-alert(product.name);
+                product.gallery.forEach((img, index) => {
 
-        productList.innerHTML += `
+                    images += `
+                        <img src="${img}"
+                        class="product-img ${index === 0 ? "active" : ""}"
+                        alt="${product.name}">
+                    `;
 
-        <div class="product-card">
+                });
 
-            ${product.offer ? '<span class="offer-badge">🔥 Offer</span>' : ''}
+            }
 
-            <div class="slider">
+            productList.innerHTML += `
+            <div class="product-card">
 
-                ${product.gallery.map((img,index)=>`
+                ${product.offer ? '<span class="offer-badge">🔥 Offer</span>' : ""}
 
-                    <img src="${img}"
-                    class="product-img ${index===0?'active':''}"
-                    alt="${product.name}">
+                <div class="slider">
+                    ${images}
+                </div>
 
-                `).join("")}
+                <h3>${product.name}</h3>
+
+                <p class="rating">
+                    ⭐⭐⭐⭐⭐ (${product.rating})
+                </p>
+
+                <p class="old-price">
+                    ৳${product.oldPrice}
+                </p>
+
+                <p class="price">
+                    ৳${product.price}
+                </p>
+
+                <span class="stock">
+                    🟢 ${product.stock}
+                </span>
+
+                <p>${product.description}</p>
+
+                <a href="product.html?id=${product.id}" class="btn">
+                    📖 বিস্তারিত দেখুন
+                </a>
 
             </div>
+            `;
 
-            <h3>${product.name}</h3>
+        });
 
-            <p class="rating">
-                ⭐⭐⭐⭐⭐ (${product.rating})
-            </p>
+    } catch (err) {
 
-            <p class="old-price">
-                ৳${product.oldPrice}
-            </p>
+        console.error(err);
 
-            <p class="price">
-                ৳${product.price}
-            </p>
+        productList.innerHTML = "<h3>❌ Product Load Failed</h3>";
 
-            <span class="stock">
-                🟢 ${product.stock}
-            </span>
-
-            <p>${product.description}</p>
-
-            <a href="product.html?id=${product.id}" class="btn">
-                📖 বিস্তারিত দেখুন
-            </a>
-
-        </div>
-
-        `;
-
-    });
+    }
 
 }
 
