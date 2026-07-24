@@ -1,7 +1,6 @@
-window.onerror = function(message, source, line, col) {
-    alert("ERROR: " + message + " | Line: " + line);
+window.onerror = function(message, source, line) {
+    console.error(message, line);
 };
-
 // Share Button
 const shareBtn = document.getElementById("shareCard");
 
