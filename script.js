@@ -232,9 +232,11 @@ console.log(products);
 
         const product = products.find(p => p.id === id);
 
-console.log("ID =", id);
-console.log("Products =", products);
-console.log("Found =", product);
+alert("ID = " + id);
+
+alert("Products = " + products.length);
+
+alert("Found = " + JSON.stringify(product));
 
         if (!product) {
 
