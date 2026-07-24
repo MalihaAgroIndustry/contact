@@ -217,6 +217,8 @@ alert("fetch সফল");
 
     products.forEach(product => {
 
+alert(product.name);
+
         productList.innerHTML += `
 
         <div class="product-card">
