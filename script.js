@@ -221,8 +221,14 @@ if (detailsContainer) {
     const id = Number(params.get("id"));
 
     fetch("data/products.json")
-    .then(res => res.json())
+.then(res => {
+    if (!res.ok) {
+        throw new Error("JSON Load Failed");
+    }
+    return res.json();
+})
     .then(products => {
+console.log(products);
 
         const product = products.find(p => p.id === id);
 
@@ -334,9 +340,6 @@ if (shareBtn) {
             console.log(err);
         }
 
-    });
-
-}
     });
 
 }
