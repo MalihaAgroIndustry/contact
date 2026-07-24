@@ -1,7 +1,6 @@
 window.onerror = function(message, source, line, col) {
     alert("ERROR: " + message + " | Line: " + line);
 };
-alert("script.js লোড হয়েছে");
 
 // Share Button
 const shareBtn = document.getElementById("shareCard");
@@ -218,8 +217,6 @@ async function loadProducts() {
 
 loadProducts();
 
-alert("loadProducts কল হয়েছে");
-
 const detailsContainer = document.getElementById("productDetails");
 
 if (detailsContainer) {
@@ -359,4 +356,3 @@ if (shareBtn) {
     });
 
 }
-alert("script শেষ পর্যন্ত এসেছে");
