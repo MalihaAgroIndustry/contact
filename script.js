@@ -235,18 +235,11 @@ console.log(products);
 
         const product = products.find(p => p.id === id);
 
-alert("ID = " + id);
-
-alert("Products = " + products.length);
-
-alert("Found = " + JSON.stringify(product));
-
         if (!product) {
 
             detailsContainer.innerHTML = "<h2>Product Not Found</h2>";
 
             return;
-
         }
 
         detailsContainer.innerHTML = `
