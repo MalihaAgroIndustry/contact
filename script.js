@@ -1,3 +1,6 @@
+window.onerror = function(message, source, line) {
+    alert("ERROR: " + message + " | Line: " + line);
+};
 // Share Button
 const shareBtn = document.getElementById("shareCard");
 
@@ -256,9 +259,11 @@ alert("Found = " + JSON.stringify(product));
 
 <div class="thumbnail-gallery">
 
-${product.gallery.map(img => `
-<img src="${img}" class="thumb">
-`).join("")}
+${product.gallery
+  .filter(img => img && img.trim() !== "")
+  .map(img => `
+    <img src="${img}" class="thumb">
+  `).join("")}
 
 </div>
 
