@@ -1014,7 +1014,9 @@ resize:none;
 
 .main-image{
     width:100%;
-    max-width:420px;
+    height:280px;
+    max-width:100%;
+    object-fit:cover;
     border-radius:18px;
     margin-bottom:15px;
 }
@@ -1027,8 +1029,8 @@ resize:none;
 }
 
 .thumb{
-    width:70px;
-    height:70px;
+    width:60px;
+    height:60px;
     object-fit:cover;
     border-radius:10px;
     cursor:pointer;
@@ -1040,4 +1042,23 @@ resize:none;
 .thumb.active{
     border:2px solid #1f8f4d;
     transform:scale(1.08);
+}
+
+.product-details{
+    text-align:center;
+}
+
+.product-details h1{
+    font-size:24px;
+    margin:15px 0;
+}
+
+.product-details p{
+    color:#fff;
+    margin:10px 0;
+    line-height:1.7;
+}
+
+.product-details .btn{
+    margin-top:15px;
 }
