@@ -1008,65 +1008,70 @@ height:120px;
 resize:none;
 }
 
-/* ==========================
-   Product Details Design
-========================== */
+/* ===== Daraz Style Product Image ===== */
+
+.gallery{
+    text-align:center;
+    background:#fff;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:20px;
+}
+
+.main-image{
+    width:100%;
+    max-width:260px;
+    height:260px;
+    object-fit:contain;
+    display:block;
+    margin:0 auto 15px;
+    border:none;
+    border-radius:10px;
+    background:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.12);
+}
+
+.thumbnail-gallery{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.thumb{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:8px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.thumb:hover,
+.thumb.active{
+    border:2px solid #f57224;
+    transform:scale(1.05);
+}
 
 .product-details{
     text-align:center;
 }
 
 .product-details h1{
-    font-size:24px;
-    color:#FFD54F;
+    color:#fff;
+    font-size:22px;
     margin:15px 0;
 }
 
-.product-details p{
-    color:#fff;
-    margin:10px 0;
-    line-height:1.7;
+.product-details .price{
+    font-size:28px;
+    color:#00ff99;
+    font-weight:bold;
 }
 
-.product-details .btn{
-    margin-top:15px;
-}
-
-.gallery{
-    text-align:center;
-}
-
-.main-image{
-    width:100%;
-    max-width:320px;
-    height:220px;
-    object-fit:cover;
-    border-radius:15px;
-    border:3px solid #fff;
-    margin:0 auto 15px;
-    display:block;
-}
-
-.thumbnail-gallery{
-    display:flex;
-    justify-content:center;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-bottom:20px;
-}
-
-.thumb{
-    width:60px;
-    height:60px;
-    object-fit:cover;
-    border-radius:10px;
-    cursor:pointer;
-    border:2px solid transparent;
-    transition:.3s;
-}
-
-.thumb:hover,
-.thumb.active{
-    border:2px solid #FFD54F;
-    transform:scale(1.08);
+.product-details .old-price{
+    color:#ccc;
+    text-decoration:line-through;
 }
