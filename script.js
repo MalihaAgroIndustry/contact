@@ -242,6 +242,8 @@ console.log(products);
             return;
         }
 
+console.log(product.gallery);
+
         detailsContainer.innerHTML = `
 
 <div class="product-details">
