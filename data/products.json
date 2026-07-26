@@ -1,10 +1,11 @@
 [
-  {
-    "id": 1,
-    "name": "Vermicompost",
-    "slug": "vermicompost",
-    "category": "Organic Fertilizer",
-    "brand": "Maliha Agro Industry",
+{
+  "id": 1,
+  "name": "মালিহা জৈব সার",
+  "type": "ভার্মি কম্পোস্ট কেঁচো সার",
+  "slug": "vermicompost",
+  "category": "Organic Fertilizer",
+  "brand": "Maliha Agro Industry",
     "sku": "MAI-VC-001",
     "price": 480,
     "oldPrice": 600,
@@ -26,8 +27,9 @@
 ]
   },
   {
-    "id": 2,
-    "name": "Tricho Compost",
+  "id": 2,
+  "name": "মালিহা জৈব সার",
+  "type": "ট্রাইকো কম্পোস্ট সার",
     "slug": "tricho-compost",
     "category": "Organic Fertilizer",
     "brand": "Maliha Agro Industry",
@@ -52,8 +54,9 @@
 ]
   },
   {
-    "id": 3,
-    "name": "Egg Shell Powder",
+  "id": 3,
+  "name": "মালিহা এগ সেল পাউডার",
+  "type": "এগ সেল পাউডার",
     "slug": "egg-shell-powder",
     "category": "Organic Fertilizer",
     "brand": "Maliha Agro Industry",
