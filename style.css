@@ -1021,16 +1021,18 @@ resize:none;
     border-radius:15px;
     padding:15px;
     margin-bottom:20px;
-    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
 }
 
 .main-image{
-    width:100%;
-    height:300px;
-    object-fit:contain;
-    background:#fff;
+    width:260px;
+    height:260px;
     display:block;
     margin:auto;
+    object-fit:contain;
+    background:#fff;
     border-radius:10px;
 }
 
