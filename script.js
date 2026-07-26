@@ -246,18 +246,21 @@ console.log(products);
 
 <div class="product-details">
 
-<div class="gallery">
+<div class="slider">
 
-<img src="${product.gallery && product.gallery.length ? product.gallery[0] : product.image}" class="main-image" id="mainImage">
-<div class="thumbnail-gallery">
-
-${(product.gallery || [])
-.filter(img => img && img.trim() !== "")
-.map(img => `
-<img src="${img}" class="thumb">
+${(product.gallery || []).map((img,index)=>`
+<img src="${img}"
+class="product-img ${index===0 ? 'active' : ''}"
+alt="${product.name}">
 `).join("")}
 
 </div>
+
+<div class="slider-dots">
+
+${(product.gallery || []).map((_,index)=>`
+<span class="dot ${index===0 ? 'active' : ''}"></span>
+`).join("")}
 
 </div>
 
