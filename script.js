@@ -282,6 +282,8 @@ ${(product.gallery || []).map((_,index)=>`
 
 <p><b>Brand:</b> ${product.brand}</p>
 
+<p><b>Product Type:</b> ${product.type}</p>
+
 <p><b>SKU:</b> ${product.sku}</p>
 
 <p><b>Category:</b> ${product.category}</p>
