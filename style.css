@@ -1055,6 +1055,13 @@ resize:none;
     text-align:center;
 }
 
+.share-btn{
+    display:block;
+    width:220px;
+    margin:15px auto;
+    text-align:center;
+    float:none;
+}
 
 /* Product Details Slider */
 
