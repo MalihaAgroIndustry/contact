@@ -296,7 +296,7 @@ ${(product.gallery || []).map((_,index)=>`
 🛒 Order Now
 </a>
 
-<button class="btn" id="shareProduct">
+<button class="btn share-btn" id="shareProduct">
 📤 Share Product
 </button>
 
