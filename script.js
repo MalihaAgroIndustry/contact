@@ -302,20 +302,39 @@ ${(product.gallery || []).map((_,index)=>`
 
         `;
 
-const mainImage = document.getElementById("mainImage");
-const thumbs = document.querySelectorAll(".thumb");
+const slider = document.querySelector(".slider");
 
-thumbs.forEach(thumb => {
-    thumb.addEventListener("click", () => {
-        mainImage.src = thumb.src;
+if (slider) {
 
-        thumbs.forEach(t => t.classList.remove("active"));
-        thumb.classList.add("active");
-    });
-});
+    const images = slider.querySelectorAll(".product-img");
+    const dots = document.querySelectorAll(".slider-dots .dot");
 
-if (thumbs.length > 0) {
-    thumbs[0].classList.add("active");
+    let index = 0;
+
+    function showSlide(i){
+
+        images.forEach(img=>img.classList.remove("active"));
+        dots.forEach(dot=>dot.classList.remove("active"));
+
+        images[i].classList.add("active");
+        dots[i].classList.add("active");
+
+    }
+
+    showSlide(0);
+
+    setInterval(()=>{
+
+        index++;
+
+        if(index>=images.length){
+            index=0;
+        }
+
+        showSlide(index);
+
+    },3000);
+
 }
 
 const shareBtn = document.getElementById("shareProduct");
