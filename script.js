@@ -248,15 +248,14 @@ console.log(products);
 
 <div class="gallery">
 
-<img src="${product.image}" class="main-image" id="mainImage">
-
+<img src="${product.gallery && product.gallery.length ? product.gallery[0] : product.image}" class="main-image" id="mainImage">
 <div class="thumbnail-gallery">
 
-${product.gallery
-  .filter(img => img && img.trim() !== "")
-  .map(img => `
-    <img src="${img}" class="thumb">
-  `).join("")}
+${(product.gallery || [])
+.filter(img => img && img.trim() !== "")
+.map(img => `
+<img src="${img}" class="thumb">
+`).join("")}
 
 </div>
 
