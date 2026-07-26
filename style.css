@@ -1049,7 +1049,10 @@ resize:none;
 }
 
 .product-details .btn{
-    margin-top:15px;
+    display:block;
+    width:220px;
+    margin:15px auto;
+    text-align:center;
 }
 
 /* Product Details Slider */
