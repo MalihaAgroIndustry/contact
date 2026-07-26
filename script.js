@@ -248,7 +248,7 @@ console.log(products);
 
 <div class="gallery">
 
-<img src="${product.gallery[0]}" class="main-image" id="mainImage">
+<img src="${product.image}" class="main-image" id="mainImage">
 
 <div class="thumbnail-gallery">
 
