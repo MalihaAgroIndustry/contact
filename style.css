@@ -1008,55 +1008,46 @@ height:120px;
 resize:none;
 }
 
-/* ===== Daraz Style Product Image ===== */
+/* ===== Daraz Style Product Details ===== */
+
+.product-details{
+    text-align:left;
+}
 
 .gallery{
-    text-align:center;
     background:#fff;
-    border-radius:15px;
-    padding:15px;
+    border-radius:12px;
+    padding:12px;
     margin-bottom:20px;
 }
 
 .main-image{
     width:100%;
-    max-width:260px;
-    height:260px;
-    object-fit:contain;
-    display:block;
-    margin:0 auto 15px;
-    border:none;
+    height:300px;
+    object-fit:cover;
     border-radius:10px;
-    background:#fff;
-    box-shadow:0 4px 12px rgba(0,0,0,.12);
+    display:block;
 }
 
 .thumbnail-gallery{
     display:flex;
-    justify-content:center;
     gap:8px;
-    flex-wrap:wrap;
+    justify-content:center;
+    margin-top:12px;
 }
 
 .thumb{
-    width:50px;
-    height:50px;
-    object-fit:contain;
-    background:#fff;
-    border:1px solid #ddd;
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    border:2px solid #ddd;
     border-radius:8px;
     cursor:pointer;
-    transition:.3s;
 }
 
-.thumb:hover,
-.thumb.active{
-    border:2px solid #f57224;
-    transform:scale(1.05);
-}
-
-.product-details{
-    text-align:center;
+.thumb.active,
+.thumb:hover{
+    border-color:#f57224;
 }
 
 .product-details h1{
@@ -1066,8 +1057,8 @@ resize:none;
 }
 
 .product-details .price{
-    font-size:28px;
     color:#00ff99;
+    font-size:28px;
     font-weight:bold;
 }
 
