@@ -37,7 +37,8 @@ body{
 .card{
 
     width:95%;
-    max-width:500px;
+    max-width:430px;
+    margin:0 auto;
 
     background:rgba(255,255,255,.12);
 
