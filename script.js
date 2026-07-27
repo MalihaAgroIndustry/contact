@@ -294,7 +294,22 @@ ${(product.gallery || []).map((_,index)=>`
 
 <p>${product.description}</p>
 
-<a href="https://wa.me/8801303679189?text=আমি ${product.name} অর্ডার করতে চাই" class="btn">
+<a href="https://wa.me/8801303679189?text=${encodeURIComponent(
+`আসসালামু আলাইকুম,
+
+আমি নিচের প্রোডাক্টটি অর্ডার করতে চাই।
+
+🛍️ প্রোডাক্ট: ${product.name}
+📦 ধরন: ${product.type}
+💰 মূল্য: ৳${product.price}
+⚖️ ওজন: ${product.weight}
+🏷️ SKU: ${product.sku}
+
+🔗 লিংক:
+${window.location.href}
+
+ধন্যবাদ।`
+)}" class="btn">
 🛒 Order Now
 </a>
 
