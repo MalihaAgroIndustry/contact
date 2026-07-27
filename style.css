@@ -22,11 +22,7 @@ body{
     background-position:center;
     background-attachment:fixed;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    padding:25px;
+    padding:10px 0 90px;
 
 }
 
@@ -40,8 +36,8 @@ body{
 
 .card{
 
-    width:100%;
-    max-width:430px;
+    width:95%;
+    max-width:500px;
 
     background:rgba(255,255,255,.12);
 
