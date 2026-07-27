@@ -22,16 +22,17 @@ body{
     background-position:center;
     background-attachment:fixed;
 
-    padding:10px 0 90px;
+    display:block;
+
+    padding:10px 10px 90px;
 
 }
 
 .container{
-
     width:100%;
-    display:flex;
-    justify-content:center;
-
+    max-width:430px;
+    margin:0 auto;
+    padding:0 10px;
 }
 
 .card{
