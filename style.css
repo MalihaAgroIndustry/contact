@@ -1110,3 +1110,23 @@ resize:none;
     opacity:1;
 
 }
+
+/* ==========================
+   Related Products
+========================== */
+
+.related-products{
+    margin-top:40px;
+}
+
+.related-products h2{
+    color:#fff;
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.products-grid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:20px;
+}
