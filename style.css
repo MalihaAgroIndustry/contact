@@ -98,13 +98,10 @@ body{
 }
 
 h1{
-
     color:#fff;
-
     font-size:30px;
-
     margin-bottom:8px;
-
+    white-space: nowrap;
 }
 
 h2{
