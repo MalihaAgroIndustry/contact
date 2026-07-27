@@ -388,6 +388,48 @@ if (shareBtn) {
 
 }
 
+// ==========================
+// Related Products
+// ==========================
+
+const relatedContainer = document.getElementById("relatedProducts");
+
+if (relatedContainer) {
+
+    const relatedProducts = products
+        .filter(item => item.id !== product.id)
+        .slice(0,3);
+
+    relatedContainer.innerHTML = "";
+
+    relatedProducts.forEach(item=>{
+
+        relatedContainer.innerHTML += `
+
+        <div class="product-card">
+
+            <div class="slider">
+
+                <img src="${item.image}" class="product-img active" alt="${item.name}">
+
+            </div>
+
+            <h3>${item.name}</h3>
+
+            <p class="price">৳${item.price}</p>
+
+            <a href="product.html?id=${item.id}" class="btn">
+                📖 বিস্তারিত দেখুন
+            </a>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
 })
     .catch(err => {
         console.error(err);
