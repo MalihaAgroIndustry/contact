@@ -164,19 +164,15 @@ const filteredProducts = products.filter(product => {
 
 const sortValue = document.getElementById("sortProducts")?.value || "default";
 
-if (sortValue === "low-high") {
+if (sortValue === "default") {
+    filteredProducts.sort((a, b) => a.id - b.id);
+} else if (sortValue === "low-high") {
     filteredProducts.sort((a, b) => a.price - b.price);
-}
-
-if (sortValue === "high-low") {
+} else if (sortValue === "high-low") {
     filteredProducts.sort((a, b) => b.price - a.price);
-}
-
-if (sortValue === "new") {
+} else if (sortValue === "new") {
     filteredProducts.sort((a, b) => Number(b.newArrival) - Number(a.newArrival));
-}
-
-if (sortValue === "best") {
+} else if (sortValue === "best") {
     filteredProducts.sort((a, b) => Number(b.bestSeller) - Number(a.bestSeller));
 }
 
