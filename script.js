@@ -479,6 +479,8 @@ alt="${product.name}">
 
 </div>
 
+<div class="thumbnail-gallery" id="thumbnailGallery"></div>
+
 <div class="slider-dots">
 
 ${product.gallery.map((_,index)=>`
