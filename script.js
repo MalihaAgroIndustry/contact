@@ -216,6 +216,22 @@ async function loadProducts() {
 
 loadProducts();
 
+const filterButtons = document.querySelectorAll(".filter-btn");
+
+filterButtons.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+        filterButtons.forEach(b => b.classList.remove("active"));
+
+        btn.classList.add("active");
+
+        loadProducts(btn.dataset.category);
+
+    });
+
+});
+
 const detailsContainer = document.getElementById("productDetails");
 
 if (detailsContainer) {
