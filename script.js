@@ -1,154 +1,122 @@
-window.onerror = function(message, source, line) {
-    alert("ERROR: " + message + " | Line: " + line);
+"use strict";
+
+// ==========================
+// Error Handler
+// ==========================
+window.onerror = function (message, source, line) {
+    console.error(message, source, line);
 };
-// Share Button
-const shareBtn = document.getElementById("shareCard");
 
-if (shareBtn) {
-  shareBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
+// ==========================
+// Global Variables
+// ==========================
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+let deferredPrompt = null;
 
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Maliha Agro Industry",
-          text: "Maliha Agro Industry - Digital Business Card",
-          url: window.location.href
-        });
-      } catch (err) {}
-    } else {
-      alert("আপনার ব্রাউজারে Share সাপোর্ট করে না।");
+// ==========================
+// DOM Ready
+// ==========================
+document.addEventListener("DOMContentLoaded", () => {
+
+    initShareCard();
+    initSaveContact();
+    initPWA();
+    initWishlist();
+
+    initImagePreview();
+
+    initSearchAndFilter();
+
+    if (document.getElementById("productList")) {
+        loadProducts("all");
     }
-  });
-}
 
-// Save Contact Button
-const saveBtn = document.getElementById("saveContact");
-
-if (saveBtn) {
-  saveBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    window.location.href = "contact.vcf";
-  });
-}
-document.querySelectorAll(".slider").forEach(slider => {
-
-    const images = slider.querySelectorAll(".product-img");
-    const dots = slider.parentElement.querySelectorAll(".dot");
-
-    let index = 0;
-
-    setInterval(() => {
-
-        images[index].classList.remove("active");
-
-        if(dots.length){
-            dots[index].classList.remove("active");
-        }
-
-        index = (index + 1) % images.length;
-
-        images[index].classList.add("active");
-
-        if(dots.length){
-            dots[index].classList.add("active");
-        }
-
-    }, 3000);
+    if (document.getElementById("productDetails")) {
+        loadProductDetails();
+    }
 
 });
 
 // ==========================
-// Wishlist
+// Share Digital Card
 // ==========================
+function initShareCard() {
 
-let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+    const btn = document.getElementById("shareCard");
 
-document.querySelectorAll(".wishlist-btn").forEach(btn => {
+    if (!btn) return;
 
-    const id = Number(btn.dataset.id);
+    btn.addEventListener("click", async (e) => {
 
-    if (wishlist.includes(id)) {
-        btn.classList.add("active");
-        btn.innerHTML = "❤️";
-    }
+        e.preventDefault();
 
-    btn.addEventListener("click", () => {
+        if (navigator.share) {
 
-        if (wishlist.includes(id)) {
+            try {
 
-            wishlist = wishlist.filter(item => item !== id);
+                await navigator.share({
+                    title: "Maliha Agro Industry",
+                    text: "Maliha Agro Industry - Digital Business Card",
+                    url: window.location.href
+                });
 
-            btn.classList.remove("active");
-            btn.innerHTML = "🤍";
+            } catch (err) {
+                console.log(err);
+            }
 
         } else {
 
-            wishlist.push(id);
+            navigator.clipboard.writeText(window.location.href);
 
-            btn.classList.add("active");
-            btn.innerHTML = "❤️";
+            alert("লিংক কপি হয়েছে");
 
         }
 
-        localStorage.setItem("wishlist", JSON.stringify(wishlist));
-
     });
 
-});
+}
 
-
-// Full Screen Image Preview
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const closeBtn = document.querySelector(".close-modal");
-
-    if (!modal || !modalImg || !closeBtn) return;
-
-    document.querySelectorAll(".product-img").forEach(img => {
-
-        img.addEventListener("click", () => {
-            modal.style.display = "flex";
-            modalImg.src = img.src;
-        });
-
-    });
-
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    modal.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-});
 // ==========================
-// Install PWA App
+// Save Contact
 // ==========================
+function initSaveContact() {
 
-let deferredPrompt;
+    const btn = document.getElementById("saveContact");
 
-const installBtn = document.getElementById("installApp");
+    if (!btn) return;
 
-if (installBtn) {
+    btn.addEventListener("click", (e) => {
+
+        e.preventDefault();
+
+        window.location.href = "contact.vcf";
+
+    });
+
+}
+
+// ==========================
+// PWA Install
+// ==========================
+function initPWA() {
+
+    const installBtn = document.getElementById("installApp");
+
+    if (!installBtn) return;
+
     installBtn.style.display = "none";
 
     window.addEventListener("beforeinstallprompt", (e) => {
+
         e.preventDefault();
 
         deferredPrompt = e;
 
         installBtn.style.display = "flex";
+
     });
 
-    installBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
+    installBtn.addEventListener("click", async () => {
 
         if (!deferredPrompt) return;
 
@@ -159,431 +127,404 @@ if (installBtn) {
         deferredPrompt = null;
 
         installBtn.style.display = "none";
+
     });
 
     window.addEventListener("appinstalled", () => {
+
         installBtn.style.display = "none";
+
     });
+
 }
-
 // ==========================
-// Product Search
+// Wishlist
 // ==========================
 
-async function loadProducts(category = "all") {
+function updateWishlistCounter() {
 
-    const productList = document.getElementById("productList");
+    const counter = document.getElementById("wishlistCounter");
 
-    if (!productList) return;
-
-    try {
-
-        const response = await fetch("data/products.json");
-
-        if (!response.ok) {
-            throw new Error("Products JSON Load Failed");
-        }
-
-        const products = await response.json();
-
-const keyword = document.getElementById("searchProduct")?.value.toLowerCase() || "";
-
-const filteredProducts = products.filter(product => {
-
-    const matchCategory =
-        category === "all" || product.category === category;
-
-    const matchSearch =
-        product.name.toLowerCase().includes(keyword) ||
-        product.type.toLowerCase().includes(keyword) ||
-        product.description.toLowerCase().includes(keyword);
-
-    return matchCategory && matchSearch;
-
-});
-
-const sortValue = document.getElementById("sortProducts")?.value || "default";
-
-if (sortValue === "default") {
-    filteredProducts.sort((a, b) => a.id - b.id);
-} else if (sortValue === "low-high") {
-    filteredProducts.sort((a, b) => a.price - b.price);
-} else if (sortValue === "high-low") {
-    filteredProducts.sort((a, b) => b.price - a.price);
-} else if (sortValue === "new") {
-    filteredProducts.sort((a, b) => Number(b.newArrival) - Number(a.newArrival));
-} else if (sortValue === "best") {
-    filteredProducts.sort((a, b) => Number(b.bestSeller) - Number(a.bestSeller));
-}
-
-        productList.innerHTML = "";
-
-        filteredProducts.forEach(product => {
-
-            let images = "";
-
-            if (product.gallery && product.gallery.length > 0) {
-
-                product.gallery.forEach((img, index) => {
-
-                    images += `
-                        <img src="${img}"
-                             class="product-img ${index === 0 ? "active" : ""}"
-                             alt="${product.name}">
-                    `;
-
-                });
-
-            }
-
-            productList.innerHTML += `
-            <div class="product-card">
-
-                ${product.offer ? '<span class="offer-badge">🔥 Offer</span>' : ""}
-
-                <div class="slider">
-
-    <button class="wishlist-btn" data-id="${product.id}">
-        🤍
-    </button>
-
-    ${images}
-
-</div>
-
-                <h3>${product.name}</h3>
-
-                <p class="rating">
-                    ⭐⭐⭐⭐⭐ (${product.rating})
-                </p>
-
-                <p class="old-price">
-                    ৳${product.oldPrice}
-                </p>
-
-                <p class="price">
-                    ৳${product.price}
-                </p>
-
-                <span class="stock">
-                    🟢 ${product.stock}
-                </span>
-
-                <p>${product.description}</p>
-
-                <a href="product.html?id=${product.id}" class="btn">
-                    📖 বিস্তারিত দেখুন
-                </a>
-
-            </div>
-            `;
-
-        });
-
-document.querySelectorAll(".slider").forEach(slider => {
-
-    const images = slider.querySelectorAll(".product-img");
-
-    if (images.length <= 1) return;
-
-    let index = 0;
-
-    setInterval(() => {
-
-        images[index].classList.remove("active");
-
-        index = (index + 1) % images.length;
-
-        images[index].classList.add("active");
-
-    }, 3000);
-
-});
-
-    } catch (err) {
-
-        console.error(err);
-
-        productList.innerHTML = "<h3>❌ Product Load Failed</h3>";
-
+    if (counter) {
+        counter.innerHTML = `❤️ Wishlist (${wishlist.length})`;
     }
 
 }
 
-loadProducts("all");
+function initWishlist() {
 
-const searchInput = document.getElementById("searchProduct");
+    document.querySelectorAll(".wishlist-btn").forEach(btn => {
 
-if (searchInput) {
+        const id = Number(btn.dataset.id);
 
-    searchInput.addEventListener("input", () => {
+        if (wishlist.includes(id)) {
+            btn.classList.add("active");
+            btn.innerHTML = "❤️";
+        } else {
+            btn.classList.remove("active");
+            btn.innerHTML = "🤍";
+        }
 
-        const activeBtn = document.querySelector(".filter-btn.active");
+        btn.onclick = () => {
 
-        const category = activeBtn
-            ? activeBtn.dataset.category
-            : "all";
+            if (wishlist.includes(id)) {
 
-        loadProducts(category);
+                wishlist = wishlist.filter(item => item !== id);
+
+            } else {
+
+                wishlist.push(id);
+
+            }
+
+            localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+            initWishlist();
+
+            updateWishlistCounter();
+
+        };
+
+    });
+
+    updateWishlistCounter();
+
+}
+
+// ==========================
+// Full Screen Image Preview
+// ==========================
+
+function initImagePreview() {
+
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const closeBtn = document.querySelector(".close-modal");
+
+    if (!modal || !modalImg || !closeBtn) return;
+
+    document.addEventListener("click", (e) => {
+
+        if (e.target.classList.contains("product-img")) {
+
+            modal.style.display = "flex";
+            modalImg.src = e.target.src;
+
+        }
+
+    });
+
+    closeBtn.onclick = () => {
+
+        modal.style.display = "none";
+
+    };
+
+    modal.onclick = (e) => {
+
+        if (e.target === modal) {
+
+            modal.style.display = "none";
+
+        }
+
+    };
+
+}
+
+// ==========================
+// Search + Filter
+// ==========================
+
+function initSearchAndFilter() {
+
+    const searchInput = document.getElementById("searchProduct");
+
+    if (searchInput) {
+
+        searchInput.addEventListener("input", () => {
+
+            const active =
+                document.querySelector(".filter-btn.active");
+
+            loadProducts(
+                active ? active.dataset.category : "all"
+            );
+
+        });
+
+    }
+
+    const sort = document.getElementById("sortProducts");
+
+    if (sort) {
+
+        sort.addEventListener("change", () => {
+
+            const active =
+                document.querySelector(".filter-btn.active");
+
+            loadProducts(
+                active ? active.dataset.category : "all"
+            );
+
+        });
+
+    }
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+
+        btn.addEventListener("click", () => {
+
+            document.querySelectorAll(".filter-btn")
+                .forEach(b => b.classList.remove("active"));
+
+            btn.classList.add("active");
+
+            loadProducts(btn.dataset.category);
+
+        });
 
     });
 
 }
+// ==========================
+// Load Products
+// ==========================
+async function loadProducts(category = "all") {
 
-const filterButtons = document.querySelectorAll(".filter-btn");
+    const productList = document.getElementById("productList");
+    if (!productList) return;
 
-const sortSelect = document.getElementById("sortProducts");
+    const res = await fetch("data/products.json");
+    const products = await res.json();
 
-if (sortSelect) {
+    productList.innerHTML = "";
 
-    sortSelect.addEventListener("change", () => {
+    products
+        .filter(p => category === "all" || p.category === category)
+        .forEach(product => {
 
-        const activeBtn = document.querySelector(".filter-btn.active");
+            productList.innerHTML += `
+<div class="product-card">
 
-        const category = activeBtn
-            ? activeBtn.dataset.category
-            : "all";
+<div class="slider">
 
-        loadProducts(category);
+<button class="wishlist-btn" data-id="${product.id}">🤍</button>
 
-    });
+<img src="${product.gallery[0]}" class="product-img active">
+
+</div>
+
+<h3>${product.name}</h3>
+
+<p class="price">৳${product.price}</p>
+
+<a href="product.html?id=${product.id}" class="btn">
+📖 বিস্তারিত দেখুন
+</a>
+
+</div>
+`;
+
+        });
+
+    initWishlist();
 
 }
 
-filterButtons.forEach(btn => {
-
-    btn.addEventListener("click", () => {
-
-        filterButtons.forEach(b => b.classList.remove("active"));
-
-        btn.classList.add("active");
-
-        loadProducts(btn.dataset.category);
-
-    });
-
-});
+// ==========================
+// Product Details Page
+// ==========================
 
 const detailsContainer = document.getElementById("productDetails");
 
 if (detailsContainer) {
 
-    const params = new URLSearchParams(window.location.search);
-    const id = Number(params.get("id"));
+    const id = Number(new URLSearchParams(window.location.search).get("id"));
 
     fetch("data/products.json")
-.then(res => {
-    if (!res.ok) {
-        throw new Error("JSON Load Failed");
-    }
-    return res.json();
-})
-    .then(products => {
-console.log(products);
+        .then(res => res.json())
+        .then(products => {
 
-        const product = products.find(p => p.id === id);
+            const product = products.find(p => p.id === id);
 
-        if (!product) {
+            if (!product) {
+                detailsContainer.innerHTML = "<h2>❌ Product Not Found</h2>";
+                return;
+            }
 
-            detailsContainer.innerHTML = "<h2>Product Not Found</h2>";
-
-            return;
-        }
-
-console.log(product.gallery);
-
-        detailsContainer.innerHTML = `
+            detailsContainer.innerHTML = `
 
 <div class="product-details">
 
 <div class="slider">
 
-${(product.gallery || []).map((img,index)=>`
-<img src="${img}"
-class="product-img ${index===0 ? 'active' : ''}"
-alt="${product.name}">
+${product.gallery.map((img,index)=>`
+<img src="${img}" class="product-img ${index===0?"active":""}" alt="${product.name}">
 `).join("")}
 
 </div>
 
 <div class="slider-dots">
 
-${(product.gallery || []).map((_,index)=>`
-<span class="dot ${index===0 ? 'active' : ''}"></span>
+${product.gallery.map((_,index)=>`
+<span class="dot ${index===0?"active":""}"></span>
 `).join("")}
 
 </div>
 
 <h1>${product.name}</h1>
 
-<p class="rating">
-⭐⭐⭐⭐⭐ ${product.rating}
-</p>
+<p class="rating">⭐⭐⭐⭐⭐ ${product.rating}</p>
 
-<p class="old-price">
-৳${product.oldPrice}
-</p>
+<p class="old-price">৳${product.oldPrice}</p>
 
-<p class="price">
-৳${product.price}
-</p>
+<p class="price">৳${product.price}</p>
 
 <p><b>Brand:</b> ${product.brand}</p>
-
 <p><b>Product Type:</b> ${product.type}</p>
-
 <p><b>SKU:</b> ${product.sku}</p>
-
 <p><b>Category:</b> ${product.category}</p>
-
 <p><b>Weight:</b> ${product.weight}</p>
-
 <p><b>Stock:</b> ${product.stock}</p>
 
 <p>${product.description}</p>
 
-<a href="https://wa.me/8801303679189?text=${encodeURIComponent(
+<a class="btn"
+href="https://wa.me/8801303679189?text=${encodeURIComponent(
 `আসসালামু আলাইকুম,
 
-আমি নিচের প্রোডাক্টটি অর্ডার করতে চাই।
+আমি ${product.name} অর্ডার করতে চাই।
 
-🛍️ প্রোডাক্ট: ${product.name}
-📦 ধরন: ${product.type}
-💰 মূল্য: ৳${product.price}
-⚖️ ওজন: ${product.weight}
-🏷️ SKU: ${product.sku}
+মূল্য: ৳${product.price}
 
-🔗 লিংক:
-${window.location.href}
+লিংক:
+${window.location.href}`
+)}">
 
-ধন্যবাদ।`
-)}" class="btn">
 🛒 Order Now
+
 </a>
 
-<button class="btn share-btn" id="shareProduct">
+<button id="shareProduct" class="btn">
 📤 Share Product
 </button>
 
 </div>
 
-        `;
+<div id="relatedProducts"></div>
 
-const slider = document.querySelector(".slider");
+`;
+                        // ==========================
+            // Product Slider
+            // ==========================
 
-if (slider) {
+            const images = detailsContainer.querySelectorAll(".product-img");
+            const dots = detailsContainer.querySelectorAll(".dot");
 
-    const images = slider.querySelectorAll(".product-img");
-    const dots = document.querySelectorAll(".slider-dots .dot");
+            if (images.length > 1) {
 
-    let index = 0;
+                let index = 0;
 
-    function showSlide(i){
+                setInterval(() => {
 
-        images.forEach(img=>img.classList.remove("active"));
-        dots.forEach(dot=>dot.classList.remove("active"));
+                    images[index].classList.remove("active");
+                    dots[index].classList.remove("active");
 
-        images[i].classList.add("active");
-        dots[i].classList.add("active");
+                    index = (index + 1) % images.length;
 
-    }
+                    images[index].classList.add("active");
+                    dots[index].classList.add("active");
 
-    showSlide(0);
-
-    setInterval(()=>{
-
-        index++;
-
-        if(index>=images.length){
-            index=0;
-        }
-
-        showSlide(index);
-
-    },3000);
-
-}
-
-const shareBtn = document.getElementById("shareProduct");
-
-if (shareBtn) {
-
-    shareBtn.addEventListener("click", async () => {
-
-        try {
-
-            if (navigator.share) {
-
-                await navigator.share({
-                    title: product.name,
-                    text: product.description,
-                    url: window.location.href
-                });
-
-            } else {
-
-                await navigator.clipboard.writeText(window.location.href);
-
-                alert("লিংক কপি হয়েছে ✅");
+                }, 3000);
 
             }
 
-        } catch (err) {
-            console.log(err);
-        }
+            // ==========================
+            // Share Product
+            // ==========================
 
-    });
+            document.getElementById("shareProduct")?.addEventListener("click", async () => {
 
-}
+                try {
 
-// ==========================
-// Related Products
-// ==========================
+                    if (navigator.share) {
 
-const relatedContainer = document.getElementById("relatedProducts");
+                        await navigator.share({
+                            title: product.name,
+                            text: product.description,
+                            url: window.location.href
+                        });
 
-if (relatedContainer) {
+                    } else {
 
-    const relatedProducts = products
-        .filter(item => item.id !== product.id)
-        .slice(0, 3);
+                        await navigator.clipboard.writeText(window.location.href);
 
-    relatedContainer.innerHTML = "";
+                        alert("লিংক কপি হয়েছে ✅");
 
-    relatedProducts.forEach(item => {
+                    }
 
-        relatedContainer.innerHTML += `
+                } catch (err) {
 
-        <div class="product-card">
+                    console.log(err);
 
-            <div class="slider">
+                }
 
-                <img src="${item.gallery && item.gallery.length ? item.gallery[0] : item.image}"
-                     class="product-img active"
-                     alt="${item.name}">
+            });
 
-            </div>
+            // ==========================
+            // Related Products
+            // ==========================
 
-            <h3>${item.name}</h3>
+            const related = document.getElementById("relatedProducts");
 
-            <p class="price">৳${item.price}</p>
+            if (related) {
 
-            <a href="product.html?id=${item.id}" class="btn">
-                📖 বিস্তারিত দেখুন
-            </a>
+                related.innerHTML = "<h2>Related Products</h2>";
 
-        </div>
+                products
+                    .filter(item => item.id !== product.id)
+                    .slice(0, 3)
+                    .forEach(item => {
 
-        `;
+                        related.innerHTML += `
 
-    });
+<div class="product-card">
 
-}
+    <div class="slider">
 
-})
-.catch(err => {
-    console.error(err);
-    detailsContainer.innerHTML = "<h2>❌ Product Load Failed</h2>";
-});
+        <img src="${item.gallery[0]}"
+             class="product-img active"
+             alt="${item.name}">
+
+    </div>
+
+    <h3>${item.name}</h3>
+
+    <p class="price">৳${item.price}</p>
+
+    <a href="product.html?id=${item.id}" class="btn">
+
+        📖 বিস্তারিত দেখুন
+
+    </a>
+
+</div>
+
+`;
+
+                    });
+
+            }
+
+        })
+        .catch(err => {
+
+            console.error(err);
+
+            detailsContainer.innerHTML = "<h2>❌ Product Load Failed</h2>";
+
+        });
 
 }
