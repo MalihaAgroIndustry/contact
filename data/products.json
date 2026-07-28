@@ -1,11 +1,12 @@
 [
-{
-  "id": 1,
-  "name": "মালিহা জৈব সার",
-  "type": "ভার্মি কম্পোস্ট কেঁচো সার",
-  "slug": "vermicompost",
-  "category": "Organic Fertilizer",
-  "brand": "Maliha Agro Industry",
+  {
+    "id": 1,
+    "name": "মালিহা জৈব সার",
+    "type": "ভার্মি কম্পোস্ট কেঁচো সার",
+    "slug": "vermicompost",
+    "category": "Organic Fertilizer",
+    "subcategory": "Vermicompost",
+    "brand": "Maliha Agro Industry",
     "sku": "MAI-VC-001",
     "price": 480,
     "oldPrice": 600,
@@ -16,22 +17,25 @@
     "newArrival": false,
     "bestSeller": true,
     "offer": true,
+    "status": "Active",
+    "priority": 1,
     "description": "১০০% প্রাকৃতিক কেঁচো সার। সবজি, ফল, ফুল ও কৃষি জমির জন্য উপযোগী।",
     "image": "images/product1.jpg",
     "gallery": [
-  "images/product1.jpg",
-  "images/product1-2.jpg",
-  "images/product1-3.jpg",
-  "images/product1-4.jpg",
-  "images/product1-5.jpg"
-]
+      "images/product1.jpg",
+      "images/product1-2.jpg",
+      "images/product1-3.jpg",
+      "images/product1-4.jpg",
+      "images/product1-5.jpg"
+    ]
   },
   {
-  "id": 2,
-  "name": "মালিহা জৈব সার",
-  "type": "ট্রাইকো কম্পোস্ট সার",
+    "id": 2,
+    "name": "মালিহা জৈব সার",
+    "type": "ট্রাইকো কম্পোস্ট সার",
     "slug": "tricho-compost",
     "category": "Organic Fertilizer",
+    "subcategory": "Tricho Compost",
     "brand": "Maliha Agro Industry",
     "sku": "MAI-TC-002",
     "price": 510,
@@ -43,22 +47,25 @@
     "newArrival": true,
     "bestSeller": false,
     "offer": true,
+    "status": "Active",
+    "priority": 2,
     "description": "ট্রাইকো সমৃদ্ধ জৈব সার যা মাটির স্বাস্থ্য উন্নত করে এবং গাছের রোগ প্রতিরোধে সহায়তা করে।",
     "image": "images/product2.jpg",
     "gallery": [
-  "images/product2.jpg",
-  "images/product2-2.jpg",
-  "images/product2-3.jpg",
-  "images/product2-4.jpg",
-  "images/product2-5.jpg"
-]
+      "images/product2.jpg",
+      "images/product2-2.jpg",
+      "images/product2-3.jpg",
+      "images/product2-4.jpg",
+      "images/product2-5.jpg"
+    ]
   },
   {
-  "id": 3,
-  "name": "মালিহা এগ সেল পাউডার",
-  "type": "এগ সেল পাউডার",
+    "id": 3,
+    "name": "মালিহা এগ সেল পাউডার",
+    "type": "এগ সেল পাউডার",
     "slug": "egg-shell-powder",
     "category": "Organic Fertilizer",
+    "subcategory": "Egg Shell Powder",
     "brand": "Maliha Agro Industry",
     "sku": "MAI-ESP-003",
     "price": 72,
@@ -70,14 +77,16 @@
     "newArrival": true,
     "bestSeller": true,
     "offer": true,
+    "status": "Active",
+    "priority": 3,
     "description": "ক্যালসিয়াম সমৃদ্ধ জৈব সার, ফলন বৃদ্ধি ও গাছের শক্তিশালী বৃদ্ধিতে সহায়ক।",
     "image": "images/product3.jpg",
     "gallery": [
-  "images/product3.jpg",
-  "images/product3-2.jpg",
-  "images/product3-3.jpg",
-  "images/product3-4.jpg",
-  "images/product3-5.jpg"
-]
+      "images/product3.jpg",
+      "images/product3-2.jpg",
+      "images/product3-3.jpg",
+      "images/product3-4.jpg",
+      "images/product3-5.jpg"
+    ]
   }
 ]
