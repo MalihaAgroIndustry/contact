@@ -146,9 +146,25 @@ async function loadProducts(category = "all") {
 
         const products = await response.json();
 
+const keyword = document.getElementById("searchProduct")?.value.toLowerCase() || "";
+
+const filteredProducts = products.filter(product => {
+
+    const matchCategory =
+        category === "all" || product.category === category;
+
+    const matchSearch =
+        product.name.toLowerCase().includes(keyword) ||
+        product.type.toLowerCase().includes(keyword) ||
+        product.description.toLowerCase().includes(keyword);
+
+    return matchCategory && matchSearch;
+
+});
+
         productList.innerHTML = "";
 
-        products.forEach(product => {
+        filteredProducts.forEach(product => {
 
             let images = "";
 
@@ -204,6 +220,26 @@ async function loadProducts(category = "all") {
 
         });
 
+document.querySelectorAll(".slider").forEach(slider => {
+
+    const images = slider.querySelectorAll(".product-img");
+
+    if (images.length <= 1) return;
+
+    let index = 0;
+
+    setInterval(() => {
+
+        images[index].classList.remove("active");
+
+        index = (index + 1) % images.length;
+
+        images[index].classList.add("active");
+
+    }, 3000);
+
+});
+
     } catch (err) {
 
         console.error(err);
@@ -222,7 +258,13 @@ if (searchInput) {
 
     searchInput.addEventListener("input", () => {
 
-        loadProducts();
+        const activeBtn = document.querySelector(".filter-btn.active");
+
+        const category = activeBtn
+            ? activeBtn.dataset.category
+            : "all";
+
+        loadProducts(category);
 
     });
 
@@ -426,11 +468,11 @@ if (relatedContainer) {
 
     const relatedProducts = products
         .filter(item => item.id !== product.id)
-        .slice(0,3);
+        .slice(0, 3);
 
     relatedContainer.innerHTML = "";
 
-    relatedProducts.forEach(item=>{
+    relatedProducts.forEach(item => {
 
         relatedContainer.innerHTML += `
 
@@ -438,7 +480,9 @@ if (relatedContainer) {
 
             <div class="slider">
 
-                <img src="${item.image}" class="product-img active" alt="${item.name}">
+                <img src="${item.gallery && item.gallery.length ? item.gallery[0] : item.image}"
+                     class="product-img active"
+                     alt="${item.name}">
 
             </div>
 
@@ -459,9 +503,9 @@ if (relatedContainer) {
 }
 
 })
-    .catch(err => {
-        console.error(err);
-        detailsContainer.innerHTML = "<h2>❌ Product Load Failed</h2>";
-    });
+.catch(err => {
+    console.error(err);
+    detailsContainer.innerHTML = "<h2>❌ Product Load Failed</h2>";
+});
 
 }
