@@ -594,6 +594,24 @@ padding:13px;
 }
 
 /* ==========================
+   Sort Box
+========================== */
+
+.sort-box{
+    margin:15px 0;
+}
+
+.sort-box select{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:16px;
+    background:#fff;
+    cursor:pointer;
+}
+
+/* ==========================
    View All Products Button
 ========================== */
 
