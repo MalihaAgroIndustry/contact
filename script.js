@@ -202,8 +202,14 @@ if (sortValue === "default") {
                 ${product.offer ? '<span class="offer-badge">🔥 Offer</span>' : ""}
 
                 <div class="slider">
-                    ${images}
-                </div>
+
+    <button class="wishlist-btn" data-id="${product.id}">
+        🤍
+    </button>
+
+    ${images}
+
+</div>
 
                 <h3>${product.name}</h3>
 
