@@ -438,6 +438,8 @@ ${window.location.href}`
                     dots[index].classList.add("active");
 
                 }, 3000);
+            });
+    initwishlist();
 
             }
 
