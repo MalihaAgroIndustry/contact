@@ -1214,3 +1214,30 @@ resize:none;
 .wishlist-btn.active{
     color:#ff1744;
 }
+
+.price-box{
+display:flex;
+align-items:center;
+gap:12px;
+margin:15px 0;
+}
+
+.discount{
+background:#ff5722;
+color:#fff;
+padding:5px 10px;
+border-radius:20px;
+font-size:13px;
+font-weight:bold;
+}
+
+.stock-box{
+display:inline-block;
+background:#e8f5e9;
+color:#2e7d32;
+padding:8px 14px;
+border-radius:20px;
+margin:10px 0;
+font-weight:600;
+}
+
