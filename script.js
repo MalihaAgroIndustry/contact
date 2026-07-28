@@ -631,3 +631,59 @@ alt="${item.name}">
 
 }
 loadProductDetails();
+
+// ==========================
+// Wishlist Page
+// ==========================
+
+const wishlistContainer = document.getElementById("wishlistProducts");
+
+if (wishlistContainer) {
+
+    fetch("data/products.json")
+        .then(res => res.json())
+        .then(products => {
+
+            const wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+            const wishlistItems = products.filter(product =>
+                wishlist.includes(product.id)
+            );
+
+            if (wishlistItems.length === 0) {
+
+                wishlistContainer.innerHTML = `
+                    <h2>❤️ Wishlist খালি</h2>
+                    <a href="products.html" class="btn">
+                        📦 প্রোডাক্ট দেখুন
+                    </a>
+                `;
+
+                return;
+            }
+
+            wishlistContainer.innerHTML = "";
+
+            wishlistItems.forEach(product => {
+
+                wishlistContainer.innerHTML += `
+<div class="product-card">
+
+    <img src="${product.gallery[0]}" class="product-img active">
+
+    <h3>${product.name}</h3>
+
+    <p class="price">৳${product.price}</p>
+
+    <a href="product.html?id=${product.id}" class="btn">
+        📖 বিস্তারিত দেখুন
+    </a>
+
+</div>
+`;
+
+            });
+
+        });
+
+}
