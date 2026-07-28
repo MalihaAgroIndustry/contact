@@ -58,6 +58,46 @@ document.querySelectorAll(".slider").forEach(slider => {
 
 });
 
+// ==========================
+// Wishlist
+// ==========================
+
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+document.querySelectorAll(".wishlist-btn").forEach(btn => {
+
+    const id = Number(btn.dataset.id);
+
+    if (wishlist.includes(id)) {
+        btn.classList.add("active");
+        btn.innerHTML = "❤️";
+    }
+
+    btn.addEventListener("click", () => {
+
+        if (wishlist.includes(id)) {
+
+            wishlist = wishlist.filter(item => item !== id);
+
+            btn.classList.remove("active");
+            btn.innerHTML = "🤍";
+
+        } else {
+
+            wishlist.push(id);
+
+            btn.classList.add("active");
+            btn.innerHTML = "❤️";
+
+        }
+
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+
+    });
+
+});
+
+
 // Full Screen Image Preview
 
 document.addEventListener("DOMContentLoaded", () => {
