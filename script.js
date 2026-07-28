@@ -216,6 +216,18 @@ async function loadProducts() {
 
 loadProducts();
 
+const searchInput = document.getElementById("searchProduct");
+
+if (searchInput) {
+
+    searchInput.addEventListener("input", () => {
+
+        loadProducts();
+
+    });
+
+}
+
 const filterButtons = document.querySelectorAll(".filter-btn");
 
 filterButtons.forEach(btn => {
