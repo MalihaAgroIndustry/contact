@@ -130,7 +130,7 @@ if (installBtn) {
 // Product Search
 // ==========================
 
-async function loadProducts() {
+async function loadProducts(category = "all") {
 
     const productList = document.getElementById("productList");
 
