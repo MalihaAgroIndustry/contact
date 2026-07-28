@@ -481,6 +481,22 @@ alt="${product.name}">
 
 <div class="thumbnail-gallery" id="thumbnailGallery"></div>
 
+<div class="price-box">
+
+<p class="old-price">৳${product.oldPrice}</p>
+
+<p class="price">৳${product.price}</p>
+
+<span class="discount">
+🔥 ${Math.round((1 - product.price / product.oldPrice) * 100)}% OFF
+</span>
+
+</div>
+
+<div class="stock-box">
+🟢 ${product.stock}
+</div>
+
 <div class="slider-dots">
 
 ${product.gallery.map((_,index)=>`
