@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,6 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -32,31 +34,71 @@
             </p>
 
             <div class="buttons">
+
                 <a href="index.html" class="btn">
                     🏠 Home
                 </a>
+
             </div>
 
+            <!-- Search Box -->
+
             <div class="search-box">
+
                 <input
                     type="text"
                     id="searchProduct"
                     placeholder="🔍 প্রোডাক্ট খুঁজুন...">
+
             </div>
 
-<div class="category-filter">
+            <!-- Category Filter -->
 
-    <button class="filter-btn active" data-category="all">🌐 সব</button>
+            <div class="category-filter">
 
-    <button class="filter-btn" data-category="Organic Fertilizer">🌱 জৈব সার</button>
+                <button class="filter-btn active" data-category="all">
+                    🌐 সব
+                </button>
 
-    <button class="filter-btn" data-category="Spices">🌶️ মসলা</button>
+                <button class="filter-btn" data-category="Organic Fertilizer">
+                    🌱 জৈব সার
+                </button>
 
-    <button class="filter-btn" data-category="Seeds">🌾 বীজ</button>
+                <button class="filter-btn" data-category="Spices">
+                    🌶️ মসলা
+                </button>
 
-    <button class="filter-btn" data-category="Agriculture">🚜 কৃষি পণ্য</button>
+                <button class="filter-btn" data-category="Seeds">
+                    🌾 বীজ
+                </button>
 
-</div>
+                <button class="filter-btn" data-category="Agriculture">
+                    🚜 কৃষি পণ্য
+                </button>
+
+            </div>
+
+            <!-- Sort Box -->
+
+            <div class="sort-box">
+
+                <select id="sortProducts">
+
+                    <option value="default">📋 ডিফল্ট</option>
+
+                    <option value="low-high">💰 দাম কম → বেশি</option>
+
+                    <option value="high-low">💰 দাম বেশি → কম</option>
+
+                    <option value="new">🆕 নতুন</option>
+
+                    <option value="best">⭐ বেস্ট সেলার</option>
+
+                </select>
+
+            </div>
+
+            <!-- Product List -->
 
             <div id="productList"></div>
 
