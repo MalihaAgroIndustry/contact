@@ -551,7 +551,7 @@ ${window.location.href}`
 
         // Product Slider
 
-const images = details.querySelectorAll(".product-img");
+const images = details.querySelectorAll(".slider .product-img");
 const dots = details.querySelectorAll(".dot");
 
 // Thumbnail Gallery
@@ -629,8 +629,6 @@ if (images.length > 1 && dots.length > 0) {
                     related.innerHTML += `
 
 <div class="product-card">
-
-<div class="slider">
 
 <img src="${item.gallery[0]}"
 class="product-img active"
@@ -729,8 +727,8 @@ if (wishlistContainer) {
 
 function changeImage(index){
 
-    const images = document.querySelectorAll(".product-img");
-    const thumbs = document.querySelectorAll(".thumbnail-gallery img");
+    const images = document.querySelectorAll("#productDetails .slider .product-img");
+    const thumbs = document.querySelectorAll("#thumbnailGallery img");
 
     images.forEach(img => img.classList.remove("active"));
     thumbs.forEach(img => img.classList.remove("active"));
@@ -739,4 +737,3 @@ function changeImage(index){
     thumbs[index].classList.add("active");
 
 }
-
