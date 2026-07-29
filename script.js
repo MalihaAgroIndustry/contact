@@ -553,8 +553,8 @@ ${window.location.href}`
 
         // Product Slider
 
-const images = detailsContainer.querySelectorAll(".product-img");
-const dots = detailsContainer.querySelectorAll(".dot");
+const images = details.querySelectorAll(".product-img");
+const dots = details.querySelectorAll(".dot");
 
 // Thumbnail Gallery
 
