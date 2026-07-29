@@ -553,28 +553,10 @@ ${window.location.href}`
 
         // Product Slider
 
-        const images = detailsContainer.querySelectorAll(".product-img");
+const images = detailsContainer.querySelectorAll(".product-img");
 const dots = detailsContainer.querySelectorAll(".dot");
-        
-        if (images.length > 1) {
 
-            let index = 0;
-
-            setInterval(() => {
-
-                images[index].classList.remove("active");
-                dots[index].classList.remove("active");
-
-                index = (index + 1) % images.length;
-
-                images[index].classList.add("active");
-                dots[index].classList.add("active");
-
-            }, 3000);
-
-        }
-
-        // Thumbnail Gallery
+// Thumbnail Gallery
 
 const thumbnailGallery = document.getElementById("thumbnailGallery");
 
@@ -594,7 +576,25 @@ onclick="changeImage(${index})">
 
 }
 
-        // Share Product
+if (images.length > 1) {
+
+    let index = 0;
+
+    setInterval(() => {
+
+        images[index].classList.remove("active");
+        dots[index].classList.remove("active");
+
+        index = (index + 1) % images.length;
+
+        images[index].classList.add("active");
+        dots[index].classList.add("active");
+
+    }, 3000);
+
+}
+
+// Share Product
 
         document.getElementById("shareProduct")?.addEventListener("click", async () => {
 
