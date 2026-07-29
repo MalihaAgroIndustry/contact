@@ -574,6 +574,26 @@ ${window.location.href}`
 
         }
 
+        // Thumbnail Gallery
+
+const thumbnailGallery = document.getElementById("thumbnailGallery");
+
+if (thumbnailGallery) {
+
+    thumbnailGallery.innerHTML = "";
+
+    product.gallery.forEach((img, index) => {
+
+        thumbnailGallery.innerHTML += `
+<img src="${img}"
+class="${index===0?"active":""}"
+onclick="changeImage(${index})">
+`;
+
+    });
+
+}
+
         // Share Product
 
         document.getElementById("shareProduct")?.addEventListener("click", async () => {
@@ -705,3 +725,17 @@ if (wishlistContainer) {
         });
 
 }
+
+function changeImage(index){
+
+    const images = document.querySelectorAll(".product-img");
+    const thumbs = document.querySelectorAll(".thumbnail-gallery img");
+
+    images.forEach(img => img.classList.remove("active"));
+    thumbs.forEach(img => img.classList.remove("active"));
+
+    images[index].classList.add("active");
+    thumbs[index].classList.add("active");
+
+}
+
