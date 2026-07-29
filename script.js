@@ -630,21 +630,17 @@ if (images.length > 1 && dots.length > 0) {
 
 <div class="product-card">
 
-<img src="${item.gallery[0]}"
-class="related-img"
-alt="${item.name}">
+    <img src="${item.gallery[0]}"
+         class="related-img"
+         alt="${item.name}">
 
-</div>
+    <h3>${item.name}</h3>
 
-<h3>${item.name}</h3>
+    <p class="price">৳${item.price}</p>
 
-<p class="price">৳${item.price}</p>
-
-<a href="product.html?id=${item.id}" class="btn">
-
-📖 বিস্তারিত দেখুন
-
-</a>
+    <a href="product.html?id=${item.id}" class="btn">
+        📖 বিস্তারিত দেখুন
+    </a>
 
 </div>
 
