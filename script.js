@@ -631,7 +631,7 @@ if (images.length > 1 && dots.length > 0) {
 <div class="product-card">
 
 <img src="${item.gallery[0]}"
-class="product-img active"
+class="related-img"
 alt="${item.name}">
 
 </div>
