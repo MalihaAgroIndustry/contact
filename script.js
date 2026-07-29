@@ -547,8 +547,6 @@ ${window.location.href}`
 
 </div>
 
-<div id="relatedProducts"></div>
-
 `;
 
         // Product Slider
