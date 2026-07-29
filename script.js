@@ -576,7 +576,7 @@ onclick="changeImage(${index})">
 
 }
 
-if (images.length > 1) {
+if (images.length > 1 && dots.length > 0) {
 
     let index = 0;
 
@@ -660,12 +660,15 @@ alt="${item.name}">
 
     } catch (err) {
 
-        console.error(err);
+    console.error(err);
 
-        details.innerHTML =
-            "<h2>❌ Product Load Failed</h2>";
+    alert(err.message);
 
-    }
+    details.innerHTML = `
+        <h2>❌ Product Load Failed</h2>
+    `;
+
+}
 
 }
 loadProductDetails();
