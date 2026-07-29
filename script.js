@@ -553,9 +553,9 @@ ${window.location.href}`
 
         // Product Slider
 
-        const images = details.querySelectorAll(".product-img");
-        const dots = details.querySelectorAll(".dot");
-
+        const images = detailsContainer.querySelectorAll(".product-img");
+const dots = detailsContainer.querySelectorAll(".dot");
+        
         if (images.length > 1) {
 
             let index = 0;
