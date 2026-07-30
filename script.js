@@ -540,6 +540,38 @@ ${window.location.href}`
 </div>
 
 `;
+        let qty = 1;
+
+const qtyInput = document.getElementById("qty");
+const totalPrice = document.getElementById("totalPrice");
+
+function updateTotal(){
+
+    qtyInput.value = qty;
+    totalPrice.innerText = "৳" + (product.price * qty);
+
+}
+
+document.getElementById("plusQty").onclick = ()=>{
+
+    qty++;
+    updateTotal();
+
+};
+
+document.getElementById("minusQty").onclick = ()=>{
+
+    if(qty>1){
+
+        qty--;
+
+        updateTotal();
+
+    }
+
+};
+
+updateTotal();
 
         // ==========================
 // Product Slider
