@@ -1259,3 +1259,54 @@ font-weight:600;
 .related-products .price{
     font-size:20px;
 }
+/* Quantity */
+
+.quantity-box{
+    margin:20px 0;
+}
+
+.qty-control{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:15px;
+    margin-top:10px;
+}
+
+.qty-control button{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:10px;
+    background:#1f8f4d;
+    color:#fff;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.qty-control input{
+    width:70px;
+    height:45px;
+    text-align:center;
+    font-size:18px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    background:#fff;
+}
+
+.total-box{
+    margin:20px 0;
+    padding:15px;
+    background:#f5fff5;
+    border-radius:12px;
+    text-align:center;
+}
+
+.total-box span{
+    color:#666;
+}
+
+.total-box h2{
+    color:#1f8f4d;
+    margin-top:8px;
+}
