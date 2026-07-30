@@ -610,7 +610,6 @@ if (images.length > 1 && dots.length > 0) {
         // Related Products
 
         const related = document.getElementById("relatedProducts");
-const related = document.getElementById("relatedProducts");
 
 if (related) {
 
