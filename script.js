@@ -537,6 +537,27 @@ ${window.location.href}`
         📤 Share Product
     </button>
 
+    <div class="quantity-box">
+
+    <h3>পরিমাণ</h3>
+
+    <div class="qty-control">
+
+        <button id="minusQty">−</button>
+
+        <input type="text" id="qty" value="1" readonly>
+
+        <button id="plusQty">+</button>
+
+    </div>
+
+    <p class="total-price">
+        মোট মূল্য:
+        <span id="totalPrice">৳${product.price}</span>
+    </p>
+
+</div>
+
 </div>
 
 `;
