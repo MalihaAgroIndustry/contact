@@ -467,91 +467,85 @@ async function loadProductDetails() {
 
 <div class="product-details">
 
-<div class="slider">
+    <div class="product-slider">
 
-${product.gallery.map((img,index)=>`
+        ${product.gallery.map((img,index)=>`
 
-<img src="${img}"
-class="product-img ${index===0?"active":""}"
-alt="${product.name}">
+        <img src="${img}"
+        class="product-img ${index===0?"active":""}"
+        alt="${product.name}">
 
-`).join("")}
+        `).join("")}
 
-</div>
+    </div>
 
-<div class="thumbnail-gallery" id="thumbnailGallery"></div>
+    <div class="thumbnail-gallery" id="thumbnailGallery"></div>
 
-<div class="price-box">
+    <div class="price-box">
 
-<p class="old-price">৳${product.oldPrice}</p>
+        <p class="old-price">৳${product.oldPrice}</p>
 
-<p class="price">৳${product.price}</p>
+        <p class="price">৳${product.price}</p>
 
-<span class="discount">
-🔥 ${Math.round((1 - product.price / product.oldPrice) * 100)}% OFF
-</span>
+        <span class="discount">
+            🔥 ${Math.round((1 - product.price / product.oldPrice) * 100)}% OFF
+        </span>
 
-</div>
+    </div>
 
-<div class="stock-box">
-🟢 ${product.stock}
-</div>
+    <div class="stock-box">
+        🟢 ${product.stock}
+    </div>
 
-<div class="slider-dots">
+    <div class="slider-dots">
 
-${product.gallery.map((_,index)=>`
+        ${product.gallery.map((_,index)=>`
 
-<span class="dot ${index===0?"active":""}"></span>
+        <span class="dot ${index===0?"active":""}"></span>
 
-`).join("")}
+        `).join("")}
 
-</div>
+    </div>
 
-<h1>${product.name}</h1>
+    <h1>${product.name}</h1>
 
-<p class="rating">⭐⭐⭐⭐⭐ ${product.rating}</p>
+    <p class="rating">⭐⭐⭐⭐⭐ ${product.rating}</p>
 
-<p class="old-price">৳${product.oldPrice}</p>
+    <p><b>Brand:</b> ${product.brand}</p>
 
-<p class="price">৳${product.price}</p>
+    <p><b>Type:</b> ${product.type}</p>
 
-<p><b>Brand:</b> ${product.brand}</p>
+    <p><b>SKU:</b> ${product.sku}</p>
 
-<p><b>Type:</b> ${product.type}</p>
+    <p><b>Weight:</b> ${product.weight}</p>
 
-<p><b>SKU:</b> ${product.sku}</p>
+    <p><b>Stock:</b> ${product.stock}</p>
 
-<p><b>Weight:</b> ${product.weight}</p>
+    <p>${product.description}</p>
 
-<p><b>Stock:</b> ${product.stock}</p>
-
-<p>${product.description}</p>
-
-<a class="btn"
-href="https://wa.me/8801303679189?text=${encodeURIComponent(
+    <a class="btn"
+    href="https://wa.me/8801303679189?text=${encodeURIComponent(
 `আমি ${product.name} অর্ডার করতে চাই।
 মূল্য: ৳${product.price}
 
 ${window.location.href}`
 )}">
+        🛒 Order Now
+    </a>
 
-🛒 Order Now
-
-</a>
-
-<button id="shareProduct" class="btn">
-
-📤 Share Product
-
-</button>
+    <button id="shareProduct" class="btn">
+        📤 Share Product
+    </button>
 
 </div>
 
 `;
 
-        // Product Slider
+        // ==========================
+// Product Slider
+// ==========================
 
-const images = details.querySelectorAll(".slider .product-img");
+const images = details.querySelectorAll(".product-slider .product-img");
 const dots = details.querySelectorAll(".dot");
 
 // Thumbnail Gallery
@@ -576,17 +570,17 @@ onclick="changeImage(${index})">
 
 if (images.length > 1 && dots.length > 0) {
 
-    let index = 0;
+    let currentIndex = 0;
 
     setInterval(() => {
 
-        images[index].classList.remove("active");
-        dots[index].classList.remove("active");
+        images[currentIndex].classList.remove("active");
+        dots[currentIndex].classList.remove("active");
 
-        index = (index + 1) % images.length;
+        currentIndex = (currentIndex + 1) % images.length;
 
-        images[index].classList.add("active");
-        dots[index].classList.add("active");
+        images[currentIndex].classList.add("active");
+        dots[currentIndex].classList.add("active");
 
     }, 3000);
 
@@ -723,13 +717,16 @@ if (wishlistContainer) {
 
 function changeImage(index){
 
-    const images = document.querySelectorAll("#productDetails .slider .product-img");
+    const images = document.querySelectorAll("#productDetails .product-slider .product-img");
     const thumbs = document.querySelectorAll("#thumbnailGallery img");
+    const dots = document.querySelectorAll(".dot");
 
     images.forEach(img => img.classList.remove("active"));
     thumbs.forEach(img => img.classList.remove("active"));
+    dots.forEach(dot => dot.classList.remove("active"));
 
     images[index].classList.add("active");
     thumbs[index].classList.add("active");
+    dots[index].classList.add("active");
 
 }
