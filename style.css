@@ -1265,7 +1265,7 @@ font-weight:600;
 /* Related Product Image */
 .related-products .product-card{
     max-width:220px;
-    margin:20px auto;
+    margin:0 auto;
 }
 
 .related-img{
