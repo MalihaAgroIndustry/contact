@@ -467,7 +467,7 @@ async function loadProductDetails() {
 
 <div class="product-details">
 
-    <div class="slider">
+    <div class="product-slider">
 
         ${product.gallery.map((img,index)=>`
 
@@ -545,7 +545,7 @@ ${window.location.href}`
 // Product Slider
 // ==========================
 
-const images = details.querySelectorAll(".slider .product-img");
+const images = details.querySelectorAll(".product-slider .product-img");
 const dots = details.querySelectorAll(".dot");
 
 // Thumbnail Gallery
@@ -717,16 +717,20 @@ if (wishlistContainer) {
 
 function changeImage(index){
 
-    const images = document.querySelectorAll("#productDetails .slider .product-img");
+    const images = document.querySelectorAll(".product-slider .product-img");
     const thumbs = document.querySelectorAll("#thumbnailGallery img");
-    const dots = document.querySelectorAll(".dot");
+    const dots = document.querySelectorAll(".slider-dots .dot");
 
-    images.forEach(img => img.classList.remove("active"));
-    thumbs.forEach(img => img.classList.remove("active"));
-    dots.forEach(dot => dot.classList.remove("active"));
+    images.forEach((img,i)=>{
+        img.classList.toggle("active", i===index);
+    });
 
-    images[index].classList.add("active");
-    thumbs[index].classList.add("active");
-    dots[index].classList.add("active");
+    thumbs.forEach((img,i)=>{
+        img.classList.toggle("active", i===index);
+    });
+
+    dots.forEach((dot,i)=>{
+        dot.classList.toggle("active", i===index);
+    });
 
 }
