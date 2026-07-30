@@ -467,7 +467,7 @@ async function loadProductDetails() {
 
 <div class="product-details">
 
-    <div class="product-slider">
+    <div class="slider">
 
         ${product.gallery.map((img,index)=>`
 
@@ -545,7 +545,7 @@ ${window.location.href}`
 // Product Slider
 // ==========================
 
-const images = details.querySelectorAll(".product-slider .product-img");
+const images = details.querySelectorAll(".slider .product-img");
 const dots = details.querySelectorAll(".dot");
 
 // Thumbnail Gallery
@@ -610,17 +610,18 @@ if (images.length > 1 && dots.length > 0) {
         // Related Products
 
         const related = document.getElementById("relatedProducts");
+const related = document.getElementById("relatedProducts");
 
-        if (related) {
+if (related) {
 
-            related.innerHTML = "<h2>Related Products</h2>";
+    related.innerHTML = "";
 
-            products
-                .filter(p => p.id !== product.id)
-                .slice(0, 3)
-                .forEach(item => {
+    products
+        .filter(p => p.id !== product.id)
+        .slice(0,3)
+        .forEach(item=>{
 
-                    related.innerHTML += `
+            related.innerHTML += `
 
 <div class="product-card">
 
@@ -640,9 +641,9 @@ if (images.length > 1 && dots.length > 0) {
 
 `;
 
-                });
+        });
 
-        }
+}
 
     } catch (err) {
 
@@ -717,7 +718,7 @@ if (wishlistContainer) {
 
 function changeImage(index){
 
-    const images = document.querySelectorAll("#productDetails .product-slider .product-img");
+    const images = document.querySelectorAll("#productDetails .slider .product-img");
     const thumbs = document.querySelectorAll("#thumbnailGallery img");
     const dots = document.querySelectorAll(".dot");
 
