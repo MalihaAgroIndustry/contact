@@ -5,11 +5,38 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>Product Details | Maliha Agro Industry</title>
+<meta
+name="description"
+content="Maliha Agro Industry Product Details">
 
-<link rel="stylesheet" href="style.css">
+<title>
+
+Product Details |
+Maliha Agro Industry
+
+</title>
+
+<!-- Font Awesome -->
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<!-- Google Font -->
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<!-- CSS -->
+
+<link
+rel="stylesheet"
+href="style.css?v=4">
 
 </head>
 
@@ -19,39 +46,688 @@
 
 <div class="card">
 
-<div id="productDetails">
-</div>
+<!-- ==========================================================
+SECTION 02
+PRODUCT HEADER
+========================================================== -->
 
-<section class="related-products">
+<section class="product-header fade-up">
 
-<h2>🛍️ আরও প্রোডাক্ট</h2>
+    <div class="product-top">
 
-<div id="relatedProducts" class="products-grid"></div>
+        <a href="products.html" class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            <span>সকল প্রোডাক্ট</span>
+
+        </a>
+
+        <div class="product-action">
+
+            <button
+                id="wishlistBtn"
+                class="wishlist-btn">
+
+                ❤️
+
+            </button>
+
+            <button
+                id="shareProduct"
+                class="share-btn">
+
+                <i class="fa-solid fa-share-nodes"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="product-info">
+
+        <span class="offer-badge">
+
+            🔥 SPECIAL OFFER
+
+        </span>
+
+        <h1 id="productName">
+
+            Product Name
+
+        </h1>
+
+        <p class="product-brand">
+
+            Brand :
+            <span id="productBrand">
+
+                Maliha Agro Industry
+
+            </span>
+
+        </p>
+
+        <div class="product-rating">
+
+            ⭐⭐⭐⭐⭐
+
+            <span id="productRating">
+
+                (5.0)
+
+            </span>
+
+        </div>
+
+        <div class="stock-box">
+
+            <span id="productStock">
+
+                🟢 স্টকে আছে
+
+            </span>
+
+        </div>
+
+    </div>
 
 </section>
 
-<div class="back-section">
+<!-- ==========================================================
+SECTION 03
+PRODUCT GALLERY
+========================================================== -->
 
-<a href="products.html" class="btn">
-⬅ সকল প্রোডাক্টে ফিরে যান
+<section class="product-gallery fade-up">
+
+    <!-- Main Slider -->
+
+    <div class="product-slider">
+
+        <div id="productSlider">
+
+            <!-- JavaScript এখানে product.gallery এর সব ছবি বসাবে -->
+
+        </div>
+
+    </div>
+
+    <!-- Slider Navigation -->
+
+    <div class="slider-navigation">
+
+        <button
+            id="prevImage"
+            class="slider-btn">
+
+            <i class="fa-solid fa-chevron-left"></i>
+
+        </button>
+
+        <span id="sliderCounter">
+
+            1 / 5
+
+        </span>
+
+        <button
+            id="nextImage"
+            class="slider-btn">
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+IMAGE MODAL
+========================================================== -->
+
+<div
+id="imageModal"
+class="image-modal">
+
+    <span
+        class="close-modal">
+
+        &times;
+
+    </span>
+
+    <img
+        id="modalImage"
+        src=""
+        alt="Preview">
+
+</div>
+
+<!-- ==========================================================
+SECTION 04
+PRICE + PRODUCT INFORMATION
+========================================================== -->
+
+<section class="product-information fade-up">
+
+    <!-- Price -->
+
+    <div class="price-area">
+
+        <span
+            id="productOldPrice"
+            class="old-price">
+
+            ৳0
+
+        </span>
+
+        <span
+            id="productPrice"
+            class="price">
+
+            ৳0
+
+        </span>
+
+        <span
+            id="productDiscount"
+            class="discount-badge">
+
+            0% OFF
+
+        </span>
+
+    </div>
+
+    <!-- Rating -->
+
+    <div class="rating-area">
+
+        ⭐⭐⭐⭐⭐
+
+        <span id="productReview">
+
+            (0 Reviews)
+
+        </span>
+
+    </div>
+
+    <!-- Product Information -->
+
+    <div class="product-meta">
+
+        <div class="meta-row">
+
+            <span>Brand</span>
+
+            <strong id="productBrandInfo">
+
+                Maliha Agro Industry
+
+            </strong>
+
+        </div>
+
+        <div class="meta-row">
+
+            <span>Category</span>
+
+            <strong id="productCategory">
+
+                -
+
+            </strong>
+
+        </div>
+
+        <div class="meta-row">
+
+            <span>Type</span>
+
+            <strong id="productType">
+
+                -
+
+            </strong>
+
+        </div>
+
+        <div class="meta-row">
+
+            <span>SKU</span>
+
+            <strong id="productSku">
+
+                -
+
+            </strong>
+
+        </div>
+
+        <div class="meta-row">
+
+            <span>Weight</span>
+
+            <strong id="productWeight">
+
+                -
+
+            </strong>
+
+        </div>
+
+        <div class="meta-row">
+
+            <span>Stock</span>
+
+            <strong id="productStockInfo">
+
+                In Stock
+
+            </strong>
+
+        </div>
+
+    </div>
+
+    <!-- Description -->
+
+    <div class="description-box">
+
+        <h3>
+
+            📄 প্রোডাক্ট বিবরণ
+
+        </h3>
+
+        <p id="productDescription">
+
+            Loading...
+
+        </p>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+SECTION 05
+ORDER BOX
+========================================================== -->
+
+<section class="order-box fade-up">
+
+    <h2>
+
+        🛒 অর্ডার করুন
+
+    </h2>
+
+    <!-- Quantity -->
+
+    <div class="quantity-box">
+
+        <span>
+
+            পরিমাণ
+
+        </span>
+
+        <div class="qty-control">
+
+            <button id="minusQty">
+
+                −
+
+            </button>
+
+            <input
+                id="qty"
+                type="text"
+                value="1"
+                readonly>
+
+            <button id="plusQty">
+
+                +
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Total -->
+
+    <div class="total-box">
+
+        <span>
+
+            মোট মূল্য
+
+        </span>
+
+        <strong id="totalPrice">
+
+            ৳0
+
+        </strong>
+
+    </div>
+
+    <!-- Buttons -->
+
+    <div class="order-buttons">
+
+        <a
+            id="orderNow"
+            href="#"
+            class="btn">
+
+            🛒 এখনই অর্ডার করুন
+
+        </a>
+
+        <button
+            id="wishlistProduct"
+            class="btn">
+
+            ❤️ Wishlist
+
+        </button>
+
+        <button
+            id="shareProductBtn"
+            class="btn">
+
+            📤 শেয়ার করুন
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+SECTION 06
+RELATED PRODUCTS
+========================================================== -->
+
+<section class="related-products fade-up">
+
+    <div class="section-title">
+
+        <h2>
+
+            🛍️ আরও প্রোডাক্ট
+
+        </h2>
+
+        <p>
+
+            আপনার জন্য আরও কিছু জনপ্রিয় প্রোডাক্ট
+
+        </p>
+
+    </div>
+
+    <div
+        id="relatedProducts"
+        class="products-grid">
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+PRODUCT FEATURES
+========================================================== -->
+
+<section class="product-features fade-up">
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-seedling"></i>
+
+            <h3>
+
+                ১০০% জৈব
+
+            </h3>
+
+            <p>
+
+                সম্পূর্ণ প্রাকৃতিক উপাদানে প্রস্তুত।
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-award"></i>
+
+            <h3>
+
+                উন্নত মান
+
+            </h3>
+
+            <p>
+
+                মান নিয়ন্ত্রণের মাধ্যমে উৎপাদিত।
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-truck-fast"></i>
+
+            <h3>
+
+                দ্রুত ডেলিভারি
+
+            </h3>
+
+            <p>
+
+                সারা বাংলাদেশে হোম ডেলিভারি।
+
+            </p>
+
+        </div>
+
+        <div class="feature-card">
+
+            <i class="fa-solid fa-headset"></i>
+
+            <h3>
+
+                ২৪/৭ সাপোর্ট
+
+            </h3>
+
+            <p>
+
+                যেকোনো সময় যোগাযোগ করুন।
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+SECTION 07
+FOOTER
+========================================================== -->
+
+<footer class="footer fade-up">
+
+    <h3>
+
+        🌿 Maliha Agro Industry
+
+    </h3>
+
+    <p>
+
+        ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক
+
+    </p>
+
+    <p>
+
+        ইসলামপুর, কানসাট,
+        শিবগঞ্জ,
+        চাঁপাইনবাবগঞ্জ
+
+    </p>
+
+    <p>
+
+        📞 +880 1303-679189
+
+    </p>
+
+    <p>
+
+        ✉ info@malihaagroindustry.com
+
+    </p>
+
+    <hr>
+
+    <p>
+
+        © 2026 Maliha Agro Industry
+
+        <br>
+
+        All Rights Reserved.
+
+    </p>
+
+</footer>
+
+<!-- ==========================================================
+FLOATING WHATSAPP
+========================================================== -->
+
+<a
+href="https://wa.me/8801303679189"
+target="_blank"
+class="whatsapp-float">
+
+💬
+
 </a>
 
-</div>
+<!-- ==========================================================
+BACK TO TOP
+========================================================== -->
+
+<button
+id="backToTop"
+class="back-to-top">
+
+⬆
+
+</button>
+
+<!-- ==========================================================
+BOTTOM NAVIGATION
+========================================================== -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>হোম</span>
+
+    </a>
+
+    <a href="products.html">
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <span>প্রোডাক্ট</span>
+
+    </a>
+
+    <a href="wishlist.html">
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span id="wishlistCounter">
+
+            Wishlist
+
+        </span>
+
+    </a>
+
+    <a href="about.html">
+
+        <i class="fa-solid fa-building"></i>
+
+        <span>আমাদের সম্পর্কে</span>
+
+    </a>
+
+    <a href="contact.html">
+
+        <i class="fa-solid fa-phone"></i>
+
+        <span>যোগাযোগ</span>
+
+    </a>
+
+</nav>
+
+<!-- ==========================================================
+FULL IMAGE PREVIEW
+========================================================== -->
+
+<div
+id="imageModal"
+class="image-modal">
+
+    <span class="close-modal">
+
+        &times;
+
+    </span>
+
+    <img
+    id="modalImage"
+    src=""
+    alt="Preview">
 
 </div>
 
-</div>
+<!-- ==========================================================
+JAVASCRIPT
+========================================================== -->
 
-<div id="imageModal" class="image-modal">
-
-<span class="close-modal">&times;</span>
-
-<img id="modalImage" src="" alt="Preview">
+<script src="script.js?v=4"></script>
 
 </div>
-
-<script src="script.js?v=2.0"></script>
+</div>
 
 </body>
-
 </html>
