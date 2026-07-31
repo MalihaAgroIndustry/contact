@@ -1,21 +1,41 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 
-    <title>All Products | Maliha Agro Industry</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
+<meta
+name="description"
+content="Maliha Agro Industry Products">
 
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#1f8f4d">
+<title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+সকল প্রোডাক্ট |
+Maliha Agro Industry
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</title>
+
+<!-- Font Awesome -->
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<!-- Google Font -->
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<!-- CSS -->
+
+<link
+rel="stylesheet"
+href="style.css?v=4">
 
 </head>
 
@@ -23,96 +43,534 @@
 
 <div class="container">
 
-    <div class="card">
+<div class="card">
 
-        <div class="hero">
+<!-- ==========================================================
+SECTION 02
+PAGE HEADER
+========================================================== -->
 
-            <h2>🌱 আমাদের সকল প্রিমিয়াম পণ্য</h2>
+<section class="page-header fade-up">
 
-            <p class="tagline">
-                আপনার কৃষির জন্য নিরাপদ, কার্যকর ও মানসম্মত জৈব সার
+    <div class="header-top">
+
+        <a href="index.html" class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            <span>হোমে ফিরে যান</span>
+
+        </a>
+
+        <div class="page-title">
+
+            <h1>
+
+                🛍️ সকল প্রোডাক্ট
+
+            </h1>
+
+            <p>
+
+                Maliha Agro Industry
+
             </p>
-
-            <div class="buttons">
-
-                <a href="index.html" class="btn">
-                    🏠 Home
-                </a>
-
-<a href="wishlist.html" class="btn" id="wishlistCounter">
-❤️ Wishlist (0)
-</a>
-
-            </div>
-
-            <!-- Search Box -->
-
-            <div class="search-box">
-
-                <input
-                    type="text"
-                    id="searchProduct"
-                    placeholder="🔍 প্রোডাক্ট খুঁজুন...">
-
-            </div>
-
-            <!-- Category Filter -->
-
-            <div class="category-filter">
-
-                <button class="filter-btn active" data-category="all">
-                    🌐 সব
-                </button>
-
-                <button class="filter-btn" data-category="Organic Fertilizer">
-                    🌱 জৈব সার
-                </button>
-
-                <button class="filter-btn" data-category="Spices">
-                    🌶️ মসলা
-                </button>
-
-                <button class="filter-btn" data-category="Seeds">
-                    🌾 বীজ
-                </button>
-
-                <button class="filter-btn" data-category="Agriculture">
-                    🚜 কৃষি পণ্য
-                </button>
-
-            </div>
-
-            <!-- Sort Box -->
-
-            <div class="sort-box">
-
-                <select id="sortProducts">
-
-                    <option value="default">📋 ডিফল্ট</option>
-
-                    <option value="low-high">💰 দাম কম → বেশি</option>
-
-                    <option value="high-low">💰 দাম বেশি → কম</option>
-
-                    <option value="new">🆕 নতুন</option>
-
-                    <option value="best">⭐ বেস্ট সেলার</option>
-
-                </select>
-
-            </div>
-
-            <!-- Product List -->
-
-            <div id="productList"></div>
 
         </div>
 
     </div>
 
+</section>
+
+<!-- ==========================================================
+SEARCH + SORT
+========================================================== -->
+
+<section class="product-toolbar fade-up">
+
+    <div class="search-box">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="text"
+            id="searchProduct"
+            placeholder="প্রোডাক্ট খুঁজুন...">
+
+    </div>
+
+    <div class="sort-box">
+
+        <select id="sortProducts">
+
+            <option value="default">
+
+                সাজান
+
+            </option>
+
+            <option value="low-high">
+
+                মূল্য (কম → বেশি)
+
+            </option>
+
+            <option value="high-low">
+
+                মূল্য (বেশি → কম)
+
+            </option>
+
+            <option value="new">
+
+                নতুন প্রোডাক্ট
+
+            </option>
+
+            <option value="best">
+
+                জনপ্রিয়
+
+            </option>
+
+        </select>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+CATEGORY FILTER
+========================================================== -->
+
+<section class="category-filter fade-up">
+
+    <button
+        class="filter-btn active"
+        data-category="all">
+
+        🌱 সব
+
+    </button>
+
+    <button
+        class="filter-btn"
+        data-category="vermi">
+
+        🪱 ভার্মি কম্পোস্ট
+
+    </button>
+
+    <button
+        class="filter-btn"
+        data-category="tricho">
+
+        🍀 ট্রাইকো কম্পোস্ট
+
+    </button>
+
+    <button
+        class="filter-btn"
+        data-category="egg">
+
+        🥚 এগ শেল পাউডার
+
+    </button>
+
+</section>
+
+<!-- ==========================================================
+PRODUCT COUNT
+========================================================== -->
+
+<div class="product-count fade-up">
+
+    <span id="productCounter">
+
+        মোট ০ টি প্রোডাক্ট
+
+    </span>
+
+</div>    
+
+<!-- ==========================================================
+SECTION 03
+PRODUCT GRID
+========================================================== -->
+
+<section class="products-section fade-up">
+
+    <!-- Dynamic Product Grid -->
+
+    <div
+        id="productList"
+        class="products-grid">
+
+    </div>
+
+    <!-- Empty Result -->
+
+    <div
+        id="emptyProducts"
+        class="empty-products"
+        style="display:none;">
+
+        <img
+            src="images/no-product.png"
+            alt="No Product">
+
+        <h2>
+
+            😔 কোনো প্রোডাক্ট পাওয়া যায়নি
+
+        </h2>
+
+        <p>
+
+            অন্য কিছু লিখে আবার খুঁজে দেখুন।
+
+        </p>
+
+        <button
+            class="btn"
+            onclick="loadProducts('all')">
+
+            🔄 সব প্রোডাক্ট দেখুন
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+SECTION 04
+PAGINATION + LOAD MORE
+========================================================== -->
+
+<section class="pagination-section fade-up">
+
+    <div class="pagination-summary">
+
+        <p>
+
+            <span id="showingProducts">
+
+                ০
+
+            </span>
+
+            টি প্রোডাক্ট প্রদর্শিত হচ্ছে
+
+        </p>
+
+    </div>
+
+    <div class="pagination-buttons">
+
+        <button
+            id="prevPage"
+            class="btn pagination-btn">
+
+            ⬅ পূর্ববর্তী
+
+        </button>
+
+        <div
+            id="pageNumbers"
+            class="page-numbers">
+
+        </div>
+
+        <button
+            id="nextPage"
+            class="btn pagination-btn">
+
+            পরবর্তী ➡
+
+        </button>
+
+    </div>
+
+    <div class="load-more-box">
+
+        <button
+            id="loadMoreBtn"
+            class="btn">
+
+            📦 আরও প্রোডাক্ট দেখুন
+
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+SECTION 05
+QUICK ACTION
+========================================================== -->
+
+<section class="quick-action-section fade-up">
+
+    <div class="quick-action-grid">
+
+        <a
+        href="wishlist.html"
+        class="quick-action-card">
+
+            <div class="quick-icon">
+
+                ❤️
+
+            </div>
+
+            <h3>
+
+                Wishlist
+
+            </h3>
+
+            <p>
+
+                <span id="wishlistCounter">
+
+                    0
+
+                </span>
+
+                টি প্রোডাক্ট
+
+            </p>
+
+        </a>
+
+        <a
+        href="contact.html"
+        class="quick-action-card">
+
+            <div class="quick-icon">
+
+                📞
+
+            </div>
+
+            <h3>
+
+                যোগাযোগ
+
+            </h3>
+
+            <p>
+
+                আমাদের সাথে কথা বলুন
+
+            </p>
+
+        </a>
+
+        <a
+        href="about.html"
+        class="quick-action-card">
+
+            <div class="quick-icon">
+
+                🌿
+
+            </div>
+
+            <h3>
+
+                আমাদের সম্পর্কে
+
+            </h3>
+
+            <p>
+
+                প্রতিষ্ঠান পরিচিতি
+
+            </p>
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+FLOATING BUTTON
+========================================================== -->
+
+<a
+href="https://wa.me/8801303679189"
+class="whatsapp-float"
+target="_blank">
+
+💬
+
+</a>
+
+<button
+id="backToTop"
+class="back-to-top">
+
+⬆
+
+</button>
+
+<!-- ==========================================================
+SECTION 06
+BOTTOM NAVIGATION
+========================================================== -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>
+
+            হোম
+
+        </span>
+
+    </a>
+
+    <a
+    href="products.html"
+    class="active">
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <span>
+
+            প্রোডাক্ট
+
+        </span>
+
+    </a>
+
+    <a href="wishlist.html">
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span id="wishlistCounter">
+
+            Wishlist
+
+        </span>
+
+    </a>
+
+    <a href="about.html">
+
+        <i class="fa-solid fa-building"></i>
+
+        <span>
+
+            আমাদের সম্পর্কে
+
+        </span>
+
+    </a>
+
+    <a href="contact.html">
+
+        <i class="fa-solid fa-phone"></i>
+
+        <span>
+
+            যোগাযোগ
+
+        </span>
+
+    </a>
+
+</nav>
+
+<!-- ==========================================================
+SECTION 07
+FOOTER
+========================================================== -->
+
+<footer class="footer fade-up">
+
+    <h3>
+
+        🌿 Maliha Agro Industry
+
+    </h3>
+
+    <p>
+
+        ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক
+
+    </p>
+
+    <p>
+
+        ইসলামপুর, কানসাট,
+        শিবগঞ্জ,
+        চাঁপাইনবাবগঞ্জ
+
+    </p>
+
+    <p>
+
+        📞 +880 1303-679189
+
+    </p>
+
+    <p>
+
+        ✉ info@malihaagroindustry.com
+
+    </p>
+
+    <hr>
+
+    <p>
+
+        © 2026 Maliha Agro Industry
+
+        <br>
+
+        All Rights Reserved.
+
+    </p>
+
+</footer>
+
+<!-- ==========================================================
+IMAGE PREVIEW MODAL
+========================================================== -->
+
+<div
+id="imageModal"
+class="image-modal">
+
+    <span class="close-modal">
+
+        &times;
+
+    </span>
+
+    <img
+    id="modalImage"
+    src=""
+    alt="Preview">
+
 </div>
 
-<script src="script.js?v=10"></script>
+<!-- ==========================================================
+JAVASCRIPT
+========================================================== -->
+
+<script src="script.js?v=4"></script>
+
+</div>
+</div>
 
 </body>
 </html>
