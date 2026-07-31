@@ -552,14 +552,217 @@ ${window.location.href}`
     <p class="total-price">
         মোট মূল্য:
         <span id="totalPrice">৳${product.price}</span>
+
+// ==========================
+// Product Details
+// ==========================
+
+async function loadProductDetails(){
+
+    const details = document.getElementById("productDetails");
+
+    if(!details) return;
+
+    try{
+
+        const id = Number(
+            new URLSearchParams(window.location.search).get("id")
+        );
+
+        const res = await fetch("data/products.json");
+        const products = await res.json();
+
+        const product = products.find(p=>p.id===id);
+
+        if(!product){
+
+            details.innerHTML="<h2>❌ Product Not Found</h2>";
+            return;
+
+        }
+
+        details.innerHTML = `
+
+<div class="product-details">
+
+    <div class="product-slider">
+
+        ${product.gallery.map((img,index)=>`
+
+            <img
+                src="${img}"
+                class="product-img ${index===0?"active":""}"
+                alt="${product.name}">
+
+        `).join("")}
+
+    </div>
+
+    <div
+        class="thumbnail-gallery"
+        id="thumbnailGallery">
+
+    </div>
+
+    <div class="slider-dots">
+
+        ${product.gallery.map((_,index)=>`
+
+            <span
+                class="dot ${index===0?"active":""}">
+            </span>
+
+        `).join("")}
+
+    </div>
+
+    <h1>${product.name}</h1>
+
+    <p class="rating">
+        ⭐⭐⭐⭐⭐ ${product.rating}
+    </p>
+
+    <div class="price-box">
+
+        <p class="old-price">
+            ৳${product.oldPrice}
+        </p>
+
+        <p class="price">
+            ৳${product.price}
+        </p>
+
+        <span class="discount">
+
+            🔥
+            ${Math.round((1-product.price/product.oldPrice)*100)}% OFF
+
+        </span>
+
+    </div>
+
+    <div class="stock-box">
+
+        🟢 ${product.stock}
+
+    </div>
+
+<div class="quantity-box">
+
+    <h3>পরিমাণ</h3>
+
+    <div class="qty-control">
+
+        <button id="minusQty">−</button>
+
+        <input
+            type="text"
+            id="qty"
+            value="1"
+            readonly>
+
+        <button id="plusQty">+</button>
+
+    </div>
+
+    <p class="total-price">
+
+        মোট মূল্য :
+        <span id="totalPrice">
+            ৳${product.price}
+        </span>
+
     </p>
 
 </div>
 
+<p><b>Brand :</b> ${product.brand}</p>
+
+<p><b>Type :</b> ${product.type}</p>
+
+<p><b>SKU :</b> ${product.sku}</p>
+
+<p><b>Weight :</b> ${product.weight}</p>
+
+<p>${product.description}</p>
+
+<a
+class="btn"
+href="https://wa.me/8801303679189?text=${encodeURIComponent(
+`আমি ${product.name} অর্ডার করতে চাই।
+মূল্য: ৳${product.price}
+
+${window.location.href}`
+)}">
+
+🛒 Order Now
+
+</a>
+
+<button
+id="shareProduct"
+class="btn">
+
+📤 Share Product
+
+</button>
+
 </div>
 
 `;
-        let qty = 1;
+
+// ==========================
+// Thumbnail Gallery
+// ==========================
+
+const images = details.querySelectorAll(".product-slider .product-img");
+const dots = details.querySelectorAll(".dot");
+
+const thumbnailGallery = document.getElementById("thumbnailGallery");
+
+thumbnailGallery.innerHTML = "";
+
+product.gallery.forEach((img,index)=>{
+
+    thumbnailGallery.innerHTML += `
+        <img src="${img}"
+             class="${index===0?"active":""}"
+             onclick="changeImage(${index})">
+    `;
+
+});
+
+
+// ==========================
+// Auto Slider
+// ==========================
+
+let currentIndex = 0;
+
+if(images.length > 1){
+
+    setInterval(()=>{
+
+        images[currentIndex].classList.remove("active");
+        dots[currentIndex].classList.remove("active");
+        thumbnailGallery.children[currentIndex].classList.remove("active");
+
+        currentIndex = (currentIndex + 1) % images.length;
+
+        images[currentIndex].classList.add("active");
+        dots[currentIndex].classList.add("active");
+        thumbnailGallery.children[currentIndex].classList.add("active");
+
+    },3000);
+
+}
+
+
+// ==========================
+// Quantity
+// ==========================
+
+let qty = 1;
 
 const qtyInput = document.getElementById("qty");
 const totalPrice = document.getElementById("totalPrice");
@@ -583,7 +786,6 @@ document.getElementById("minusQty").onclick = ()=>{
     if(qty>1){
 
         qty--;
-
         updateTotal();
 
     }
@@ -592,103 +794,33 @@ document.getElementById("minusQty").onclick = ()=>{
 
 updateTotal();
 
-        // ==========================
-// Product Slider
+
+// ==========================
+// Share Button
 // ==========================
 
-const images = details.querySelectorAll(".product-slider .product-img");
-const dots = details.querySelectorAll(".dot");
+document.getElementById("shareProduct").onclick = async ()=>{
 
-if (images.length > 1 && dots.length > 0) {
+    if(navigator.share){
 
-    let currentIndex = 0;
+        await navigator.share({
 
-    setInterval(() => {
-
-        images[currentIndex].classList.remove("active");
-        dots[currentIndex].classList.remove("active");
-
-        currentIndex = (currentIndex + 1) % images.length;
-
-        images[currentIndex].classList.add("active");
-        dots[currentIndex].classList.add("active");
-
-    }, 3000);
-
-}
-
-// Share Product
-
-        document.getElementById("shareProduct")?.addEventListener("click", async () => {
-
-            if (navigator.share) {
-
-                await navigator.share({
-                    title: product.name,
-                    text: product.description,
-                    url: window.location.href
-                });
-
-            } else {
-
-                await navigator.clipboard.writeText(window.location.href);
-                alert("লিংক কপি হয়েছে ✅");
-
-            }
+            title:product.name,
+            text:product.description,
+            url:window.location.href
 
         });
 
-        // Related Products
+    }else{
 
-        const related = document.getElementById("relatedProducts");
+        navigator.clipboard.writeText(window.location.href);
 
-if (related) {
+        alert("লিংক কপি হয়েছে ✅");
 
-    related.innerHTML = "";
+    }
 
-    products
-        .filter(p => p.id !== product.id)
-        .slice(0,3)
-        .forEach(item=>{
+};
 
-            related.innerHTML += `
-
-<div class="product-card">
-
-    <img src="${item.gallery[0]}"
-         class="related-img"
-         alt="${item.name}">
-
-    <h3>${item.name}</h3>
-
-    <p class="price">৳${item.price}</p>
-
-    <a href="product.html?id=${item.id}" class="btn">
-        📖 বিস্তারিত দেখুন
-    </a>
-
-</div>
-
-`;
-
-        });
-
-}
-
-    } catch (err) {
-
-    console.error(err);
-
-    alert(err.message);
-
-    details.innerHTML = `
-        <h2>❌ Product Load Failed</h2>
-    `;
-
-}
-
-}
-loadProductDetails();
 
 // ==========================
 // Wishlist Page
