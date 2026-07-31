@@ -479,8 +479,6 @@ async function loadProductDetails() {
 
     </div>
 
-    <div class="thumbnail-gallery" id="thumbnailGallery"></div>
-
     <div class="price-box">
 
         <p class="old-price">৳${product.oldPrice}</p>
@@ -600,26 +598,6 @@ updateTotal();
 
 const images = details.querySelectorAll(".product-slider .product-img");
 const dots = details.querySelectorAll(".dot");
-
-// Thumbnail Gallery
-
-const thumbnailGallery = document.getElementById("thumbnailGallery");
-
-if (thumbnailGallery) {
-
-    thumbnailGallery.innerHTML = "";
-
-    product.gallery.forEach((img, index) => {
-
-        thumbnailGallery.innerHTML += `
-<img src="${img}"
-class="${index===0?"active":""}"
-onclick="changeImage(${index})">
-`;
-
-    });
-
-}
 
 if (images.length > 1 && dots.length > 0) {
 
@@ -768,22 +746,3 @@ if (wishlistContainer) {
 
 }
 
-function changeImage(index){
-
-    const images = document.querySelectorAll(".product-slider .product-img");
-    const thumbs = document.querySelectorAll("#thumbnailGallery img");
-    const dots = document.querySelectorAll(".slider-dots .dot");
-
-    images.forEach((img,i)=>{
-        img.classList.toggle("active", i===index);
-    });
-
-    thumbs.forEach((img,i)=>{
-        img.classList.toggle("active", i===index);
-    });
-
-    dots.forEach((dot,i)=>{
-        dot.classList.toggle("active", i===index);
-    });
-
-}
