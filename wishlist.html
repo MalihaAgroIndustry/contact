@@ -1,34 +1,518 @@
 <!DOCTYPE html>
 <html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist | Maliha Agro Industry</title>
 
-    <link rel="stylesheet" href="style.css">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<meta
+name="description"
+content="Wishlist - Maliha Agro Industry">
+
+<title>
+
+Wishlist |
+Maliha Agro Industry
+
+</title>
+
+<!-- Font Awesome -->
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<!-- Google Font -->
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<!-- CSS -->
+
+<link
+rel="stylesheet"
+href="style.css?v=4">
+
 </head>
 
 <body>
 
 <div class="container">
 
-    <div class="card">
+<div class="card">
 
-        <div class="hero">
-            <h2>❤️ Wishlist</h2>
+<!-- ==========================================================
+SECTION 02
+PAGE HEADER
+========================================================== -->
 
-            <a href="products.html" class="btn">
-                ⬅️ Back to Products
-            </a>
+<section class="page-header fade-up">
+
+    <div class="header-top">
+
+        <a
+        href="index.html"
+        class="back-btn">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            <span>
+
+                হোমে ফিরে যান
+
+            </span>
+
+        </a>
+
+        <div class="page-title">
+
+            <h1>
+
+                ❤️ Wishlist
+
+            </h1>
+
+            <p>
+
+                আপনার পছন্দের প্রোডাক্ট
+
+            </p>
+
         </div>
-
-        <div id="wishlistProducts"></div>
 
     </div>
 
+</section>
+
+<div class="wishlist-summary">
+
+    <h3>
+
+        মোট Wishlist :
+
+        <span id="wishlistTotal">
+
+            0
+
+        </span>
+
+        টি
+
+    </h3>
+
 </div>
 
-<script src="script.js"></script>
+<!-- ==========================================================
+SECTION 03
+WISHLIST PRODUCTS
+========================================================== -->
+
+<section class="wishlist-section fade-up">
+
+    <!-- Wishlist Product Grid -->
+
+    <div
+        id="wishlistProducts"
+        class="products-grid">
+
+    </div>
+
+    <!-- Empty Wishlist -->
+
+    <div
+        id="emptyWishlist"
+        class="empty-products"
+        style="display:none;">
+
+        <img
+            src="images/empty-wishlist.png"
+            alt="Wishlist Empty">
+
+        <h2>
+
+            ❤️ আপনার Wishlist খালি
+
+        </h2>
+
+        <p>
+
+            এখনো কোনো প্রোডাক্ট Wishlist-এ যোগ করা হয়নি।
+
+        </p>
+
+        <a
+            href="products.html"
+            class="btn">
+
+            🛍️ প্রোডাক্ট দেখুন
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+WISHLIST ACTIONS
+========================================================== -->
+
+<section class="wishlist-actions fade-up">
+
+    <button
+        id="clearWishlist"
+        class="btn danger-btn">
+
+        🗑️ সব Wishlist মুছে ফেলুন
+
+    </button>
+
+    <a
+        href="products.html"
+        class="btn">
+
+        ➕ আরও প্রোডাক্ট দেখুন
+
+    </a>
+
+</section>
+
+<!-- ==========================================================
+SECTION 04
+RECOMMENDED PRODUCTS
+========================================================== -->
+
+<section class="recommended-section fade-up">
+
+    <div class="section-title">
+
+        <h2>
+
+            🌟 আপনার জন্য সাজেস্টেড প্রোডাক্ট
+
+        </h2>
+
+        <p>
+
+            জনপ্রিয় ও সেরা বিক্রিত প্রোডাক্ট
+
+        </p>
+
+    </div>
+
+    <div
+        id="recommendedProducts"
+        class="products-grid">
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+RECENTLY VIEWED
+========================================================== -->
+
+<section class="recent-section fade-up">
+
+    <div class="section-title">
+
+        <h2>
+
+            🕒 সম্প্রতি দেখা প্রোডাক্ট
+
+        </h2>
+
+        <p>
+
+            আপনি সম্প্রতি যেগুলো দেখেছেন
+
+        </p>
+
+    </div>
+
+    <div
+        id="recentProducts"
+        class="products-grid">
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+SHOPPING SHORTCUT
+========================================================== -->
+
+<section class="shopping-shortcut fade-up">
+
+    <div class="glass">
+
+        <h2>
+
+            🛍️ আরও কেনাকাটা করুন
+
+        </h2>
+
+        <p>
+
+            Maliha Agro Industry-এর সকল জৈব সার, ভার্মি কম্পোস্ট,
+            ট্রাইকো কম্পোস্ট ও অন্যান্য কৃষি পণ্য দেখতে নিচের বাটনে ক্লিক করুন।
+
+        </p>
+
+        <a
+            href="products.html"
+            class="btn">
+
+            📦 সকল প্রোডাক্ট দেখুন
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+SECTION 05
+QUICK ACTIONS
+========================================================== -->
+
+<section class="quick-action-section fade-up">
+
+    <div class="quick-action-grid">
+
+        <a
+        href="products.html"
+        class="quick-action-card">
+
+            <div class="quick-icon">
+
+                🛍️
+
+            </div>
+
+            <h3>
+
+                Shopping
+
+            </h3>
+
+            <p>
+
+                নতুন প্রোডাক্ট দেখুন
+
+            </p>
+
+        </a>
+
+        <a
+        href="contact.html"
+        class="quick-action-card">
+
+            <div class="quick-icon">
+
+                📞
+
+            </div>
+
+            <h3>
+
+                যোগাযোগ
+
+            </h3>
+
+            <p>
+
+                অর্ডার বা তথ্য জানতে
+
+            </p>
+
+        </a>
+
+        <a
+        href="about.html"
+        class="quick-action-card">
+
+            <div class="quick-icon">
+
+                🌿
+
+            </div>
+
+            <h3>
+
+                আমাদের সম্পর্কে
+
+            </h3>
+
+            <p>
+
+                প্রতিষ্ঠান পরিচিতি
+
+            </p>
+
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ==========================================================
+FLOATING BUTTONS
+========================================================== -->
+
+<a
+href="https://wa.me/8801303679189"
+target="_blank"
+class="whatsapp-float">
+
+💬
+
+</a>
+
+<button
+id="backToTop"
+class="back-to-top">
+
+⬆
+
+</button>
+
+<!-- ==========================================================
+SECTION 06
+BOTTOM NAVIGATION
+========================================================== -->
+
+<nav class="bottom-nav">
+
+    <a href="index.html">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>
+
+            হোম
+
+        </span>
+
+    </a>
+
+    <a href="products.html">
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <span>
+
+            প্রোডাক্ট
+
+        </span>
+
+    </a>
+
+    <a
+    href="wishlist.html"
+    class="active">
+
+        <i class="fa-solid fa-heart"></i>
+
+        <span id="wishlistCounter">
+
+            Wishlist
+
+        </span>
+
+    </a>
+
+    <a href="about.html">
+
+        <i class="fa-solid fa-building"></i>
+
+        <span>
+
+            আমাদের সম্পর্কে
+
+        </span>
+
+    </a>
+
+    <a href="contact.html">
+
+        <i class="fa-solid fa-phone"></i>
+
+        <span>
+
+            যোগাযোগ
+
+        </span>
+
+    </a>
+
+</nav>
+
+<!-- ==========================================================
+SECTION 07
+FOOTER
+========================================================== -->
+
+<footer class="footer fade-up">
+
+    <h3>
+
+        🌿 Maliha Agro Industry
+
+    </h3>
+
+    <p>
+
+        ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক
+
+    </p>
+
+    <p>
+
+        ইসলামপুর, কানসাট,
+        শিবগঞ্জ,
+        চাঁপাইনবাবগঞ্জ
+
+    </p>
+
+    <p>
+
+        📞 +880 1303-679189
+
+    </p>
+
+    <p>
+
+        ✉ info@malihaagroindustry.com
+
+    </p>
+
+    <hr>
+
+    <p>
+
+        © 2026 Maliha Agro Industry
+
+        <br>
+
+        All Rights Reserved.
+
+    </p>
+
+</footer>
+
+<!-- ==========================================================
+JAVASCRIPT
+========================================================== -->
+
+<script src="script.js?v=4"></script>
+
+</div>
+</div>
 
 </body>
 </html>
