@@ -16,12 +16,12 @@
     "bestSeller": 1,
     "description": "১০০% খাঁটি ও নিরাপদ জৈব সার। মাটির উর্বরতা বৃদ্ধি এবং গাছের স্বাস্থ্যকর বৃদ্ধিতে সহায়ক।",
     "gallery": [
-      "product1.jpg",
-      "product1-2.jpg",
-      "product1-3.jpg",
-      "product1-4.jpg",
-      "product1-5.jpg"
-    ]
+  "images/product1.jpg",
+  "images/product1-2.jpg",
+  "images/product1-3.jpg",
+  "images/product1-4.jpg",
+  "images/product1-5.jpg"
+]
   },
   {
     "id": 2,
@@ -40,12 +40,12 @@
     "bestSeller": 1,
     "description": "উন্নতমানের জৈব কম্পোস্ট সার। কৃষি জমি, বাগান ও বিভিন্ন ফসলে ব্যবহারের জন্য উপযোগী।",
     "gallery": [
-      "product2.jpg",
-      "product2-2.jpg",
-      "product2-3.jpg",
-      "product2-4.jpg",
-      "product2-5.jpg"
-    ]
+  "images/product2.jpg",
+  "images/product2-2.jpg",
+  "images/product2-3.jpg",
+  "images/product2-4.jpg",
+  "images/product2-5.jpg"
+]
   },
   {
     "id": 3,
@@ -64,11 +64,11 @@
     "bestSeller": 1,
     "description": "প্রাকৃতিক ক্যালসিয়ামের উৎস। মাটি ও গাছের পরিচর্যার জন্য উপযোগী।",
     "gallery": [
-      "product3.jpg",
-      "product3-2.jpg",
-      "product3-3.jpg",
-      "product3-4.jpg",
-      "product3-5.jpg"
-    ]
+  "images/product3.jpg",
+  "images/product3-2.jpg",
+  "images/product3-3.jpg",
+  "images/product3-4.jpg",
+  "images/product3-5.jpg"
+]
   }
 ]
