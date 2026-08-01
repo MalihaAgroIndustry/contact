@@ -1218,3 +1218,283 @@ document.addEventListener("DOMContentLoaded",async()=>{
     }
 
 });
+
+/* ==========================================================
+   SECTION 08
+   CONTACT PAGE
+   FORM + WHATSAPP + BACK TO TOP
+   Maliha Agro Industry
+========================================================== */
+
+
+/* ==========================================================
+   CONTACT FORM
+========================================================== */
+
+function initContactForm(){
+
+    const form = $("#contactForm");
+
+    if(!form) return;
+
+    const status = $("#contactFormStatus");
+
+    form.addEventListener("submit",(e)=>{
+
+        e.preventDefault();
+
+        const name =
+            $("#contactName")?.value.trim() || "";
+
+        const phone =
+            $("#contactPhone")?.value.trim() || "";
+
+        const email =
+            $("#contactEmail")?.value.trim() || "";
+
+        const subject =
+            $("#contactSubject")?.value.trim() || "";
+
+        const message =
+            $("#contactMessage")?.value.trim() || "";
+
+
+        /* ==========================
+           VALIDATION
+        ========================== */
+
+        if(!name){
+
+            showContactStatus(
+                "❌ আপনার নাম লিখুন।",
+                "error"
+            );
+
+            $("#contactName")?.focus();
+
+            return;
+
+        }
+
+
+        if(!phone){
+
+            showContactStatus(
+                "❌ আপনার মোবাইল নম্বর লিখুন।",
+                "error"
+            );
+
+            $("#contactPhone")?.focus();
+
+            return;
+
+        }
+
+
+        if(!subject){
+
+            showContactStatus(
+                "❌ বিষয় নির্বাচন করুন।",
+                "error"
+            );
+
+            $("#contactSubject")?.focus();
+
+            return;
+
+        }
+
+
+        if(!message){
+
+            showContactStatus(
+                "❌ আপনার মেসেজ লিখুন।",
+                "error"
+            );
+
+            $("#contactMessage")?.focus();
+
+            return;
+
+        }
+
+
+        /* ==========================
+           SUBJECT TEXT
+        ========================== */
+
+        const subjectText = {
+
+            product:"পণ্য সম্পর্কে জানতে চাই",
+
+            price:"মূল্য জানতে চাই",
+
+            wholesale:"পাইকারি অর্ডার",
+
+            dealer:"ডিলারশিপ",
+
+            other:"অন্যান্য"
+
+        };
+
+
+        const selectedSubject =
+            subjectText[subject] || subject;
+
+
+        /* ==========================
+           WHATSAPP MESSAGE
+        ========================== */
+
+        const whatsappMessage =
+
+`🌿 Maliha Agro Industry
+
+📩 নতুন Contact Message
+
+👤 নাম:
+${name}
+
+📱 মোবাইল:
+${phone}
+
+📧 ই-মেইল:
+${email || "দেওয়া হয়নি"}
+
+📌 বিষয়:
+${selectedSubject}
+
+💬 মেসেজ:
+${message}
+
+━━━━━━━━━━━━━━
+Maliha Agro Industry`;
+
+
+        const whatsappURL =
+
+        "https://wa.me/8801303679189?text=" +
+
+        encodeURIComponent(whatsappMessage);
+
+
+        /* ==========================
+           STATUS
+        ========================== */
+
+        showContactStatus(
+            "✅ WhatsApp-এ পাঠানোর জন্য প্রস্তুত...",
+            "success"
+        );
+
+
+        /* ==========================
+           OPEN WHATSAPP
+        ========================== */
+
+        setTimeout(()=>{
+
+            window.open(
+                whatsappURL,
+                "_blank",
+                "noopener"
+            );
+
+        },500);
+
+    });
+
+}
+
+
+/* ==========================================================
+   CONTACT FORM STATUS
+========================================================== */
+
+function showContactStatus(message,type="success"){
+
+    const status = $("#contactFormStatus");
+
+    if(!status) return;
+
+    status.textContent = message;
+
+    status.style.marginTop = "12px";
+
+    status.style.padding = "10px";
+
+    status.style.borderRadius = "10px";
+
+    if(type==="error"){
+
+        status.style.color = "#b71c1c";
+
+        status.style.background = "#ffebee";
+
+    }else{
+
+        status.style.color = "#166C39";
+
+        status.style.background = "#e9f8ef";
+
+    }
+
+}
+
+
+/* ==========================================================
+   BACK TO TOP
+========================================================== */
+
+function initBackToTop(){
+
+    const btn = $("#backToTop");
+
+    if(!btn) return;
+
+
+    window.addEventListener("scroll",()=>{
+
+        if(window.scrollY > 350){
+
+            btn.classList.add("show");
+
+        }else{
+
+            btn.classList.remove("show");
+
+        }
+
+    });
+
+
+    btn.addEventListener("click",()=>{
+
+        window.scrollTo({
+
+            top:0,
+
+            behavior:"smooth"
+
+        });
+
+    });
+
+}
+
+
+/* ==========================================================
+   CONTACT PAGE INITIALIZATION
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        initContactForm();
+
+        initBackToTop();
+
+    }
+);
+
