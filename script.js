@@ -5,21 +5,16 @@
    JavaScript v4 FINAL CLEAN
 ========================================================== */
 
-
-/* ==========================================================
-   GLOBAL VARIABLES
-========================================================== */
-
 let wishlist =
-    JSON.parse(localStorage.getItem("wishlist")) || [];
+    JSON.parse(localStorage.getItem("wishlist") || "[]")
+    .map(Number)
+    .filter(Number.isFinite);
 
 let deferredPrompt = null;
-
 let products = [];
-
 let currentProduct = null;
-
 let productSliderTimer = null;
+let homeSliderTimers = [];
 
 
 /* ==========================================================
@@ -31,20 +26,6 @@ const $ = selector =>
 
 const $$ = selector =>
     document.querySelectorAll(selector);
-
-
-/* ==========================================================
-   ERROR HANDLER
-========================================================== */
-
-window.onerror =
-function(message, file, line, column, error){
-
-    console.error("ERROR :", message);
-    console.error("FILE  :", file);
-    console.error("LINE  :", line);
-
-};
 
 
 /* ==========================================================
@@ -72,26 +53,151 @@ function getProductId(){
 
 
 /* ==========================================================
-   SECTION 02
-   SHARE + SAVE CONTACT + PWA + NAVIGATION
+   IMAGE PATH FIX
+   products.json পরিবর্তন করার দরকার নেই
 ========================================================== */
 
+function imagePath(path){
 
-/* ==========================
+    if(!path) return "";
+
+    let src =
+        String(path)
+        .trim()
+        .replace(/\\/g,"/");
+
+
+    /*
+       ../images/product1.jpg
+       ↓
+       images/product1.jpg
+    */
+
+    src =
+        src.replace(
+            /^(\.\.\/)+images\//i,
+            "images/"
+        );
+
+
+    /*
+       ./images/product1.jpg
+       ↓
+       images/product1.jpg
+    */
+
+    src =
+        src.replace(
+            /^\.\/images\//i,
+            "images/"
+        );
+
+
+    if(
+        /^https?:\/\//i.test(src) ||
+        src.startsWith("data:")
+    ){
+
+        return src;
+
+    }
+
+
+    /*
+       শুধু product1.jpg হলে
+       images/product1.jpg
+    */
+
+    if(
+        !src.startsWith("images/") &&
+        !src.startsWith("/") &&
+        !src.startsWith("../")
+    ){
+
+        if(src.includes("/")){
+
+            return src;
+
+        }
+
+        return "images/" + src;
+
+    }
+
+
+    return src;
+
+}
+
+
+/* ==========================================================
+   GET PRODUCT GALLERY
+========================================================== */
+
+function getGallery(product){
+
+    return Array.isArray(
+        product?.gallery
+    )
+
+    ? product.gallery
+        .map(imagePath)
+        .filter(Boolean)
+
+    : [];
+
+}
+
+
+/* ==========================================================
+   ERROR HANDLER
+========================================================== */
+
+window.onerror =
+function(
+    message,
+    file,
+    line,
+    column,
+    error
+){
+
+    console.error(
+        "ERROR:",
+        message
+    );
+
+    console.error(
+        "FILE:",
+        file
+    );
+
+    console.error(
+        "LINE:",
+        line
+    );
+
+};
+
+
+/* ==========================================================
    SHARE CARD
-========================== */
+========================================================== */
 
 function initShareCard(){
 
-    const btn = $("#shareCard");
+    const btn =
+        $("#shareCard");
 
     if(!btn) return;
+
 
     btn.addEventListener(
         "click",
         async function(e){
 
             e.preventDefault();
+
 
             const shareData = {
 
@@ -115,9 +221,13 @@ function initShareCard(){
                         shareData
                     );
 
-                }catch(err){
+                }
+                catch(err){
 
-                    if(err.name !== "AbortError"){
+                    if(
+                        err.name !==
+                        "AbortError"
+                    ){
 
                         console.error(err);
 
@@ -125,7 +235,8 @@ function initShareCard(){
 
                 }
 
-            }else{
+            }
+            else{
 
                 try{
 
@@ -134,11 +245,13 @@ function initShareCard(){
                             window.location.href
                         );
 
+
                     alert(
                         "✅ লিংক কপি হয়েছে"
                     );
 
-                }catch(err){
+                }
+                catch(err){
 
                     console.error(err);
 
@@ -156,15 +269,17 @@ function initShareCard(){
 }
 
 
-/* ==========================
+/* ==========================================================
    SAVE CONTACT
-========================== */
+========================================================== */
 
 function initSaveContact(){
 
-    const btn = $("#saveContact");
+    const btn =
+        $("#saveContact");
 
     if(!btn) return;
+
 
     btn.addEventListener(
         "click",
@@ -181,9 +296,9 @@ function initSaveContact(){
 }
 
 
-/* ==========================
+/* ==========================================================
    PWA INSTALL
-========================== */
+========================================================== */
 
 function initPWA(){
 
@@ -191,6 +306,7 @@ function initPWA(){
         $("#installApp");
 
     if(!installBtn) return;
+
 
     installBtn.style.display =
         "none";
@@ -202,7 +318,8 @@ function initPWA(){
 
             e.preventDefault();
 
-            deferredPrompt = e;
+            deferredPrompt =
+                e;
 
             installBtn.style.display =
                 "flex";
@@ -221,20 +338,25 @@ function initPWA(){
 
             }
 
+
             deferredPrompt.prompt();
+
 
             try{
 
                 await deferredPrompt
                     .userChoice;
 
-            }catch(err){
+            }
+            catch(err){
 
                 console.error(err);
 
             }
 
-            deferredPrompt = null;
+
+            deferredPrompt =
+                null;
 
             installBtn.style.display =
                 "none";
@@ -247,7 +369,8 @@ function initPWA(){
         "appinstalled",
         function(){
 
-            deferredPrompt = null;
+            deferredPrompt =
+                null;
 
             installBtn.style.display =
                 "none";
@@ -258,68 +381,129 @@ function initPWA(){
 }
 
 
-/* ==========================
-   ACTIVE BOTTOM NAVIGATION
-========================== */
+/* ==========================================================
+   BOTTOM NAVIGATION
+========================================================== */
 
 function initBottomNavigation(){
 
     const currentPage =
         window.location.pathname
         .split("/")
-        .pop() || "index.html";
+        .pop() ||
+        "index.html";
 
 
     $$(".bottom-nav a")
-        .forEach(function(link){
+        .forEach(
+            function(link){
 
-            link.classList.remove(
-                "active"
-            );
-
-            const href =
-                link.getAttribute("href");
-
-            if(!href) return;
-
-            const cleanHref =
-                href.split("?")[0]
-                    .split("#")[0];
-
-
-            if(
-                cleanHref === currentPage ||
-                (
-                    currentPage === "" &&
-                    cleanHref === "index.html"
-                )
-            ){
-
-                link.classList.add(
+                link.classList.remove(
                     "active"
                 );
 
-            }
 
-        });
+                const href =
+                    link.getAttribute(
+                        "href"
+                    );
+
+
+                if(!href) return;
+
+
+                const cleanHref =
+                    href
+                    .split("?")[0]
+                    .split("#")[0];
+
+
+                if(
+                    cleanHref ===
+                    currentPage
+                ){
+
+                    link.classList.add(
+                        "active"
+                    );
+
+                }
+
+            }
+        );
 
 }
 
 
 /* ==========================================================
-   SECTION 03
+   PRODUCTS DATA LOAD
+========================================================== */
+
+async function fetchProducts(){
+
+    const response =
+        await fetch(
+            "data/products.json",
+            {
+                cache:"no-store"
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "data/products.json load failed"
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    if(!Array.isArray(data)){
+
+        throw new Error(
+            "products.json must contain an array"
+        );
+
+    }
+
+
+    products =
+        data;
+
+
+    return products;
+
+}
+
+
+/* ==========================================================
+   ENSURE PRODUCTS
+========================================================== */
+
+async function ensureProductsLoaded(){
+
+    if(products.length){
+
+        return products;
+
+    }
+
+
+    return await fetchProducts();
+
+}
+
+/* ==========================================================
    PRODUCTS
    LOAD + SEARCH + CATEGORY + SORT
 ========================================================== */
 
-
-/* ==========================
-   LOAD PRODUCTS
-========================== */
-
-async function loadProducts(
-    category = "all"
-){
+async function loadProducts(category = "all"){
 
     const productList =
         $("#productList");
@@ -329,23 +513,7 @@ async function loadProducts(
 
     try{
 
-        const response =
-            await fetch(
-                "data/products.json"
-            );
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "products.json load failed"
-            );
-
-        }
-
-
-        products =
-            await response.json();
+        await ensureProductsLoaded();
 
 
         const searchInput =
@@ -388,17 +556,9 @@ async function loadProducts(
 
 
                     const matchSearch =
-                        productName.includes(
-                            keyword
-                        ) ||
-
-                        productType.includes(
-                            keyword
-                        ) ||
-
-                        productDescription.includes(
-                            keyword
-                        );
+                        productName.includes(keyword) ||
+                        productType.includes(keyword) ||
+                        productDescription.includes(keyword);
 
 
                     return (
@@ -519,11 +679,7 @@ async function loadProducts(
             function(product){
 
                 const gallery =
-                    Array.isArray(
-                        product.gallery
-                    )
-                    ? product.gallery
-                    : [];
+                    getGallery(product);
 
 
                 productList.innerHTML += `
@@ -535,6 +691,7 @@ ${
     ? '<span class="offer-badge">🔥 Offer</span>'
     : ""
 }
+
 
 <button
     class="wishlist-btn"
@@ -550,6 +707,8 @@ ${
 <div class="slider">
 
 ${
+    gallery.length
+    ?
     gallery.map(
         function(img,index){
 
@@ -558,17 +717,25 @@ ${
 <img
     src="${img}"
     class="product-img ${
-        index === 0 ? "active" : ""
+        index === 0
+        ? "active"
+        : ""
     }"
     alt="${product.name}"
-    loading="lazy">
+    loading="lazy"
+    onerror="this.style.display='none';">
 
 `;
 
         }
     ).join("")
+    :
+    `
+<div class="no-image">
+📷 ছবি নেই
+</div>
+`
 }
-
 
 </div>
 
@@ -585,12 +752,14 @@ ${product.name}
 
 ${
     Number(product.oldPrice || 0) > 0
-    ? `
+    ?
+    `
 <p class="old-price">
 ${formatPrice(product.oldPrice)}
 </p>
 `
-    : ""
+    :
+    ""
 }
 
 
@@ -650,6 +819,10 @@ ${product.description || ""}
 পণ্য লোড করতে সমস্যা হয়েছে।
 </p>
 
+<p>
+${error.message || ""}
+</p>
+
 </div>
 
 `;
@@ -659,9 +832,9 @@ ${product.description || ""}
 }
 
 
-/* ==========================
+/* ==========================================================
    SEARCH
-========================== */
+========================================================== */
 
 function initSearch(){
 
@@ -691,9 +864,9 @@ function initSearch(){
 }
 
 
-/* ==========================
+/* ==========================================================
    CATEGORY FILTER
-========================== */
+========================================================== */
 
 function initCategoryFilter(){
 
@@ -735,9 +908,9 @@ function initCategoryFilter(){
 }
 
 
-/* ==========================
+/* ==========================================================
    SORT
-========================== */
+========================================================== */
 
 function initSort(){
 
@@ -768,7 +941,6 @@ function initSort(){
 
 
 /* ==========================================================
-   SECTION 04
    PRODUCT DETAILS
 ========================================================== */
 
@@ -782,31 +954,11 @@ async function loadProductDetails(){
 
     try{
 
+        await ensureProductsLoaded();
+
+
         const id =
             getProductId();
-
-
-        if(products.length === 0){
-
-            const response =
-                await fetch(
-                    "data/products.json"
-                );
-
-
-            if(!response.ok){
-
-                throw new Error(
-                    "products.json load failed"
-                );
-
-            }
-
-
-            products =
-                await response.json();
-
-        }
 
 
         currentProduct =
@@ -847,11 +999,7 @@ async function loadProductDetails(){
 
 
         const gallery =
-            Array.isArray(
-                currentProduct.gallery
-            )
-            ? currentProduct.gallery
-            : [];
+            getGallery(currentProduct);
 
 
         details.innerHTML = `
@@ -862,6 +1010,8 @@ async function loadProductDetails(){
 <div class="product-slider">
 
 ${
+    gallery.length
+    ?
     gallery.map(
         function(img,index){
 
@@ -870,14 +1020,23 @@ ${
 <img
     src="${img}"
     class="product-img ${
-        index === 0 ? "active" : ""
+        index === 0
+        ? "active"
+        : ""
     }"
-    alt="${currentProduct.name}">
+    alt="${currentProduct.name}"
+    onerror="this.style.display='none';">
 
 `;
 
         }
     ).join("")
+    :
+    `
+<div class="no-image">
+📷 ছবি নেই
+</div>
+`
 }
 
 </div>
@@ -894,7 +1053,9 @@ ${
 <button
     type="button"
     class="dot ${
-        index === 0 ? "active" : ""
+        index === 0
+        ? "active"
+        : ""
     }"
     data-index="${index}"
     aria-label="ছবি ${index + 1}">
@@ -924,12 +1085,14 @@ ${currentProduct.name}
 
 ${
     Number(currentProduct.oldPrice || 0) > 0
-    ? `
+    ?
+    `
 <p class="old-price">
 ${formatPrice(currentProduct.oldPrice)}
 </p>
 `
-    : ""
+    :
+    ""
 }
 
 
@@ -1089,6 +1252,10 @@ ${window.location.href}`
 ❌ Product Load Failed
 </h2>
 
+<p>
+${error.message || ""}
+</p>
+
 </div>
 
 `;
@@ -1099,14 +1266,18 @@ ${window.location.href}`
 
 
 /* ==========================================================
+   PART 2 END
+========================================================== */
+
+/* ==========================================================
    SECTION 05
    SLIDER + QUANTITY + SHARE + RELATED
 ========================================================== */
 
 
-/* ==========================
+/* ==========================================================
    PRODUCT DETAILS SLIDER
-========================== */
+========================================================== */
 
 function startProductSlider(){
 
@@ -1137,7 +1308,7 @@ function startProductSlider(){
             function(){
 
                 images[current]
-                    .classList
+                    ?.classList
                     .remove("active");
 
 
@@ -1155,7 +1326,7 @@ function startProductSlider(){
 
 
                 images[current]
-                    .classList
+                    ?.classList
                     .add("active");
 
 
@@ -1170,9 +1341,9 @@ function startProductSlider(){
 }
 
 
-/* ==========================
+/* ==========================================================
    PRODUCT DOTS
-========================== */
+========================================================== */
 
 function initProductDots(){
 
@@ -1204,9 +1375,9 @@ function initProductDots(){
 }
 
 
-/* ==========================
+/* ==========================================================
    CHANGE PRODUCT IMAGE
-========================== */
+========================================================== */
 
 function changeImage(index){
 
@@ -1261,9 +1432,9 @@ function changeImage(index){
 }
 
 
-/* ==========================
-   UPDATE DOT
-========================== */
+/* ==========================================================
+   UPDATE PRODUCT DOT
+========================================================== */
 
 function updateProductDots(index){
 
@@ -1289,11 +1460,29 @@ function updateProductDots(index){
 }
 
 
-/* ==========================
+/* ==========================================================
    HOME PRODUCT SLIDER
-========================== */
+========================================================== */
 
 function startHomeSlider(){
+
+    /*
+       আগের timer থাকলে বন্ধ করি
+       যাতে search/filter করার পর
+       একাধিক slider timer না চলে।
+    */
+
+    homeSliderTimers.forEach(
+        function(timer){
+
+            clearInterval(timer);
+
+        }
+    );
+
+
+    homeSliderTimers = [];
+
 
     document
         .querySelectorAll(
@@ -1318,33 +1507,39 @@ function startHomeSlider(){
                 let current = 0;
 
 
-                setInterval(
-                    function(){
+                const timer =
+                    setInterval(
+                        function(){
 
-                        images[current]
-                            .classList
-                            .remove("active");
-
-
-                        current++;
+                            images[current]
+                                ?.classList
+                                .remove("active");
 
 
-                        if(
-                            current >=
-                            images.length
-                        ){
-
-                            current = 0;
-
-                        }
+                            current++;
 
 
-                        images[current]
-                            .classList
-                            .add("active");
+                            if(
+                                current >=
+                                images.length
+                            ){
 
-                    },
-                    3000
+                                current = 0;
+
+                            }
+
+
+                            images[current]
+                                ?.classList
+                                .add("active");
+
+                        },
+                        3000
+                    );
+
+
+                homeSliderTimers.push(
+                    timer
                 );
 
             }
@@ -1353,9 +1548,9 @@ function startHomeSlider(){
 }
 
 
-/* ==========================
+/* ==========================================================
    QUANTITY
-========================== */
+========================================================== */
 
 function initQuantity(){
 
@@ -1397,7 +1592,7 @@ function initQuantity(){
         total.textContent =
             formatPrice(
                 Number(
-                    currentProduct.price
+                    currentProduct.price || 0
                 ) * qty
             );
 
@@ -1407,9 +1602,18 @@ function initQuantity(){
     plus.onclick =
         function(){
 
-            qty++;
+            /*
+               সর্বোচ্চ 99
+               চাইলে পরে পরিবর্তন করা যাবে।
+            */
 
-            update();
+            if(qty < 99){
+
+                qty++;
+
+                update();
+
+            }
 
         };
 
@@ -1433,16 +1637,20 @@ function initQuantity(){
 }
 
 
-/* ==========================
+/* ==========================================================
    SHARE PRODUCT
-========================== */
+========================================================== */
 
 function initShareProduct(){
 
     const btn =
         $("#shareProduct");
 
-    if(!btn || !currentProduct){
+
+    if(
+        !btn ||
+        !currentProduct
+    ){
 
         return;
 
@@ -1468,6 +1676,10 @@ function initShareProduct(){
             };
 
 
+            /*
+               Android / supported browser
+            */
+
             if(navigator.share){
 
                 try{
@@ -1476,20 +1688,31 @@ function initShareProduct(){
                         shareData
                     );
 
-                }catch(err){
+                }
+                catch(err){
 
                     if(
                         err.name !==
                         "AbortError"
                     ){
 
-                        console.error(err);
+                        console.error(
+                            "Share Error:",
+                            err
+                        );
 
                     }
 
                 }
 
-            }else{
+            }
+
+
+            /*
+               Browser যেখানে Web Share নেই
+            */
+
+            else{
 
                 try{
 
@@ -1498,13 +1721,19 @@ function initShareProduct(){
                             window.location.href
                         );
 
+
                     alert(
                         "✅ Product link copied"
                     );
 
-                }catch(err){
+                }
+                catch(err){
 
-                    console.error(err);
+                    console.error(
+                        "Copy Error:",
+                        err
+                    );
+
 
                     alert(
                         "❌ Link copy failed"
@@ -1520,14 +1749,15 @@ function initShareProduct(){
 }
 
 
-/* ==========================
+/* ==========================================================
    RELATED PRODUCTS
-========================== */
+========================================================== */
 
 function loadRelatedProducts(){
 
     const related =
         $("#relatedProducts");
+
 
     if(
         !related ||
@@ -1542,41 +1772,108 @@ function loadRelatedProducts(){
     related.innerHTML = "";
 
 
-    products
+    /*
+       একই category-এর product আগে দেখাবে।
+       তারপর প্রয়োজন হলে অন্য product যোগ হবে।
+    */
 
-        .filter(
+    const sameCategory =
+        products.filter(
             function(product){
 
-                return Number(product.id) !==
-                    Number(currentProduct.id);
+                return (
+                    Number(product.id) !==
+                    Number(currentProduct.id) &&
+
+                    product.category ===
+                    currentProduct.category
+                );
 
             }
-        )
-
-        .slice(0,4)
-
-        .forEach(
-            function(item){
-
-                const image =
-                    Array.isArray(item.gallery) &&
-                    item.gallery.length
-                    ? item.gallery[0]
-                    : "";
+        );
 
 
-                related.innerHTML += `
+    const otherProducts =
+        products.filter(
+            function(product){
+
+                return (
+                    Number(product.id) !==
+                    Number(currentProduct.id) &&
+
+                    product.category !==
+                    currentProduct.category
+                );
+
+            }
+        );
+
+
+    const relatedItems =
+        [
+            ...sameCategory,
+            ...otherProducts
+        ]
+        .slice(0,4);
+
+
+    if(!relatedItems.length){
+
+        related.innerHTML = `
+
+<div class="card">
+
+<p>
+এই মুহূর্তে Related Product নেই।
+</p>
+
+</div>
+
+`;
+
+        return;
+
+    }
+
+
+    relatedItems.forEach(
+        function(item){
+
+            const gallery =
+                getGallery(item);
+
+
+            const image =
+                gallery.length
+                ? gallery[0]
+                : "";
+
+
+            related.innerHTML += `
 
 <div class="product-card">
 
 
 <div class="slider">
 
+${
+    image
+    ?
+    `
 <img
     src="${image}"
     class="product-img active"
     alt="${item.name}"
-    loading="lazy">
+    loading="lazy"
+    onerror="this.style.display='none';">
+`
+    :
+    `
+<div class="no-image">
+📷 ছবি নেই
+</div>
+`
+}
 
 </div>
 
@@ -1586,9 +1883,19 @@ ${item.name}
 </h3>
 
 
+<p class="rating">
+⭐⭐⭐⭐⭐ (${item.rating || 0})
+</p>
+
+
 <p class="price">
 ${formatPrice(item.price)}
 </p>
+
+
+<span class="stock">
+🟢 ${item.stock || "স্টকে আছে"}
+</span>
 
 
 <a
@@ -1604,11 +1911,15 @@ ${formatPrice(item.price)}
 
 `;
 
-            }
-        );
+        }
+    );
 
 }
 
+
+/* ==========================================================
+   PART 3 END
+========================================================== */
 
 /* ==========================================================
    SECTION 06
@@ -1616,9 +1927,9 @@ ${formatPrice(item.price)}
 ========================================================== */
 
 
-/* ==========================
+/* ==========================================================
    UPDATE WISHLIST COUNTER
-========================== */
+========================================================== */
 
 function updateWishlistCounter(){
 
@@ -1634,9 +1945,9 @@ function updateWishlistCounter(){
 }
 
 
-/* ==========================
+/* ==========================================================
    INIT WISHLIST
-========================== */
+========================================================== */
 
 function initWishlist(){
 
@@ -1661,7 +1972,8 @@ function initWishlist(){
                         "active"
                     );
 
-                }else{
+                }
+                else{
 
                     btn.textContent =
                         "🤍";
@@ -1672,6 +1984,11 @@ function initWishlist(){
 
                 }
 
+
+                /*
+                   আগের click handler
+                   duplicate হওয়া এড়াতে
+                */
 
                 btn.onclick =
                     function(){
@@ -1691,11 +2008,24 @@ function initWishlist(){
 }
 
 
-/* ==========================
+/* ==========================================================
    TOGGLE WISHLIST
-========================== */
+========================================================== */
 
 function toggleWishlist(id){
+
+    id =
+        Number(id);
+
+
+    if(
+        !Number.isFinite(id)
+    ){
+
+        return;
+
+    }
+
 
     if(
         wishlist.includes(id)
@@ -1705,32 +2035,69 @@ function toggleWishlist(id){
             wishlist.filter(
                 function(item){
 
-                    return item !== id;
+                    return (
+                        Number(item) !==
+                        id
+                    );
 
                 }
             );
 
-    }else{
+    }
+    else{
 
         wishlist.push(id);
 
     }
 
 
+    /*
+       Duplicate ID remove
+    */
+
+    wishlist =
+        [
+            ...new Set(
+                wishlist.map(Number)
+            )
+        ];
+
+
     localStorage.setItem(
         "wishlist",
-        JSON.stringify(wishlist)
+        JSON.stringify(
+            wishlist
+        )
     );
 
 
+    /*
+       Product page হলে
+       current button update
+    */
+
     initWishlist();
+
+
+    /*
+       Wishlist page হলে
+       list refresh
+    */
+
+    if(
+        $("#wishlistProducts")
+    ){
+
+        loadWishlistPage();
+
+    }
 
 }
 
 
-/* ==========================
+/* ==========================================================
    LOAD WISHLIST PAGE
-========================== */
+========================================================== */
 
 function loadWishlistPage(){
 
@@ -1741,6 +2108,37 @@ function loadWishlistPage(){
 
 
     container.innerHTML = "";
+
+
+    /*
+       Products load না হলে
+       এখানে কিছু করার নেই
+    */
+
+    if(
+        !Array.isArray(products) ||
+        products.length === 0
+    ){
+
+        container.innerHTML = `
+
+<div class="card">
+
+<h2>
+❌ Product Load Failed
+</h2>
+
+<p>
+পণ্য লোড করা যায়নি।
+</p>
+
+</div>
+
+`;
+
+        return;
+
+    }
 
 
     const items =
@@ -1755,6 +2153,10 @@ function loadWishlistPage(){
         );
 
 
+    /*
+       Wishlist Empty
+    */
+
     if(items.length === 0){
 
         container.innerHTML = `
@@ -1764,6 +2166,11 @@ function loadWishlistPage(){
 <h2>
 ❤️ Wishlist খালি
 </h2>
+
+<p>
+আপনার পছন্দের পণ্য এখানে যোগ করুন।
+</p>
+
 
 <a
     href="products.html"
@@ -1777,18 +2184,27 @@ function loadWishlistPage(){
 
 `;
 
+        updateWishlistCounter();
+
         return;
 
     }
 
 
+    /*
+       Wishlist Products
+    */
+
     items.forEach(
         function(product){
 
+            const gallery =
+                getGallery(product);
+
+
             const image =
-                Array.isArray(product.gallery) &&
-                product.gallery.length
-                ? product.gallery[0]
+                gallery.length
+                ? gallery[0]
                 : "";
 
 
@@ -1797,13 +2213,39 @@ function loadWishlistPage(){
 <div class="product-card">
 
 
+${
+    product.offer
+    ?
+    `
+<span class="offer-badge">
+🔥 Offer
+</span>
+`
+    :
+    ""
+}
+
+
 <div class="slider">
 
+${
+    image
+    ?
+    `
 <img
     src="${image}"
     class="product-img active"
     alt="${product.name}"
-    loading="lazy">
+    loading="lazy"
+    onerror="this.style.display='none';">
+`
+    :
+    `
+<div class="no-image">
+📷 ছবি নেই
+</div>
+`
+}
 
 </div>
 
@@ -1813,8 +2255,36 @@ ${product.name}
 </h3>
 
 
+<p class="rating">
+⭐⭐⭐⭐⭐ (${product.rating || 0})
+</p>
+
+
+${
+    Number(product.oldPrice || 0) > 0
+    ?
+    `
+<p class="old-price">
+${formatPrice(product.oldPrice)}
+</p>
+`
+    :
+    ""
+}
+
+
 <p class="price">
 ${formatPrice(product.price)}
+</p>
+
+
+<span class="stock">
+🟢 ${product.stock || "স্টকে আছে"}
+</span>
+
+
+<p>
+${product.description || ""}
 </p>
 
 
@@ -1832,7 +2302,7 @@ ${formatPrice(product.price)}
     data-id="${product.id}"
     type="button">
 
-🗑 Remove
+🗑 Wishlist থেকে সরান
 
 </button>
 
@@ -1845,6 +2315,10 @@ ${formatPrice(product.price)}
     );
 
 
+    /*
+       Remove Wishlist Buttons
+    */
+
     $$(".removeWishlist")
         .forEach(
             function(btn){
@@ -1852,32 +2326,35 @@ ${formatPrice(product.price)}
                 btn.onclick =
                     function(){
 
-                        toggleWishlist(
+                        const id =
                             Number(
                                 btn.dataset.id
-                            )
+                            );
+
+
+                        toggleWishlist(
+                            id
                         );
-
-
-                        loadWishlistPage();
 
                     };
 
             }
         );
 
+
+    updateWishlistCounter();
+
 }
 
 
 /* ==========================================================
-   SECTION 07
-   IMAGE PREVIEW + CONTACT + FINAL INITIALIZATION
+   PART 4 END
 ========================================================== */
 
-
-/* ==========================
+/* ==========================================================
+   SECTION 07
    IMAGE PREVIEW
-========================== */
+========================================================== */
 
 function initImagePreview(){
 
@@ -1902,20 +2379,87 @@ function initImagePreview(){
     }
 
 
+    /*
+       Product image click করলে
+       বড় করে দেখাবে
+    */
+
     document.addEventListener(
         "click",
         function(e){
 
+            const image =
+                e.target.closest(
+                    ".product-img"
+                );
+
+
+            if(!image){
+
+                return;
+
+            }
+
+
             if(
-                e.target.classList
-                    .contains("product-img")
+                !image.src ||
+                image.style.display === "none"
             ){
 
-                modal.style.display =
-                    "flex";
+                return;
 
-                modalImg.src =
-                    e.target.src;
+            }
+
+
+            modalImg.src =
+                image.src;
+
+
+            modalImg.alt =
+                image.alt ||
+                "Product Image";
+
+
+            modal.style.display =
+                "flex";
+
+
+            document.body.classList.add(
+                "modal-open"
+            );
+
+        }
+    );
+
+
+    /*
+       Close button
+    */
+
+    close.addEventListener(
+        "click",
+        function(){
+
+            closeImageModal();
+
+        }
+    );
+
+
+    /*
+       Modal-এর বাইরে click করলে
+       বন্ধ হবে
+    */
+
+    modal.addEventListener(
+        "click",
+        function(e){
+
+            if(
+                e.target === modal
+            ){
+
+                closeImageModal();
 
             }
 
@@ -1923,28 +2467,65 @@ function initImagePreview(){
     );
 
 
-    close.onclick =
-        function(){
+    /*
+       ESC চাপলেও বন্ধ হবে
+    */
 
-            modal.style.display =
-                "none";
-
-        };
-
-
-    modal.onclick =
+    document.addEventListener(
+        "keydown",
         function(e){
 
             if(
-                e.target === modal
+                e.key === "Escape" &&
+                modal.style.display === "flex"
             ){
 
-                modal.style.display =
-                    "none";
+                closeImageModal();
 
             }
 
-        };
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   CLOSE IMAGE MODAL
+========================================================== */
+
+function closeImageModal(){
+
+    const modal =
+        $("#imageModal");
+
+    const modalImg =
+        $("#modalImage");
+
+
+    if(!modal){
+
+        return;
+
+    }
+
+
+    modal.style.display =
+        "none";
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+
+    if(modalImg){
+
+        modalImg.removeAttribute(
+            "src"
+        );
+
+    }
 
 }
 
@@ -1952,13 +2533,13 @@ function initImagePreview(){
 /* ==========================================================
    SECTION 08
    CONTACT PAGE
-   FORM + WHATSAPP + BACK TO TOP
+   FORM + WHATSAPP
 ========================================================== */
 
 
-/* ==========================
+/* ==========================================================
    CONTACT FORM
-========================== */
+========================================================== */
 
 function initContactForm(){
 
@@ -1982,32 +2563,41 @@ function initContactForm(){
             const name =
                 $("#contactName")
                 ?.value
-                .trim() || "";
+                .trim() ||
+                "";
 
 
             const phone =
                 $("#contactPhone")
                 ?.value
-                .trim() || "";
+                .trim() ||
+                "";
 
 
             const email =
                 $("#contactEmail")
                 ?.value
-                .trim() || "";
+                .trim() ||
+                "";
 
 
             const subject =
                 $("#contactSubject")
                 ?.value
-                .trim() || "";
+                .trim() ||
+                "";
 
 
             const message =
                 $("#contactMessage")
                 ?.value
-                .trim() || "";
+                .trim() ||
+                "";
 
+
+            /* ==========================
+               VALIDATION
+            ========================== */
 
             if(!name){
 
@@ -2016,8 +2606,10 @@ function initContactForm(){
                     "error"
                 );
 
+
                 $("#contactName")
                     ?.focus();
+
 
                 return;
 
@@ -2031,8 +2623,10 @@ function initContactForm(){
                     "error"
                 );
 
+
                 $("#contactPhone")
                     ?.focus();
+
 
                 return;
 
@@ -2046,8 +2640,10 @@ function initContactForm(){
                     "error"
                 );
 
+
                 $("#contactSubject")
                     ?.focus();
+
 
                 return;
 
@@ -2061,13 +2657,19 @@ function initContactForm(){
                     "error"
                 );
 
+
                 $("#contactMessage")
                     ?.focus();
+
 
                 return;
 
             }
 
+
+            /* ==========================
+               SUBJECT TEXT
+            ========================== */
 
             const subjectText = {
 
@@ -2094,6 +2696,10 @@ function initContactForm(){
                 subject;
 
 
+            /* ==========================
+               WHATSAPP MESSAGE
+            ========================== */
+
             const whatsappMessage =
 
 `🌿 Maliha Agro Industry
@@ -2119,6 +2725,11 @@ ${message}
 Maliha Agro Industry`;
 
 
+            /*
+               Maliha Agro Industry
+               WhatsApp Number
+            */
+
             const whatsappURL =
                 "https://wa.me/8801303679189?text=" +
                 encodeURIComponent(
@@ -2131,6 +2742,11 @@ Maliha Agro Industry`;
                 "success"
             );
 
+
+            /*
+               সামান্য delay
+               তারপর WhatsApp open
+            */
 
             setTimeout(
                 function(){
@@ -2151,9 +2767,9 @@ Maliha Agro Industry`;
 }
 
 
-/* ==========================
+/* ==========================================================
    CONTACT STATUS
-========================== */
+========================================================== */
 
 function showContactStatus(
     message,
@@ -2182,18 +2798,27 @@ function showContactStatus(
         "10px";
 
 
-    if(type === "error"){
+    status.style.fontSize =
+        "14px";
+
+
+    if(
+        type === "error"
+    ){
 
         status.style.color =
             "#b71c1c";
 
+
         status.style.background =
             "#ffebee";
 
-    }else{
+    }
+    else{
 
         status.style.color =
             "#166C39";
+
 
         status.style.background =
             "#e9f8ef";
@@ -2203,9 +2828,9 @@ function showContactStatus(
 }
 
 
-/* ==========================
+/* ==========================================================
    BACK TO TOP
-========================== */
+========================================================== */
 
 function initBackToTop(){
 
@@ -2214,6 +2839,10 @@ function initBackToTop(){
 
     if(!btn) return;
 
+
+    /*
+       Scroll করলে button দেখাবে
+    */
 
     window.addEventListener(
         "scroll",
@@ -2227,7 +2856,8 @@ function initBackToTop(){
                     "show"
                 );
 
-            }else{
+            }
+            else{
 
                 btn.classList.remove(
                     "show"
@@ -2235,9 +2865,16 @@ function initBackToTop(){
 
             }
 
+        },
+        {
+            passive:true
         }
     );
 
+
+    /*
+       Button click
+    */
 
     btn.addEventListener(
         "click",
@@ -2258,6 +2895,11 @@ function initBackToTop(){
 
 
 /* ==========================================================
+   PART 5 END
+========================================================== */
+
+/* ==========================================================
+   SECTION 09
    FINAL INITIALIZATION
    ONLY ONE DOMContentLoaded
 ========================================================== */
@@ -2267,13 +2909,13 @@ document.addEventListener(
     async function(){
 
         console.log(
-            "✅ Maliha Agro Industry JS v4 FINAL Loaded"
+            "✅ Maliha Agro Industry JS v4 Loaded"
         );
 
 
-        /* ==========================
-           GLOBAL
-        ========================== */
+        /* ==================================================
+           GLOBAL FUNCTIONS
+        ================================================== */
 
         updateWishlistCounter();
 
@@ -2292,78 +2934,154 @@ document.addEventListener(
         initBackToTop();
 
 
-        /* ==========================
+        /* ==================================================
            PRODUCTS PAGE
-        ========================== */
+        ================================================== */
 
-        if($("#productList")){
+        if(
+            $("#productList")
+        ){
 
-            initSearch();
+            try{
 
-            initSort();
+                /*
+                   Search / Sort / Category
+                   আগে initialize হবে
+                */
 
-            initCategoryFilter();
+                initSearch();
 
-            await loadProducts(
-                "all"
-            );
+                initSort();
+
+                initCategoryFilter();
+
+
+                /*
+                   Product data load
+                */
+
+                await loadProducts(
+                    "all"
+                );
+
+            }
+            catch(error){
+
+                console.error(
+                    "Products Page Error:",
+                    error
+                );
+
+            }
 
         }
 
 
-        /* ==========================
+        /* ==================================================
            PRODUCT DETAILS PAGE
-        ========================== */
+        ================================================== */
 
-        if($("#productDetails")){
+        if(
+            $("#productDetails")
+        ){
 
-            await loadProductDetails();
+            try{
+
+                await loadProductDetails();
+
+            }
+            catch(error){
+
+                console.error(
+                    "Product Details Page Error:",
+                    error
+                );
+
+            }
 
         }
 
 
-        /* ==========================
+        /* ==================================================
            WISHLIST PAGE
-        ========================== */
+        ================================================== */
 
-        if($("#wishlistProducts")){
+        if(
+            $("#wishlistProducts")
+        ){
 
-            if(products.length === 0){
+            try{
 
-                try{
+                await ensureProductsLoaded();
 
-                    const response =
-                        await fetch(
-                            "data/products.json"
-                        );
+                loadWishlistPage();
 
+            }
+            catch(error){
 
-                    if(!response.ok){
-
-                        throw new Error(
-                            "products.json load failed"
-                        );
-
-                    }
+                console.error(
+                    "Wishlist Page Error:",
+                    error
+                );
 
 
-                    products =
-                        await response.json();
+                const container =
+                    $("#wishlistProducts");
 
-                }catch(error){
 
-                    console.error(
-                        error
-                    );
+                if(container){
+
+                    container.innerHTML = `
+
+<div class="card">
+
+<h2>
+❌ Product Load Failed
+</h2>
+
+<p>
+পণ্য লোড করতে সমস্যা হয়েছে।
+</p>
+
+<button
+    class="btn"
+    type="button"
+    onclick="location.reload()">
+
+🔄 আবার চেষ্টা করুন
+
+</button>
+
+</div>
+
+`;
 
                 }
 
             }
 
-
-            loadWishlistPage();
-
         }
+
+
+        /* ==================================================
+           FINAL WISHLIST UPDATE
+        ================================================== */
+
+        updateWishlistCounter();
+
+
+        console.log(
+            "✅ Maliha Agro Industry — All Systems Ready"
+        );
 
     }
 );
+
+
+/* ==========================================================
+   SCRIPT.JS END
+========================================================== */
+
+
+
+
