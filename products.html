@@ -2,575 +2,446 @@
 <html lang="bn">
 
 <head>
+    <meta charset="UTF-8">
 
-<meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="description"
+        content="Maliha Agro Industry - জৈব সার, ভার্মি কম্পোস্ট, ট্রাইকো কম্পোস্ট ও কৃষি পণ্য।"
+    >
 
-<meta
-name="description"
-content="Maliha Agro Industry Products">
+    <meta
+        name="theme-color"
+        content="#1F8F4D"
+    >
 
-<title>
+    <title>
+        পণ্যসমূহ | Maliha Agro Industry
+    </title>
 
-সকল প্রোডাক্ট |
-Maliha Agro Industry
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-</title>
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-<!-- Font Awesome -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
-<!-- Google Font -->
-
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
-
-<!-- CSS -->
-
-<link
-rel="stylesheet"
-href="style.css?v=4">
-
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
+
 
 <body>
 
-<div class="container">
 
-<div class="card">
+<!-- ======================================================
+     MAIN CONTAINER
+====================================================== -->
 
-<!-- ==========================================================
-SECTION 02
-PAGE HEADER
-========================================================== -->
+<main class="container">
 
-<section class="page-header fade-up">
 
-    <div class="header-top">
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
 
-        <a href="index.html" class="back-btn">
+    <section class="contact-header fade-up">
 
-            <i class="fa-solid fa-arrow-left"></i>
-
-            <span>হোমে ফিরে যান</span>
-
-        </a>
-
-        <div class="page-title">
-
-            <h1>
-
-                🛍️ সকল প্রোডাক্ট
-
-            </h1>
-
-            <p>
-
-                Maliha Agro Industry
-
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ==========================================================
-SEARCH + SORT
-========================================================== -->
-
-<section class="product-toolbar fade-up">
-
-    <div class="search-box">
-
-        <i class="fa-solid fa-magnifying-glass"></i>
-
-        <input
-            type="text"
-            id="searchProduct"
-            placeholder="প্রোডাক্ট খুঁজুন...">
-
-    </div>
-
-    <div class="sort-box">
-
-        <select id="sortProducts">
-
-            <option value="default">
-
-                সাজান
-
-            </option>
-
-            <option value="low-high">
-
-                মূল্য (কম → বেশি)
-
-            </option>
-
-            <option value="high-low">
-
-                মূল্য (বেশি → কম)
-
-            </option>
-
-            <option value="new">
-
-                নতুন প্রোডাক্ট
-
-            </option>
-
-            <option value="best">
-
-                জনপ্রিয়
-
-            </option>
-
-        </select>
-
-    </div>
-
-</section>
-
-<!-- ==========================================================
-CATEGORY FILTER
-========================================================== -->
-
-<section class="category-filter fade-up">
-
-    <button
-        class="filter-btn active"
-        data-category="all">
-
-        🌱 সব
-
-    </button>
-
-    <button
-        class="filter-btn"
-        data-category="vermi">
-
-        🪱 ভার্মি কম্পোস্ট
-
-    </button>
-
-    <button
-        class="filter-btn"
-        data-category="tricho">
-
-        🍀 ট্রাইকো কম্পোস্ট
-
-    </button>
-
-    <button
-        class="filter-btn"
-        data-category="egg">
-
-        🥚 এগ শেল পাউডার
-
-    </button>
-
-</section>
-
-<!-- ==========================================================
-PRODUCT COUNT
-========================================================== -->
-
-<div class="product-count fade-up">
-
-    <span id="productCounter">
-
-        মোট ০ টি প্রোডাক্ট
-
-    </span>
-
-</div>    
-
-<!-- ==========================================================
-SECTION 03
-PRODUCT GRID
-========================================================== -->
-
-<section class="products-section fade-up">
-
-    <!-- Dynamic Product Grid -->
-
-    <div
-        id="productList"
-        class="products-grid">
-
-    </div>
-
-    <!-- Empty Result -->
-
-    <div
-        id="emptyProducts"
-        class="empty-products"
-        style="display:none;">
-
-        <img
-            src="images/no-product.png"
-            alt="No Product">
-
-        <h2>
-
-            😔 কোনো প্রোডাক্ট পাওয়া যায়নি
-
-        </h2>
+        <h1>
+            🌱 আমাদের পণ্যসমূহ
+        </h1>
 
         <p>
-
-            অন্য কিছু লিখে আবার খুঁজে দেখুন।
-
+            Maliha Agro Industry-এর মানসম্মত জৈব সার ও কৃষি পণ্য
         </p>
 
-        <button
-            class="btn"
-            onclick="loadProducts('all')">
+    </section>
 
-            🔄 সব প্রোডাক্ট দেখুন
 
-        </button>
 
-    </div>
+    <!-- ==================================================
+         SEARCH + FILTER
+    ================================================== -->
 
-</section>
+    <section class="card fade-up">
 
-<!-- ==========================================================
-SECTION 04
-PAGINATION + LOAD MORE
-========================================================== -->
 
-<section class="pagination-section fade-up">
-
-    <div class="pagination-summary">
-
-        <p>
-
-            <span id="showingProducts">
-
-                ০
-
-            </span>
-
-            টি প্রোডাক্ট প্রদর্শিত হচ্ছে
-
-        </p>
-
-    </div>
-
-    <div class="pagination-buttons">
-
-        <button
-            id="prevPage"
-            class="btn pagination-btn">
-
-            ⬅ পূর্ববর্তী
-
-        </button>
+        <!-- SEARCH -->
 
         <div
-            id="pageNumbers"
-            class="page-numbers">
+            class="search-box"
+            style="
+                display:flex;
+                gap:10px;
+                margin-bottom:20px;
+            "
+        >
+
+            <input
+                type="search"
+                id="searchProduct"
+                placeholder="🔎 পণ্যের নাম লিখে খুঁজুন..."
+                aria-label="পণ্য খুঁজুন"
+                style="
+                    flex:1;
+                    padding:15px;
+                    border:1px solid #ddd;
+                    border-radius:14px;
+                    font-size:15px;
+                "
+            >
 
         </div>
 
-        <button
-            id="nextPage"
-            class="btn pagination-btn">
 
-            পরবর্তী ➡
 
-        </button>
+        <!-- CATEGORY FILTER -->
 
-    </div>
+        <div
+            class="filter-buttons"
+            style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:10px;
+                margin-bottom:20px;
+            "
+        >
 
-    <div class="load-more-box">
+            <button
+                type="button"
+                class="filter-btn active"
+                data-category="all"
+                style="
+                    padding:11px 18px;
+                    border-radius:30px;
+                    background:#1F8F4D;
+                    color:#fff;
+                    font-weight:600;
+                "
+            >
+                🌱 সব পণ্য
+            </button>
 
-        <button
-            id="loadMoreBtn"
-            class="btn">
 
-            📦 আরও প্রোডাক্ট দেখুন
+            <button
+                type="button"
+                class="filter-btn"
+                data-category="organic-fertilizer"
+                style="
+                    padding:11px 18px;
+                    border-radius:30px;
+                    background:#e9f8ef;
+                    color:#1F8F4D;
+                    font-weight:600;
+                "
+            >
+                🌿 জৈব সার
+            </button>
 
-        </button>
 
-    </div>
+            <button
+                type="button"
+                class="filter-btn"
+                data-category="soil-conditioner"
+                style="
+                    padding:11px 18px;
+                    border-radius:30px;
+                    background:#e9f8ef;
+                    color:#1F8F4D;
+                    font-weight:600;
+                "
+            >
+                🪴 মাটি পরিচর্যা
+            </button>
 
-</section>
+        </div>
 
-<!-- ==========================================================
-SECTION 05
-QUICK ACTION
-========================================================== -->
 
-<section class="quick-action-section fade-up">
 
-    <div class="quick-action-grid">
+        <!-- SORT -->
 
-        <a
-        href="wishlist.html"
-        class="quick-action-card">
+        <div
+            class="sort-box"
+            style="
+                display:flex;
+                align-items:center;
+                gap:10px;
+            "
+        >
 
-            <div class="quick-icon">
+            <label
+                for="sortProducts"
+                style="
+                    font-weight:600;
+                    color:#333;
+                "
+            >
+                ↕️ সাজান:
+            </label>
 
-                ❤️
+
+            <select
+                id="sortProducts"
+                style="
+                    padding:11px 15px;
+                    border:1px solid #ddd;
+                    border-radius:12px;
+                    background:#fff;
+                "
+            >
+
+                <option value="default">
+                    ডিফল্ট
+                </option>
+
+                <option value="low-high">
+                    মূল্য: কম থেকে বেশি
+                </option>
+
+                <option value="high-low">
+                    মূল্য: বেশি থেকে কম
+                </option>
+
+                <option value="new">
+                    নতুন পণ্য
+                </option>
+
+                <option value="best">
+                    বেস্ট সেলার
+                </option>
+
+            </select>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         PRODUCT LIST
+    ================================================== -->
+
+    <section>
+
+        <div
+            id="productList"
+            class="products-grid"
+        >
+
+            <!-- JavaScript products.json থেকে পণ্য দেখাবে -->
+
+            <div class="card">
+
+                <h2>
+                    ⏳ পণ্য লোড হচ্ছে...
+                </h2>
+
+                <p>
+                    অনুগ্রহ করে একটু অপেক্ষা করুন।
+                </p>
 
             </div>
 
-            <h3>
+        </div>
 
-                Wishlist
+    </section>
 
-            </h3>
+
+
+    <!-- ==================================================
+         DEALER CTA
+    ================================================== -->
+
+    <section class="dealer-cta fade-up">
+
+        <div class="dealer-cta-inner">
+
+            <i class="fa-solid fa-store"></i>
+
+            <h2>
+                পাইকারি ও ডিলারশিপ
+            </h2>
 
             <p>
-
-                <span id="wishlistCounter">
-
-                    0
-
-                </span>
-
-                টি প্রোডাক্ট
-
+                আমাদের জৈব সার ও কৃষি পণ্য পাইকারি মূল্যে নিতে
+                অথবা ডিলারশিপ সম্পর্কে জানতে সরাসরি যোগাযোগ করুন।
             </p>
 
-        </a>
 
-        <a
-        href="contact.html"
-        class="quick-action-card">
+            <div class="dealer-cta-buttons">
 
-            <div class="quick-icon">
+                <a
+                    href="tel:+8801303679189"
+                    class="btn"
+                >
+                    <i class="fa-solid fa-phone"></i>
+                    কল করুন
+                </a>
 
-                📞
+
+                <a
+                    href="https://wa.me/8801303679189"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn"
+                >
+                    <i class="fa-brands fa-whatsapp"></i>
+                    WhatsApp
+                </a>
 
             </div>
 
-            <h3>
+        </div>
 
-                যোগাযোগ
+    </section>
 
-            </h3>
 
-            <p>
+</main>
 
-                আমাদের সাথে কথা বলুন
 
-            </p>
 
-        </a>
-
-        <a
-        href="about.html"
-        class="quick-action-card">
-
-            <div class="quick-icon">
-
-                🌿
-
-            </div>
-
-            <h3>
-
-                আমাদের সম্পর্কে
-
-            </h3>
-
-            <p>
-
-                প্রতিষ্ঠান পরিচিতি
-
-            </p>
-
-        </a>
-
-    </div>
-
-</section>
-
-<!-- ==========================================================
-FLOATING BUTTON
-========================================================== -->
+<!-- ======================================================
+     FLOATING WHATSAPP
+====================================================== -->
 
 <a
-href="https://wa.me/8801303679189"
-class="whatsapp-float"
-target="_blank">
+    href="https://wa.me/8801303679189"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener"
+    aria-label="WhatsApp"
+>
 
-💬
+    <i class="fa-brands fa-whatsapp"></i>
 
 </a>
 
-<button
-id="backToTop"
-class="back-to-top">
 
-⬆
 
-</button>
+<!-- ======================================================
+     BOTTOM NAVIGATION
+====================================================== -->
 
-<!-- ==========================================================
-SECTION 06
-BOTTOM NAVIGATION
-========================================================== -->
-
-<nav class="bottom-nav">
+<nav
+    class="bottom-nav"
+    aria-label="প্রধান নেভিগেশন"
+>
 
     <a href="index.html">
 
         <i class="fa-solid fa-house"></i>
 
         <span>
-
             হোম
-
         </span>
 
     </a>
 
+
     <a
-    href="products.html"
-    class="active">
+        href="products.html"
+        class="active"
+    >
 
         <i class="fa-solid fa-box-open"></i>
 
         <span>
-
-            প্রোডাক্ট
-
+            পণ্য
         </span>
 
     </a>
+
 
     <a href="wishlist.html">
 
         <i class="fa-solid fa-heart"></i>
 
-        <span id="wishlistCounter">
-
-            Wishlist
-
-        </span>
-
-    </a>
-
-    <a href="about.html">
-
-        <i class="fa-solid fa-building"></i>
-
         <span>
-
-            আমাদের সম্পর্কে
-
+            Wishlist
         </span>
 
     </a>
+
 
     <a href="contact.html">
 
         <i class="fa-solid fa-phone"></i>
 
         <span>
-
             যোগাযোগ
-
         </span>
 
     </a>
 
 </nav>
 
-<!-- ==========================================================
-SECTION 07
-FOOTER
-========================================================== -->
 
-<footer class="footer fade-up">
 
-    <h3>
-
-        🌿 Maliha Agro Industry
-
-    </h3>
-
-    <p>
-
-        ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক
-
-    </p>
-
-    <p>
-
-        ইসলামপুর, কানসাট,
-        শিবগঞ্জ,
-        চাঁপাইনবাবগঞ্জ
-
-    </p>
-
-    <p>
-
-        📞 +880 1303-679189
-
-    </p>
-
-    <p>
-
-        ✉ info@malihaagroindustry.com
-
-    </p>
-
-    <hr>
-
-    <p>
-
-        © 2026 Maliha Agro Industry
-
-        <br>
-
-        All Rights Reserved.
-
-    </p>
-
-</footer>
-
-<!-- ==========================================================
-IMAGE PREVIEW MODAL
-========================================================== -->
+<!-- ======================================================
+     IMAGE MODAL
+====================================================== -->
 
 <div
-id="imageModal"
-class="image-modal">
+    id="imageModal"
+    class="image-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="পণ্যের ছবি"
+>
 
-    <span class="close-modal">
-
+    <button
+        type="button"
+        class="close-modal"
+        aria-label="বন্ধ করুন"
+    >
         &times;
+    </button>
 
-    </span>
 
     <img
-    id="modalImage"
-    src=""
-    alt="Preview">
+        id="modalImage"
+        src=""
+        alt="Product Preview"
+    >
 
 </div>
 
-<!-- ==========================================================
-JAVASCRIPT
-========================================================== -->
 
-<script src="script.js?v=4"></script>
 
-</div>
-</div>
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script
+    src="script.js"
+    defer
+></script>
+
 
 </body>
+
 </html>
