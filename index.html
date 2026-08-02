@@ -6,151 +6,554 @@
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <meta
-name="description"
-content="Maliha Agro Industry - Premium Organic Fertilizer">
+    name="description"
+    content="Maliha Agro Industry - Premium Organic Fertilizer">
 
 <meta
-name="keywords"
-content="Vermi Compost, Organic Fertilizer, Maliha Agro Industry">
+    name="keywords"
+    content="Vermi Compost, Organic Fertilizer, Maliha Agro Industry">
 
 <meta
-name="theme-color"
-content="#1F8F4D">
+    name="theme-color"
+    content="#1F8F4D">
 
 <title>
-Maliha Agro Industry
+    Maliha Agro Industry
 </title>
 
 <link
-rel="icon"
-href="images/logo.png">
+    rel="icon"
+    href="images/logo.png">
 
 <link
-rel="manifest"
-href="manifest.json">
+    rel="manifest"
+    href="manifest.json">
 
 <link
-rel="stylesheet"
-href="style.css?v=4.0">
+    rel="stylesheet"
+    href="style.css?v=6">
 
 <link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
 
 <link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+
+<!-- ======================================================
+     QUICK BUTTON STYLE
+====================================================== -->
+
+<style>
+
+.quick-links-section{
+    margin:25px 0;
+}
+
+.quick-links-title{
+    text-align:center;
+    margin-bottom:18px;
+}
+
+.quick-links-title h2{
+    margin:0 0 6px;
+    font-size:24px;
+    color:#1F8F4D;
+}
+
+.quick-links-title p{
+    margin:0;
+    color:#777;
+    font-size:14px;
+}
+
+.quick-link-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.quick-link-btn{
+    min-height:78px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:7px;
+
+    padding:12px 8px;
+
+    background:#ffffff;
+    border:1px solid #e8e8e8;
+    border-radius:18px;
+
+    text-decoration:none;
+
+    color:#333;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,.07);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+
+    font-weight:600;
+}
+
+.quick-link-btn i{
+    font-size:25px;
+}
+
+.quick-link-btn span{
+    font-size:13px;
+}
+
+.quick-link-btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 9px 25px rgba(0,0,0,.12);
+}
+
+
+/* Button Colors */
+
+.quick-call i{
+    color:#16843d;
+}
+
+.quick-whatsapp i{
+    color:#25D366;
+}
+
+.quick-email i{
+    color:#e74c3c;
+}
+
+.quick-facebook i{
+    color:#1877F2;
+}
+
+.quick-youtube i{
+    color:#FF0000;
+}
+
+.quick-map i{
+    color:#e53935;
+}
+
+.quick-about i{
+    color:#1F8F4D;
+}
+
+.quick-dealer i{
+    color:#f39c12;
+}
+
+.quick-save i{
+    color:#795548;
+}
+
+.quick-share i{
+    color:#6c63ff;
+}
+
+
+/* ======================================================
+   DESKTOP
+====================================================== */
+
+@media (min-width:768px){
+
+    .quick-links-section{
+        max-width:1100px;
+        margin:35px auto;
+    }
+
+    .quick-link-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+
+        gap:18px;
+    }
+
+    .quick-link-btn{
+        min-height:100px;
+        border-radius:20px;
+    }
+
+    .quick-link-btn i{
+        font-size:30px;
+    }
+
+    .quick-link-btn span{
+        font-size:15px;
+    }
+
+}
+
+
+/* ======================================================
+   LARGE DESKTOP
+====================================================== */
+
+@media (min-width:1200px){
+
+    .quick-link-grid{
+        grid-template-columns:
+            repeat(5,1fr);
+    }
+
+}
+
+
+/* ======================================================
+   SMALL MOBILE
+====================================================== */
+
+@media (max-width:380px){
+
+    .quick-link-grid{
+        gap:9px;
+    }
+
+    .quick-link-btn{
+        min-height:72px;
+        border-radius:15px;
+    }
+
+    .quick-link-btn i{
+        font-size:22px;
+    }
+
+    .quick-link-btn span{
+        font-size:12px;
+    }
+
+}
+
+</style>
 
 </head>
+
 
 <body>
 
 <div class="container">
 
-<!-- ==========================================================
-SECTION 02
-HERO SECTION
-========================================================== -->
+
+<!-- ======================================================
+     HERO SECTION
+====================================================== -->
 
 <div class="card fade-up">
 
-    <section class="hero">
+<section class="hero">
 
-        <img
-            src="images/logo.png"
-            alt="Maliha Agro Industry"
-            class="logo">
+    <img
+        src="images/logo.png"
+        alt="Maliha Agro Industry"
+        class="logo">
 
-        <h1>মালিহা এগ্রো ইন্ডাস্ট্রি</h1>
+    <h1>
+        মালিহা এগ্রো ইন্ডাস্ট্রি
+    </h1>
 
-        <h2>মালিহা জৈব সার</h2>
+    <h2>
+        মালিহা জৈব সার
+    </h2>
 
-        <span class="designation">
-            🌱 ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক
+    <span class="designation">
+        🌱 ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক
+    </span>
+
+    <p class="tagline">
+
+        কৃষকের আস্থা, মাটির শক্তি, ফসলের সমৃদ্ধি।
+
+        <br>
+
+        উন্নত মানের ভার্মি কম্পোস্ট, ট্রাইকো কম্পোস্ট,
+        এগ শেল পাউডার এবং অন্যান্য জৈব সার।
+
+    </p>
+
+
+    <div class="hero-buttons">
+
+        <a
+            href="tel:+8801303679189"
+            class="hero-btn call-btn">
+
+            <i class="fa-solid fa-phone"></i>
+
+            <span>
+                কল করুন
+            </span>
+
+        </a>
+
+
+        <a
+            href="https://wa.me/8801303679189"
+            target="_blank"
+            rel="noopener"
+            class="hero-btn whatsapp-btn">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <span>
+                WhatsApp
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<div class="quick-info">
+
+    <div class="info-box">
+
+        <i class="fa-solid fa-leaf"></i>
+
+        <span>
+            ১০০% জৈব সার
         </span>
 
-        <p class="tagline">
+    </div>
 
-            কৃষকের আস্থা, মাটির শক্তি, ফসলের সমৃদ্ধি।
 
-            <br>
+    <div class="info-box">
 
-            উন্নত মানের ভার্মি কম্পোস্ট, ট্রাইকো কম্পোস্ট,
-            এগ শেল পাউডার এবং অন্যান্য জৈব সার।
+        <i class="fa-solid fa-truck-fast"></i>
 
-        </p>
+        <span>
+            সারা দেশে ডেলিভারি
+        </span>
 
-        <div class="hero-buttons">
+    </div>
 
-            <a
-                href="tel:+8801303679189"
-                class="hero-btn call-btn">
 
-                <i class="fa-solid fa-phone"></i>
+    <div class="info-box">
 
-                <span>কল করুন</span>
+        <i class="fa-solid fa-award"></i>
 
-            </a>
-
-            <a
-                href="https://wa.me/8801303679189"
-                target="_blank"
-                class="hero-btn whatsapp-btn">
-
-                <i class="fa-brands fa-whatsapp"></i>
-
-                <span>WhatsApp</span>
-
-            </a>
-
-        </div>
-
-    </section>
-
-    <div class="quick-info">
-
-        <div class="info-box">
-
-            <i class="fa-solid fa-leaf"></i>
-
-            <span>১০০% জৈব সার</span>
-
-        </div>
-
-        <div class="info-box">
-
-            <i class="fa-solid fa-truck-fast"></i>
-
-            <span>সারা দেশে ডেলিভারি</span>
-
-        </div>
-
-        <div class="info-box">
-
-            <i class="fa-solid fa-award"></i>
-
-            <span>মানসম্মত উৎপাদন</span>
-
-        </div>
+        <span>
+            মানসম্মত উৎপাদন
+        </span>
 
     </div>
 
 </div>
 
-<!-- ==========================================================
-SECTION 03
-FEATURED PRODUCTS
-========================================================== -->
+</div>
+
+
+
+<!-- ======================================================
+     QUICK CONTACT BUTTONS
+====================================================== -->
+
+<section class="quick-links-section fade-up">
+
+    <div class="quick-links-title">
+
+        <h2>
+            🌿 দ্রুত যোগাযোগ
+        </h2>
+
+        <p>
+            প্রয়োজনীয় সেবায় সরাসরি প্রবেশ করুন
+        </p>
+
+    </div>
+
+
+    <div class="quick-link-grid">
+
+
+        <!-- CALL -->
+
+        <a
+            href="tel:+8801303679189"
+            class="quick-link-btn quick-call">
+
+            <i class="fa-solid fa-phone"></i>
+
+            <span>
+                Call Now
+            </span>
+
+        </a>
+
+
+        <!-- WHATSAPP -->
+
+        <a
+            href="https://wa.me/8801303679189"
+            target="_blank"
+            rel="noopener"
+            class="quick-link-btn quick-whatsapp">
+
+            <i class="fa-brands fa-whatsapp"></i>
+
+            <span>
+                WhatsApp
+            </span>
+
+        </a>
+
+
+        <!-- EMAIL -->
+
+        <a
+            href="mailto:malihaindustry@gmail.com"
+            class="quick-link-btn quick-email">
+
+            <i class="fa-solid fa-envelope"></i>
+
+            <span>
+                Email
+            </span>
+
+        </a>
+
+
+        <!-- FACEBOOK -->
+
+        <a
+            href="#"
+            class="quick-link-btn quick-facebook">
+
+            <i class="fa-brands fa-facebook-f"></i>
+
+            <span>
+                Facebook
+            </span>
+
+        </a>
+
+
+        <!-- YOUTUBE -->
+
+        <a
+            href="#"
+            class="quick-link-btn quick-youtube">
+
+            <i class="fa-brands fa-youtube"></i>
+
+            <span>
+                YouTube
+            </span>
+
+        </a>
+
+
+        <!-- GOOGLE MAP -->
+
+        <a
+            href="https://www.google.com/maps/search/?api=1&query=Islamapur%2C%20Kansat%2C%20Shibganj%2C%20Chapainawabganj%2C%20Bangladesh"
+            target="_blank"
+            rel="noopener"
+            class="quick-link-btn quick-map">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+            <span>
+                Google Maps
+            </span>
+
+        </a>
+
+
+        <!-- ABOUT -->
+
+        <a
+            href="about.html"
+            class="quick-link-btn quick-about">
+
+            <i class="fa-solid fa-building"></i>
+
+            <span>
+                About Us
+            </span>
+
+        </a>
+
+
+        <!-- DEALER -->
+
+        <a
+            href="contact.html"
+            class="quick-link-btn quick-dealer">
+
+            <i class="fa-solid fa-handshake"></i>
+
+            <span>
+                Dealer Registration
+            </span>
+
+        </a>
+
+
+        <!-- SAVE CONTACT -->
+
+        <a
+            href="contact.vcf"
+            class="quick-link-btn quick-save">
+
+            <i class="fa-solid fa-address-card"></i>
+
+            <span>
+                Save Contact
+            </span>
+
+        </a>
+
+
+        <!-- SHARE -->
+
+        <a
+            href="#"
+            id="shareCard"
+            class="quick-link-btn quick-share">
+
+            <i class="fa-solid fa-share-nodes"></i>
+
+            <span>
+                Share Card
+            </span>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     FEATURED PRODUCTS
+====================================================== -->
 
 <section class="products-section fade-up">
 
     <div class="section-title">
 
-        <h2>🛍️ আমাদের জনপ্রিয় প্রোডাক্ট</h2>
+        <h2>
+            🛍️ আমাদের জনপ্রিয় প্রোডাক্ট
+        </h2>
 
         <p>
             উন্নত মানের জৈব সার ও কৃষি পণ্য
@@ -158,7 +561,6 @@ FEATURED PRODUCTS
 
     </div>
 
-    <!-- Search + Sort -->
 
     <div class="product-toolbar">
 
@@ -166,6 +568,7 @@ FEATURED PRODUCTS
             type="text"
             id="searchProduct"
             placeholder="🔍 প্রোডাক্ট খুঁজুন...">
+
 
         <select id="sortProducts">
 
@@ -193,7 +596,6 @@ FEATURED PRODUCTS
 
     </div>
 
-    <!-- Category -->
 
     <div class="category-filter">
 
@@ -205,6 +607,7 @@ FEATURED PRODUCTS
 
         </button>
 
+
         <button
             class="filter-btn"
             data-category="vermi">
@@ -213,6 +616,7 @@ FEATURED PRODUCTS
 
         </button>
 
+
         <button
             class="filter-btn"
             data-category="tricho">
@@ -220,6 +624,7 @@ FEATURED PRODUCTS
             🍀 ট্রাইকো কম্পোস্ট
 
         </button>
+
 
         <button
             class="filter-btn"
@@ -231,13 +636,13 @@ FEATURED PRODUCTS
 
     </div>
 
-    <!-- Products -->
 
     <div
         id="productList"
         class="products-grid">
 
     </div>
+
 
     <div class="center-btn">
 
@@ -253,10 +658,11 @@ FEATURED PRODUCTS
 
 </section>
 
-<!-- ==========================================================
-SECTION 04
-WELCOME + ABOUT
-========================================================== -->
+
+
+<!-- ======================================================
+     WELCOME + ABOUT
+====================================================== -->
 
 <section class="welcome-banner fade-up">
 
@@ -267,32 +673,32 @@ WELCOME + ABOUT
         </h2>
 
         <p>
-
             কৃষির উন্নয়নই আমাদের লক্ষ্য
-
         </p>
 
     </div>
+
 
     <div class="welcome-content">
 
         <div class="welcome-text">
 
             <h3>
-
                 কেন মালিহা জৈব সার?
-
             </h3>
 
             <p>
 
                 মালিহা এগ্রো ইন্ডাস্ট্রি দীর্ঘদিন ধরে
                 কৃষকদের জন্য উন্নত মানের
-                <strong>ভার্মি কম্পোস্ট, ট্রাইকো কম্পোস্ট,
-                এগ শেল পাউডার</strong>
+                <strong>
+                    ভার্মি কম্পোস্ট, ট্রাইকো কম্পোস্ট,
+                    এগ শেল পাউডার
+                </strong>
                 এবং অন্যান্য জৈব সার উৎপাদন করে আসছে।
 
             </p>
+
 
             <p>
 
@@ -303,15 +709,21 @@ WELCOME + ABOUT
 
             </p>
 
+
             <div class="welcome-buttons">
 
-                <a href="about.html" class="btn">
+                <a
+                    href="about.html"
+                    class="btn">
 
                     📖 আমাদের সম্পর্কে
 
                 </a>
 
-                <a href="contact.html" class="btn">
+
+                <a
+                    href="contact.html"
+                    class="btn">
 
                     📞 যোগাযোগ করুন
 
@@ -320,6 +732,7 @@ WELCOME + ABOUT
             </div>
 
         </div>
+
 
         <div class="welcome-image">
 
@@ -333,21 +746,22 @@ WELCOME + ABOUT
 
 </section>
 
-<!-- ==========================
-WHY CHOOSE US
-========================== -->
+
+
+<!-- ======================================================
+     WHY CHOOSE US
+====================================================== -->
 
 <section class="why-us fade-up">
 
     <div class="section-title">
 
         <h2>
-
             ⭐ কেন আমাদের নির্বাচন করবেন?
-
         </h2>
 
     </div>
+
 
     <div class="why-grid">
 
@@ -356,69 +770,56 @@ WHY CHOOSE US
             <i class="fa-solid fa-seedling"></i>
 
             <h3>
-
                 ১০০% জৈব
-
             </h3>
 
             <p>
-
                 সম্পূর্ণ প্রাকৃতিক উপাদানে তৈরি।
-
             </p>
 
         </div>
+
 
         <div class="why-card">
 
             <i class="fa-solid fa-medal"></i>
 
             <h3>
-
                 উন্নত মান
-
             </h3>
 
             <p>
-
                 সর্বোচ্চ মান নিয়ন্ত্রণে উৎপাদিত।
-
             </p>
 
         </div>
+
 
         <div class="why-card">
 
             <i class="fa-solid fa-truck-fast"></i>
 
             <h3>
-
                 দ্রুত ডেলিভারি
-
             </h3>
 
             <p>
-
                 সারা বাংলাদেশে নিরাপদ ডেলিভারি।
-
             </p>
 
         </div>
+
 
         <div class="why-card">
 
             <i class="fa-solid fa-headset"></i>
 
             <h3>
-
                 ২৪/৭ সাপোর্ট
-
             </h3>
 
             <p>
-
                 যেকোনো সময় আমাদের সাথে যোগাযোগ করুন।
-
             </p>
 
         </div>
@@ -427,22 +828,26 @@ WHY CHOOSE US
 
 </section>
 
-<!-- ==========================================================
-SECTION 05
-FOUNDER + MISSION + VISION
-========================================================== -->
+
+
+<!-- ======================================================
+     FOUNDER
+====================================================== -->
 
 <section class="founder-section fade-up">
 
     <div class="section-title">
 
-        <h2>👨‍🌾 প্রতিষ্ঠাতা</h2>
+        <h2>
+            👨‍🌾 প্রতিষ্ঠাতা
+        </h2>
 
         <p>
             প্রতিষ্ঠানের সফলতার পেছনের মানুষ
         </p>
 
     </div>
+
 
     <div class="founder-wrapper">
 
@@ -454,6 +859,7 @@ FOUNDER + MISSION + VISION
                 alt="Founder">
 
         </div>
+
 
         <div class="founder-content">
 
@@ -473,6 +879,7 @@ FOUNDER + MISSION + VISION
 
             </p>
 
+
             <p>
 
                 আধুনিক প্রযুক্তি, মানসম্মত উৎপাদন এবং
@@ -487,13 +894,16 @@ FOUNDER + MISSION + VISION
 
 </section>
 
-<!-- ==========================
-MISSION & VISION
-========================== -->
+
+
+<!-- ======================================================
+     MISSION & VISION
+====================================================== -->
 
 <section class="mission-section fade-up">
 
     <div class="mission-grid">
+
 
         <div class="mission-card">
 
@@ -513,6 +923,7 @@ MISSION & VISION
 
         </div>
 
+
         <div class="mission-card">
 
             <i class="fa-solid fa-eye"></i>
@@ -530,6 +941,7 @@ MISSION & VISION
             </p>
 
         </div>
+
 
         <div class="mission-card">
 
@@ -554,16 +966,19 @@ MISSION & VISION
 
 </section>
 
-<!-- ==========================================================
-SECTION 06
-CONTACT + LOCATION + SOCIAL
-========================================================== -->
+
+
+<!-- ======================================================
+     CONTACT
+====================================================== -->
 
 <section class="contact-section fade-up">
 
     <div class="section-title">
 
-        <h2>📞 যোগাযোগ করুন</h2>
+        <h2>
+            📞 যোগাযোগ করুন
+        </h2>
 
         <p>
             আমরা সবসময় আপনার পাশে আছি
@@ -571,15 +986,19 @@ CONTACT + LOCATION + SOCIAL
 
     </div>
 
+
     <div class="contact-grid">
 
-        <!-- Contact Information -->
 
         <div class="contact-card">
 
-            <h3>📋 যোগাযোগের তথ্য</h3>
+            <h3>
+                📋 যোগাযোগের তথ্য
+            </h3>
+
 
             <ul class="contact-list">
+
 
                 <li>
 
@@ -592,6 +1011,7 @@ CONTACT + LOCATION + SOCIAL
 
                 </li>
 
+
                 <li>
 
                     <i class="fa-solid fa-phone"></i>
@@ -602,23 +1022,29 @@ CONTACT + LOCATION + SOCIAL
 
                 </li>
 
+
                 <li>
 
                     <i class="fa-solid fa-envelope"></i>
 
-                    <a href="mailto:info@malihaagroindustry.com">
-                        info@malihaagroindustry.com
+                    <a
+                        href="mailto:malihaindustry@gmail.com">
+
+                        malihaindustry@gmail.com
+
                     </a>
 
                 </li>
+
 
                 <li>
 
                     <i class="fa-solid fa-globe"></i>
 
                     <a
-                    href="https://malihaagroindustry.github.io/contact/"
-                    target="_blank">
+                        href="https://malihaagroindustry.github.io/contact/"
+                        target="_blank"
+                        rel="noopener">
 
                         Official Website
 
@@ -626,14 +1052,13 @@ CONTACT + LOCATION + SOCIAL
 
                 </li>
 
+
                 <li>
 
                     <i class="fa-solid fa-clock"></i>
 
                     <span>
-
                         প্রতিদিন সকাল ৮টা - রাত ৯টা
-
                     </span>
 
                 </li>
@@ -642,34 +1067,41 @@ CONTACT + LOCATION + SOCIAL
 
         </div>
 
-        <!-- Quick Contact -->
+
 
         <div class="contact-card">
 
-            <h3>⚡ দ্রুত যোগাযোগ</h3>
+            <h3>
+                ⚡ দ্রুত যোগাযোগ
+            </h3>
+
 
             <div class="contact-buttons">
 
+
                 <a
-                href="tel:+8801303679189"
-                class="btn">
+                    href="tel:+8801303679189"
+                    class="btn">
 
                     📞 এখনই কল করুন
 
                 </a>
 
+
                 <a
-                href="https://wa.me/8801303679189"
-                target="_blank"
-                class="btn">
+                    href="https://wa.me/8801303679189"
+                    target="_blank"
+                    rel="noopener"
+                    class="btn">
 
                     💬 WhatsApp
 
                 </a>
 
+
                 <a
-                href="mailto:info@malihaagroindustry.com"
-                class="btn">
+                    href="mailto:malihaindustry@gmail.com"
+                    class="btn">
 
                     📧 Email
 
@@ -683,17 +1115,22 @@ CONTACT + LOCATION + SOCIAL
 
 </section>
 
-<!-- ==========================
-GOOGLE MAP
-========================== -->
+
+
+<!-- ======================================================
+     GOOGLE MAP
+====================================================== -->
 
 <section class="map-section fade-up">
 
     <div class="section-title">
 
-        <h2>📍 আমাদের অবস্থান</h2>
+        <h2>
+            📍 আমাদের অবস্থান
+        </h2>
 
     </div>
+
 
     <iframe
         src="https://www.google.com/maps?q=Kansat+Shibganj+Chapainawabganj&output=embed"
@@ -703,51 +1140,74 @@ GOOGLE MAP
 
 </section>
 
-<!-- ==========================
-SOCIAL MEDIA
-========================== -->
+
+
+<!-- ======================================================
+     SOCIAL MEDIA
+====================================================== -->
 
 <section class="social-section fade-up">
 
     <div class="section-title">
 
-        <h2>🌐 আমাদের সাথে যুক্ত থাকুন</h2>
+        <h2>
+            🌐 আমাদের সাথে যুক্ত থাকুন
+        </h2>
 
     </div>
 
+
     <div class="social-grid">
 
-        <a href="#" class="social-card facebook">
+
+        <a
+            href="#"
+            class="social-card facebook">
 
             <i class="fab fa-facebook-f"></i>
 
-            <span>Facebook</span>
+            <span>
+                Facebook
+            </span>
 
         </a>
 
-        <a href="#" class="social-card youtube">
+
+        <a
+            href="#"
+            class="social-card youtube">
 
             <i class="fab fa-youtube"></i>
 
-            <span>YouTube</span>
+            <span>
+                YouTube
+            </span>
 
         </a>
 
+
         <a
-        href="https://wa.me/8801303679189"
-        class="social-card whatsapp">
+            href="https://wa.me/8801303679189"
+            class="social-card whatsapp">
 
             <i class="fab fa-whatsapp"></i>
 
-            <span>WhatsApp</span>
+            <span>
+                WhatsApp
+            </span>
 
         </a>
 
-        <a href="#" class="social-card website">
+
+        <a
+            href="https://malihaagroindustry.github.io/contact/"
+            class="social-card website">
 
             <i class="fa-solid fa-globe"></i>
 
-            <span>Website</span>
+            <span>
+                Website
+            </span>
 
         </a>
 
@@ -755,41 +1215,42 @@ SOCIAL MEDIA
 
 </section>
 
-<!-- ==========================================================
-SECTION 07
-FOOTER
-========================================================== -->
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
 
 <footer class="footer fade-up">
 
-    <h3>🌿 Maliha Agro Industry</h3>
+    <h3>
+        🌿 Maliha Agro Industry
+    </h3>
+
 
     <p>
-
         ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক
-
     </p>
 
-    <p>
 
+    <p>
         ইসলামপুর, কানসাট,
         শিবগঞ্জ, চাঁপাইনবাবগঞ্জ
-
     </p>
 
-    <p>
 
+    <p>
         📞 +880 1303-679189
-
     </p>
+
 
     <p>
-
-        ✉ info@malihaagroindustry.com
-
+        ✉ malihaindustry@gmail.com
     </p>
+
 
     <hr>
+
 
     <p>
 
@@ -803,58 +1264,74 @@ FOOTER
 
 </footer>
 
-<!-- ==========================================================
-FLOATING WHATSAPP
-========================================================== -->
+
+
+<!-- ======================================================
+     FLOATING WHATSAPP
+====================================================== -->
 
 <a
-href="https://wa.me/8801303679189"
-class="whatsapp-float"
-target="_blank">
+    href="https://wa.me/8801303679189"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener"
+    aria-label="WhatsApp">
 
-💬
+    <i class="fa-brands fa-whatsapp"></i>
 
 </a>
 
-<!-- ==========================================================
-BACK TO TOP
-========================================================== -->
+
+
+<!-- ======================================================
+     BACK TO TOP
+====================================================== -->
 
 <button
-id="backToTop"
-class="back-to-top">
+    id="backToTop"
+    class="back-to-top"
+    type="button">
 
-⬆
+    ⬆
 
 </button>
 
-<!-- ==========================================================
-BOTTOM NAVIGATION
-========================================================== -->
+
+
+<!-- ======================================================
+     BOTTOM NAVIGATION
+====================================================== -->
 
 <nav class="bottom-nav">
 
+
     <a
-    href="index.html"
-    class="active">
+        href="index.html"
+        class="active">
 
-        🏠
+        <i class="fa-solid fa-house"></i>
 
-        <span>হোম</span>
+        <span>
+            হোম
+        </span>
 
     </a>
+
 
     <a href="products.html">
 
-        📦
+        <i class="fa-solid fa-box-open"></i>
 
-        <span>প্রোডাক্ট</span>
+        <span>
+            প্রোডাক্ট
+        </span>
 
     </a>
 
+
     <a href="wishlist.html">
 
-        ❤️
+        <i class="fa-solid fa-heart"></i>
 
         <span id="wishlistCounter">
 
@@ -864,50 +1341,71 @@ BOTTOM NAVIGATION
 
     </a>
 
+
     <a href="about.html">
 
-        👨‍🌾
+        <i class="fa-solid fa-building"></i>
 
-        <span>আমাদের সম্পর্কে</span>
+        <span>
+            আমাদের সম্পর্কে
+        </span>
 
     </a>
 
+
     <a href="contact.html">
 
-        📞
+        <i class="fa-solid fa-phone"></i>
 
-        <span>যোগাযোগ</span>
+        <span>
+            যোগাযোগ
+        </span>
 
     </a>
 
 </nav>
 
-<!-- ==========================================================
-IMAGE PREVIEW MODAL
-========================================================== -->
+
+
+<!-- ======================================================
+     IMAGE MODAL
+====================================================== -->
 
 <div
-id="imageModal"
-class="image-modal">
+    id="imageModal"
+    class="image-modal">
 
-    <span class="close-modal">
+    <button
+        type="button"
+        class="close-modal"
+        aria-label="বন্ধ করুন">
 
         &times;
 
-    </span>
+    </button>
+
 
     <img
-    id="modalImage"
-    src=""
-    alt="Preview">
+        id="modalImage"
+        src=""
+        alt="Preview">
 
 </div>
 
-<!-- ==========================================================
-JAVASCRIPT
-========================================================== -->
 
-<script src="script.js?v=4"></script>
+
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script
+    src="script.js?v=6"
+    defer>
+</script>
+
+
+</div>
 
 </body>
-</html>    
+
+</html>
