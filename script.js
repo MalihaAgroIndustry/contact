@@ -2,19 +2,32 @@
 
 /* ==========================================================
    Maliha Agro Industry
-   JavaScript v4 FINAL CLEAN
+   JavaScript FINAL COMPLETE VERSION
+========================================================== */
+
+
+/* ==========================================================
+   GLOBAL VARIABLES
 ========================================================== */
 
 let wishlist =
-    JSON.parse(localStorage.getItem("wishlist") || "[]")
+    JSON.parse(
+        localStorage.getItem("wishlist") || "[]"
+    )
     .map(Number)
     .filter(Number.isFinite);
 
 let deferredPrompt = null;
+
 let products = [];
+
 let currentProduct = null;
+
 let productSliderTimer = null;
+
 let homeSliderTimers = [];
+
+let detailSliderIndex = 0;
 
 
 /* ==========================================================
@@ -54,7 +67,6 @@ function getProductId(){
 
 /* ==========================================================
    IMAGE PATH FIX
-   products.json পরিবর্তন করার দরকার নেই
 ========================================================== */
 
 function imagePath(path){
@@ -93,6 +105,10 @@ function imagePath(path){
         );
 
 
+    /*
+       External image
+    */
+
     if(
         /^https?:\/\//i.test(src) ||
         src.startsWith("data:")
@@ -104,21 +120,38 @@ function imagePath(path){
 
 
     /*
-       শুধু product1.jpg হলে
        images/product1.jpg
     */
 
     if(
-        !src.startsWith("images/") &&
-        !src.startsWith("/") &&
-        !src.startsWith("../")
+        src.startsWith("images/")
     ){
 
-        if(src.includes("/")){
+        return src;
 
-            return src;
+    }
 
-        }
+
+    /*
+       /images/product1.jpg
+    */
+
+    if(
+        src.startsWith("/images/")
+    ){
+
+        return src.substring(1);
+
+    }
+
+
+    /*
+       শুধু product1.jpg
+    */
+
+    if(
+        !src.includes("/")
+    ){
 
         return "images/" + src;
 
@@ -131,20 +164,24 @@ function imagePath(path){
 
 
 /* ==========================================================
-   GET PRODUCT GALLERY
+   PRODUCT GALLERY
 ========================================================== */
 
 function getGallery(product){
 
-    return Array.isArray(
-        product?.gallery
-    )
+    if(
+        !product ||
+        !Array.isArray(product.gallery)
+    ){
 
-    ? product.gallery
+        return [];
+
+    }
+
+
+    return product.gallery
         .map(imagePath)
-        .filter(Boolean)
-
-    : [];
+        .filter(Boolean);
 
 }
 
@@ -181,7 +218,7 @@ function(
 
 
 /* ==========================================================
-   SHARE CARD
+   SHARE BUSINESS CARD
 ========================================================== */
 
 function initShareCard(){
@@ -245,7 +282,6 @@ function initShareCard(){
                             window.location.href
                         );
 
-
                     alert(
                         "✅ লিংক কপি হয়েছে"
                     );
@@ -297,7 +333,7 @@ function initSaveContact(){
 
 
 /* ==========================================================
-   PWA INSTALL
+   PWA
 ========================================================== */
 
 function initPWA(){
@@ -348,9 +384,9 @@ function initPWA(){
                     .userChoice;
 
             }
-            catch(err){
+            catch(error){
 
-                console.error(err);
+                console.error(error);
 
             }
 
@@ -436,7 +472,7 @@ function initBottomNavigation(){
 
 
 /* ==========================================================
-   PRODUCTS DATA LOAD
+   FETCH PRODUCTS
 ========================================================== */
 
 async function fetchProducts(){
@@ -445,7 +481,8 @@ async function fetchProducts(){
         await fetch(
             "data/products.json",
             {
-                cache:"no-store"
+                cache:
+                    "no-store"
             }
         );
 
@@ -482,7 +519,7 @@ async function fetchProducts(){
 
 
 /* ==========================================================
-   ENSURE PRODUCTS
+   ENSURE PRODUCTS LOADED
 ========================================================== */
 
 async function ensureProductsLoaded(){
@@ -498,12 +535,14 @@ async function ensureProductsLoaded(){
 
 }
 
+
 /* ==========================================================
-   PRODUCTS
-   LOAD + SEARCH + CATEGORY + SORT
+   PRODUCTS PAGE
 ========================================================== */
 
-async function loadProducts(category = "all"){
+async function loadProducts(
+    category = "all"
+){
 
     const productList =
         $("#productList");
@@ -532,19 +571,19 @@ async function loadProducts(category = "all"){
             products.filter(
                 function(product){
 
-                    const productName =
+                    const name =
                         String(
                             product.name || ""
                         ).toLowerCase();
 
 
-                    const productType =
+                    const type =
                         String(
                             product.type || ""
                         ).toLowerCase();
 
 
-                    const productDescription =
+                    const description =
                         String(
                             product.description || ""
                         ).toLowerCase();
@@ -552,13 +591,14 @@ async function loadProducts(category = "all"){
 
                     const matchCategory =
                         category === "all" ||
-                        product.category === category;
+                        product.category ===
+                            category;
 
 
                     const matchSearch =
-                        productName.includes(keyword) ||
-                        productType.includes(keyword) ||
-                        productDescription.includes(keyword);
+                        name.includes(keyword) ||
+                        type.includes(keyword) ||
+                        description.includes(keyword);
 
 
                     return (
@@ -692,7 +732,6 @@ ${
     : ""
 }
 
-
 <button
     class="wishlist-btn"
     data-id="${product.id}"
@@ -707,8 +746,6 @@ ${
 <div class="slider">
 
 ${
-    gallery.length
-    ?
     gallery.map(
         function(img,index){
 
@@ -729,12 +766,6 @@ ${
 
         }
     ).join("")
-    :
-    `
-<div class="no-image">
-📷 ছবি নেই
-</div>
-`
 }
 
 </div>
@@ -752,14 +783,12 @@ ${product.name}
 
 ${
     Number(product.oldPrice || 0) > 0
-    ?
-    `
+    ? `
 <p class="old-price">
 ${formatPrice(product.oldPrice)}
 </p>
 `
-    :
-    ""
+    : ""
 }
 
 
@@ -817,10 +846,6 @@ ${product.description || ""}
 
 <p>
 পণ্য লোড করতে সমস্যা হয়েছে।
-</p>
-
-<p>
-${error.message || ""}
 </p>
 
 </div>
@@ -941,31 +966,32 @@ function initSort(){
 
 
 /* ==========================================================
-   PRODUCT DETAILS
+   PRODUCT DETAILS PAGE
 ========================================================== */
 
 async function loadProductDetails(){
 
-    const details =
-        $("#productDetails");
+    const slider =
+        $("#productSlider");
 
-    if(!details) return;
+    if(!slider) return;
 
 
     try{
 
-        await ensureProductsLoaded();
-
-
         const id =
             getProductId();
+
+
+        await ensureProductsLoaded();
 
 
         currentProduct =
             products.find(
                 function(product){
 
-                    return Number(product.id) === id;
+                    return Number(product.id) ===
+                        id;
 
                 }
             );
@@ -973,7 +999,15 @@ async function loadProductDetails(){
 
         if(!currentProduct){
 
-            details.innerHTML = `
+            const card =
+                document.querySelector(
+                    ".product-gallery"
+                );
+
+
+            if(card){
+
+                card.innerHTML = `
 
 <div class="card">
 
@@ -982,8 +1016,8 @@ async function loadProductDetails(){
 </h2>
 
 <a
-    href="products.html"
-    class="btn">
+href="products.html"
+class="btn">
 
 📦 প্রোডাক্ট দেখুন
 
@@ -993,245 +1027,373 @@ async function loadProductDetails(){
 
 `;
 
+            }
+
             return;
 
         }
 
 
+        /* ==========================
+           PRODUCT INFO
+        ========================== */
+
+        const name =
+            $("#productName");
+
+        const brand =
+            $("#productBrand");
+
+        const brandInfo =
+            $("#productBrandInfo");
+
+        const rating =
+            $("#productRating");
+
+        const stock =
+            $("#productStock");
+
+        const stockInfo =
+            $("#productStockInfo");
+
+        const category =
+            $("#productCategory");
+
+        const type =
+            $("#productType");
+
+        const sku =
+            $("#productSku");
+
+        const weight =
+            $("#productWeight");
+
+        const description =
+            $("#productDescription");
+
+
+        if(name){
+
+            name.textContent =
+                currentProduct.name || "";
+
+        }
+
+
+        if(brand){
+
+            brand.textContent =
+                currentProduct.brand ||
+                "Maliha Agro Industry";
+
+        }
+
+
+        if(brandInfo){
+
+            brandInfo.textContent =
+                currentProduct.brand ||
+                "Maliha Agro Industry";
+
+        }
+
+
+        if(rating){
+
+            rating.textContent =
+                `(${currentProduct.rating || 0})`;
+
+        }
+
+
+        if(stock){
+
+            stock.textContent =
+                "🟢 " +
+                (
+                    currentProduct.stock ||
+                    "স্টকে আছে"
+                );
+
+        }
+
+
+        if(stockInfo){
+
+            stockInfo.textContent =
+                currentProduct.stock ||
+                "স্টকে আছে";
+
+        }
+
+
+        if(category){
+
+            category.textContent =
+                currentProduct.category ||
+                "-";
+
+        }
+
+
+        if(type){
+
+            type.textContent =
+                currentProduct.type ||
+                "-";
+
+        }
+
+
+        if(sku){
+
+            sku.textContent =
+                currentProduct.sku ||
+                "-";
+
+        }
+
+
+        if(weight){
+
+            weight.textContent =
+                currentProduct.weight ||
+                "-";
+
+        }
+
+
+        if(description){
+
+            description.textContent =
+                currentProduct.description ||
+                "";
+
+        }
+
+
+        /* ==========================
+           PRICE
+        ========================== */
+
+        const price =
+            Number(
+                currentProduct.price || 0
+            );
+
+
+        const oldPrice =
+            Number(
+                currentProduct.oldPrice || 0
+            );
+
+
+        const priceElement =
+            $("#productPrice");
+
+        const oldPriceElement =
+            $("#productOldPrice");
+
+        const discountElement =
+            $("#productDiscount");
+
+        const reviewElement =
+            $("#productReview");
+
+
+        if(priceElement){
+
+            priceElement.textContent =
+                formatPrice(price);
+
+        }
+
+
+        if(oldPriceElement){
+
+            if(oldPrice > 0){
+
+                oldPriceElement.textContent =
+                    formatPrice(oldPrice);
+
+                oldPriceElement.style.display =
+                    "inline";
+
+            }else{
+
+                oldPriceElement.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        if(discountElement){
+
+            if(
+                oldPrice > price &&
+                price > 0
+            ){
+
+                const discount =
+                    Math.round(
+                        (
+                            (oldPrice - price) /
+                            oldPrice
+                        ) * 100
+                    );
+
+
+                discountElement.textContent =
+                    discount + "% OFF";
+
+                discountElement.style.display =
+                    "inline-block";
+
+            }else{
+
+                discountElement.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        if(reviewElement){
+
+            reviewElement.textContent =
+                `(${currentProduct.rating || 0} Reviews)`;
+
+        }
+
+
+        /* ==========================
+           PRODUCT GALLERY
+        ========================== */
+
         const gallery =
-            getGallery(currentProduct);
+            getGallery(
+                currentProduct
+            );
 
 
-        details.innerHTML = `
-
-<div class="product-details">
+        slider.innerHTML = "";
 
 
-<div class="product-slider">
+        if(gallery.length === 0){
 
-${
-    gallery.length
-    ?
-    gallery.map(
-        function(img,index){
+            slider.innerHTML = `
 
-            return `
-
-<img
-    src="${img}"
-    class="product-img ${
-        index === 0
-        ? "active"
-        : ""
-    }"
-    alt="${currentProduct.name}"
-    onerror="this.style.display='none';">
-
-`;
-
-        }
-    ).join("")
-    :
-    `
 <div class="no-image">
-📷 ছবি নেই
-</div>
-`
-}
+
+<p>
+❌ এই পণ্যের কোনো ছবি পাওয়া যায়নি।
+</p>
 
 </div>
-
-
-<div class="slider-dots">
-
-${
-    gallery.map(
-        function(_,index){
-
-            return `
-
-<button
-    type="button"
-    class="dot ${
-        index === 0
-        ? "active"
-        : ""
-    }"
-    data-index="${index}"
-    aria-label="ছবি ${index + 1}">
-
-</button>
 
 `;
+
+        }
+        else{
+
+            gallery.forEach(
+                function(src,index){
+
+                    const img =
+                        document.createElement(
+                            "img"
+                        );
+
+
+                    img.src =
+                        src;
+
+
+                    img.alt =
+                        currentProduct.name ||
+                        "Maliha Agro Industry";
+
+
+                    img.className =
+                        "product-img" +
+                        (
+                            index === 0
+                            ? " active"
+                            : ""
+                        );
+
+
+                    img.loading =
+                        index === 0
+                        ? "eager"
+                        : "lazy";
+
+
+                    img.onerror =
+                        function(){
+
+                            console.error(
+                                "Image Load Failed:",
+                                src
+                            );
+
+                            this.style.display =
+                                "none";
+
+                        };
+
+
+                    slider.appendChild(
+                        img
+                    );
+
+                }
+            );
 
         }
-    ).join("")
-}
 
-</div>
 
+        /* ==========================
+           DETAIL SLIDER
+        ========================== */
 
-<h1>
-${currentProduct.name}
-</h1>
+        initDetailGallery();
 
 
-<p class="rating">
-⭐⭐⭐⭐⭐ ${currentProduct.rating || 0}
-</p>
-
-
-<div class="price-box">
-
-${
-    Number(currentProduct.oldPrice || 0) > 0
-    ?
-    `
-<p class="old-price">
-${formatPrice(currentProduct.oldPrice)}
-</p>
-`
-    :
-    ""
-}
-
-
-<p class="price">
-${formatPrice(currentProduct.price)}
-</p>
-
-</div>
-
-
-<div class="stock-box">
-
-🟢 ${currentProduct.stock || "স্টকে আছে"}
-
-</div>
-
-
-<p>
-<b>Brand :</b>
-${currentProduct.brand || "Maliha Agro Industry"}
-</p>
-
-
-<p>
-<b>Type :</b>
-${currentProduct.type || ""}
-</p>
-
-
-<p>
-<b>SKU :</b>
-${currentProduct.sku || ""}
-</p>
-
-
-<p>
-<b>Weight :</b>
-${currentProduct.weight || ""}
-</p>
-
-
-<p>
-${currentProduct.description || ""}
-</p>
-
-
-<div class="quantity-box">
-
-<h3>
-পরিমাণ
-</h3>
-
-
-<div class="qty-control">
-
-<button
-    id="minusQty"
-    type="button">
-
-−
-
-</button>
-
-
-<input
-    id="qty"
-    type="text"
-    value="1"
-    readonly
-    aria-label="পরিমাণ">
-
-
-<button
-    id="plusQty"
-    type="button">
-
-+
-
-</button>
-
-</div>
-
-
-<p class="total-price">
-
-মোট মূল্য :
-
-<span id="totalPrice">
-${formatPrice(currentProduct.price)}
-</span>
-
-</p>
-
-</div>
-
-
-<a
-    class="btn"
-    target="_blank"
-    rel="noopener"
-    href="https://wa.me/8801303679189?text=${
-        encodeURIComponent(
-
-`আমি ${currentProduct.name} অর্ডার করতে চাই।
-
-মূল্য : ${formatPrice(currentProduct.price)}
-
-${window.location.href}`
-
-        )
-    }">
-
-🛒 Order Now
-
-</a>
-
-
-<button
-    class="btn"
-    id="shareProduct"
-    type="button">
-
-📤 Share Product
-
-</button>
-
-
-</div>
-
-`;
-
-
-        startProductSlider();
-
-        initProductDots();
+        /* ==========================
+           QUANTITY
+        ========================== */
 
         initQuantity();
 
-        initShareProduct();
+
+        /* ==========================
+           ORDER
+        ========================== */
+
+        initOrderButton();
+
+
+        /* ==========================
+           SHARE
+        ========================== */
+
+        initShareProductButtons();
+
+
+        /* ==========================
+           WISHLIST
+        ========================== */
+
+        initProductWishlist();
+
+
+        /* ==========================
+           RELATED PRODUCTS
+        ========================== */
 
         loadRelatedProducts();
 
@@ -1244,7 +1406,7 @@ ${window.location.href}`
         );
 
 
-        details.innerHTML = `
+        slider.innerHTML = `
 
 <div class="card">
 
@@ -1253,7 +1415,7 @@ ${window.location.href}`
 </h2>
 
 <p>
-${error.message || ""}
+পণ্য লোড করতে সমস্যা হয়েছে।
 </p>
 
 </div>
@@ -1266,134 +1428,122 @@ ${error.message || ""}
 
 
 /* ==========================================================
-   PART 2 END
+   DETAIL PRODUCT GALLERY
 ========================================================== */
 
-/* ==========================================================
-   SECTION 05
-   SLIDER + QUANTITY + SHARE + RELATED
-========================================================== */
+function initDetailGallery(){
 
+    const slider =
+        $("#productSlider");
 
-/* ==========================================================
-   PRODUCT DETAILS SLIDER
-========================================================== */
+    if(!slider) return;
 
-function startProductSlider(){
 
     const images =
-        $$("#productDetails .product-slider .product-img");
-
-    if(images.length <= 1){
-
-        return;
-
-    }
-
-
-    if(productSliderTimer){
-
-        clearInterval(
-            productSliderTimer
+        slider.querySelectorAll(
+            ".product-img"
         );
 
-    }
+
+    const prev =
+        $("#prevImage");
+
+    const next =
+        $("#nextImage");
+
+    const counter =
+        $("#sliderCounter");
 
 
-    let current = 0;
+    if(!images.length){
 
+        if(counter){
 
-    productSliderTimer =
-        setInterval(
-            function(){
-
-                images[current]
-                    ?.classList
-                    .remove("active");
-
-
-                current++;
-
-
-                if(
-                    current >=
-                    images.length
-                ){
-
-                    current = 0;
-
-                }
-
-
-                images[current]
-                    ?.classList
-                    .add("active");
-
-
-                updateProductDots(
-                    current
-                );
-
-            },
-            3000
-        );
-
-}
-
-
-/* ==========================================================
-   PRODUCT DOTS
-========================================================== */
-
-function initProductDots(){
-
-    const dots =
-        $$("#productDetails .dot");
-
-    if(!dots.length) return;
-
-
-    dots.forEach(
-        function(dot){
-
-            dot.addEventListener(
-                "click",
-                function(){
-
-                    changeImage(
-                        Number(
-                            dot.dataset.index
-                        )
-                    );
-
-                }
-            );
+            counter.textContent =
+                "0 / 0";
 
         }
-    );
-
-}
-
-
-/* ==========================================================
-   CHANGE PRODUCT IMAGE
-========================================================== */
-
-function changeImage(index){
-
-    const images =
-        $$("#productDetails .product-slider .product-img");
-
-    const dots =
-        $$("#productDetails .dot");
-
-
-    if(
-        index < 0 ||
-        index >= images.length
-    ){
 
         return;
+
+    }
+
+
+    detailSliderIndex = 0;
+
+
+    function showImage(index){
+
+        if(index < 0){
+
+            index =
+                images.length - 1;
+
+        }
+
+
+        if(index >= images.length){
+
+            index = 0;
+
+        }
+
+
+        images.forEach(
+            function(img){
+
+                img.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        images[index]
+            .classList.add(
+                "active"
+            );
+
+
+        detailSliderIndex =
+            index;
+
+
+        if(counter){
+
+            counter.textContent =
+                `${index + 1} / ${images.length}`;
+
+        }
+
+    }
+
+
+    if(prev){
+
+        prev.onclick =
+            function(){
+
+                showImage(
+                    detailSliderIndex - 1
+                );
+
+            };
+
+    }
+
+
+    if(next){
+
+        next.onclick =
+            function(){
+
+                showImage(
+                    detailSliderIndex + 1
+                );
+
+            };
 
     }
 
@@ -1401,149 +1551,92 @@ function changeImage(index){
     images.forEach(
         function(img){
 
-            img.classList.remove(
-                "active"
-            );
+            img.addEventListener(
+                "click",
+                function(){
 
-        }
-    );
+                    const modal =
+                        $("#imageModal");
 
-
-    dots.forEach(
-        function(dot){
-
-            dot.classList.remove(
-                "active"
-            );
-
-        }
-    );
+                    const modalImage =
+                        $("#modalImage");
 
 
-    images[index]
-        ?.classList
-        .add("active");
+                    if(
+                        modal &&
+                        modalImage
+                    ){
 
+                        modalImage.src =
+                            img.src;
 
-    dots[index]
-        ?.classList
-        .add("active");
+                        modal.style.display =
+                            "flex";
 
-}
-
-
-/* ==========================================================
-   UPDATE PRODUCT DOT
-========================================================== */
-
-function updateProductDots(index){
-
-    const dots =
-        $$("#productDetails .dot");
-
-
-    dots.forEach(
-        function(dot){
-
-            dot.classList.remove(
-                "active"
-            );
-
-        }
-    );
-
-
-    dots[index]
-        ?.classList
-        .add("active");
-
-}
-
-
-/* ==========================================================
-   HOME PRODUCT SLIDER
-========================================================== */
-
-function startHomeSlider(){
-
-    /*
-       আগের timer থাকলে বন্ধ করি
-       যাতে search/filter করার পর
-       একাধিক slider timer না চলে।
-    */
-
-    homeSliderTimers.forEach(
-        function(timer){
-
-            clearInterval(timer);
-
-        }
-    );
-
-
-    homeSliderTimers = [];
-
-
-    document
-        .querySelectorAll(
-            ".product-card .slider"
-        )
-        .forEach(
-            function(slider){
-
-                const images =
-                    slider.querySelectorAll(
-                        ".product-img"
-                    );
-
-
-                if(images.length <= 1){
-
-                    return;
+                    }
 
                 }
+            );
+
+        }
+    );
 
 
-                let current = 0;
+    showImage(0);
+
+}
 
 
-                const timer =
-                    setInterval(
-                        function(){
+/* ==========================================================
+   ORDER BUTTON
+========================================================== */
 
-                            images[current]
-                                ?.classList
-                                .remove("active");
+function initOrderButton(){
 
+    const orderNow =
+        $("#orderNow");
 
-                            current++;
+    if(
+        !orderNow ||
+        !currentProduct
+    ){
 
+        return;
 
-                            if(
-                                current >=
-                                images.length
-                            ){
-
-                                current = 0;
-
-                            }
+    }
 
 
-                            images[current]
-                                ?.classList
-                                .add("active");
-
-                        },
-                        3000
-                    );
-
-
-                homeSliderTimers.push(
-                    timer
-                );
-
-            }
+    const price =
+        Number(
+            currentProduct.price || 0
         );
+
+
+    const message =
+
+`🌿 Maliha Agro Industry
+
+আমি ${currentProduct.name} অর্ডার করতে চাই।
+
+💰 মূল্য: ${formatPrice(price)}
+
+📦 পরিমাণ: 1
+
+🔗 ${window.location.href}`;
+
+
+    orderNow.href =
+        "https://wa.me/8801303679189?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    orderNow.target =
+        "_blank";
+
+    orderNow.rel =
+        "noopener noreferrer";
 
 }
 
@@ -1596,24 +1689,20 @@ function initQuantity(){
                 ) * qty
             );
 
+
+        updateOrderLink(
+            qty
+        );
+
     }
 
 
     plus.onclick =
         function(){
 
-            /*
-               সর্বোচ্চ 99
-               চাইলে পরে পরিবর্তন করা যাবে।
-            */
+            qty++;
 
-            if(qty < 99){
-
-                qty++;
-
-                update();
-
-            }
+            update();
 
         };
 
@@ -1638,110 +1727,151 @@ function initQuantity(){
 
 
 /* ==========================================================
+   UPDATE ORDER LINK
+========================================================== */
+
+function updateOrderLink(qty){
+
+    const orderNow =
+        $("#orderNow");
+
+    if(
+        !orderNow ||
+        !currentProduct
+    ){
+
+        return;
+
+    }
+
+
+    const price =
+        Number(
+            currentProduct.price || 0
+        );
+
+
+    const total =
+        price * qty;
+
+
+    const message =
+
+`🌿 Maliha Agro Industry
+
+আমি ${currentProduct.name} অর্ডার করতে চাই।
+
+💰 একক মূল্য: ${formatPrice(price)}
+
+📦 পরিমাণ: ${qty}
+
+💵 মোট মূল্য: ${formatPrice(total)}
+
+🔗 ${window.location.href}`;
+
+
+    orderNow.href =
+        "https://wa.me/8801303679189?text=" +
+        encodeURIComponent(
+            message
+        );
+
+}
+
+
+/* ==========================================================
    SHARE PRODUCT
 ========================================================== */
 
-function initShareProduct(){
+function initShareProductButtons(){
 
-    const btn =
-        $("#shareProduct");
+    const buttons = [
 
+        $("#shareProduct"),
+        $("#shareProductBtn")
 
-    if(
-        !btn ||
-        !currentProduct
-    ){
-
-        return;
-
-    }
+    ];
 
 
-    btn.addEventListener(
-        "click",
-        async function(){
+    buttons.forEach(
+        function(btn){
 
-            const shareData = {
-
-                title:
-                    currentProduct.name,
-
-                text:
-                    currentProduct.description ||
-                    "Maliha Agro Industry Product",
-
-                url:
-                    window.location.href
-
-            };
+            if(!btn) return;
 
 
-            /*
-               Android / supported browser
-            */
+            btn.onclick =
+                async function(){
 
-            if(navigator.share){
+                    if(!currentProduct)
+                        return;
 
-                try{
 
-                    await navigator.share(
-                        shareData
-                    );
+                    const shareData = {
 
-                }
-                catch(err){
+                        title:
+                            currentProduct.name,
 
-                    if(
-                        err.name !==
-                        "AbortError"
-                    ){
+                        text:
+                            currentProduct.description ||
+                            "Maliha Agro Industry Product",
 
-                        console.error(
-                            "Share Error:",
-                            err
-                        );
+                        url:
+                            window.location.href
+
+                    };
+
+
+                    if(navigator.share){
+
+                        try{
+
+                            await navigator.share(
+                                shareData
+                            );
+
+                        }
+                        catch(error){
+
+                            if(
+                                error.name !==
+                                "AbortError"
+                            ){
+
+                                console.error(
+                                    error
+                                );
+
+                            }
+
+                        }
+
+                    }
+                    else{
+
+                        try{
+
+                            await navigator.clipboard
+                                .writeText(
+                                    window.location.href
+                                );
+
+
+                            alert(
+                                "✅ Product link copied"
+                            );
+
+                        }
+                        catch(error){
+
+                            alert(
+                                "❌ Link copy failed"
+                            );
+
+                        }
 
                     }
 
-                }
-
-            }
-
-
-            /*
-               Browser যেখানে Web Share নেই
-            */
-
-            else{
-
-                try{
-
-                    await navigator.clipboard
-                        .writeText(
-                            window.location.href
-                        );
-
-
-                    alert(
-                        "✅ Product link copied"
-                    );
-
-                }
-                catch(err){
-
-                    console.error(
-                        "Copy Error:",
-                        err
-                    );
-
-
-                    alert(
-                        "❌ Link copy failed"
-                    );
-
-                }
-
-            }
+                };
 
         }
     );
@@ -1750,185 +1880,7 @@ function initShareProduct(){
 
 
 /* ==========================================================
-   RELATED PRODUCTS
-========================================================== */
-
-function loadRelatedProducts(){
-
-    const related =
-        $("#relatedProducts");
-
-
-    if(
-        !related ||
-        !currentProduct
-    ){
-
-        return;
-
-    }
-
-
-    related.innerHTML = "";
-
-
-    /*
-       একই category-এর product আগে দেখাবে।
-       তারপর প্রয়োজন হলে অন্য product যোগ হবে।
-    */
-
-    const sameCategory =
-        products.filter(
-            function(product){
-
-                return (
-                    Number(product.id) !==
-                    Number(currentProduct.id) &&
-
-                    product.category ===
-                    currentProduct.category
-                );
-
-            }
-        );
-
-
-    const otherProducts =
-        products.filter(
-            function(product){
-
-                return (
-                    Number(product.id) !==
-                    Number(currentProduct.id) &&
-
-                    product.category !==
-                    currentProduct.category
-                );
-
-            }
-        );
-
-
-    const relatedItems =
-        [
-            ...sameCategory,
-            ...otherProducts
-        ]
-        .slice(0,4);
-
-
-    if(!relatedItems.length){
-
-        related.innerHTML = `
-
-<div class="card">
-
-<p>
-এই মুহূর্তে Related Product নেই।
-</p>
-
-</div>
-
-`;
-
-        return;
-
-    }
-
-
-    relatedItems.forEach(
-        function(item){
-
-            const gallery =
-                getGallery(item);
-
-
-            const image =
-                gallery.length
-                ? gallery[0]
-                : "";
-
-
-            related.innerHTML += `
-
-<div class="product-card">
-
-
-<div class="slider">
-
-${
-    image
-    ?
-    `
-<img
-    src="${image}"
-    class="product-img active"
-    alt="${item.name}"
-    loading="lazy"
-    onerror="this.style.display='none';">
-`
-    :
-    `
-<div class="no-image">
-📷 ছবি নেই
-</div>
-`
-}
-
-</div>
-
-
-<h3>
-${item.name}
-</h3>
-
-
-<p class="rating">
-⭐⭐⭐⭐⭐ (${item.rating || 0})
-</p>
-
-
-<p class="price">
-${formatPrice(item.price)}
-</p>
-
-
-<span class="stock">
-🟢 ${item.stock || "স্টকে আছে"}
-</span>
-
-
-<a
-    href="product.html?id=${item.id}"
-    class="btn">
-
-📖 বিস্তারিত দেখুন
-
-</a>
-
-
-</div>
-
-`;
-
-        }
-    );
-
-}
-
-
-/* ==========================================================
-   PART 3 END
-========================================================== */
-
-/* ==========================================================
-   SECTION 06
-   WISHLIST SYSTEM
-========================================================== */
-
-
-/* ==========================================================
-   UPDATE WISHLIST COUNTER
+   WISHLIST COUNTER
 ========================================================== */
 
 function updateWishlistCounter(){
@@ -1946,7 +1898,7 @@ function updateWishlistCounter(){
 
 
 /* ==========================================================
-   INIT WISHLIST
+   WISHLIST INIT
 ========================================================== */
 
 function initWishlist(){
@@ -1985,11 +1937,6 @@ function initWishlist(){
                 }
 
 
-                /*
-                   আগের click handler
-                   duplicate হওয়া এড়াতে
-                */
-
                 btn.onclick =
                     function(){
 
@@ -2019,15 +1966,6 @@ function toggleWishlist(id){
 
 
     if(
-        !Number.isFinite(id)
-    ){
-
-        return;
-
-    }
-
-
-    if(
         wishlist.includes(id)
     ){
 
@@ -2035,10 +1973,7 @@ function toggleWishlist(id){
             wishlist.filter(
                 function(item){
 
-                    return (
-                        Number(item) !==
-                        id
-                    );
+                    return item !== id;
 
                 }
             );
@@ -2051,18 +1986,6 @@ function toggleWishlist(id){
     }
 
 
-    /*
-       Duplicate ID remove
-    */
-
-    wishlist =
-        [
-            ...new Set(
-                wishlist.map(Number)
-            )
-        ];
-
-
     localStorage.setItem(
         "wishlist",
         JSON.stringify(
@@ -2071,35 +1994,94 @@ function toggleWishlist(id){
     );
 
 
-    /*
-       Product page হলে
-       current button update
-    */
-
     initWishlist();
-
-
-    /*
-       Wishlist page হলে
-       list refresh
-    */
-
-    if(
-        $("#wishlistProducts")
-    ){
-
-        loadWishlistPage();
-
-    }
 
 }
 
 
 /* ==========================================================
-   LOAD WISHLIST PAGE
+   PRODUCT PAGE WISHLIST
 ========================================================== */
 
-function loadWishlistPage(){
+function initProductWishlist(){
+
+    if(!currentProduct)
+        return;
+
+
+    const id =
+        Number(
+            currentProduct.id
+        );
+
+
+    const buttons = [
+
+        $("#wishlistBtn"),
+        $("#wishlistProduct")
+
+    ];
+
+
+    buttons.forEach(
+        function(btn){
+
+            if(!btn) return;
+
+
+            function update(){
+
+                if(
+                    wishlist.includes(id)
+                ){
+
+                    btn.textContent =
+                        "❤️ Wishlist";
+
+                    btn.classList.add(
+                        "active"
+                    );
+
+                }
+                else{
+
+                    btn.textContent =
+                        "🤍 Wishlist";
+
+                    btn.classList.remove(
+                        "active"
+                    );
+
+                }
+
+            }
+
+
+            btn.onclick =
+                function(){
+
+                    toggleWishlist(id);
+
+                    updateWishlistCounter();
+
+                    update();
+
+                };
+
+
+            update();
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   WISHLIST PAGE
+========================================================== */
+
+async function loadWishlistPage(){
 
     const container =
         $("#wishlistProducts");
@@ -2107,59 +2089,28 @@ function loadWishlistPage(){
     if(!container) return;
 
 
-    container.innerHTML = "";
+    try{
+
+        await ensureProductsLoaded();
+
+        container.innerHTML = "";
 
 
-    /*
-       Products load না হলে
-       এখানে কিছু করার নেই
-    */
+        const items =
+            products.filter(
+                function(product){
 
-    if(
-        !Array.isArray(products) ||
-        products.length === 0
-    ){
+                    return wishlist.includes(
+                        Number(product.id)
+                    );
 
-        container.innerHTML = `
-
-<div class="card">
-
-<h2>
-❌ Product Load Failed
-</h2>
-
-<p>
-পণ্য লোড করা যায়নি।
-</p>
-
-</div>
-
-`;
-
-        return;
-
-    }
+                }
+            );
 
 
-    const items =
-        products.filter(
-            function(product){
+        if(items.length === 0){
 
-                return wishlist.includes(
-                    Number(product.id)
-                );
-
-            }
-        );
-
-
-    /*
-       Wishlist Empty
-    */
-
-    if(items.length === 0){
-
-        container.innerHTML = `
+            container.innerHTML = `
 
 <div class="card">
 
@@ -2167,14 +2118,9 @@ function loadWishlistPage(){
 ❤️ Wishlist খালি
 </h2>
 
-<p>
-আপনার পছন্দের পণ্য এখানে যোগ করুন।
-</p>
-
-
 <a
-    href="products.html"
-    class="btn">
+href="products.html"
+class="btn">
 
 📦 প্রোডাক্ট দেখুন
 
@@ -2184,68 +2130,36 @@ function loadWishlistPage(){
 
 `;
 
-        updateWishlistCounter();
+            return;
 
-        return;
-
-    }
+        }
 
 
-    /*
-       Wishlist Products
-    */
+        items.forEach(
+            function(product){
 
-    items.forEach(
-        function(product){
-
-            const gallery =
-                getGallery(product);
+                const gallery =
+                    getGallery(product);
 
 
-            const image =
-                gallery.length
-                ? gallery[0]
-                : "";
+                const image =
+                    gallery.length
+                    ? gallery[0]
+                    : "";
 
 
-            container.innerHTML += `
+                container.innerHTML += `
 
 <div class="product-card">
 
-
-${
-    product.offer
-    ?
-    `
-<span class="offer-badge">
-🔥 Offer
-</span>
-`
-    :
-    ""
-}
-
-
 <div class="slider">
 
-${
-    image
-    ?
-    `
 <img
-    src="${image}"
-    class="product-img active"
-    alt="${product.name}"
-    loading="lazy"
-    onerror="this.style.display='none';">
-`
-    :
-    `
-<div class="no-image">
-📷 ছবি নেই
-</div>
-`
-}
+src="${image}"
+class="product-img active"
+alt="${product.name}"
+loading="lazy"
+onerror="this.style.display='none';">
 
 </div>
 
@@ -2255,42 +2169,14 @@ ${product.name}
 </h3>
 
 
-<p class="rating">
-⭐⭐⭐⭐⭐ (${product.rating || 0})
-</p>
-
-
-${
-    Number(product.oldPrice || 0) > 0
-    ?
-    `
-<p class="old-price">
-${formatPrice(product.oldPrice)}
-</p>
-`
-    :
-    ""
-}
-
-
 <p class="price">
 ${formatPrice(product.price)}
 </p>
 
 
-<span class="stock">
-🟢 ${product.stock || "স্টকে আছে"}
-</span>
-
-
-<p>
-${product.description || ""}
-</p>
-
-
 <a
-    href="product.html?id=${product.id}"
-    class="btn">
+href="product.html?id=${product.id}"
+class="btn">
 
 📖 বিস্তারিত দেখুন
 
@@ -2298,11 +2184,11 @@ ${product.description || ""}
 
 
 <button
-    class="btn removeWishlist"
-    data-id="${product.id}"
-    type="button">
+class="btn removeWishlist"
+data-id="${product.id}"
+type="button">
 
-🗑 Wishlist থেকে সরান
+🗑 Remove
 
 </button>
 
@@ -2311,48 +2197,223 @@ ${product.description || ""}
 
 `;
 
-        }
-    );
-
-
-    /*
-       Remove Wishlist Buttons
-    */
-
-    $$(".removeWishlist")
-        .forEach(
-            function(btn){
-
-                btn.onclick =
-                    function(){
-
-                        const id =
-                            Number(
-                                btn.dataset.id
-                            );
-
-
-                        toggleWishlist(
-                            id
-                        );
-
-                    };
-
             }
         );
 
 
-    updateWishlistCounter();
+        $$(".removeWishlist")
+            .forEach(
+                function(btn){
+
+                    btn.onclick =
+                        function(){
+
+                            toggleWishlist(
+                                Number(
+                                    btn.dataset.id
+                                )
+                            );
+
+
+                            loadWishlistPage();
+
+                        };
+
+                }
+            );
+
+
+        updateWishlistCounter();
+
+    }
+    catch(error){
+
+        console.error(
+            "Wishlist Error:",
+            error
+        );
+
+    }
 
 }
 
 
 /* ==========================================================
-   PART 4 END
+   RELATED PRODUCTS
 ========================================================== */
 
+function loadRelatedProducts(){
+
+    const related =
+        $("#relatedProducts");
+
+    if(
+        !related ||
+        !currentProduct
+    ){
+
+        return;
+
+    }
+
+
+    related.innerHTML = "";
+
+
+    products
+        .filter(
+            function(product){
+
+                return Number(product.id) !==
+                    Number(currentProduct.id);
+
+            }
+        )
+        .slice(0,4)
+        .forEach(
+            function(item){
+
+                const gallery =
+                    getGallery(item);
+
+
+                const image =
+                    gallery.length
+                    ? gallery[0]
+                    : "";
+
+
+                related.innerHTML += `
+
+<div class="product-card">
+
+<div class="slider">
+
+<img
+src="${image}"
+class="product-img active"
+alt="${item.name}"
+loading="lazy"
+onerror="this.style.display='none';">
+
+</div>
+
+
+<h3>
+${item.name}
+</h3>
+
+
+<p class="price">
+${formatPrice(item.price)}
+</p>
+
+
+<a
+href="product.html?id=${item.id}"
+class="btn">
+
+📖 বিস্তারিত দেখুন
+
+</a>
+
+</div>
+
+`;
+
+            }
+        );
+
+}
+
+
 /* ==========================================================
-   SECTION 07
+   HOME PRODUCT SLIDER
+========================================================== */
+
+function startHomeSlider(){
+
+    homeSliderTimers.forEach(
+        function(timer){
+
+            clearInterval(timer);
+
+        }
+    );
+
+
+    homeSliderTimers = [];
+
+
+    document
+        .querySelectorAll(
+            ".product-card .slider"
+        )
+        .forEach(
+            function(slider){
+
+                const images =
+                    slider.querySelectorAll(
+                        ".product-img"
+                    );
+
+
+                if(images.length <= 1){
+
+                    return;
+
+                }
+
+
+                let current = 0;
+
+
+                const timer =
+                    setInterval(
+                        function(){
+
+                            images[current]
+                                .classList
+                                .remove(
+                                    "active"
+                                );
+
+
+                            current++;
+
+
+                            if(
+                                current >=
+                                images.length
+                            ){
+
+                                current = 0;
+
+                            }
+
+
+                            images[current]
+                                .classList
+                                .add(
+                                    "active"
+                                );
+
+                        },
+                        3000
+                    );
+
+
+                homeSliderTimers.push(
+                    timer
+                );
+
+            }
+        );
+
+}
+
+
+/* ==========================================================
    IMAGE PREVIEW
 ========================================================== */
 
@@ -2364,14 +2425,10 @@ function initImagePreview(){
     const modalImg =
         $("#modalImage");
 
-    const close =
-        $(".close-modal");
-
 
     if(
         !modal ||
-        !modalImg ||
-        !close
+        !modalImg
     ){
 
         return;
@@ -2379,162 +2436,80 @@ function initImagePreview(){
     }
 
 
-    /*
-       Product image click করলে
-       বড় করে দেখাবে
-    */
-
     document.addEventListener(
         "click",
         function(e){
 
-            const image =
-                e.target.closest(
-                    ".product-img"
-                );
-
-
-            if(!image){
-
-                return;
-
-            }
-
-
             if(
-                !image.src ||
-                image.style.display === "none"
+                e.target.classList &&
+                e.target.classList.contains(
+                    "product-img"
+                )
             ){
 
-                return;
+                /*
+                   Product detail gallery-তে
+                   click already handled হয়েছে।
+                */
+
+                if(
+                    e.target.closest(
+                        "#productSlider"
+                    )
+                ){
+
+                    return;
+
+                }
+
+
+                modal.style.display =
+                    "flex";
+
+
+                modalImg.src =
+                    e.target.src;
 
             }
 
-
-            modalImg.src =
-                image.src;
-
-
-            modalImg.alt =
-                image.alt ||
-                "Product Image";
-
-
-            modal.style.display =
-                "flex";
-
-
-            document.body.classList.add(
-                "modal-open"
-            );
-
         }
     );
 
 
-    /*
-       Close button
-    */
-
-    close.addEventListener(
-        "click",
-        function(){
-
-            closeImageModal();
-
-        }
-    );
+    const close =
+        modal.querySelector(
+            ".close-modal"
+        );
 
 
-    /*
-       Modal-এর বাইরে click করলে
-       বন্ধ হবে
-    */
+    if(close){
 
-    modal.addEventListener(
-        "click",
+        close.onclick =
+            function(){
+
+                modal.style.display =
+                    "none";
+
+            };
+
+    }
+
+
+    modal.onclick =
         function(e){
 
             if(
                 e.target === modal
             ){
 
-                closeImageModal();
+                modal.style.display =
+                    "none";
 
             }
 
-        }
-    );
-
-
-    /*
-       ESC চাপলেও বন্ধ হবে
-    */
-
-    document.addEventListener(
-        "keydown",
-        function(e){
-
-            if(
-                e.key === "Escape" &&
-                modal.style.display === "flex"
-            ){
-
-                closeImageModal();
-
-            }
-
-        }
-    );
+        };
 
 }
-
-
-/* ==========================================================
-   CLOSE IMAGE MODAL
-========================================================== */
-
-function closeImageModal(){
-
-    const modal =
-        $("#imageModal");
-
-    const modalImg =
-        $("#modalImage");
-
-
-    if(!modal){
-
-        return;
-
-    }
-
-
-    modal.style.display =
-        "none";
-
-
-    document.body.classList.remove(
-        "modal-open"
-    );
-
-
-    if(modalImg){
-
-        modalImg.removeAttribute(
-            "src"
-        );
-
-    }
-
-}
-
-
-/* ==========================================================
-   SECTION 08
-   CONTACT PAGE
-   FORM + WHATSAPP
-========================================================== */
 
 
 /* ==========================================================
@@ -2549,10 +2524,6 @@ function initContactForm(){
     if(!form) return;
 
 
-    const status =
-        $("#contactFormStatus");
-
-
     form.addEventListener(
         "submit",
         function(e){
@@ -2563,41 +2534,32 @@ function initContactForm(){
             const name =
                 $("#contactName")
                 ?.value
-                .trim() ||
-                "";
+                .trim() || "";
 
 
             const phone =
                 $("#contactPhone")
                 ?.value
-                .trim() ||
-                "";
+                .trim() || "";
 
 
             const email =
                 $("#contactEmail")
                 ?.value
-                .trim() ||
-                "";
+                .trim() || "";
 
 
             const subject =
                 $("#contactSubject")
                 ?.value
-                .trim() ||
-                "";
+                .trim() || "";
 
 
             const message =
                 $("#contactMessage")
                 ?.value
-                .trim() ||
-                "";
+                .trim() || "";
 
-
-            /* ==========================
-               VALIDATION
-            ========================== */
 
             if(!name){
 
@@ -2606,10 +2568,8 @@ function initContactForm(){
                     "error"
                 );
 
-
                 $("#contactName")
                     ?.focus();
-
 
                 return;
 
@@ -2623,10 +2583,8 @@ function initContactForm(){
                     "error"
                 );
 
-
                 $("#contactPhone")
                     ?.focus();
-
 
                 return;
 
@@ -2640,10 +2598,8 @@ function initContactForm(){
                     "error"
                 );
 
-
                 $("#contactSubject")
                     ?.focus();
-
 
                 return;
 
@@ -2657,19 +2613,13 @@ function initContactForm(){
                     "error"
                 );
 
-
                 $("#contactMessage")
                     ?.focus();
-
 
                 return;
 
             }
 
-
-            /* ==========================
-               SUBJECT TEXT
-            ========================== */
 
             const subjectText = {
 
@@ -2696,10 +2646,6 @@ function initContactForm(){
                 subject;
 
 
-            /* ==========================
-               WHATSAPP MESSAGE
-            ========================== */
-
             const whatsappMessage =
 
 `🌿 Maliha Agro Industry
@@ -2725,11 +2671,6 @@ ${message}
 Maliha Agro Industry`;
 
 
-            /*
-               Maliha Agro Industry
-               WhatsApp Number
-            */
-
             const whatsappURL =
                 "https://wa.me/8801303679189?text=" +
                 encodeURIComponent(
@@ -2742,11 +2683,6 @@ Maliha Agro Industry`;
                 "success"
             );
 
-
-            /*
-               সামান্য delay
-               তারপর WhatsApp open
-            */
 
             setTimeout(
                 function(){
@@ -2798,17 +2734,10 @@ function showContactStatus(
         "10px";
 
 
-    status.style.fontSize =
-        "14px";
-
-
-    if(
-        type === "error"
-    ){
+    if(type === "error"){
 
         status.style.color =
             "#b71c1c";
-
 
         status.style.background =
             "#ffebee";
@@ -2818,7 +2747,6 @@ function showContactStatus(
 
         status.style.color =
             "#166C39";
-
 
         status.style.background =
             "#e9f8ef";
@@ -2839,10 +2767,6 @@ function initBackToTop(){
 
     if(!btn) return;
 
-
-    /*
-       Scroll করলে button দেখাবে
-    */
 
     window.addEventListener(
         "scroll",
@@ -2865,16 +2789,9 @@ function initBackToTop(){
 
             }
 
-        },
-        {
-            passive:true
         }
     );
 
-
-    /*
-       Button click
-    */
 
     btn.addEventListener(
         "click",
@@ -2882,9 +2799,9 @@ function initBackToTop(){
 
             window.scrollTo({
 
-                top:0,
+                top: 0,
 
-                behavior:"smooth"
+                behavior: "smooth"
 
             });
 
@@ -2895,13 +2812,7 @@ function initBackToTop(){
 
 
 /* ==========================================================
-   PART 5 END
-========================================================== */
-
-/* ==========================================================
-   SECTION 09
    FINAL INITIALIZATION
-   ONLY ONE DOMContentLoaded
 ========================================================== */
 
 document.addEventListener(
@@ -2909,13 +2820,13 @@ document.addEventListener(
     async function(){
 
         console.log(
-            "✅ Maliha Agro Industry JS v4 Loaded"
+            "✅ Maliha Agro Industry JS FINAL Loaded"
         );
 
 
-        /* ==================================================
-           GLOBAL FUNCTIONS
-        ================================================== */
+        /* ==========================
+           GLOBAL
+        ========================== */
 
         updateWishlistCounter();
 
@@ -2934,154 +2845,45 @@ document.addEventListener(
         initBackToTop();
 
 
-        /* ==================================================
+        /* ==========================
            PRODUCTS PAGE
-        ================================================== */
+        ========================== */
 
-        if(
-            $("#productList")
-        ){
+        if($("#productList")){
 
-            try{
+            initSearch();
 
-                /*
-                   Search / Sort / Category
-                   আগে initialize হবে
-                */
+            initSort();
 
-                initSearch();
+            initCategoryFilter();
 
-                initSort();
-
-                initCategoryFilter();
-
-
-                /*
-                   Product data load
-                */
-
-                await loadProducts(
-                    "all"
-                );
-
-            }
-            catch(error){
-
-                console.error(
-                    "Products Page Error:",
-                    error
-                );
-
-            }
+            await loadProducts(
+                "all"
+            );
 
         }
 
 
-        /* ==================================================
+        /* ==========================
            PRODUCT DETAILS PAGE
-        ================================================== */
+        ========================== */
 
-        if(
-            $("#productDetails")
-        ){
+        if($("#productSlider")){
 
-            try{
-
-                await loadProductDetails();
-
-            }
-            catch(error){
-
-                console.error(
-                    "Product Details Page Error:",
-                    error
-                );
-
-            }
+            await loadProductDetails();
 
         }
 
 
-        /* ==================================================
+        /* ==========================
            WISHLIST PAGE
-        ================================================== */
+        ========================== */
 
-        if(
-            $("#wishlistProducts")
-        ){
+        if($("#wishlistProducts")){
 
-            try{
-
-                await ensureProductsLoaded();
-
-                loadWishlistPage();
-
-            }
-            catch(error){
-
-                console.error(
-                    "Wishlist Page Error:",
-                    error
-                );
-
-
-                const container =
-                    $("#wishlistProducts");
-
-
-                if(container){
-
-                    container.innerHTML = `
-
-<div class="card">
-
-<h2>
-❌ Product Load Failed
-</h2>
-
-<p>
-পণ্য লোড করতে সমস্যা হয়েছে।
-</p>
-
-<button
-    class="btn"
-    type="button"
-    onclick="location.reload()">
-
-🔄 আবার চেষ্টা করুন
-
-</button>
-
-</div>
-
-`;
-
-                }
-
-            }
+            await loadWishlistPage();
 
         }
-
-
-        /* ==================================================
-           FINAL WISHLIST UPDATE
-        ================================================== */
-
-        updateWishlistCounter();
-
-
-        console.log(
-            "✅ Maliha Agro Industry — All Systems Ready"
-        );
 
     }
 );
-
-
-/* ==========================================================
-   SCRIPT.JS END
-========================================================== */
-
-
-
-
