@@ -12,7 +12,7 @@
 
     <meta
         name="description"
-        content="Maliha Agro Industry - কৃষি, জৈব সার, বীজ, কৃষি যন্ত্রপাতি, মসলা, খাদ্যপণ্য ও পরিষ্কার-পরিচ্ছন্নতার পণ্য।"
+        content="Maliha Agro Industry - কৃষি, খাদ্যপণ্য, মসলা, গৃহস্থালি ও অন্যান্য মানসম্মত পণ্য।"
     >
 
     <meta
@@ -25,7 +25,9 @@
     </title>
 
 
-    <!-- Google Font -->
+    <!-- ==================================================
+         GOOGLE FONT
+    ================================================== -->
 
     <link
         rel="preconnect"
@@ -44,7 +46,9 @@
     >
 
 
-    <!-- Font Awesome -->
+    <!-- ==================================================
+         FONT AWESOME
+    ================================================== -->
 
     <link
         rel="stylesheet"
@@ -52,1173 +56,14 @@
     >
 
 
-    <!-- Main CSS -->
+    <!-- ==================================================
+         MAIN CSS
+    ================================================== -->
 
     <link
         rel="stylesheet"
-        href="style.css?v=6"
+        href="style.css"
     >
-
-
-    <style>
-
-        /* =====================================================
-           PRODUCTS PAGE
-        ===================================================== */
-
-        .products-page {
-
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-
-            padding:
-                35px
-                25px
-                120px;
-
-            box-sizing: border-box;
-
-        }
-
-
-        /* =====================================================
-           HEADER
-        ===================================================== */
-
-        .products-page-header {
-
-            text-align: center;
-
-            padding:
-                25px
-                20px
-                35px;
-
-        }
-
-
-        .products-page-header h1 {
-
-            margin:
-                0 0 10px;
-
-            color: #166C39;
-
-            font-size: 34px;
-
-            font-weight: 700;
-
-        }
-
-
-        .products-page-header p {
-
-            margin: 0;
-
-            color: #666;
-
-            font-size: 16px;
-
-            line-height: 1.7;
-
-        }
-
-
-        /* =====================================================
-           FILTER CARD
-        ===================================================== */
-
-        .products-filter-card {
-
-            background: #fff;
-
-            border-radius: 22px;
-
-            padding: 25px;
-
-            margin-bottom: 30px;
-
-            border:
-                1px solid #edf2ee;
-
-            box-shadow:
-                0 8px 30px rgba(0,0,0,.07);
-
-        }
-
-
-        .products-filter-top {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 250px;
-
-            gap: 15px;
-
-            align-items: center;
-
-            margin-bottom: 24px;
-
-        }
-
-
-        /* =====================================================
-           SEARCH
-        ===================================================== */
-
-        .products-search {
-
-            position: relative;
-
-        }
-
-
-        .products-search i {
-
-            position: absolute;
-
-            left: 16px;
-
-            top: 50%;
-
-            transform:
-                translateY(-50%);
-
-            color: #1F8F4D;
-
-            pointer-events: none;
-
-        }
-
-
-        .products-search input {
-
-            width: 100%;
-
-            height: 52px;
-
-            padding:
-                0
-                18px
-                0
-                46px;
-
-            border:
-                1px solid #dfe7e1;
-
-            border-radius: 14px;
-
-            outline: none;
-
-            font-family: inherit;
-
-            font-size: 15px;
-
-            background: #fbfdfb;
-
-            box-sizing: border-box;
-
-            transition: .25s;
-
-        }
-
-
-        .products-search input:focus {
-
-            border-color:
-                #1F8F4D;
-
-            box-shadow:
-                0 0 0 4px
-                rgba(31,143,77,.10);
-
-            background: #fff;
-
-        }
-
-
-        /* =====================================================
-           SORT
-        ===================================================== */
-
-        .products-sort {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 9px;
-
-        }
-
-
-        .products-sort label {
-
-            white-space: nowrap;
-
-            font-weight: 600;
-
-            color: #333;
-
-        }
-
-
-        .products-sort select {
-
-            width: 100%;
-
-            height: 52px;
-
-            padding:
-                0 12px;
-
-            border:
-                1px solid #dfe7e1;
-
-            border-radius: 14px;
-
-            background: #fff;
-
-            outline: none;
-
-            font-family: inherit;
-
-            font-size: 14px;
-
-            cursor: pointer;
-
-        }
-
-
-        /* =====================================================
-           CATEGORY TITLE
-        ===================================================== */
-
-        .products-category-title {
-
-            font-size: 15px;
-
-            font-weight: 700;
-
-            color: #333;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        /* =====================================================
-           MAIN CATEGORY
-        ===================================================== */
-
-        .main-category-buttons {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 10px;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .main-category-btn {
-
-            border:
-                1px solid #d7eadc;
-
-            padding:
-                11px
-                18px;
-
-            border-radius: 30px;
-
-            background: #f1faf4;
-
-            color: #166C39;
-
-            font-family: inherit;
-
-            font-size: 14px;
-
-            font-weight: 700;
-
-            cursor: pointer;
-
-            transition: .25s;
-
-        }
-
-
-        .main-category-btn:hover {
-
-            background: #dff4e6;
-
-            transform:
-                translateY(-1px);
-
-        }
-
-
-        .main-category-btn.active {
-
-            background:
-                #1F8F4D;
-
-            color: #fff;
-
-            border-color:
-                #1F8F4D;
-
-            box-shadow:
-                0 5px 15px
-                rgba(31,143,77,.20);
-
-        }
-
-
-        /* =====================================================
-           SUB CATEGORY
-        ===================================================== */
-
-        .subcategory-wrapper {
-
-            display: none;
-
-            padding:
-                15px;
-
-            margin-top: 5px;
-
-            background:
-                #f8fcf9;
-
-            border:
-                1px solid #e2eee5;
-
-            border-radius: 16px;
-
-        }
-
-
-        .subcategory-wrapper.show {
-
-            display: block;
-
-        }
-
-
-        .subcategory-title {
-
-            color: #555;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            margin-bottom: 10px;
-
-        }
-
-
-        .subcategory-buttons {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 8px;
-
-        }
-
-
-        .subcategory-btn {
-
-            border:
-                1px solid #dce9df;
-
-            padding:
-                8px
-                13px;
-
-            border-radius: 25px;
-
-            background: #fff;
-
-            color: #27613e;
-
-            font-family: inherit;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            cursor: pointer;
-
-            transition: .25s;
-
-        }
-
-
-        .subcategory-btn:hover {
-
-            border-color:
-                #1F8F4D;
-
-            color:
-                #1F8F4D;
-
-        }
-
-
-        .subcategory-btn.active {
-
-            background:
-                #e2f5e8;
-
-            border-color:
-                #1F8F4D;
-
-            color:
-                #166C39;
-
-        }
-
-
-        /* =====================================================
-           PRODUCT GRID
-        ===================================================== */
-
-        #productList.products-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(4, minmax(0,1fr));
-
-            gap: 24px;
-
-            width: 100%;
-
-            align-items: stretch;
-
-        }
-
-
-        /* =====================================================
-           PRODUCT CARD
-        ===================================================== */
-
-        #productList .product-card {
-
-            position: relative;
-
-            display: flex;
-
-            flex-direction: column;
-
-            background: #fff;
-
-            border:
-                1px solid #e8eee9;
-
-            border-radius: 20px;
-
-            padding: 15px;
-
-            overflow: hidden;
-
-            min-width: 0;
-
-            box-shadow:
-                0 7px 25px
-                rgba(0,0,0,.06);
-
-            transition:
-                transform .25s ease,
-                box-shadow .25s ease;
-
-        }
-
-
-        #productList .product-card:hover {
-
-            transform:
-                translateY(-6px);
-
-            box-shadow:
-                0 15px 35px
-                rgba(0,0,0,.11);
-
-        }
-
-
-        /* =====================================================
-           IMAGE
-        ===================================================== */
-
-        #productList .slider {
-
-            width: 100%;
-
-            height: 250px;
-
-            position: relative;
-
-            overflow: hidden;
-
-            border-radius: 15px;
-
-            background: #f5f8f5;
-
-            margin-bottom: 15px;
-
-        }
-
-
-        #productList .product-img {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover;
-
-            display: none;
-
-            cursor: pointer;
-
-        }
-
-
-        #productList .product-img.active {
-
-            display: block;
-
-        }
-
-
-        /* =====================================================
-           OFFER
-        ===================================================== */
-
-        #productList .offer-badge {
-
-            position: absolute;
-
-            z-index: 5;
-
-            top: 25px;
-
-            left: 25px;
-
-            background: #e53935;
-
-            color: #fff;
-
-            padding:
-                6px
-                10px;
-
-            border-radius: 20px;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-        }
-
-
-        /* =====================================================
-           WISHLIST
-        ===================================================== */
-
-        #productList .wishlist-btn {
-
-            position: absolute;
-
-            z-index: 6;
-
-            top: 22px;
-
-            right: 22px;
-
-            width: 40px;
-
-            height: 40px;
-
-            border: none;
-
-            border-radius: 50%;
-
-            background:
-                rgba(255,255,255,.95);
-
-            box-shadow:
-                0 4px 15px
-                rgba(0,0,0,.12);
-
-            cursor: pointer;
-
-            font-size: 18px;
-
-        }
-
-
-        #productList .wishlist-btn.active {
-
-            background:
-                #fff0f0;
-
-        }
-
-
-        /* =====================================================
-           PRODUCT TEXT
-        ===================================================== */
-
-        #productList .product-card h3 {
-
-            margin:
-                2px 0 8px;
-
-            color:
-                #174c2d;
-
-            font-size: 18px;
-
-            line-height: 1.45;
-
-        }
-
-
-        #productList .rating {
-
-            margin:
-                0 0 8px;
-
-            color:
-                #e6a400;
-
-            font-size: 13px;
-
-        }
-
-
-        #productList .old-price {
-
-            margin: 0;
-
-            color: #999;
-
-            text-decoration:
-                line-through;
-
-            font-size: 14px;
-
-        }
-
-
-        #productList .price {
-
-            margin:
-                2px 0 7px;
-
-            color:
-                #1F8F4D;
-
-            font-size: 23px;
-
-            font-weight: 700;
-
-        }
-
-
-        #productList .stock {
-
-            display: inline-block;
-
-            margin-bottom: 10px;
-
-            color:
-                #278348;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-        }
-
-
-        #productList .product-category-label {
-
-            display: inline-block;
-
-            width: fit-content;
-
-            margin-bottom: 8px;
-
-            padding:
-                5px
-                9px;
-
-            border-radius: 20px;
-
-            background:
-                #eef8f1;
-
-            color:
-                #166C39;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-        }
-
-
-        #productList .product-card > p:not(.rating):not(.old-price):not(.price):not(.stock):not(.product-category-label) {
-
-            color: #666;
-
-            font-size: 14px;
-
-            line-height: 1.7;
-
-            margin:
-                4px 0 15px;
-
-        }
-
-
-        /* =====================================================
-           BUTTON
-        ===================================================== */
-
-        #productList .product-card .btn {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            width: 100%;
-
-            min-height: 46px;
-
-            margin-top: auto;
-
-            border-radius: 12px;
-
-            text-decoration: none;
-
-            background:
-                #1F8F4D;
-
-            color: #fff;
-
-            font-weight: 600;
-
-            font-size: 14px;
-
-            box-sizing: border-box;
-
-        }
-
-
-        #productList .product-card .btn:hover {
-
-            background:
-                #166C39;
-
-        }
-
-
-        /* =====================================================
-           DEALER CTA
-        ===================================================== */
-
-        .products-dealer-cta {
-
-            margin-top: 45px;
-
-            border-radius: 24px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #166C39,
-                    #1F8F4D
-                );
-
-            color: #fff;
-
-            padding:
-                45px 30px;
-
-            text-align: center;
-
-            box-shadow:
-                0 15px 35px
-                rgba(22,108,57,.18);
-
-        }
-
-
-        .products-dealer-cta i {
-
-            font-size: 40px;
-
-            margin-bottom: 12px;
-
-        }
-
-
-        .products-dealer-cta h2 {
-
-            margin:
-                0 0 10px;
-
-            font-size: 28px;
-
-        }
-
-
-        .products-dealer-cta p {
-
-            max-width: 750px;
-
-            margin:
-                0 auto 25px;
-
-            line-height: 1.8;
-
-            opacity: .95;
-
-        }
-
-
-        .dealer-cta-buttons {
-
-            display: flex;
-
-            justify-content: center;
-
-            gap: 12px;
-
-            flex-wrap: wrap;
-
-        }
-
-
-        .dealer-cta-buttons .btn {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 8px;
-
-            min-width: 140px;
-
-            min-height: 46px;
-
-            padding:
-                0 20px;
-
-            border-radius: 12px;
-
-            background: #fff;
-
-            color: #166C39;
-
-            text-decoration: none;
-
-            font-weight: 700;
-
-        }
-
-
-        /* =====================================================
-           WHATSAPP
-        ===================================================== */
-
-        .whatsapp-float {
-
-            position: fixed;
-
-            right: 22px;
-
-            bottom: 90px;
-
-            width: 54px;
-
-            height: 54px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 50%;
-
-            background: #25D366;
-
-            color: #fff;
-
-            font-size: 27px;
-
-            text-decoration: none;
-
-            box-shadow:
-                0 7px 20px
-                rgba(0,0,0,.18);
-
-            z-index: 999;
-
-        }
-
-
-        /* =====================================================
-           RESPONSIVE
-        ===================================================== */
-
-        @media (min-width:1200px){
-
-            #productList .slider {
-
-                height:270px;
-
-            }
-
-        }
-
-
-        @media (min-width:992px)
-        and (max-width:1199px){
-
-            #productList.products-grid {
-
-                grid-template-columns:
-                    repeat(3,minmax(0,1fr));
-
-            }
-
-            #productList .slider {
-
-                height:240px;
-
-            }
-
-        }
-
-
-        @media (min-width:600px)
-        and (max-width:991px){
-
-            .products-page {
-
-                padding:
-                    25px
-                    20px
-                    110px;
-
-            }
-
-            .products-filter-top {
-
-                grid-template-columns:1fr;
-
-            }
-
-            #productList.products-grid {
-
-                grid-template-columns:
-                    repeat(2,minmax(0,1fr));
-
-                gap:18px;
-
-            }
-
-            #productList .slider {
-
-                height:230px;
-
-            }
-
-        }
-
-
-        @media (max-width:599px){
-
-            .products-page {
-
-                padding:
-                    15px
-                    12px
-                    105px;
-
-            }
-
-            .products-page-header {
-
-                padding:
-                    18px
-                    8px
-                    25px;
-
-            }
-
-            .products-page-header h1 {
-
-                font-size:25px;
-
-            }
-
-            .products-page-header p {
-
-                font-size:13px;
-
-            }
-
-            .products-filter-card {
-
-                padding:16px;
-
-                border-radius:18px;
-
-            }
-
-            .products-filter-top {
-
-                grid-template-columns:1fr;
-
-            }
-
-            .products-sort {
-
-                flex-direction:column;
-
-                align-items:stretch;
-
-            }
-
-            .main-category-buttons {
-
-                gap:7px;
-
-            }
-
-            .main-category-btn {
-
-                padding:
-                    9px
-                    12px;
-
-                font-size:12px;
-
-            }
-
-            .subcategory-wrapper {
-
-                padding:12px;
-
-            }
-
-            .subcategory-btn {
-
-                padding:
-                    7px
-                    10px;
-
-                font-size:11px;
-
-            }
-
-            #productList.products-grid {
-
-                grid-template-columns:1fr;
-
-                gap:18px;
-
-            }
-
-            #productList .slider {
-
-                height:270px;
-
-            }
-
-            .products-dealer-cta {
-
-                margin-top:30px;
-
-                padding:
-                    32px
-                    18px;
-
-                border-radius:20px;
-
-            }
-
-            .products-dealer-cta h2 {
-
-                font-size:22px;
-
-            }
-
-            .products-dealer-cta p {
-
-                font-size:13px;
-
-            }
-
-            .whatsapp-float {
-
-                right:15px;
-
-                bottom:82px;
-
-                width:50px;
-
-                height:50px;
-
-                font-size:24px;
-
-            }
-
-        }
-
-
-        @media (max-width:380px){
-
-            #productList .slider {
-
-                height:230px;
-
-            }
-
-            .main-category-btn {
-
-                font-size:11px;
-
-                padding:
-                    8px
-                    10px;
-
-            }
-
-        }
-
-    </style>
 
 </head>
 
@@ -1226,69 +71,104 @@
 <body>
 
 
+<!-- ======================================================
+     PRODUCTS PAGE
+====================================================== -->
+
 <main class="products-page">
 
 
-    <!-- PAGE HEADER -->
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
 
-    <section class="products-page-header fade-up">
+    <section class="products-page-header">
 
         <h1>
             🌱 আমাদের পণ্যসমূহ
         </h1>
 
         <p>
-            কৃষি, খাদ্য, মসলা ও দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য
+            Maliha Agro Industry-এর মানসম্মত পণ্যসমূহ
         </p>
 
     </section>
 
 
-    <!-- SEARCH + FILTER -->
 
-    <section class="products-filter-card fade-up">
+    <!-- ==================================================
+         SEARCH + SORT + CATEGORY
+====================================================== -->
 
+    <section class="products-filter-card">
+
+
+        <!-- ==================================================
+             SEARCH + SORT
+        ================================================== -->
 
         <div class="products-filter-top">
 
 
+            <!-- SEARCH -->
+
             <div class="products-search">
 
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i
+                    class="fa-solid fa-magnifying-glass"
+                    aria-hidden="true"
+                ></i>
+
 
                 <input
                     type="search"
                     id="searchProduct"
                     placeholder="পণ্যের নাম লিখে খুঁজুন..."
                     aria-label="পণ্য খুঁজুন"
+                    autocomplete="off"
                 >
 
             </div>
 
 
+
+            <!-- SORT -->
+
             <div class="products-sort">
 
-                <label for="sortProducts">
+                <label
+                    for="sortProducts"
+                >
+
                     ↕️ সাজান:
+
                 </label>
 
-                <select id="sortProducts">
+
+                <select
+                    id="sortProducts"
+                    aria-label="পণ্য সাজান"
+                >
 
                     <option value="default">
                         ডিফল্ট
                     </option>
 
+
                     <option value="low-high">
                         মূল্য: কম থেকে বেশি
                     </option>
+
 
                     <option value="high-low">
                         মূল্য: বেশি থেকে কম
                     </option>
 
+
                     <option value="new">
                         নতুন পণ্য
                     </option>
+
 
                     <option value="best">
                         বেস্ট সেলার
@@ -1301,108 +181,134 @@
         </div>
 
 
-        <!-- CATEGORY -->
+
+        <!-- ==================================================
+             MAIN CATEGORY
+        ================================================== -->
 
         <div class="products-category-title">
 
-            📂 পণ্যের ক্যাটাগরি
+            📂 ক্যাটাগরি নির্বাচন করুন
 
         </div>
 
 
-        <div
-            id="mainCategoryButtons"
-            class="main-category-buttons"
-        >
+        <!--
 
+            এই অংশ JavaScript দিয়ে
+            Admin Panel / Database থেকে
+            Dynamicভাবে তৈরি হবে।
+
+            উদাহরণ:
+
+            সব পণ্য
+            কৃষি
+            মসলা
+            চাল-ডাল ও খাদ্যপণ্য
+            গৃহস্থালি
+            অন্যান্য
+
+        -->
+
+        <div
+            id="categoryButtons"
+            class="products-category-buttons"
+        >
 
             <button
                 type="button"
-                class="main-category-btn active"
+                class="filter-btn active"
                 data-category="all"
             >
+
                 🛍️ সব পণ্য
+
             </button>
-
-
-            <button
-                type="button"
-                class="main-category-btn"
-                data-category="agriculture"
-            >
-                🌾 কৃষি
-            </button>
-
-
-            <button
-                type="button"
-                class="main-category-btn"
-                data-category="spices"
-            >
-                🌶️ মসলা
-            </button>
-
-
-            <button
-                type="button"
-                class="main-category-btn"
-                data-category="food"
-            >
-                🍚 চাল, ডাল ও খাদ্যপণ্য
-            </button>
-
-
-            <button
-                type="button"
-                class="main-category-btn"
-                data-category="cleaning"
-            >
-                🧴 পরিষ্কার-পরিচ্ছন্নতা
-            </button>
-
 
         </div>
 
 
-        <!-- SUBCATEGORY -->
+
+        <!-- ==================================================
+             SUB CATEGORY
+        ================================================== -->
 
         <div
-            id="subcategoryWrapper"
-            class="subcategory-wrapper"
+            id="subcategorySection"
+            class="subcategory-section"
+            style="display:none;"
         >
 
-            <div
-                id="subcategoryTitle"
-                class="subcategory-title"
-            >
-                উপ-ক্যাটাগরি নির্বাচন করুন
+            <div class="products-category-title">
+
+                📁 সাব-ক্যাটাগরি
+
             </div>
 
 
             <div
                 id="subcategoryButtons"
-                class="subcategory-buttons"
-            ></div>
+                class="products-category-buttons subcategories"
+            >
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ==================================================
+         PRODUCT RESULT INFO
+    ================================================== -->
+
+    <section
+        class="products-result-header"
+        aria-live="polite"
+    >
+
+        <div id="productResultInfo">
+
+            সকল পণ্য
 
         </div>
 
     </section>
 
 
-    <!-- PRODUCT LIST -->
 
-    <section>
+    <!-- ==================================================
+         PRODUCT LIST
+    ================================================== -->
+
+    <section
+        class="products-list-section"
+        aria-label="পণ্যসমূহ"
+    >
 
         <div
             id="productList"
             class="products-grid"
         >
 
-            <div class="card">
+
+            <!-- LOADING -->
+
+            <div
+                class="card product-loading"
+            >
+
+                <div class="loading-icon">
+                    ⏳
+                </div>
+
 
                 <h2>
-                    ⏳ পণ্য লোড হচ্ছে...
+                    পণ্য লোড হচ্ছে...
                 </h2>
+
 
                 <p>
                     অনুগ্রহ করে একটু অপেক্ষা করুন।
@@ -1410,54 +316,128 @@
 
             </div>
 
+
         </div>
 
     </section>
 
 
-    <!-- DEALER CTA -->
 
-    <section class="products-dealer-cta fade-up">
+    <!-- ==================================================
+         NO PRODUCT MESSAGE
+    ================================================== -->
 
-        <i class="fa-solid fa-store"></i>
+    <section
+        id="noProductMessage"
+        class="card no-product-message"
+        style="display:none;"
+    >
+
+        <div class="no-product-icon">
+            🔍
+        </div>
+
 
         <h2>
-            পাইকারি ও ডিলারশিপ
+            কোনো পণ্য পাওয়া যায়নি
         </h2>
 
+
         <p>
-            আমাদের পণ্য পাইকারি মূল্যে নিতে
-            অথবা ডিলারশিপ সম্পর্কে জানতে
-            সরাসরি যোগাযোগ করুন।
+            অন্য কোনো পণ্যের নাম অথবা ক্যাটাগরি দিয়ে চেষ্টা করুন।
         </p>
 
 
-        <div class="dealer-cta-buttons">
+        <button
+            type="button"
+            id="clearProductFilter"
+            class="btn"
+        >
+
+            🔄 ফিল্টার পরিষ্কার করুন
+
+        </button>
+
+    </section>
+
+
+
+    <!-- ==================================================
+         DEALER / WHOLESALE CTA
+    ================================================== -->
+
+    <section
+        class="products-dealer-cta"
+    >
+
+
+        <div class="dealer-cta-icon">
+
+            <i
+                class="fa-solid fa-store"
+                aria-hidden="true"
+            ></i>
+
+        </div>
+
+
+        <h2>
+
+            পাইকারি ও ডিলারশিপ
+
+        </h2>
+
+
+        <p>
+
+            আমাদের পণ্য পাইকারি মূল্যে নিতে
+            অথবা ডিলারশিপ সম্পর্কে জানতে
+            সরাসরি যোগাযোগ করুন।
+
+        </p>
+
+
+        <div
+            class="dealer-cta-buttons"
+        >
+
+
+            <!-- CALL -->
 
             <a
                 href="tel:+8801303679189"
                 class="btn"
             >
 
-                <i class="fa-solid fa-phone"></i>
+                <i
+                    class="fa-solid fa-phone"
+                    aria-hidden="true"
+                ></i>
 
                 কল করুন
 
             </a>
 
 
+
+            <!-- WHATSAPP -->
+
             <a
                 href="https://wa.me/8801303679189"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 class="btn"
             >
 
-                <i class="fa-brands fa-whatsapp"></i>
+                <i
+                    class="fa-brands fa-whatsapp"
+                    aria-hidden="true"
+                ></i>
 
                 WhatsApp
 
             </a>
+
 
         </div>
 
@@ -1467,78 +447,31 @@
 </main>
 
 
-<!-- FLOATING WHATSAPP -->
+
+<!-- ======================================================
+     FLOATING WHATSAPP
+====================================================== -->
 
 <a
     href="https://wa.me/8801303679189"
     class="whatsapp-float"
     target="_blank"
-    rel="noopener"
-    aria-label="WhatsApp"
+    rel="noopener noreferrer"
+    aria-label="WhatsApp-এ যোগাযোগ করুন"
 >
 
-    <i class="fa-brands fa-whatsapp"></i>
+    <i
+        class="fa-brands fa-whatsapp"
+        aria-hidden="true"
+    ></i>
 
 </a>
 
 
-<!-- BOTTOM NAV -->
 
-<nav
-    class="bottom-nav"
-    aria-label="প্রধান নেভিগেশন"
->
-
-    <a href="index.html">
-
-        <i class="fa-solid fa-house"></i>
-
-        <span>
-            হোম
-        </span>
-
-    </a>
-
-
-    <a
-        href="products.html"
-        class="active"
-    >
-
-        <i class="fa-solid fa-box-open"></i>
-
-        <span>
-            পণ্য
-        </span>
-
-    </a>
-
-
-    <a href="wishlist.html">
-
-        <i class="fa-solid fa-heart"></i>
-
-        <span>
-            Wishlist
-        </span>
-
-    </a>
-
-
-    <a href="contact.html">
-
-        <i class="fa-solid fa-phone"></i>
-
-        <span>
-            যোগাযোগ
-        </span>
-
-    </a>
-
-</nav>
-
-
-<!-- IMAGE MODAL -->
+<!-- ======================================================
+     IMAGE PREVIEW MODAL
+====================================================== -->
 
 <div
     id="imageModal"
@@ -1546,7 +479,11 @@
     role="dialog"
     aria-modal="true"
     aria-label="পণ্যের ছবি"
+    style="display:none;"
 >
+
+
+    <!-- CLOSE -->
 
     <button
         type="button"
@@ -1559,17 +496,119 @@
     </button>
 
 
+    <!-- IMAGE -->
+
     <img
         id="modalImage"
         src=""
         alt="Product Preview"
     >
 
+
 </div>
 
 
+
+<!-- ======================================================
+     BOTTOM NAVIGATION
+====================================================== -->
+
+<nav
+    class="bottom-nav"
+    aria-label="প্রধান নেভিগেশন"
+>
+
+
+    <!-- HOME -->
+
+    <a
+        href="index.html"
+    >
+
+        <i
+            class="fa-solid fa-house"
+            aria-hidden="true"
+        ></i>
+
+
+        <span>
+            হোম
+        </span>
+
+    </a>
+
+
+
+    <!-- PRODUCTS -->
+
+    <a
+        href="products.html"
+        class="active"
+    >
+
+        <i
+            class="fa-solid fa-box-open"
+            aria-hidden="true"
+        ></i>
+
+
+        <span>
+            পণ্য
+        </span>
+
+    </a>
+
+
+
+    <!-- WISHLIST -->
+
+    <a
+        href="wishlist.html"
+    >
+
+        <i
+            class="fa-solid fa-heart"
+            aria-hidden="true"
+        ></i>
+
+
+        <span>
+            Wishlist
+        </span>
+
+    </a>
+
+
+
+    <!-- CONTACT -->
+
+    <a
+        href="contact.html"
+    >
+
+        <i
+            class="fa-solid fa-phone"
+            aria-hidden="true"
+        ></i>
+
+
+        <span>
+            যোগাযোগ
+        </span>
+
+    </a>
+
+
+</nav>
+
+
+
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
+
 <script
-    src="script.js?v=6"
+    src="script.js"
     defer
 ></script>
 
