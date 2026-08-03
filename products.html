@@ -34,7 +34,7 @@
 
     <link
         rel="preconnect"
-        href="https://fonts.gstatic.com"
+        href="https://fonts.googleapis.com"
         crossorigin
     >
 
@@ -79,13 +79,11 @@
                 25px
                 120px;
 
-            box-sizing: border-box;
-
         }
 
 
         /* =====================================================
-           HEADER
+           PAGE HEADER
         ===================================================== */
 
         .products-page-header {
@@ -223,6 +221,8 @@
 
             box-sizing: border-box;
 
+            transition: .25s;
+
         }
 
 
@@ -269,7 +269,8 @@
             height: 52px;
 
             padding:
-                0 12px;
+                0
+                12px;
 
             border:
                 1px solid #dfe7e1;
@@ -290,23 +291,23 @@
 
 
         /* =====================================================
-           CATEGORY AREA
+           MAIN CATEGORY
         ===================================================== */
 
-        .category-section-title {
+        .products-category-title {
 
             font-size: 15px;
 
             font-weight: 700;
 
-            color: #333;
+            color: #444;
 
             margin-bottom: 12px;
 
         }
 
 
-        .main-category-wrapper {
+        .products-category-buttons {
 
             display: flex;
 
@@ -314,15 +315,13 @@
 
             gap: 10px;
 
-            margin-bottom: 18px;
-
         }
 
 
-        .main-category-btn {
+        .products-category-buttons .filter-btn {
 
             border:
-                1px solid #cfe5d5;
+                1px solid #d7eadc;
 
             padding:
                 11px
@@ -338,7 +337,7 @@
 
             font-size: 14px;
 
-            font-weight: 700;
+            font-weight: 600;
 
             cursor: pointer;
 
@@ -347,10 +346,10 @@
         }
 
 
-        .main-category-btn:hover {
+        .products-category-buttons
+        .filter-btn:hover {
 
-            background:
-                #d7f1df;
+            background: #d7f1df;
 
             transform:
                 translateY(-1px);
@@ -358,7 +357,8 @@
         }
 
 
-        .main-category-btn.active {
+        .products-category-buttons
+        .filter-btn.active {
 
             background:
                 #1F8F4D;
@@ -379,16 +379,29 @@
            SUB CATEGORY
         ===================================================== */
 
-        .subcategory-area {
+        #subCategoryArea {
 
-            padding-top: 5px;
+            margin-top: 20px;
+
+            display: none;
 
         }
 
 
-        .subcategory-title {
+        #subCategoryArea.show {
 
-            display: none;
+            display: block;
+
+        }
+
+
+        .sub-category-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
 
             font-size: 14px;
 
@@ -401,7 +414,7 @@
         }
 
 
-        .subcategory-buttons {
+        #subCategoryButtons {
 
             display: flex;
 
@@ -412,10 +425,10 @@
         }
 
 
-        .subcategory-btn {
+        #subCategoryButtons .sub-filter-btn {
 
             border:
-                1px solid #e1e8e3;
+                1px solid #e1e9e3;
 
             padding:
                 9px
@@ -423,7 +436,7 @@
 
             border-radius: 25px;
 
-            background: #f7faf8;
+            background: #fff;
 
             color: #555;
 
@@ -440,21 +453,23 @@
         }
 
 
-        .subcategory-btn:hover {
+        #subCategoryButtons
+        .sub-filter-btn:hover {
 
-            background:
-                #e9f8ef;
+            border-color:
+                #1F8F4D;
 
             color:
                 #166C39;
 
-            border-color:
-                #bcdcc5;
+            background:
+                #f2fbf5;
 
         }
 
 
-        .subcategory-btn.active {
+        #subCategoryButtons
+        .sub-filter-btn.active {
 
             background:
                 #166C39;
@@ -463,6 +478,40 @@
 
             border-color:
                 #166C39;
+
+        }
+
+
+        /* =====================================================
+           ACTIVE CATEGORY INFO
+        ===================================================== */
+
+        #categoryInfo {
+
+            margin-top: 15px;
+
+            padding:
+                11px
+                14px;
+
+            border-radius: 12px;
+
+            background:
+                #f5fbf6;
+
+            color:
+                #166C39;
+
+            font-size: 13px;
+
+            display: none;
+
+        }
+
+
+        #categoryInfo.show {
+
+            display: block;
 
         }
 
@@ -526,7 +575,8 @@
         }
 
 
-        #productList .product-card:hover {
+        #productList
+        .product-card:hover {
 
             transform:
                 translateY(-6px);
@@ -580,14 +630,16 @@
         }
 
 
-        #productList .product-img.active {
+        #productList
+        .product-img.active {
 
             display: block;
 
         }
 
 
-        #productList .product-card:hover
+        #productList
+        .product-card:hover
         .product-img.active {
 
             transform:
@@ -666,7 +718,8 @@
         }
 
 
-        #productList .wishlist-btn:hover {
+        #productList
+        .wishlist-btn:hover {
 
             transform:
                 scale(1.08);
@@ -674,7 +727,8 @@
         }
 
 
-        #productList .wishlist-btn.active {
+        #productList
+        .wishlist-btn.active {
 
             background:
                 #fff0f0;
@@ -686,7 +740,8 @@
            PRODUCT TEXT
         ===================================================== */
 
-        #productList .product-card h3 {
+        #productList
+        .product-card h3 {
 
             margin:
                 2px 0 8px;
@@ -701,29 +756,29 @@
         }
 
 
-        #productList .product-category-label {
+        #productList .product-category {
 
-            display: inline-block;
+            display: inline-flex;
 
             width: fit-content;
 
-            margin-bottom: 7px;
-
             padding:
-                4px
+                5px
                 9px;
 
-            border-radius: 15px;
+            border-radius: 20px;
 
             background:
-                #edf8f0;
+                #eef9f1;
 
             color:
                 #166C39;
 
             font-size: 11px;
 
-            font-weight: 700;
+            font-weight: 600;
+
+            margin-bottom: 8px;
 
         }
 
@@ -745,8 +800,7 @@
 
             margin: 0;
 
-            color:
-                #999;
+            color: #999;
 
             text-decoration:
                 line-through;
@@ -787,7 +841,8 @@
         }
 
 
-        #productList .product-card >
+        #productList
+        .product-card >
         p:not(.rating):not(.old-price):not(.price) {
 
             color:
@@ -807,7 +862,8 @@
            BUTTON
         ===================================================== */
 
-        #productList .product-card .btn {
+        #productList
+        .product-card .btn {
 
             display: flex;
 
@@ -828,8 +884,7 @@
             background:
                 #1F8F4D;
 
-            color:
-                #fff;
+            color: #fff;
 
             font-weight: 600;
 
@@ -842,7 +897,8 @@
         }
 
 
-        #productList .product-card .btn:hover {
+        #productList
+        .product-card .btn:hover {
 
             background:
                 #166C39;
@@ -959,6 +1015,8 @@
 
             font-weight: 700;
 
+            transition: .25s;
+
         }
 
 
@@ -1005,43 +1063,13 @@
 
 
         /* =====================================================
-           DESKTOP
-        ===================================================== */
-
-        @media (min-width:1200px){
-
-            .products-page {
-
-                padding-left: 35px;
-
-                padding-right: 35px;
-
-            }
-
-            #productList.products-grid {
-
-                grid-template-columns:
-                    repeat(4,minmax(0,1fr));
-
-            }
-
-            #productList .slider {
-
-                height: 270px;
-
-            }
-
-        }
-
-
-        /* =====================================================
            LAPTOP
         ===================================================== */
 
         @media
         (min-width:992px)
         and
-        (max-width:1199px){
+        (max-width:1199px) {
 
             #productList.products-grid {
 
@@ -1066,7 +1094,7 @@
         @media
         (min-width:600px)
         and
-        (max-width:991px){
+        (max-width:991px) {
 
             .products-page {
 
@@ -1115,7 +1143,8 @@
            MOBILE
         ===================================================== */
 
-        @media(max-width:599px){
+        @media
+        (max-width:599px) {
 
             .products-page {
 
@@ -1141,16 +1170,12 @@
 
                 font-size: 25px;
 
-                line-height: 1.4;
-
             }
 
 
             .products-page-header p {
 
                 font-size: 13px;
-
-                line-height: 1.7;
 
             }
 
@@ -1168,18 +1193,14 @@
 
                 grid-template-columns: 1fr;
 
-                gap: 12px;
-
             }
 
 
             .products-sort {
 
-                align-items: stretch;
-
                 flex-direction: column;
 
-                gap: 7px;
+                align-items: stretch;
 
             }
 
@@ -1191,32 +1212,34 @@
             }
 
 
-            .main-category-wrapper {
+            .products-category-buttons {
 
-                gap: 7px;
+                gap: 8px;
 
             }
 
 
-            .main-category-btn {
+            .products-category-buttons
+            .filter-btn {
 
                 padding:
                     9px
-                    12px;
+                    13px;
 
                 font-size: 12px;
 
             }
 
 
-            .subcategory-buttons {
+            #subCategoryButtons {
 
                 gap: 7px;
 
             }
 
 
-            .subcategory-btn {
+            #subCategoryButtons
+            .sub-filter-btn {
 
                 padding:
                     8px
@@ -1243,7 +1266,8 @@
             }
 
 
-            #productList .product-card {
+            #productList
+            .product-card {
 
                 padding: 12px;
 
@@ -1252,7 +1276,8 @@
             }
 
 
-            #productList .product-card h3 {
+            #productList
+            .product-card h3 {
 
                 font-size: 17px;
 
@@ -1314,7 +1339,8 @@
            SMALL MOBILE
         ===================================================== */
 
-        @media(max-width:380px){
+        @media
+        (max-width:380px) {
 
             #productList .slider {
 
@@ -1335,40 +1361,45 @@
 <main class="products-page">
 
 
-    <!-- ==================================================
+    <!-- =====================================================
          HEADER
-    ================================================== -->
+    ===================================================== -->
 
-    <section class="products-page-header fade-up">
+    <section
+        class="products-page-header fade-up"
+    >
 
         <h1>
-            🛍️ আমাদের পণ্যসমূহ
+            🌱 আমাদের পণ্যসমূহ
         </h1>
 
         <p>
-            কৃষি, জৈব সার, বীজ, যন্ত্রপাতি, মসলা, খাদ্যপণ্য ও
-            দৈনন্দিন প্রয়োজনীয় পণ্য
+            কৃষি, জৈব সার, বীজ, মসলা, খাদ্যপণ্য ও
+            দৈনন্দিন প্রয়োজনীয় পণ্য একসাথে।
         </p>
 
     </section>
 
 
+    <!-- =====================================================
+         FILTER
+    ===================================================== -->
 
-    <!-- ==================================================
-         SEARCH + CATEGORY
-    ================================================== -->
+    <section
+        class="products-filter-card fade-up"
+    >
 
-    <section class="products-filter-card fade-up">
-
-
-        <!-- SEARCH + SORT -->
 
         <div class="products-filter-top">
 
 
+            <!-- SEARCH -->
+
             <div class="products-search">
 
-                <i class="fa-solid fa-magnifying-glass"></i>
+                <i
+                    class="fa-solid fa-magnifying-glass"
+                ></i>
 
                 <input
                     type="search"
@@ -1380,13 +1411,19 @@
             </div>
 
 
+            <!-- SORT -->
+
             <div class="products-sort">
 
-                <label for="sortProducts">
+                <label
+                    for="sortProducts"
+                >
                     ↕️ সাজান:
                 </label>
 
-                <select id="sortProducts">
+                <select
+                    id="sortProducts"
+                >
 
                     <option value="default">
                         ডিফল্ট
@@ -1415,10 +1452,13 @@
         </div>
 
 
+        <!-- =================================================
+             MAIN CATEGORY
+        ================================================= -->
 
-        <!-- MAIN CATEGORY -->
-
-        <div class="category-section-title">
+        <div
+            class="products-category-title"
+        >
 
             📂 প্রধান ক্যাটাগরি
 
@@ -1426,46 +1466,56 @@
 
 
         <div
+            class="products-category-buttons"
             id="mainCategoryButtons"
-            class="main-category-wrapper"
         >
 
-            <!-- JavaScript থেকে তৈরি হবে -->
+            <!-- JavaScript এখানে Main Category তৈরি করবে -->
 
         </div>
 
 
+        <!-- =================================================
+             SUB CATEGORY
+        ================================================= -->
 
-        <!-- SUB CATEGORY -->
-
-        <div class="subcategory-area">
+        <div
+            id="subCategoryArea"
+        >
 
             <div
-                id="subcategoryTitle"
-                class="subcategory-title"
+                class="sub-category-title"
             >
-                📁 উপ-ক্যাটাগরি
+
+                📁 সাব-ক্যাটাগরি
+
             </div>
 
 
             <div
                 id="subCategoryButtons"
-                class="subcategory-buttons"
             >
 
-                <!-- JavaScript থেকে তৈরি হবে -->
+                <!-- JavaScript এখানে Sub Category তৈরি করবে -->
 
             </div>
 
         </div>
 
+
+        <!-- CATEGORY INFO -->
+
+        <div
+            id="categoryInfo"
+        ></div>
+
+
     </section>
 
 
-
-    <!-- ==================================================
+    <!-- =====================================================
          PRODUCT LIST
-    ================================================== -->
+    ===================================================== -->
 
     <section>
 
@@ -1491,14 +1541,17 @@
     </section>
 
 
-
-    <!-- ==================================================
+    <!-- =====================================================
          DEALER CTA
-    ================================================== -->
+    ===================================================== -->
 
-    <section class="products-dealer-cta fade-up">
+    <section
+        class="products-dealer-cta fade-up"
+    >
 
-        <i class="fa-solid fa-store"></i>
+        <i
+            class="fa-solid fa-store"
+        ></i>
 
         <h2>
             পাইকারি ও ডিলারশিপ
@@ -1506,20 +1559,25 @@
 
         <p>
 
-            আমাদের পণ্য পাইকারি মূল্যে নিতে অথবা
-            ডিলারশিপ সম্পর্কে জানতে সরাসরি যোগাযোগ করুন।
+            আমাদের পণ্য পাইকারি মূল্যে নিতে
+            অথবা ডিলারশিপ সম্পর্কে জানতে
+            সরাসরি যোগাযোগ করুন।
 
         </p>
 
 
-        <div class="dealer-cta-buttons">
+        <div
+            class="dealer-cta-buttons"
+        >
 
             <a
                 href="tel:+8801303679189"
                 class="btn"
             >
 
-                <i class="fa-solid fa-phone"></i>
+                <i
+                    class="fa-solid fa-phone"
+                ></i>
 
                 কল করুন
 
@@ -1533,7 +1591,9 @@
                 class="btn"
             >
 
-                <i class="fa-brands fa-whatsapp"></i>
+                <i
+                    class="fa-brands fa-whatsapp"
+                ></i>
 
                 WhatsApp
 
@@ -1547,10 +1607,9 @@
 </main>
 
 
-
-<!-- ======================================================
+<!-- =====================================================
      FLOATING WHATSAPP
-====================================================== -->
+===================================================== -->
 
 <a
     href="https://wa.me/8801303679189"
@@ -1560,24 +1619,29 @@
     aria-label="WhatsApp"
 >
 
-    <i class="fa-brands fa-whatsapp"></i>
+    <i
+        class="fa-brands fa-whatsapp"
+    ></i>
 
 </a>
 
 
-
-<!-- ======================================================
-     BOTTOM NAVIGATION
-====================================================== -->
+<!-- =====================================================
+     BOTTOM NAV
+===================================================== -->
 
 <nav
     class="bottom-nav"
     aria-label="প্রধান নেভিগেশন"
 >
 
-    <a href="index.html">
+    <a
+        href="index.html"
+    >
 
-        <i class="fa-solid fa-house"></i>
+        <i
+            class="fa-solid fa-house"
+        ></i>
 
         <span>
             হোম
@@ -1591,7 +1655,9 @@
         class="active"
     >
 
-        <i class="fa-solid fa-box-open"></i>
+        <i
+            class="fa-solid fa-box-open"
+        ></i>
 
         <span>
             পণ্য
@@ -1600,9 +1666,13 @@
     </a>
 
 
-    <a href="wishlist.html">
+    <a
+        href="wishlist.html"
+    >
 
-        <i class="fa-solid fa-heart"></i>
+        <i
+            class="fa-solid fa-heart"
+        ></i>
 
         <span>
             Wishlist
@@ -1611,9 +1681,13 @@
     </a>
 
 
-    <a href="contact.html">
+    <a
+        href="contact.html"
+    >
 
-        <i class="fa-solid fa-phone"></i>
+        <i
+            class="fa-solid fa-phone"
+        ></i>
 
         <span>
             যোগাযোগ
@@ -1624,10 +1698,9 @@
 </nav>
 
 
-
-<!-- ======================================================
+<!-- =====================================================
      IMAGE MODAL
-====================================================== -->
+===================================================== -->
 
 <div
     id="imageModal"
@@ -1657,10 +1730,9 @@
 </div>
 
 
-
-<!-- ======================================================
+<!-- =====================================================
      JAVASCRIPT
-====================================================== -->
+===================================================== -->
 
 <script
     src="script.js?v=6"
