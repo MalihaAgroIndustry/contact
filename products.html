@@ -3,1761 +3,1426 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <meta
-        name="description"
-        content="Maliha Agro Industry - কৃষি, জৈব সার, বীজ, কৃষি যন্ত্রপাতি, মসলা, খাদ্যপণ্য ও গৃহস্থালি পণ্য।"
-    >
+<meta
+    name="description"
+    content="Maliha Agro Industry - কৃষি, জৈব সার, বীজ, কৃষি যন্ত্রপাতি, মসলা, খাদ্যপণ্য ও গৃহস্থালি পণ্য।"
+>
 
-    <meta
-        name="theme-color"
-        content="#1F8F4D"
-    >
+<meta
+    name="theme-color"
+    content="#1F8F4D"
+>
 
-    <title>
-        পণ্যসমূহ | Maliha Agro Industry
-    </title>
+<title>
+    আমাদের পণ্যসমূহ | Maliha Agro Industry
+</title>
 
 
-    <!-- Google Font -->
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
 
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
-    <!-- Font Awesome -->
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+<link
+    rel="stylesheet"
+    href="style.css?v=6"
+>
 
 
-    <!-- Main CSS -->
+<style>
 
-    <link
-        rel="stylesheet"
-        href="style.css?v=6"
-    >
+/* =========================================================
+   MALiHA AGRO INDUSTRY
+   PRODUCTS PAGE - COMPLETE VERSION
+========================================================= */
 
+*{
+    box-sizing:border-box;
+}
 
-    <style>
+body{
+    margin:0;
+}
 
-        /* =====================================================
-           MALiHA AGRO INDUSTRY
-           PRODUCTS PAGE - COMPLETE VERSION
-        ===================================================== */
 
+/* =========================================================
+   PAGE
+========================================================= */
 
-        * {
-            box-sizing: border-box;
-        }
+.products-page{
 
+    width:100%;
+    max-width:1450px;
 
-        body {
-            margin: 0;
-        }
+    margin:0 auto;
 
+    padding:
+        30px
+        25px
+        130px;
 
-        /* =====================================================
-           MAIN PAGE
-        ===================================================== */
+}
 
-        .products-page {
 
-            width: 100%;
+/* =========================================================
+   HEADER
+========================================================= */
 
-            max-width: 1450px;
+.products-page-header{
 
-            margin: 0 auto;
+    text-align:center;
 
-            padding:
-                30px
-                25px
-                130px;
+    padding:
+        25px
+        15px
+        35px;
 
-        }
+}
 
+.products-page-header h1{
 
-        /* =====================================================
-           PAGE HEADER
-        ===================================================== */
+    margin:0 0 10px;
 
-        .products-page-header {
+    color:#166C39;
 
-            text-align: center;
+    font-size:36px;
 
-            padding:
-                25px
-                15px
-                35px;
+    font-weight:700;
 
-        }
+}
 
+.products-page-header p{
 
-        .products-page-header h1 {
+    margin:0;
 
-            margin:
-                0 0 10px;
+    color:#666;
 
-            color:
-                #166C39;
+    font-size:16px;
 
-            font-size:
-                34px;
+    line-height:1.8;
 
-            font-weight:
-                700;
+}
 
-            line-height:
-                1.4;
 
-        }
+/* =========================================================
+   FILTER CARD
+========================================================= */
 
+.products-filter-card{
 
-        .products-page-header p {
+    background:#fff;
 
-            margin:
-                0;
+    border:
+        1px solid #e5eee8;
 
-            color:
-                #666;
+    border-radius:22px;
 
-            font-size:
-                16px;
+    padding:25px;
 
-            line-height:
-                1.7;
+    margin-bottom:30px;
 
-        }
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.07);
 
+}
 
-        /* =====================================================
-           FILTER CARD
-        ===================================================== */
 
-        .products-filter-card {
+/* =========================================================
+   SEARCH + SORT
+========================================================= */
 
-            background:
-                #fff;
+.products-filter-top{
 
-            border:
-                1px solid #e7eee9;
+    display:grid;
 
-            border-radius:
-                24px;
+    grid-template-columns:
+        minmax(0,1fr)
+        260px;
 
-            padding:
-                25px;
+    gap:15px;
 
-            margin-bottom:
-                30px;
+    align-items:center;
 
-            box-shadow:
-                0 8px 30px rgba(0,0,0,.07);
+    margin-bottom:25px;
 
-        }
+}
 
 
-        /* =====================================================
-           SEARCH + SORT
-        ===================================================== */
+/* SEARCH */
 
-        .products-filter-top {
+.products-search{
 
-            display:
-                grid;
+    position:relative;
 
-            grid-template-columns:
-                minmax(0, 1fr)
-                260px;
+}
 
-            gap:
-                15px;
+.products-search i{
 
-            align-items:
-                center;
+    position:absolute;
 
-            margin-bottom:
-                24px;
+    left:17px;
 
-        }
+    top:50%;
 
+    transform:
+        translateY(-50%);
 
-        .products-search {
+    color:#1F8F4D;
 
-            position:
-                relative;
+    pointer-events:none;
 
-        }
+}
 
+.products-search input{
 
-        .products-search i {
+    width:100%;
 
-            position:
-                absolute;
+    height:52px;
 
-            left:
-                17px;
+    padding:
+        0
+        18px
+        0
+        48px;
 
-            top:
-                50%;
+    border:
+        1px solid #dfe8e2;
 
-            transform:
-                translateY(-50%);
+    border-radius:14px;
 
-            color:
-                #1F8F4D;
+    outline:none;
 
-            pointer-events:
-                none;
+    font-family:inherit;
 
-        }
+    font-size:15px;
 
+    background:#fbfdfb;
 
-        .products-search input {
+}
 
-            width:
-                100%;
+.products-search input:focus{
 
-            height:
-                52px;
+    border-color:#1F8F4D;
 
-            padding:
-                0 18px 0 48px;
+    box-shadow:
+        0 0 0 4px
+        rgba(31,143,77,.10);
 
-            border:
-                1px solid #dfe7e1;
+    background:#fff;
 
-            border-radius:
-                14px;
+}
 
-            outline:
-                none;
 
-            background:
-                #fbfdfb;
+/* SORT */
 
-            color:
-                #222;
+.products-sort{
 
-            font-family:
-                inherit;
+    display:flex;
 
-            font-size:
-                15px;
+    align-items:center;
 
-            transition:
-                .25s;
+    gap:8px;
 
-        }
+}
 
+.products-sort label{
 
-        .products-search input:focus {
+    white-space:nowrap;
 
-            border-color:
-                #1F8F4D;
+    font-size:14px;
 
-            background:
-                #fff;
+    font-weight:600;
 
-            box-shadow:
-                0 0 0 4px rgba(31,143,77,.10);
+    color:#333;
 
-        }
+}
 
+.products-sort select{
 
-        .products-sort {
+    width:100%;
 
-            display:
-                flex;
+    height:52px;
 
-            align-items:
-                center;
+    padding:
+        0 12px;
 
-            gap:
-                9px;
+    border:
+        1px solid #dfe8e2;
 
-        }
+    border-radius:14px;
 
+    outline:none;
 
-        .products-sort label {
+    background:#fff;
 
-            white-space:
-                nowrap;
+    font-family:inherit;
 
-            color:
-                #333;
+    font-size:14px;
 
-            font-weight:
-                600;
+    cursor:pointer;
 
-            font-size:
-                14px;
+}
 
-        }
 
+/* =========================================================
+   CATEGORY SECTION
+========================================================= */
 
-        .products-sort select {
+.products-category-title{
 
-            width:
-                100%;
+    display:flex;
 
-            height:
-                52px;
+    align-items:center;
 
-            padding:
-                0 12px;
+    gap:7px;
 
-            border:
-                1px solid #dfe7e1;
+    margin-bottom:12px;
 
-            border-radius:
-                14px;
+    color:#333;
 
-            outline:
-                none;
+    font-size:15px;
 
-            background:
-                #fff;
+    font-weight:700;
 
-            color:
-                #333;
+}
 
-            font-family:
-                inherit;
 
-            font-size:
-                14px;
+/*
+   গুরুত্বপূর্ণ:
 
-            cursor:
-                pointer;
+   এখানে কোনো Category হার্ডকোড করা নেই।
 
-        }
+   Admin Panel/API থেকে Category এলে
+   JavaScript এই জায়গায় Category Button তৈরি করবে।
+*/
 
+.products-category-buttons{
 
-        .products-sort select:focus {
+    display:flex;
 
-            border-color:
-                #1F8F4D;
+    flex-wrap:wrap;
 
-        }
+    gap:10px;
 
+}
 
-        /* =====================================================
-           CATEGORY SECTION
-        ===================================================== */
 
-        .products-category-title {
+.products-category-buttons .filter-btn{
 
-            display:
-                flex;
+    border:
+        1px solid #d6eadc;
 
-            align-items:
-                center;
+    padding:
+        10px
+        17px;
 
-            gap:
-                8px;
+    border-radius:30px;
 
-            margin-bottom:
-                12px;
+    background:#eaf8ef;
 
-            color:
-                #333;
+    color:#166C39;
 
-            font-size:
-                15px;
+    font-family:inherit;
 
-            font-weight:
-                700;
+    font-size:14px;
 
-        }
+    font-weight:600;
 
+    cursor:pointer;
 
-        .category-main-buttons {
+    transition:.25s;
 
-            display:
-                flex;
+}
 
-            flex-wrap:
-                wrap;
 
-            gap:
-                10px;
+.products-category-buttons .filter-btn:hover{
 
-            margin-bottom:
-                16px;
+    background:#d9f2e1;
 
-        }
+    transform:
+        translateY(-1px);
 
+}
 
-        .category-main-btn {
 
-            border:
-                1px solid #d7eadc;
+.products-category-buttons .filter-btn.active{
 
-            border-radius:
-                30px;
+    background:#1F8F4D;
 
-            padding:
-                11px 18px;
+    border-color:#1F8F4D;
 
-            background:
-                #e9f8ef;
+    color:#fff;
 
-            color:
-                #166C39;
+    box-shadow:
+        0 5px 15px
+        rgba(31,143,77,.20);
 
-            font-family:
-                inherit;
+}
 
-            font-size:
-                14px;
 
-            font-weight:
-                700;
+/* =========================================================
+   SUB CATEGORY
+========================================================= */
 
-            cursor:
-                pointer;
+.products-subcategory-area{
 
-            transition:
-                .25s;
+    margin-top:18px;
 
-        }
+    padding-top:18px;
 
+    border-top:
+        1px solid #edf2ee;
 
-        .category-main-btn:hover {
+}
 
-            background:
-                #d7f1df;
 
-            transform:
-                translateY(-1px);
+.products-subcategory-title{
 
-        }
+    margin-bottom:10px;
 
+    color:#555;
 
-        .category-main-btn.active {
+    font-size:14px;
 
-            background:
-                #1F8F4D;
+    font-weight:600;
 
-            color:
-                #fff;
+}
 
-            border-color:
-                #1F8F4D;
 
-            box-shadow:
-                0 5px 15px rgba(31,143,77,.20);
+.products-subcategory-buttons{
 
-        }
+    display:flex;
 
+    flex-wrap:wrap;
 
-        /* =====================================================
-           SUBCATEGORY
-        ===================================================== */
+    gap:8px;
 
-        .subcategory-area {
+}
 
-            display:
-                none;
 
-            padding-top:
-                5px;
+.products-subcategory-buttons .sub-filter-btn{
 
-        }
+    border:
+        1px solid #e1e7e3;
 
+    padding:
+        8px
+        14px;
 
-        .subcategory-area.show {
+    border-radius:25px;
 
-            display:
-                block;
+    background:#f7f9f7;
 
-        }
+    color:#555;
 
+    font-family:inherit;
 
-        .subcategory-title {
+    font-size:13px;
 
-            color:
-                #666;
+    cursor:pointer;
 
-            font-size:
-                13px;
+    transition:.25s;
 
-            font-weight:
-                600;
+}
 
-            margin-bottom:
-                9px;
 
-        }
+.products-subcategory-buttons .sub-filter-btn:hover{
 
+    border-color:#1F8F4D;
 
-        .subcategory-buttons {
+    color:#166C39;
 
-            display:
-                flex;
+}
 
-            flex-wrap:
-                wrap;
 
-            gap:
-                8px;
+.products-subcategory-buttons
+.sub-filter-btn.active{
 
-        }
+    background:#e9f8ef;
 
+    border-color:#1F8F4D;
 
-        .subcategory-btn {
+    color:#166C39;
 
-            border:
-                1px solid #e0e7e2;
+    font-weight:600;
 
-            border-radius:
-                25px;
+}
 
-            padding:
-                8px 14px;
 
-            background:
-                #f8faf8;
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
 
-            color:
-                #555;
+#productList.products-grid{
 
-            font-family:
-                inherit;
+    display:grid;
 
-            font-size:
-                13px;
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0,1fr)
+        );
 
-            cursor:
-                pointer;
+    gap:24px;
 
-            transition:
-                .25s;
+    width:100%;
 
-        }
+    align-items:stretch;
 
+}
 
-        .subcategory-btn:hover {
 
-            border-color:
-                #1F8F4D;
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
 
-            color:
-                #166C39;
+#productList .product-card{
 
-        }
+    position:relative;
 
+    display:flex;
 
-        .subcategory-btn.active {
+    flex-direction:column;
 
-            background:
-                #e8f7ed;
+    min-width:0;
 
-            color:
-                #166C39;
+    overflow:hidden;
 
-            border-color:
-                #1F8F4D;
+    padding:15px;
 
-            font-weight:
-                700;
+    background:#fff;
 
-        }
+    border:
+        1px solid #e6eee8;
 
+    border-radius:20px;
 
-        /* =====================================================
-           RESULT INFO
-        ===================================================== */
+    box-shadow:
+        0 7px 25px
+        rgba(0,0,0,.06);
 
-        .products-result-info {
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
 
-            display:
-                flex;
+}
 
-            align-items:
-                center;
 
-            justify-content:
-                space-between;
+#productList .product-card:hover{
 
-            gap:
-                12px;
+    transform:
+        translateY(-5px);
 
-            margin:
-                0 0 18px;
+    box-shadow:
+        0 15px 35px
+        rgba(0,0,0,.11);
 
-            color:
-                #666;
+}
 
-            font-size:
-                14px;
 
-        }
+/* =========================================================
+   PRODUCT IMAGE SLIDER
+========================================================= */
 
+#productList .slider{
 
-        .products-result-info strong {
+    position:relative;
 
-            color:
-                #166C39;
+    width:100%;
 
-        }
+    height:270px;
 
+    overflow:hidden;
 
-        /* =====================================================
-           PRODUCT GRID
-        ===================================================== */
+    margin-bottom:15px;
 
-        #productList.products-grid {
+    border-radius:15px;
 
-            display:
-                grid;
+    background:#f5f8f5;
 
-            grid-template-columns:
-                repeat(4, minmax(0, 1fr));
+}
 
-            gap:
-                24px;
 
-            width:
-                100%;
+#productList .product-img{
 
-            align-items:
-                stretch;
+    width:100%;
 
-        }
+    height:100%;
 
+    object-fit:cover;
 
-        /* =====================================================
-           PRODUCT CARD
-        ===================================================== */
+    display:none;
 
-        #productList .product-card {
+    cursor:pointer;
 
-            position:
-                relative;
+}
 
-            display:
-                flex;
 
-            flex-direction:
-                column;
+#productList .product-img.active{
 
-            min-width:
-                0;
+    display:block;
 
-            background:
-                #fff;
+}
 
-            border:
-                1px solid #e8eee9;
 
-            border-radius:
-                20px;
+#productList .product-card:hover
+.product-img.active{
 
-            padding:
-                15px;
+    transform:scale(1.03);
 
-            overflow:
-                hidden;
+}
 
-            box-shadow:
-                0 7px 25px rgba(0,0,0,.06);
 
-            transition:
-                transform .25s ease,
-                box-shadow .25s ease;
+/* =========================================================
+   OFFER
+========================================================= */
 
-        }
+#productList .offer-badge{
 
+    position:absolute;
 
-        #productList .product-card:hover {
+    z-index:5;
 
-            transform:
-                translateY(-6px);
+    top:24px;
 
-            box-shadow:
-                0 15px 35px rgba(0,0,0,.11);
+    left:24px;
 
-        }
+    padding:
+        6px
+        11px;
 
+    border-radius:20px;
 
-        /* =====================================================
-           PRODUCT IMAGE SLIDER
-        ===================================================== */
+    background:#e53935;
 
-        #productList .slider {
+    color:#fff;
 
-            position:
-                relative;
+    font-size:12px;
 
-            width:
-                100%;
+    font-weight:700;
 
-            height:
-                260px;
+}
 
-            overflow:
-                hidden;
 
-            border-radius:
-                15px;
+/* =========================================================
+   WISHLIST
+========================================================= */
 
-            background:
-                #f5f8f5;
+#productList .wishlist-btn{
 
-            margin-bottom:
-                15px;
+    position:absolute;
 
-        }
+    z-index:6;
 
+    top:21px;
 
-        #productList .product-img {
+    right:21px;
 
-            display:
-                none;
+    width:41px;
 
-            width:
-                100%;
+    height:41px;
 
-            height:
-                100%;
+    border:0;
 
-            object-fit:
-                cover;
+    border-radius:50%;
 
-            cursor:
-                pointer;
+    background:
+        rgba(255,255,255,.96);
 
-            transition:
-                transform .3s ease;
+    box-shadow:
+        0 4px 15px
+        rgba(0,0,0,.12);
 
-        }
+    cursor:pointer;
 
+    font-size:18px;
 
-        #productList .product-img.active {
+    transition:.25s;
 
-            display:
-                block;
+}
 
-        }
 
+#productList .wishlist-btn:hover{
 
-        #productList .product-card:hover
-        .product-img.active {
+    transform:scale(1.08);
 
-            transform:
-                scale(1.03);
+}
 
-        }
 
+#productList .wishlist-btn.active{
 
-        /* =====================================================
-           OFFER
-        ===================================================== */
+    background:#fff0f0;
 
-        #productList .offer-badge {
+}
 
-            position:
-                absolute;
 
-            z-index:
-                10;
+/* =========================================================
+   PRODUCT TEXT
+========================================================= */
 
-            top:
-                25px;
+#productList .product-card h3{
 
-            left:
-                25px;
+    margin:
+        2px
+        0
+        7px;
 
-            background:
-                #e53935;
+    color:#174c2d;
 
-            color:
-                #fff;
+    font-size:18px;
 
-            padding:
-                6px 10px;
+    line-height:1.45;
 
-            border-radius:
-                20px;
+}
 
-            font-size:
-                12px;
 
-            font-weight:
-                700;
+#productList .product-category-label{
 
-        }
+    display:inline-flex;
 
+    width:max-content;
 
-        /* =====================================================
-           WISHLIST
-        ===================================================== */
+    max-width:100%;
 
-        #productList .wishlist-btn {
+    margin-bottom:8px;
 
-            position:
-                absolute;
+    padding:
+        5px
+        9px;
 
-            z-index:
-                11;
+    border-radius:20px;
 
-            top:
-                22px;
+    background:#eef8f1;
 
-            right:
-                22px;
+    color:#166C39;
 
-            width:
-                40px;
+    font-size:11px;
 
-            height:
-                40px;
+    font-weight:600;
 
-            border:
-                none;
+}
 
-            border-radius:
-                50%;
 
-            background:
-                rgba(255,255,255,.96);
+#productList .product-subcategory-label{
 
-            box-shadow:
-                0 4px 15px rgba(0,0,0,.12);
+    display:inline-flex;
 
-            cursor:
-                pointer;
+    width:max-content;
 
-            font-size:
-                18px;
+    max-width:100%;
 
-            transition:
-                .25s;
+    margin:
+        0
+        0
+        8px;
 
-        }
+    padding:
+        4px
+        8px;
 
+    border-radius:15px;
 
-        #productList .wishlist-btn:hover {
+    background:#f5f6f5;
 
-            transform:
-                scale(1.08);
+    color:#666;
 
-        }
+    font-size:11px;
 
+}
 
-        #productList .wishlist-btn.active {
 
-            background:
-                #fff0f0;
+#productList .rating{
 
-        }
+    margin:
+        0
+        0
+        7px;
 
+    color:#e6a400;
 
-        /* =====================================================
-           PRODUCT CATEGORY LABEL
-        ===================================================== */
+    font-size:13px;
 
-        #productList .product-category-label {
+}
 
-            display:
-                inline-flex;
 
-            align-items:
-                center;
+#productList .old-price{
 
-            align-self:
-                flex-start;
+    margin:0;
 
-            gap:
-                5px;
+    color:#999;
 
-            margin:
-                0 0 8px;
+    text-decoration:
+        line-through;
 
-            padding:
-                5px 9px;
+    font-size:14px;
 
-            border-radius:
-                20px;
+}
 
-            background:
-                #edf8f1;
 
-            color:
-                #166C39;
+#productList .price{
 
-            font-size:
-                11px;
+    margin:
+        2px
+        0
+        7px;
 
-            font-weight:
-                700;
+    color:#1F8F4D;
 
-        }
+    font-size:23px;
 
+    font-weight:700;
 
-        /* =====================================================
-           PRODUCT SUBCATEGORY
-        ===================================================== */
+}
 
-        #productList .product-subcategory {
 
-            margin:
-                0 0 7px;
+#productList .stock{
 
-            color:
-                #777;
+    display:inline-block;
 
-            font-size:
-                12px;
+    margin-bottom:9px;
 
-        }
+    color:#278348;
 
+    font-size:13px;
 
-        /* =====================================================
-           PRODUCT TEXT
-        ===================================================== */
+    font-weight:600;
 
-        #productList .product-card h3 {
+}
 
-            margin:
-                2px 0 8px;
 
-            color:
-                #174c2d;
+#productList .product-card
+> p:not(.rating)
+:not(.old-price)
+:not(.price){
 
-            font-size:
-                18px;
+    margin:
+        4px
+        0
+        15px;
 
-            line-height:
-                1.45;
+    color:#666;
 
-        }
+    font-size:14px;
 
+    line-height:1.7;
 
-        #productList .rating {
+}
 
-            margin:
-                0 0 8px;
 
-            color:
-                #e6a400;
+/* =========================================================
+   PRODUCT BUTTON
+========================================================= */
 
-            font-size:
-                13px;
+#productList .product-card .btn{
 
-        }
+    display:flex;
 
+    align-items:center;
 
-        #productList .old-price {
+    justify-content:center;
 
-            margin:
-                0;
+    width:100%;
 
-            color:
-                #999;
+    min-height:46px;
 
-            text-decoration:
-                line-through;
+    margin-top:auto;
 
-            font-size:
-                14px;
+    border-radius:12px;
 
-        }
+    background:#1F8F4D;
 
+    color:#fff;
 
-        #productList .price {
+    text-decoration:none;
 
-            margin:
-                2px 0 7px;
+    font-size:14px;
 
-            color:
-                #1F8F4D;
+    font-weight:600;
 
-            font-size:
-                23px;
+    transition:.25s;
 
-            font-weight:
-                700;
+}
 
-        }
 
+#productList .product-card .btn:hover{
 
-        #productList .stock {
+    background:#166C39;
 
-            display:
-                inline-block;
+    transform:
+        translateY(-2px);
 
-            margin-bottom:
-                10px;
+}
 
-            color:
-                #278348;
 
-            font-size:
-                13px;
+/* =========================================================
+   LOADING
+========================================================= */
 
-            font-weight:
-                600;
+.products-loading{
 
-        }
+    grid-column:
+        1 / -1;
 
+    padding:50px 20px;
 
-        #productList .product-card > p:not(.rating):not(.old-price):not(.price):not(.stock):not(.product-subcategory) {
+    text-align:center;
 
-            margin:
-                4px 0 15px;
+    background:#fff;
 
-            color:
-                #666;
+    border-radius:20px;
 
-            font-size:
-                14px;
+}
 
-            line-height:
-                1.7;
 
-        }
+.products-loading i{
 
+    margin-bottom:15px;
 
-        /* =====================================================
-           PRODUCT BUTTON
-        ===================================================== */
+    color:#1F8F4D;
 
-        #productList .product-card .btn {
+    font-size:35px;
 
-            display:
-                flex;
+}
 
-            align-items:
-                center;
 
-            justify-content:
-                center;
+/* =========================================================
+   NO PRODUCT
+========================================================= */
 
-            width:
-                100%;
+.products-empty{
 
-            min-height:
-                46px;
+    grid-column:
+        1 / -1;
 
-            margin-top:
-                auto;
+    padding:50px 20px;
 
-            border-radius:
-                12px;
+    text-align:center;
 
-            background:
-                #1F8F4D;
+    background:#fff;
 
-            color:
-                #fff;
+    border:
+        1px solid #e7eee9;
 
-            text-decoration:
-                none;
+    border-radius:20px;
 
-            font-size:
-                14px;
+}
 
-            font-weight:
-                600;
 
-            transition:
-                .25s;
+.products-empty i{
 
-        }
+    margin-bottom:15px;
 
+    color:#1F8F4D;
 
-        #productList .product-card .btn:hover {
+    font-size:40px;
 
-            background:
-                #166C39;
+}
 
-            transform:
-                translateY(-2px);
 
-        }
+/* =========================================================
+   DEALER CTA
+========================================================= */
 
+.products-dealer-cta{
 
-        /* =====================================================
-           NO RESULT / LOADING
-        ===================================================== */
+    margin-top:45px;
 
-        .products-empty-card {
+    padding:
+        45px
+        30px;
 
-            grid-column:
-                1 / -1;
+    border-radius:24px;
 
-            padding:
-                50px 20px;
+    background:
+        linear-gradient(
+            135deg,
+            #166C39,
+            #1F8F4D
+        );
 
-            text-align:
-                center;
+    color:#fff;
 
-            background:
-                #fff;
+    text-align:center;
 
-            border:
-                1px solid #e7eee9;
+    box-shadow:
+        0 15px 35px
+        rgba(22,108,57,.18);
 
-            border-radius:
-                20px;
+}
 
-        }
 
+.products-dealer-cta i{
 
-        .products-empty-card i {
+    margin-bottom:12px;
 
-            color:
-                #1F8F4D;
+    font-size:40px;
 
-            font-size:
-                45px;
+}
 
-            margin-bottom:
-                12px;
 
-        }
+.products-dealer-cta h2{
 
+    margin:
+        0
+        0
+        10px;
 
-        .products-empty-card h2 {
+    font-size:28px;
 
-            margin:
-                0 0 8px;
+}
 
-            color:
-                #166C39;
 
-            font-size:
-                22px;
+.products-dealer-cta p{
 
-        }
+    max-width:750px;
 
+    margin:
+        0
+        auto
+        25px;
 
-        .products-empty-card p {
+    line-height:1.8;
 
-            margin:
-                0;
+    opacity:.95;
 
-            color:
-                #777;
+}
 
-            line-height:
-                1.7;
 
-        }
+.dealer-cta-buttons{
 
+    display:flex;
 
-        /* =====================================================
-           DEALER CTA
-        ===================================================== */
+    justify-content:center;
 
-        .products-dealer-cta {
+    flex-wrap:wrap;
 
-            margin-top:
-                45px;
+    gap:12px;
 
-            padding:
-                45px 30px;
+}
 
-            text-align:
-                center;
 
-            color:
-                #fff;
+.dealer-cta-buttons .btn{
 
-            border-radius:
-                24px;
+    display:inline-flex;
 
-            background:
-                linear-gradient(
-                    135deg,
-                    #166C39,
-                    #1F8F4D
-                );
+    align-items:center;
 
-            box-shadow:
-                0 15px 35px rgba(22,108,57,.18);
+    justify-content:center;
 
-        }
+    gap:8px;
 
+    min-width:140px;
 
-        .products-dealer-cta > i {
+    min-height:46px;
 
-            display:
-                block;
+    padding:
+        0
+        20px;
 
-            margin-bottom:
-                12px;
+    border-radius:12px;
 
-            font-size:
-                40px;
+    background:#fff;
 
-        }
+    color:#166C39;
 
+    text-decoration:none;
 
-        .products-dealer-cta h2 {
+    font-weight:700;
 
-            margin:
-                0 0 10px;
+}
 
-            font-size:
-                28px;
 
-        }
+/* =========================================================
+   WHATSAPP
+========================================================= */
 
+.whatsapp-float{
 
-        .products-dealer-cta p {
+    position:fixed;
 
-            max-width:
-                750px;
+    right:22px;
 
-            margin:
-                0 auto 25px;
+    bottom:90px;
 
-            opacity:
-                .95;
+    z-index:999;
 
-            line-height:
-                1.8;
+    display:flex;
 
-        }
+    align-items:center;
 
+    justify-content:center;
 
-        .dealer-cta-buttons {
+    width:54px;
 
-            display:
-                flex;
+    height:54px;
 
-            justify-content:
-                center;
+    border-radius:50%;
 
-            gap:
-                12px;
+    background:#25D366;
 
-            flex-wrap:
-                wrap;
+    color:#fff;
 
-        }
+    font-size:27px;
 
+    text-decoration:none;
 
-        .dealer-cta-buttons .btn {
+    box-shadow:
+        0 7px 20px
+        rgba(0,0,0,.18);
 
-            display:
-                inline-flex;
+}
 
-            align-items:
-                center;
 
-            justify-content:
-                center;
+/* =========================================================
+   DESKTOP
+========================================================= */
 
-            gap:
-                8px;
+@media(min-width:1200px){
 
-            min-width:
-                140px;
+    .products-page{
 
-            min-height:
-                46px;
+        padding-left:35px;
 
-            padding:
-                0 20px;
+        padding-right:35px;
 
-            border-radius:
-                12px;
+    }
 
-            background:
-                #fff;
+}
 
-            color:
-                #166C39;
 
-            text-decoration:
-                none;
+/* =========================================================
+   LAPTOP
+========================================================= */
 
-            font-weight:
-                700;
+@media(
+    min-width:992px
+)
+and
+(
+    max-width:1199px
+){
 
-            transition:
-                .25s;
+    #productList.products-grid{
 
-        }
+        grid-template-columns:
+            repeat(
+                3,
+                minmax(0,1fr)
+            );
 
+    }
 
-        .dealer-cta-buttons .btn:hover {
+    #productList .slider{
 
-            transform:
-                translateY(-2px);
+        height:245px;
 
-            box-shadow:
-                0 7px 18px rgba(0,0,0,.15);
+    }
 
-        }
+}
 
 
-        /* =====================================================
-           WHATSAPP
-        ===================================================== */
+/* =========================================================
+   TABLET
+========================================================= */
 
-        .whatsapp-float {
+@media(
+    min-width:600px
+)
+and
+(
+    max-width:991px
+){
 
-            position:
-                fixed;
+    .products-page{
 
-            z-index:
-                999;
+        padding:
+            25px
+            20px
+            115px;
 
-            right:
-                22px;
+    }
 
-            bottom:
-                90px;
 
-            width:
-                54px;
+    .products-page-header h1{
 
-            height:
-                54px;
+        font-size:30px;
 
-            display:
-                flex;
+    }
 
-            align-items:
-                center;
 
-            justify-content:
-                center;
+    .products-filter-top{
 
-            border-radius:
-                50%;
+        grid-template-columns:1fr;
 
-            background:
-                #25D366;
+    }
 
-            color:
-                #fff;
 
-            font-size:
-                27px;
+    #productList.products-grid{
 
-            text-decoration:
-                none;
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0,1fr)
+            );
 
-            box-shadow:
-                0 7px 20px rgba(0,0,0,.18);
+        gap:18px;
 
-        }
+    }
 
 
-        /* =====================================================
-           DESKTOP
-        ===================================================== */
+    #productList .slider{
 
-        @media (min-width: 1200px) {
+        height:230px;
 
-            .products-page {
+    }
 
-                padding-left:
-                    35px;
+}
 
-                padding-right:
-                    35px;
 
-            }
+/* =========================================================
+   MOBILE
+========================================================= */
 
+@media(max-width:599px){
 
-            #productList.products-grid {
+    .products-page{
 
-                grid-template-columns:
-                    repeat(4, minmax(0, 1fr));
+        padding:
+            15px
+            12px
+            108px;
 
-            }
+    }
 
 
-            #productList .slider {
+    .products-page-header{
 
-                height:
-                    270px;
+        padding:
+            18px
+            8px
+            25px;
 
-            }
+    }
 
-        }
 
+    .products-page-header h1{
 
-        /* =====================================================
-           LAPTOP
-        ===================================================== */
+        font-size:25px;
 
-        @media
-        (min-width: 992px)
-        and
-        (max-width: 1199px) {
+        line-height:1.4;
 
-            #productList.products-grid {
+    }
 
-                grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
 
-            }
+    .products-page-header p{
 
+        font-size:13px;
 
-            #productList .slider {
+        line-height:1.7;
 
-                height:
-                    245px;
+    }
 
-            }
 
-        }
+    .products-filter-card{
 
+        padding:16px;
 
-        /* =====================================================
-           TABLET
-        ===================================================== */
+        border-radius:18px;
 
-        @media
-        (min-width: 600px)
-        and
-        (max-width: 991px) {
+    }
 
-            .products-page {
 
-                padding:
-                    25px
-                    20px
-                    115px;
+    .products-filter-top{
 
-            }
+        grid-template-columns:1fr;
 
+        gap:12px;
 
-            .products-page-header h1 {
+    }
 
-                font-size:
-                    29px;
 
-            }
+    .products-sort{
 
+        flex-direction:column;
 
-            .products-filter-top {
+        align-items:stretch;
 
-                grid-template-columns:
-                    1fr;
+    }
 
-            }
 
+    .products-sort select{
 
-            #productList.products-grid {
+        height:48px;
 
-                grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
+    }
 
-                gap:
-                    18px;
 
-            }
+    .products-category-buttons{
 
+        gap:7px;
 
-            #productList .slider {
+    }
 
-                height:
-                    230px;
 
-            }
+    .products-category-buttons
+    .filter-btn{
 
-        }
+        padding:
+            8px
+            12px;
 
+        font-size:12px;
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
+    }
 
-        @media (max-width: 599px) {
 
-            .products-page {
+    .products-subcategory-buttons
+    .sub-filter-btn{
 
-                padding:
-                    15px
-                    12px
-                    110px;
+        padding:
+            7px
+            11px;
 
-            }
+        font-size:11px;
 
+    }
 
-            .products-page-header {
 
-                padding:
-                    18px
-                    8px
-                    25px;
+    #productList.products-grid{
 
-            }
+        grid-template-columns:1fr;
 
+        gap:18px;
 
-            .products-page-header h1 {
+    }
 
-                font-size:
-                    25px;
 
-            }
+    #productList .slider{
 
+        height:270px;
 
-            .products-page-header p {
+    }
 
-                font-size:
-                    13px;
 
-            }
+    #productList .product-card{
 
+        padding:12px;
 
-            .products-filter-card {
+        border-radius:18px;
 
-                padding:
-                    16px;
+    }
 
-                border-radius:
-                    18px;
 
-            }
+    #productList .product-card h3{
 
+        font-size:17px;
 
-            .products-filter-top {
+    }
 
-                grid-template-columns:
-                    1fr;
 
-                gap:
-                    12px;
+    #productList .price{
 
-            }
+        font-size:21px;
 
+    }
 
-            .products-sort {
 
-                flex-direction:
-                    column;
+    .products-dealer-cta{
 
-                align-items:
-                    stretch;
+        margin-top:30px;
 
-                gap:
-                    7px;
+        padding:
+            32px
+            18px;
 
-            }
+        border-radius:20px;
 
+    }
 
-            .products-sort select {
 
-                height:
-                    48px;
+    .products-dealer-cta h2{
 
-            }
+        font-size:22px;
 
+    }
 
-            .category-main-buttons {
 
-                gap:
-                    8px;
+    .products-dealer-cta p{
 
-            }
+        font-size:13px;
 
+    }
 
-            .category-main-btn {
 
-                padding:
-                    9px 13px;
+    .whatsapp-float{
 
-                font-size:
-                    12px;
+        right:15px;
 
-            }
+        bottom:82px;
 
+        width:50px;
 
-            .subcategory-buttons {
+        height:50px;
 
-                gap:
-                    7px;
+        font-size:24px;
 
-            }
+    }
 
+}
 
-            .subcategory-btn {
 
-                padding:
-                    7px 11px;
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
-                font-size:
-                    11px;
+@media(max-width:380px){
 
-            }
+    #productList .slider{
 
+        height:230px;
 
-            .products-result-info {
+    }
 
-                font-size:
-                    12px;
 
-            }
+    .products-category-buttons
+    .filter-btn{
 
+        padding:
+            7px
+            9px;
 
-            #productList.products-grid {
+        font-size:11px;
 
-                grid-template-columns:
-                    1fr;
+    }
 
-                gap:
-                    18px;
+}
 
-            }
-
-
-            #productList .slider {
-
-                height:
-                    270px;
-
-            }
-
-
-            #productList .product-card {
-
-                padding:
-                    12px;
-
-                border-radius:
-                    18px;
-
-            }
-
-
-            #productList .product-card h3 {
-
-                font-size:
-                    17px;
-
-            }
-
-
-            #productList .price {
-
-                font-size:
-                    21px;
-
-            }
-
-
-            .products-dealer-cta {
-
-                margin-top:
-                    30px;
-
-                padding:
-                    32px 18px;
-
-                border-radius:
-                    20px;
-
-            }
-
-
-            .products-dealer-cta h2 {
-
-                font-size:
-                    22px;
-
-            }
-
-
-            .products-dealer-cta p {
-
-                font-size:
-                    13px;
-
-            }
-
-
-            .whatsapp-float {
-
-                right:
-                    15px;
-
-                bottom:
-                    82px;
-
-                width:
-                    50px;
-
-                height:
-                    50px;
-
-                font-size:
-                    24px;
-
-            }
-
-        }
-
-
-        /* =====================================================
-           SMALL MOBILE
-        ===================================================== */
-
-        @media (max-width: 380px) {
-
-            #productList .slider {
-
-                height:
-                    230px;
-
-            }
-
-
-            .category-main-btn {
-
-                font-size:
-                    11px;
-
-                padding:
-                    8px 10px;
-
-            }
-
-
-            .subcategory-btn {
-
-                font-size:
-                    10px;
-
-                padding:
-                    6px 9px;
-
-            }
-
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -1772,337 +1437,270 @@
 <main class="products-page">
 
 
-    <!-- ==================================================
-         HEADER
-    ================================================== -->
+<!-- ======================================================
+     HEADER
+====================================================== -->
 
-    <section class="products-page-header fade-up">
+<section class="products-page-header fade-up">
 
-        <h1>
-            🌱 আমাদের পণ্যসমূহ
-        </h1>
+    <h1>
+        🛍️ আমাদের পণ্যসমূহ
+    </h1>
 
-        <p>
-            কৃষি, জৈব সার, মসলা, খাদ্যপণ্য ও গৃহস্থালি পণ্য
-            — সবকিছু এক জায়গায়
-        </p>
+    <p>
+        Maliha Agro Industry-এর মানসম্মত কৃষি,
+        খাদ্য ও গৃহস্থালি পণ্য
+    </p>
 
-    </section>
-
-
-    <!-- ==================================================
-         SEARCH + FILTER
-    ================================================== -->
-
-    <section class="products-filter-card fade-up">
+</section>
 
 
-        <!-- SEARCH + SORT -->
 
-        <div class="products-filter-top">
+<!-- ======================================================
+     SEARCH + CATEGORY
+====================================================== -->
 
-
-            <div class="products-search">
-
-                <i
-                    class="fa-solid fa-magnifying-glass"
-                ></i>
-
-                <input
-                    type="search"
-                    id="searchProduct"
-                    placeholder="পণ্যের নাম, ধরন বা বিবরণ লিখে খুঁজুন..."
-                    aria-label="পণ্য খুঁজুন"
-                    autocomplete="off"
-                >
-
-            </div>
+<section class="products-filter-card fade-up">
 
 
-            <div class="products-sort">
+    <!-- SEARCH + SORT -->
 
-                <label
-                    for="sortProducts"
-                >
-                    ↕️ সাজান:
-                </label>
+    <div class="products-filter-top">
 
-                <select
-                    id="sortProducts"
-                >
 
-                    <option value="default">
-                        ডিফল্ট
-                    </option>
+        <div class="products-search">
 
-                    <option value="low-high">
-                        মূল্য: কম থেকে বেশি
-                    </option>
+            <i
+                class="fa-solid fa-magnifying-glass"
+            ></i>
 
-                    <option value="high-low">
-                        মূল্য: বেশি থেকে কম
-                    </option>
-
-                    <option value="new">
-                        নতুন পণ্য
-                    </option>
-
-                    <option value="best">
-                        বেস্ট সেলার
-                    </option>
-
-                </select>
-
-            </div>
+            <input
+                type="search"
+                id="searchProduct"
+                placeholder="পণ্যের নাম লিখে খুঁজুন..."
+                aria-label="পণ্য খুঁজুন"
+                autocomplete="off"
+            >
 
         </div>
 
 
-        <!-- CATEGORY -->
+        <div class="products-sort">
 
-        <div class="products-category-title">
+            <label
+                for="sortProducts"
+            >
 
-            <span>
-                📂
-            </span>
+                ↕️ সাজান:
 
-            <span>
-                পণ্যের ক্যাটাগরি
-            </span>
+            </label>
+
+
+            <select
+                id="sortProducts"
+            >
+
+                <option value="default">
+                    ডিফল্ট
+                </option>
+
+                <option value="low-high">
+                    মূল্য: কম থেকে বেশি
+                </option>
+
+                <option value="high-low">
+                    মূল্য: বেশি থেকে কম
+                </option>
+
+                <option value="new">
+                    নতুন পণ্য
+                </option>
+
+                <option value="best">
+                    বেস্ট সেলার
+                </option>
+
+            </select>
 
         </div>
-
-
-        <!--
-
-            IMPORTANT:
-
-            ভবিষ্যতে Admin Panel থেকে product.category
-            এবং product.subcategory সেট করা হবে।
-
-            নিচের category list বর্তমানে frontend-এর
-            fallback হিসেবে থাকবে।
-
-        -->
-
-        <div
-            id="categoryMainButtons"
-            class="category-main-buttons"
-        >
-
-
-            <button
-                type="button"
-                class="category-main-btn active"
-                data-category="all"
-            >
-
-                🛍️ সব পণ্য
-
-            </button>
-
-
-            <button
-                type="button"
-                class="category-main-btn"
-                data-category="agriculture"
-            >
-
-                🌾 কৃষি
-
-            </button>
-
-
-            <button
-                type="button"
-                class="category-main-btn"
-                data-category="spices"
-            >
-
-                🌶️ মসলা
-
-            </button>
-
-
-            <button
-                type="button"
-                class="category-main-btn"
-                data-category="food"
-            >
-
-                🍚 খাদ্যপণ্য
-
-            </button>
-
-
-            <button
-                type="button"
-                class="category-main-btn"
-                data-category="household"
-            >
-
-                🧴 গৃহস্থালি
-
-            </button>
-
-
-        </div>
-
-
-        <!-- SUBCATEGORY -->
-
-        <div
-            id="subcategoryArea"
-            class="subcategory-area"
-        >
-
-            <div
-                id="subcategoryTitle"
-                class="subcategory-title"
-            >
-                উপ-ক্যাটাগরি:
-            </div>
-
-
-            <div
-                id="subcategoryButtons"
-                class="subcategory-buttons"
-            ></div>
-
-        </div>
-
-
-    </section>
-
-
-    <!-- ==================================================
-         RESULT INFO
-    ================================================== -->
-
-    <div
-        class="products-result-info"
-    >
-
-        <span>
-            নির্বাচিত:
-            <strong id="selectedCategoryText">
-                সব পণ্য
-            </strong>
-        </span>
-
-
-        <span>
-            মোট পণ্য:
-            <strong id="productCount">
-                0
-            </strong>
-        </span>
 
     </div>
 
 
-    <!-- ==================================================
-         PRODUCT LIST
-    ================================================== -->
-
-    <section>
-
-        <div
-            id="productList"
-            class="products-grid"
-        >
-
-            <div
-                class="products-empty-card"
-            >
-
-                <i
-                    class="fa-solid fa-spinner fa-spin"
-                ></i>
-
-                <h2>
-                    পণ্য লোড হচ্ছে...
-                </h2>
-
-                <p>
-                    অনুগ্রহ করে একটু অপেক্ষা করুন।
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
 
     <!-- ==================================================
-         DEALER CTA
+         CATEGORY
+
+         এখানে কোনো Category হার্ডকোড নেই।
+         Admin Panel/API থেকে আসবে।
     ================================================== -->
 
-    <section
-        class="products-dealer-cta fade-up"
+    <div
+        class="products-category-title"
     >
 
-        <i
-            class="fa-solid fa-store"
-        ></i>
+        📂 ক্যাটাগরি নির্বাচন করুন
+
+    </div>
 
 
-        <h2>
-            পাইকারি ও ডিলারশিপ
-        </h2>
+    <div
+        id="categoryButtons"
+        class="products-category-buttons"
+    >
 
-
-        <p>
-
-            আমাদের পণ্য পাইকারি মূল্যে নিতে
-            অথবা ডিলারশিপ সম্পর্কে জানতে
-            সরাসরি যোগাযোগ করুন।
-
-        </p>
-
-
-        <div
-            class="dealer-cta-buttons"
+        <button
+            type="button"
+            class="filter-btn active"
+            data-category="all"
         >
 
+            🛍️ সব পণ্য
 
-            <a
-                href="tel:+8801303679189"
-                class="btn"
-            >
+        </button>
 
-                <i
-                    class="fa-solid fa-phone"
-                ></i>
-
-                কল করুন
-
-            </a>
+    </div>
 
 
-            <a
-                href="https://wa.me/8801303679189"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="btn"
-            >
 
-                <i
-                    class="fa-brands fa-whatsapp"
-                ></i>
+    <!-- ==================================================
+         SUB CATEGORY
 
-                WhatsApp
+         Category নির্বাচন করলে এখানে
+         Admin Panel থেকে আসা Sub-category দেখাবে।
+    ================================================== -->
 
-            </a>
+    <div
+        id="subcategoryArea"
+        class="products-subcategory-area"
+        style="display:none;"
+    >
 
+        <div
+            class="products-subcategory-title"
+        >
+
+            📁 উপ-ক্যাটাগরি নির্বাচন করুন
 
         </div>
 
-    </section>
+
+        <div
+            id="subcategoryButtons"
+            class="products-subcategory-buttons"
+        ></div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ======================================================
+     PRODUCT LIST
+====================================================== -->
+
+<section>
+
+    <div
+        id="productList"
+        class="products-grid"
+    >
+
+        <div
+            class="products-loading"
+        >
+
+            <i
+                class="fa-solid fa-spinner fa-spin"
+            ></i>
+
+            <h2>
+                পণ্য লোড হচ্ছে...
+            </h2>
+
+            <p>
+                অনুগ্রহ করে একটু অপেক্ষা করুন।
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ======================================================
+     DEALER CTA
+====================================================== -->
+
+<section
+    class="products-dealer-cta fade-up"
+>
+
+    <i
+        class="fa-solid fa-store"
+    ></i>
+
+
+    <h2>
+        পাইকারি ও ডিলারশিপ
+    </h2>
+
+
+    <p>
+
+        আমাদের পণ্য পাইকারি মূল্যে নিতে
+        অথবা ডিলারশিপ সম্পর্কে জানতে
+        সরাসরি যোগাযোগ করুন।
+
+    </p>
+
+
+    <div
+        class="dealer-cta-buttons"
+    >
+
+
+        <a
+            href="tel:+8801303679189"
+            class="btn"
+        >
+
+            <i
+                class="fa-solid fa-phone"
+            ></i>
+
+            কল করুন
+
+        </a>
+
+
+        <a
+            href="https://wa.me/8801303679189"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn"
+        >
+
+            <i
+                class="fa-brands fa-whatsapp"
+            ></i>
+
+            WhatsApp
+
+        </a>
+
+
+    </div>
+
+</section>
 
 
 </main>
+
 
 
 <!-- ======================================================
@@ -2122,6 +1720,7 @@
     ></i>
 
 </a>
+
 
 
 <!-- ======================================================
@@ -2198,6 +1797,7 @@
 </nav>
 
 
+
 <!-- ======================================================
      IMAGE MODAL
 ====================================================== -->
@@ -2231,6 +1831,7 @@
 </div>
 
 
+
 <!-- ======================================================
      JAVASCRIPT
 ====================================================== -->
@@ -2239,567 +1840,6 @@
     src="script.js?v=6"
     defer
 ></script>
-
-
-<!-- ======================================================
-     CATEGORY UI CONTROLLER
-====================================================== -->
-
-<script>
-
-"use strict";
-
-
-/* ==========================================================
-   CATEGORY SYSTEM
-========================================================== */
-
-
-/*
-    Frontend fallback categories.
-
-    ভবিষ্যতে Admin Panel থেকে এই একই structure
-    database/API থেকে আসবে।
-
-    category:
-        agriculture
-        spices
-        food
-        household
-
-    subcategory:
-        agriculture:
-            organic-fertilizer
-            agricultural-machinery
-            seeds
-            soil-conditioner
-
-        spices:
-            chili-powder
-            coriander-powder
-            cumin-powder
-            garam-masala
-
-        food:
-            rice
-            lentil
-            sattu
-            flour
-
-        household:
-            hand-wash
-            detergent
-            dish-wash
-            dish-bar
-            harpic
-*/
-
-
-const CATEGORY_CONFIG = {
-
-    agriculture: {
-
-        name:
-            "🌾 কৃষি",
-
-        subcategories: {
-
-            "organic-fertilizer":
-                "🌱 জৈব সার",
-
-            "agricultural-machinery":
-                "🚜 কৃষি যন্ত্রপাতি",
-
-            "seeds":
-                "🌾 বীজ",
-
-            "soil-conditioner":
-                "🪴 মাটি পরিচর্যা"
-
-        }
-
-    },
-
-
-    spices: {
-
-        name:
-            "🌶️ মসলা",
-
-        subcategories: {
-
-            "chili-powder":
-                "🌶️ মরিচের গুঁড়ো",
-
-            "coriander-powder":
-                "🌿 ধনিয়া গুঁড়ো",
-
-            "cumin-powder":
-                "🌿 জিরা গুঁড়ো",
-
-            "garam-masala":
-                "🥘 গরম মসলা"
-
-        }
-
-    },
-
-
-    food: {
-
-        name:
-            "🍚 খাদ্যপণ্য",
-
-        subcategories: {
-
-            rice:
-                "🍚 চাল",
-
-            lentil:
-                "🥣 ডাল",
-
-            sattu:
-                "🌾 ছাতু",
-
-            flour:
-                "🌾 আটা"
-
-        }
-
-    },
-
-
-    household: {
-
-        name:
-            "🧴 গৃহস্থালি",
-
-        subcategories: {
-
-            "hand-wash":
-                "🧴 হ্যান্ড ওয়াশ",
-
-            detergent:
-                "🧺 ডিটারজেন্ট",
-
-            "dish-wash":
-                "🧽 ডিশ ওয়াশ",
-
-            "dish-bar":
-                "🧼 ডিশ বার",
-
-            harpic:
-                "🚽 হারপিক"
-
-        }
-
-    }
-
-};
-
-
-let selectedMainCategory =
-    "all";
-
-
-let selectedSubcategory =
-    "all";
-
-
-/* ==========================================================
-   CATEGORY ELEMENTS
-========================================================== */
-
-const categoryButtons =
-    document.querySelectorAll(
-        ".category-main-btn"
-    );
-
-
-const subcategoryArea =
-    document.getElementById(
-        "subcategoryArea"
-    );
-
-
-const subcategoryTitle =
-    document.getElementById(
-        "subcategoryTitle"
-    );
-
-
-const subcategoryButtonsContainer =
-    document.getElementById(
-        "subcategoryButtons"
-    );
-
-
-const selectedCategoryText =
-    document.getElementById(
-        "selectedCategoryText"
-    );
-
-
-/* ==========================================================
-   CATEGORY NAME
-========================================================== */
-
-function getCategoryName(
-    category
-){
-
-    if(category === "all"){
-
-        return "সব পণ্য";
-
-    }
-
-
-    return CATEGORY_CONFIG[
-        category
-    ]
-    ?.name ||
-    category;
-
-}
-
-
-/* ==========================================================
-   SUBCATEGORY UI
-========================================================== */
-
-function renderSubcategories(
-    category
-){
-
-    if(
-        !subcategoryArea ||
-        !subcategoryButtonsContainer
-    ){
-
-        return;
-
-    }
-
-
-    subcategoryButtonsContainer.innerHTML =
-        "";
-
-
-    if(
-        category === "all" ||
-        !CATEGORY_CONFIG[category]
-    ){
-
-        subcategoryArea.classList.remove(
-            "show"
-        );
-
-        selectedSubcategory =
-            "all";
-
-        return;
-
-    }
-
-
-    const subcategories =
-        CATEGORY_CONFIG[
-            category
-        ].subcategories || {};
-
-
-    const allButton =
-        document.createElement(
-            "button"
-        );
-
-
-    allButton.type =
-        "button";
-
-
-    allButton.className =
-        "subcategory-btn active";
-
-
-    allButton.dataset.subcategory =
-        "all";
-
-
-    allButton.textContent =
-        "সব";
-
-
-    subcategoryButtonsContainer
-        .appendChild(
-            allButton
-        );
-
-
-    Object.entries(
-        subcategories
-    )
-    .forEach(
-        function([
-            key,
-            label
-        ]){
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.type =
-                "button";
-
-
-            button.className =
-                "subcategory-btn";
-
-
-            button.dataset.subcategory =
-                key;
-
-
-            button.textContent =
-                label;
-
-
-            subcategoryButtonsContainer
-                .appendChild(
-                    button
-                );
-
-        }
-    );
-
-
-    subcategoryArea.classList.add(
-        "show"
-    );
-
-
-    subcategoryTitle.textContent =
-        "উপ-ক্যাটাগরি নির্বাচন করুন:";
-
-
-    subcategoryButtonsContainer
-        .querySelectorAll(
-            ".subcategory-btn"
-        )
-        .forEach(
-            function(button){
-
-                button.addEventListener(
-                    "click",
-                    function(){
-
-                        subcategoryButtonsContainer
-                            .querySelectorAll(
-                                ".subcategory-btn"
-                            )
-                            .forEach(
-                                function(btn){
-
-                                    btn.classList.remove(
-                                        "active"
-                                    );
-
-                                }
-                            );
-
-
-                        button.classList.add(
-                            "active"
-                        );
-
-
-                        selectedSubcategory =
-                            button.dataset.subcategory;
-
-
-                        updateSelectedText();
-
-
-                        reloadProducts();
-
-                    }
-                );
-
-            }
-        );
-
-}
-
-
-/* ==========================================================
-   UPDATE SELECTED TEXT
-========================================================== */
-
-function updateSelectedText(){
-
-    if(!selectedCategoryText)
-        return;
-
-
-    if(
-        selectedMainCategory ===
-        "all"
-    ){
-
-        selectedCategoryText.textContent =
-            "সব পণ্য";
-
-        return;
-
-    }
-
-
-    const mainName =
-        getCategoryName(
-            selectedMainCategory
-        );
-
-
-    if(
-        selectedSubcategory ===
-        "all"
-    ){
-
-        selectedCategoryText.textContent =
-            mainName;
-
-        return;
-
-    }
-
-
-    const subName =
-        CATEGORY_CONFIG[
-            selectedMainCategory
-        ]
-        ?.subcategories
-        ?.[
-            selectedSubcategory
-        ] ||
-        selectedSubcategory;
-
-
-    selectedCategoryText.textContent =
-        mainName +
-        " → " +
-        subName;
-
-}
-
-
-/* ==========================================================
-   RELOAD PRODUCTS
-========================================================== */
-
-function reloadProducts(){
-
-    /*
-       আপনার script.js-এর loadProducts()
-       function-কে category পাঠানো হচ্ছে।
-
-       Main category filter
-       + subcategory filter
-       দুটোই পরে script.js-এর
-       সম্পূর্ণ version-এ support করবে।
-    */
-
-
-    if(
-        typeof window.loadProducts ===
-        "function"
-    ){
-
-        window.loadProducts(
-            selectedMainCategory,
-            selectedSubcategory
-        );
-
-    }
-
-}
-
-
-/* ==========================================================
-   MAIN CATEGORY CLICK
-========================================================== */
-
-categoryButtons.forEach(
-    function(button){
-
-        button.addEventListener(
-            "click",
-            function(){
-
-                categoryButtons
-                    .forEach(
-                        function(btn){
-
-                            btn.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-
-                button.classList.add(
-                    "active"
-                );
-
-
-                selectedMainCategory =
-                    button.dataset.category;
-
-
-                selectedSubcategory =
-                    "all";
-
-
-                renderSubcategories(
-                    selectedMainCategory
-                );
-
-
-                updateSelectedText();
-
-
-                reloadProducts();
-
-            }
-        );
-
-    }
-);
-
-
-/* ==========================================================
-   INITIAL CATEGORY
-========================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        renderSubcategories(
-            "all"
-        );
-
-
-        updateSelectedText();
-
-    }
-);
-
-</script>
 
 
 </body>
