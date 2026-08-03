@@ -12,7 +12,7 @@
 
     <meta
         name="description"
-        content="Maliha Agro Industry - জৈব সার, ভার্মি কম্পোস্ট, ট্রাইকো কম্পোস্ট ও কৃষি পণ্য।"
+        content="Maliha Agro Industry - কৃষি, জৈব সার, বীজ, কৃষি যন্ত্রপাতি, মসলা, খাদ্যপণ্য ও পরিষ্কার-পরিচ্ছন্নতার পণ্য।"
     >
 
     <meta
@@ -56,25 +56,29 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=5"
+        href="style.css?v=6"
     >
 
-
-    <!-- Products Page Responsive CSS -->
 
     <style>
 
         /* =====================================================
            PRODUCTS PAGE
-           DESKTOP + TABLET + MOBILE
         ===================================================== */
 
-
         .products-page {
+
             width: 100%;
             max-width: 1400px;
             margin: 0 auto;
-            padding: 35px 25px 120px;
+
+            padding:
+                35px
+                25px
+                120px;
+
+            box-sizing: border-box;
+
         }
 
 
@@ -83,81 +87,155 @@
         ===================================================== */
 
         .products-page-header {
+
             text-align: center;
-            padding: 25px 20px 35px;
+
+            padding:
+                25px
+                20px
+                35px;
+
         }
+
 
         .products-page-header h1 {
-            margin: 0 0 10px;
-            font-size: 34px;
-            font-weight: 700;
+
+            margin:
+                0 0 10px;
+
             color: #166C39;
+
+            font-size: 34px;
+
+            font-weight: 700;
+
         }
 
+
         .products-page-header p {
+
             margin: 0;
+
             color: #666;
+
             font-size: 16px;
+
+            line-height: 1.7;
+
         }
 
 
         /* =====================================================
-           SEARCH / FILTER CARD
+           FILTER CARD
         ===================================================== */
 
         .products-filter-card {
+
             background: #fff;
+
             border-radius: 22px;
+
             padding: 25px;
+
             margin-bottom: 30px;
-            box-shadow: 0 8px 30px rgba(0,0,0,.07);
-            border: 1px solid #edf2ee;
+
+            border:
+                1px solid #edf2ee;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,.07);
+
         }
 
 
         .products-filter-top {
+
             display: grid;
-            grid-template-columns: 1fr 220px;
+
+            grid-template-columns:
+                1fr 250px;
+
             gap: 15px;
+
             align-items: center;
-            margin-bottom: 22px;
+
+            margin-bottom: 24px;
+
         }
 
 
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
         .products-search {
+
             position: relative;
+
         }
 
 
         .products-search i {
+
             position: absolute;
+
             left: 16px;
+
             top: 50%;
-            transform: translateY(-50%);
+
+            transform:
+                translateY(-50%);
+
             color: #1F8F4D;
+
             pointer-events: none;
+
         }
 
 
         .products-search input {
+
             width: 100%;
+
             height: 52px;
-            padding: 0 18px 0 46px;
-            border: 1px solid #dfe7e1;
+
+            padding:
+                0
+                18px
+                0
+                46px;
+
+            border:
+                1px solid #dfe7e1;
+
             border-radius: 14px;
+
             outline: none;
+
             font-family: inherit;
+
             font-size: 15px;
+
             background: #fbfdfb;
-            transition: .25s;
+
             box-sizing: border-box;
+
+            transition: .25s;
+
         }
 
 
         .products-search input:focus {
-            border-color: #1F8F4D;
-            box-shadow: 0 0 0 4px rgba(31,143,77,.10);
+
+            border-color:
+                #1F8F4D;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(31,143,77,.10);
+
             background: #fff;
+
         }
 
 
@@ -166,82 +244,248 @@
         ===================================================== */
 
         .products-sort {
+
             display: flex;
+
             align-items: center;
+
             gap: 9px;
+
         }
 
 
         .products-sort label {
+
             white-space: nowrap;
+
             font-weight: 600;
+
             color: #333;
+
         }
 
 
         .products-sort select {
+
             width: 100%;
+
             height: 52px;
-            padding: 0 12px;
-            border: 1px solid #dfe7e1;
+
+            padding:
+                0 12px;
+
+            border:
+                1px solid #dfe7e1;
+
             border-radius: 14px;
+
             background: #fff;
+
             outline: none;
+
             font-family: inherit;
+
             font-size: 14px;
+
             cursor: pointer;
-        }
 
-
-        .products-sort select:focus {
-            border-color: #1F8F4D;
         }
 
 
         /* =====================================================
-           CATEGORY FILTER
+           CATEGORY TITLE
         ===================================================== */
 
         .products-category-title {
+
             font-size: 15px;
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 10px;
+
+            font-weight: 700;
+
+            color: #333;
+
+            margin-bottom: 12px;
+
         }
 
 
-        .products-category-buttons {
+        /* =====================================================
+           MAIN CATEGORY
+        ===================================================== */
+
+        .main-category-buttons {
+
             display: flex;
+
             flex-wrap: wrap;
+
             gap: 10px;
+
+            margin-bottom: 15px;
+
         }
 
 
-        .products-category-buttons .filter-btn {
-            border: 1px solid #d7eadc;
-            padding: 11px 18px;
+        .main-category-btn {
+
+            border:
+                1px solid #d7eadc;
+
+            padding:
+                11px
+                18px;
+
             border-radius: 30px;
-            background: #e9f8ef;
+
+            background: #f1faf4;
+
             color: #166C39;
+
             font-family: inherit;
+
             font-size: 14px;
-            font-weight: 600;
+
+            font-weight: 700;
+
             cursor: pointer;
+
             transition: .25s;
+
         }
 
 
-        .products-category-buttons .filter-btn:hover {
-            background: #d7f1df;
-            transform: translateY(-1px);
+        .main-category-btn:hover {
+
+            background: #dff4e6;
+
+            transform:
+                translateY(-1px);
+
         }
 
 
-        .products-category-buttons .filter-btn.active {
-            background: #1F8F4D;
+        .main-category-btn.active {
+
+            background:
+                #1F8F4D;
+
             color: #fff;
-            border-color: #1F8F4D;
-            box-shadow: 0 5px 15px rgba(31,143,77,.20);
+
+            border-color:
+                #1F8F4D;
+
+            box-shadow:
+                0 5px 15px
+                rgba(31,143,77,.20);
+
+        }
+
+
+        /* =====================================================
+           SUB CATEGORY
+        ===================================================== */
+
+        .subcategory-wrapper {
+
+            display: none;
+
+            padding:
+                15px;
+
+            margin-top: 5px;
+
+            background:
+                #f8fcf9;
+
+            border:
+                1px solid #e2eee5;
+
+            border-radius: 16px;
+
+        }
+
+
+        .subcategory-wrapper.show {
+
+            display: block;
+
+        }
+
+
+        .subcategory-title {
+
+            color: #555;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .subcategory-buttons {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+        }
+
+
+        .subcategory-btn {
+
+            border:
+                1px solid #dce9df;
+
+            padding:
+                8px
+                13px;
+
+            border-radius: 25px;
+
+            background: #fff;
+
+            color: #27613e;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: .25s;
+
+        }
+
+
+        .subcategory-btn:hover {
+
+            border-color:
+                #1F8F4D;
+
+            color:
+                #1F8F4D;
+
+        }
+
+
+        .subcategory-btn.active {
+
+            background:
+                #e2f5e8;
+
+            border-color:
+                #1F8F4D;
+
+            color:
+                #166C39;
+
         }
 
 
@@ -254,7 +498,7 @@
             display: grid;
 
             grid-template-columns:
-                repeat(4, minmax(0, 1fr));
+                repeat(4, minmax(0,1fr));
 
             gap: 24px;
 
@@ -279,7 +523,8 @@
 
             background: #fff;
 
-            border: 1px solid #e8eee9;
+            border:
+                1px solid #e8eee9;
 
             border-radius: 20px;
 
@@ -287,30 +532,33 @@
 
             overflow: hidden;
 
+            min-width: 0;
+
             box-shadow:
-                0 7px 25px rgba(0,0,0,.06);
+                0 7px 25px
+                rgba(0,0,0,.06);
 
             transition:
                 transform .25s ease,
                 box-shadow .25s ease;
-
-            min-width: 0;
 
         }
 
 
         #productList .product-card:hover {
 
-            transform: translateY(-6px);
+            transform:
+                translateY(-6px);
 
             box-shadow:
-                0 15px 35px rgba(0,0,0,.11);
+                0 15px 35px
+                rgba(0,0,0,.11);
 
         }
 
 
         /* =====================================================
-           PRODUCT IMAGE
+           IMAGE
         ===================================================== */
 
         #productList .slider {
@@ -344,8 +592,6 @@
 
             cursor: pointer;
 
-            transition: transform .3s ease;
-
         }
 
 
@@ -356,16 +602,8 @@
         }
 
 
-        #productList .product-card:hover
-        .product-img.active {
-
-            transform: scale(1.03);
-
-        }
-
-
         /* =====================================================
-           OFFER BADGE
+           OFFER
         ===================================================== */
 
         #productList .offer-badge {
@@ -382,7 +620,9 @@
 
             color: #fff;
 
-            padding: 6px 10px;
+            padding:
+                6px
+                10px;
 
             border-radius: 20px;
 
@@ -411,33 +651,28 @@
 
             height: 40px;
 
-            border-radius: 50%;
-
             border: none;
 
-            background: rgba(255,255,255,.95);
+            border-radius: 50%;
 
-            box-shadow: 0 4px 15px rgba(0,0,0,.12);
+            background:
+                rgba(255,255,255,.95);
+
+            box-shadow:
+                0 4px 15px
+                rgba(0,0,0,.12);
 
             cursor: pointer;
 
             font-size: 18px;
-
-            transition: .25s;
-
-        }
-
-
-        #productList .wishlist-btn:hover {
-
-            transform: scale(1.08);
 
         }
 
 
         #productList .wishlist-btn.active {
 
-            background: #fff0f0;
+            background:
+                #fff0f0;
 
         }
 
@@ -448,9 +683,11 @@
 
         #productList .product-card h3 {
 
-            margin: 2px 0 8px;
+            margin:
+                2px 0 8px;
 
-            color: #174c2d;
+            color:
+                #174c2d;
 
             font-size: 18px;
 
@@ -461,11 +698,13 @@
 
         #productList .rating {
 
-            margin: 0 0 8px;
+            margin:
+                0 0 8px;
+
+            color:
+                #e6a400;
 
             font-size: 13px;
-
-            color: #e6a400;
 
         }
 
@@ -476,7 +715,8 @@
 
             color: #999;
 
-            text-decoration: line-through;
+            text-decoration:
+                line-through;
 
             font-size: 14px;
 
@@ -485,9 +725,11 @@
 
         #productList .price {
 
-            margin: 2px 0 7px;
+            margin:
+                2px 0 7px;
 
-            color: #1F8F4D;
+            color:
+                #1F8F4D;
 
             font-size: 23px;
 
@@ -502,7 +744,8 @@
 
             margin-bottom: 10px;
 
-            color: #278348;
+            color:
+                #278348;
 
             font-size: 13px;
 
@@ -511,7 +754,34 @@
         }
 
 
-        #productList .product-card > p:not(.rating):not(.old-price):not(.price) {
+        #productList .product-category-label {
+
+            display: inline-block;
+
+            width: fit-content;
+
+            margin-bottom: 8px;
+
+            padding:
+                5px
+                9px;
+
+            border-radius: 20px;
+
+            background:
+                #eef8f1;
+
+            color:
+                #166C39;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        #productList .product-card > p:not(.rating):not(.old-price):not(.price):not(.stock):not(.product-category-label) {
 
             color: #666;
 
@@ -519,13 +789,14 @@
 
             line-height: 1.7;
 
-            margin: 4px 0 15px;
+            margin:
+                4px 0 15px;
 
         }
 
 
         /* =====================================================
-           PRODUCT BUTTON
+           BUTTON
         ===================================================== */
 
         #productList .product-card .btn {
@@ -546,15 +817,14 @@
 
             text-decoration: none;
 
-            background: #1F8F4D;
+            background:
+                #1F8F4D;
 
             color: #fff;
 
             font-weight: 600;
 
             font-size: 14px;
-
-            transition: .25s;
 
             box-sizing: border-box;
 
@@ -563,9 +833,8 @@
 
         #productList .product-card .btn:hover {
 
-            background: #166C39;
-
-            transform: translateY(-2px);
+            background:
+                #166C39;
 
         }
 
@@ -589,12 +858,14 @@
 
             color: #fff;
 
-            padding: 45px 30px;
+            padding:
+                45px 30px;
 
             text-align: center;
 
             box-shadow:
-                0 15px 35px rgba(22,108,57,.18);
+                0 15px 35px
+                rgba(22,108,57,.18);
 
         }
 
@@ -610,7 +881,8 @@
 
         .products-dealer-cta h2 {
 
-            margin: 0 0 10px;
+            margin:
+                0 0 10px;
 
             font-size: 28px;
 
@@ -621,7 +893,8 @@
 
             max-width: 750px;
 
-            margin: 0 auto 25px;
+            margin:
+                0 auto 25px;
 
             line-height: 1.8;
 
@@ -657,7 +930,8 @@
 
             min-height: 46px;
 
-            padding: 0 20px;
+            padding:
+                0 20px;
 
             border-radius: 12px;
 
@@ -668,18 +942,6 @@
             text-decoration: none;
 
             font-weight: 700;
-
-            transition: .25s;
-
-        }
-
-
-        .dealer-cta-buttons .btn:hover {
-
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 7px 18px rgba(0,0,0,.15);
 
         }
 
@@ -717,7 +979,8 @@
             text-decoration: none;
 
             box-shadow:
-                0 7px 20px rgba(0,0,0,.18);
+                0 7px 20px
+                rgba(0,0,0,.18);
 
             z-index: 999;
 
@@ -725,64 +988,41 @@
 
 
         /* =====================================================
-           DESKTOP
+           RESPONSIVE
         ===================================================== */
 
-        @media (min-width: 1200px) {
-
-            .products-page {
-
-                padding-left: 35px;
-
-                padding-right: 35px;
-
-            }
-
-            #productList.products-grid {
-
-                grid-template-columns:
-                    repeat(4, minmax(0, 1fr));
-
-            }
+        @media (min-width:1200px){
 
             #productList .slider {
 
-                height: 270px;
+                height:270px;
 
             }
 
         }
 
 
-        /* =====================================================
-           LAPTOP
-        ===================================================== */
-
-        @media (min-width: 992px)
-        and (max-width: 1199px) {
+        @media (min-width:992px)
+        and (max-width:1199px){
 
             #productList.products-grid {
 
                 grid-template-columns:
-                    repeat(3, minmax(0, 1fr));
+                    repeat(3,minmax(0,1fr));
 
             }
 
             #productList .slider {
 
-                height: 240px;
+                height:240px;
 
             }
 
         }
 
 
-        /* =====================================================
-           TABLET
-        ===================================================== */
-
-        @media (min-width: 600px)
-        and (max-width: 991px) {
+        @media (min-width:600px)
+        and (max-width:991px){
 
             .products-page {
 
@@ -793,45 +1033,31 @@
 
             }
 
-
-            .products-page-header h1 {
-
-                font-size: 29px;
-
-            }
-
-
             .products-filter-top {
 
-                grid-template-columns: 1fr;
+                grid-template-columns:1fr;
 
             }
-
 
             #productList.products-grid {
 
                 grid-template-columns:
-                    repeat(2, minmax(0, 1fr));
+                    repeat(2,minmax(0,1fr));
 
-                gap: 18px;
+                gap:18px;
 
             }
 
-
             #productList .slider {
 
-                height: 230px;
+                height:230px;
 
             }
 
         }
 
 
-        /* =====================================================
-           MOBILE
-        ===================================================== */
-
-        @media (max-width: 599px) {
+        @media (max-width:599px){
 
             .products-page {
 
@@ -842,7 +1068,6 @@
 
             }
 
-
             .products-page-header {
 
                 padding:
@@ -852,178 +1077,138 @@
 
             }
 
-
             .products-page-header h1 {
 
-                font-size: 25px;
-
-                line-height: 1.4;
+                font-size:25px;
 
             }
-
 
             .products-page-header p {
 
-                font-size: 13px;
-
-                line-height: 1.7;
+                font-size:13px;
 
             }
-
 
             .products-filter-card {
 
-                padding: 16px;
+                padding:16px;
 
-                border-radius: 18px;
+                border-radius:18px;
 
             }
-
 
             .products-filter-top {
 
-                grid-template-columns: 1fr;
-
-                gap: 12px;
+                grid-template-columns:1fr;
 
             }
-
 
             .products-sort {
 
-                align-items: stretch;
+                flex-direction:column;
 
-                flex-direction: column;
-
-                gap: 7px;
+                align-items:stretch;
 
             }
 
+            .main-category-buttons {
 
-            .products-sort select {
-
-                height: 48px;
-
-            }
-
-
-            .products-category-buttons {
-
-                gap: 8px;
+                gap:7px;
 
             }
 
-
-            .products-category-buttons .filter-btn {
+            .main-category-btn {
 
                 padding:
                     9px
-                    13px;
+                    12px;
 
-                font-size: 12px;
+                font-size:12px;
 
             }
 
+            .subcategory-wrapper {
+
+                padding:12px;
+
+            }
+
+            .subcategory-btn {
+
+                padding:
+                    7px
+                    10px;
+
+                font-size:11px;
+
+            }
 
             #productList.products-grid {
 
-                grid-template-columns: 1fr;
+                grid-template-columns:1fr;
 
-                gap: 18px;
+                gap:18px;
 
             }
-
 
             #productList .slider {
 
-                height: 270px;
+                height:270px;
 
             }
-
-
-            #productList .product-card {
-
-                padding: 12px;
-
-                border-radius: 18px;
-
-            }
-
-
-            #productList .product-card h3 {
-
-                font-size: 17px;
-
-            }
-
-
-            #productList .price {
-
-                font-size: 21px;
-
-            }
-
 
             .products-dealer-cta {
 
-                margin-top: 30px;
+                margin-top:30px;
 
                 padding:
                     32px
                     18px;
 
-                border-radius: 20px;
+                border-radius:20px;
 
             }
-
 
             .products-dealer-cta h2 {
 
-                font-size: 22px;
+                font-size:22px;
 
             }
-
 
             .products-dealer-cta p {
 
-                font-size: 13px;
+                font-size:13px;
 
             }
 
-
             .whatsapp-float {
 
-                right: 15px;
+                right:15px;
 
-                bottom: 82px;
+                bottom:82px;
 
-                width: 50px;
+                width:50px;
 
-                height: 50px;
+                height:50px;
 
-                font-size: 24px;
+                font-size:24px;
 
             }
 
         }
 
 
-        /* =====================================================
-           SMALL MOBILE
-        ===================================================== */
-
-        @media (max-width: 380px) {
+        @media (max-width:380px){
 
             #productList .slider {
 
-                height: 230px;
+                height:230px;
 
             }
 
+            .main-category-btn {
 
-            .products-category-buttons .filter-btn {
-
-                font-size: 11px;
+                font-size:11px;
 
                 padding:
                     8px
@@ -1041,16 +1226,10 @@
 <body>
 
 
-<!-- ======================================================
-     PRODUCTS PAGE
-====================================================== -->
-
 <main class="products-page">
 
 
-    <!-- ==================================================
-         PAGE HEADER
-    ================================================== -->
+    <!-- PAGE HEADER -->
 
     <section class="products-page-header fade-up">
 
@@ -1059,24 +1238,19 @@
         </h1>
 
         <p>
-            Maliha Agro Industry-এর মানসম্মত জৈব সার ও কৃষি পণ্য
+            কৃষি, খাদ্য, মসলা ও দৈনন্দিন প্রয়োজনীয় মানসম্মত পণ্য
         </p>
 
     </section>
 
 
-
-    <!-- ==================================================
-         SEARCH + FILTER
-    ================================================== -->
+    <!-- SEARCH + FILTER -->
 
     <section class="products-filter-card fade-up">
 
 
         <div class="products-filter-top">
 
-
-            <!-- SEARCH -->
 
             <div class="products-search">
 
@@ -1092,19 +1266,13 @@
             </div>
 
 
-            <!-- SORT -->
-
             <div class="products-sort">
 
-                <label
-                    for="sortProducts"
-                >
+                <label for="sortProducts">
                     ↕️ সাজান:
                 </label>
 
-                <select
-                    id="sortProducts"
-                >
+                <select id="sortProducts">
 
                     <option value="default">
                         ডিফল্ট
@@ -1133,61 +1301,95 @@
         </div>
 
 
-
         <!-- CATEGORY -->
 
         <div class="products-category-title">
 
-            📂 ক্যাটাগরি নির্বাচন করুন
+            📂 পণ্যের ক্যাটাগরি
 
         </div>
 
 
-        <div class="products-category-buttons">
+        <div
+            id="mainCategoryButtons"
+            class="main-category-buttons"
+        >
 
 
             <button
                 type="button"
-                class="filter-btn active"
+                class="main-category-btn active"
                 data-category="all"
             >
-
-                🌱 সব পণ্য
-
+                🛍️ সব পণ্য
             </button>
 
 
             <button
                 type="button"
-                class="filter-btn"
-                data-category="organic-fertilizer"
+                class="main-category-btn"
+                data-category="agriculture"
             >
-
-                🌿 জৈব সার
-
+                🌾 কৃষি
             </button>
 
 
             <button
                 type="button"
-                class="filter-btn"
-                data-category="soil-conditioner"
+                class="main-category-btn"
+                data-category="spices"
             >
-
-                🪴 মাটি পরিচর্যা
-
+                🌶️ মসলা
             </button>
 
+
+            <button
+                type="button"
+                class="main-category-btn"
+                data-category="food"
+            >
+                🍚 চাল, ডাল ও খাদ্যপণ্য
+            </button>
+
+
+            <button
+                type="button"
+                class="main-category-btn"
+                data-category="cleaning"
+            >
+                🧴 পরিষ্কার-পরিচ্ছন্নতা
+            </button>
+
+
+        </div>
+
+
+        <!-- SUBCATEGORY -->
+
+        <div
+            id="subcategoryWrapper"
+            class="subcategory-wrapper"
+        >
+
+            <div
+                id="subcategoryTitle"
+                class="subcategory-title"
+            >
+                উপ-ক্যাটাগরি নির্বাচন করুন
+            </div>
+
+
+            <div
+                id="subcategoryButtons"
+                class="subcategory-buttons"
+            ></div>
 
         </div>
 
     </section>
 
 
-
-    <!-- ==================================================
-         PRODUCT LIST
-    ================================================== -->
+    <!-- PRODUCT LIST -->
 
     <section>
 
@@ -1213,10 +1415,7 @@
     </section>
 
 
-
-    <!-- ==================================================
-         DEALER CTA
-    ================================================== -->
+    <!-- DEALER CTA -->
 
     <section class="products-dealer-cta fade-up">
 
@@ -1227,15 +1426,13 @@
         </h2>
 
         <p>
-
-            আমাদের জৈব সার ও কৃষি পণ্য পাইকারি মূল্যে নিতে
-            অথবা ডিলারশিপ সম্পর্কে জানতে সরাসরি যোগাযোগ করুন।
-
+            আমাদের পণ্য পাইকারি মূল্যে নিতে
+            অথবা ডিলারশিপ সম্পর্কে জানতে
+            সরাসরি যোগাযোগ করুন।
         </p>
 
 
         <div class="dealer-cta-buttons">
-
 
             <a
                 href="tel:+8801303679189"
@@ -1262,7 +1459,6 @@
 
             </a>
 
-
         </div>
 
     </section>
@@ -1271,10 +1467,7 @@
 </main>
 
 
-
-<!-- ======================================================
-     FLOATING WHATSAPP
-====================================================== -->
+<!-- FLOATING WHATSAPP -->
 
 <a
     href="https://wa.me/8801303679189"
@@ -1289,10 +1482,7 @@
 </a>
 
 
-
-<!-- ======================================================
-     BOTTOM NAVIGATION
-====================================================== -->
+<!-- BOTTOM NAV -->
 
 <nav
     class="bottom-nav"
@@ -1348,10 +1538,7 @@
 </nav>
 
 
-
-<!-- ======================================================
-     IMAGE MODAL
-====================================================== -->
+<!-- IMAGE MODAL -->
 
 <div
     id="imageModal"
@@ -1381,13 +1568,8 @@
 </div>
 
 
-
-<!-- ======================================================
-     JAVASCRIPT
-====================================================== -->
-
 <script
-    src="script.js?v=5"
+    src="script.js?v=6"
     defer
 ></script>
 
