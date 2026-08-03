@@ -2,7 +2,7 @@
 
 /* ==========================================================
    Maliha Agro Industry
-   JavaScript FINAL COMPLETE VERSION
+   JavaScript FINAL - CATEGORY SYSTEM
 ========================================================== */
 
 
@@ -23,11 +23,165 @@ let products = [];
 
 let currentProduct = null;
 
-let productSliderTimer = null;
-
 let homeSliderTimers = [];
 
 let detailSliderIndex = 0;
+
+let selectedMainCategory = "all";
+
+let selectedSubCategory = "all";
+
+
+/* ==========================================================
+   CATEGORY CONFIGURATION
+========================================================== */
+
+const CATEGORY_CONFIG = {
+
+    agriculture: {
+
+        name: "🌾 কৃষি",
+
+        subcategories: [
+
+            {
+                id: "organic-fertilizer",
+                name: "🌱 জৈব সার"
+            },
+
+            {
+                id: "seeds",
+                name: "🌾 বীজ"
+            },
+
+            {
+                id: "agricultural-tools",
+                name: "🚜 কৃষি যন্ত্রপাতি"
+            },
+
+            {
+                id: "soil-care",
+                name: "🪴 মাটি ও গাছের পরিচর্যা"
+            }
+
+        ]
+
+    },
+
+
+    spices: {
+
+        name: "🌶️ মসলা",
+
+        subcategories: [
+
+            {
+                id: "chili-powder",
+                name: "🌶️ মরিচের গুঁড়ো"
+            },
+
+            {
+                id: "coriander-powder",
+                name: "🌿 ধনিয়া গুঁড়ো"
+            },
+
+            {
+                id: "cumin-powder",
+                name: "🟤 জিরা গুঁড়ো"
+            },
+
+            {
+                id: "garam-masala",
+                name: "🧂 গরম মসলা"
+            },
+
+            {
+                id: "other-spices",
+                name: "🌿 অন্যান্য মসলা"
+            }
+
+        ]
+
+    },
+
+
+    food: {
+
+        name: "🍚 চাল, ডাল ও খাদ্যপণ্য",
+
+        subcategories: [
+
+            {
+                id: "rice",
+                name: "🍚 চাল"
+            },
+
+            {
+                id: "lentils",
+                name: "🫘 ডাল"
+            },
+
+            {
+                id: "sattu",
+                name: "🌾 ছাতু"
+            },
+
+            {
+                id: "flour",
+                name: "🌾 আটা"
+            },
+
+            {
+                id: "other-food",
+                name: "🍱 অন্যান্য খাদ্যপণ্য"
+            }
+
+        ]
+
+    },
+
+
+    cleaning: {
+
+        name: "🧴 পরিষ্কার-পরিচ্ছন্নতা",
+
+        subcategories: [
+
+            {
+                id: "hand-wash",
+                name: "🧴 হ্যান্ডওয়াশ"
+            },
+
+            {
+                id: "detergent",
+                name: "🧺 ডিটারজেন্ট"
+            },
+
+            {
+                id: "dish-wash",
+                name: "🍽️ ডিশওয়াশ"
+            },
+
+            {
+                id: "dish-bar",
+                name: "🧼 ডিশ বার"
+            },
+
+            {
+                id: "harpic",
+                name: "🧹 হারপিক"
+            },
+
+            {
+                id: "other-cleaning",
+                name: "🧽 অন্যান্য"
+            }
+
+        ]
+
+    }
+
+};
 
 
 /* ==========================================================
@@ -37,12 +191,13 @@ let detailSliderIndex = 0;
 const $ = selector =>
     document.querySelector(selector);
 
+
 const $$ = selector =>
     document.querySelectorAll(selector);
 
 
 /* ==========================================================
-   HELPER FUNCTIONS
+   HELPER
 ========================================================== */
 
 function formatPrice(price){
@@ -66,7 +221,7 @@ function getProductId(){
 
 
 /* ==========================================================
-   IMAGE PATH FIX
+   IMAGE PATH
 ========================================================== */
 
 function imagePath(path){
@@ -79,12 +234,6 @@ function imagePath(path){
         .replace(/\\/g,"/");
 
 
-    /*
-       ../images/product1.jpg
-       ↓
-       images/product1.jpg
-    */
-
     src =
         src.replace(
             /^(\.\.\/)+images\//i,
@@ -92,22 +241,12 @@ function imagePath(path){
         );
 
 
-    /*
-       ./images/product1.jpg
-       ↓
-       images/product1.jpg
-    */
-
     src =
         src.replace(
             /^\.\/images\//i,
             "images/"
         );
 
-
-    /*
-       External image
-    */
 
     if(
         /^https?:\/\//i.test(src) ||
@@ -119,39 +258,21 @@ function imagePath(path){
     }
 
 
-    /*
-       images/product1.jpg
-    */
-
-    if(
-        src.startsWith("images/")
-    ){
+    if(src.startsWith("images/")){
 
         return src;
 
     }
 
 
-    /*
-       /images/product1.jpg
-    */
-
-    if(
-        src.startsWith("/images/")
-    ){
+    if(src.startsWith("/images/")){
 
         return src.substring(1);
 
     }
 
 
-    /*
-       শুধু product1.jpg
-    */
-
-    if(
-        !src.includes("/")
-    ){
+    if(!src.includes("/")){
 
         return "images/" + src;
 
@@ -164,7 +285,7 @@ function imagePath(path){
 
 
 /* ==========================================================
-   PRODUCT GALLERY
+   GALLERY
 ========================================================== */
 
 function getGallery(product){
@@ -182,152 +303,6 @@ function getGallery(product){
     return product.gallery
         .map(imagePath)
         .filter(Boolean);
-
-}
-
-
-/* ==========================================================
-   ERROR HANDLER
-========================================================== */
-
-window.onerror =
-function(
-    message,
-    file,
-    line,
-    column,
-    error
-){
-
-    console.error(
-        "ERROR:",
-        message
-    );
-
-    console.error(
-        "FILE:",
-        file
-    );
-
-    console.error(
-        "LINE:",
-        line
-    );
-
-};
-
-
-/* ==========================================================
-   SHARE BUSINESS CARD
-========================================================== */
-
-function initShareCard(){
-
-    const btn =
-        $("#shareCard");
-
-    if(!btn) return;
-
-
-    btn.addEventListener(
-        "click",
-        async function(e){
-
-            e.preventDefault();
-
-
-            const shareData = {
-
-                title:
-                    "Maliha Agro Industry",
-
-                text:
-                    "Maliha Agro Industry - Digital Business Card",
-
-                url:
-                    window.location.href
-
-            };
-
-
-            if(navigator.share){
-
-                try{
-
-                    await navigator.share(
-                        shareData
-                    );
-
-                }
-                catch(err){
-
-                    if(
-                        err.name !==
-                        "AbortError"
-                    ){
-
-                        console.error(err);
-
-                    }
-
-                }
-
-            }
-            else{
-
-                try{
-
-                    await navigator.clipboard
-                        .writeText(
-                            window.location.href
-                        );
-
-                    alert(
-                        "✅ লিংক কপি হয়েছে"
-                    );
-
-                }
-                catch(err){
-
-                    console.error(err);
-
-                    alert(
-                        "❌ লিংক কপি করা যায়নি"
-                    );
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-/* ==========================================================
-   SAVE CONTACT
-========================================================== */
-
-function initSaveContact(){
-
-    const btn =
-        $("#saveContact");
-
-    if(!btn) return;
-
-
-    btn.addEventListener(
-        "click",
-        function(e){
-
-            e.preventDefault();
-
-            window.location.href =
-                "contact.vcf";
-
-        }
-    );
 
 }
 
@@ -354,8 +329,7 @@ function initPWA(){
 
             e.preventDefault();
 
-            deferredPrompt =
-                e;
+            deferredPrompt = e;
 
             installBtn.style.display =
                 "flex";
@@ -368,11 +342,8 @@ function initPWA(){
         "click",
         async function(){
 
-            if(!deferredPrompt){
-
+            if(!deferredPrompt)
                 return;
-
-            }
 
 
             deferredPrompt.prompt();
@@ -380,8 +351,7 @@ function initPWA(){
 
             try{
 
-                await deferredPrompt
-                    .userChoice;
+                await deferredPrompt.userChoice;
 
             }
             catch(error){
@@ -391,22 +361,7 @@ function initPWA(){
             }
 
 
-            deferredPrompt =
-                null;
-
-            installBtn.style.display =
-                "none";
-
-        }
-    );
-
-
-    window.addEventListener(
-        "appinstalled",
-        function(){
-
-            deferredPrompt =
-                null;
+            deferredPrompt = null;
 
             installBtn.style.display =
                 "none";
@@ -440,9 +395,7 @@ function initBottomNavigation(){
 
 
                 const href =
-                    link.getAttribute(
-                        "href"
-                    );
+                    link.getAttribute("href");
 
 
                 if(!href) return;
@@ -481,8 +434,7 @@ async function fetchProducts(){
         await fetch(
             "data/products.json",
             {
-                cache:
-                    "no-store"
+                cache: "no-store"
             }
         );
 
@@ -509,9 +461,7 @@ async function fetchProducts(){
     }
 
 
-    products =
-        data;
-
+    products = data;
 
     return products;
 
@@ -519,7 +469,7 @@ async function fetchProducts(){
 
 
 /* ==========================================================
-   ENSURE PRODUCTS LOADED
+   ENSURE PRODUCTS
 ========================================================== */
 
 async function ensureProductsLoaded(){
@@ -537,17 +487,396 @@ async function ensureProductsLoaded(){
 
 
 /* ==========================================================
-   PRODUCTS PAGE
+   CATEGORY FILTER UI
 ========================================================== */
 
-async function loadProducts(
-    category = "all"
+function initCategoryFilter(){
+
+    const mainButtons =
+        $$(".main-category-btn");
+
+
+    const wrapper =
+        $("#subcategoryWrapper");
+
+
+    const subButtonsContainer =
+        $("#subcategoryButtons");
+
+
+    const title =
+        $("#subcategoryTitle");
+
+
+    if(!mainButtons.length)
+        return;
+
+
+    mainButtons.forEach(
+        function(btn){
+
+            btn.addEventListener(
+                "click",
+                function(){
+
+                    mainButtons.forEach(
+                        function(item){
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+
+                    btn.classList.add(
+                        "active"
+                    );
+
+
+                    selectedMainCategory =
+                        btn.dataset.category;
+
+
+                    selectedSubCategory =
+                        "all";
+
+
+                    renderSubcategories();
+
+
+                    loadProducts();
+
+                }
+            );
+
+        }
+    );
+
+
+    function renderSubcategories(){
+
+        if(
+            !wrapper ||
+            !subButtonsContainer
+        ){
+
+            return;
+
+        }
+
+
+        subButtonsContainer.innerHTML =
+            "";
+
+
+        if(
+            selectedMainCategory ===
+            "all"
+        ){
+
+            wrapper.classList.remove(
+                "show"
+            );
+
+            return;
+
+        }
+
+
+        const config =
+            CATEGORY_CONFIG[
+                selectedMainCategory
+            ];
+
+
+        if(!config){
+
+            wrapper.classList.remove(
+                "show"
+            );
+
+            return;
+
+        }
+
+
+        wrapper.classList.add(
+            "show"
+        );
+
+
+        if(title){
+
+            title.textContent =
+                `${config.name} — উপ-ক্যাটাগরি`;
+
+        }
+
+
+        const allBtn =
+            document.createElement(
+                "button"
+            );
+
+
+        allBtn.type =
+            "button";
+
+
+        allBtn.className =
+            "subcategory-btn active";
+
+
+        allBtn.dataset.subcategory =
+            "all";
+
+
+        allBtn.textContent =
+            "📦 সব পণ্য";
+
+
+        subButtonsContainer
+            .appendChild(
+                allBtn
+            );
+
+
+        config.subcategories
+            .forEach(
+                function(sub){
+
+                    const btn =
+                        document.createElement(
+                            "button"
+                        );
+
+
+                    btn.type =
+                        "button";
+
+
+                    btn.className =
+                        "subcategory-btn";
+
+
+                    btn.dataset.subcategory =
+                        sub.id;
+
+
+                    btn.textContent =
+                        sub.name;
+
+
+                    subButtonsContainer
+                        .appendChild(
+                            btn
+                        );
+
+                }
+            );
+
+
+        subButtonsContainer
+            .querySelectorAll(
+                ".subcategory-btn"
+            )
+            .forEach(
+                function(btn){
+
+                    btn.addEventListener(
+                        "click",
+                        function(){
+
+                            subButtonsContainer
+                                .querySelectorAll(
+                                    ".subcategory-btn"
+                                )
+                                .forEach(
+                                    function(item){
+
+                                        item.classList.remove(
+                                            "active"
+                                        );
+
+                                    }
+                                );
+
+
+                            btn.classList.add(
+                                "active"
+                            );
+
+
+                            selectedSubCategory =
+                                btn.dataset.subcategory;
+
+
+                            loadProducts();
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    renderSubcategories();
+
+}
+
+
+/* ==========================================================
+   GET CATEGORY NAME
+========================================================== */
+
+function getCategoryName(
+    categoryId,
+    subcategoryId
 ){
+
+    const category =
+        CATEGORY_CONFIG[
+            categoryId
+        ];
+
+
+    if(!category){
+
+        return "";
+
+    }
+
+
+    if(
+        !subcategoryId ||
+        subcategoryId === "all"
+    ){
+
+        return category.name;
+
+    }
+
+
+    const sub =
+        category.subcategories.find(
+            function(item){
+
+                return item.id ===
+                    subcategoryId;
+
+            }
+        );
+
+
+    return sub
+        ? sub.name
+        : category.name;
+
+}
+
+
+/* ==========================================================
+   PRODUCT FILTER
+========================================================== */
+
+function filterProducts(){
+
+    const searchInput =
+        $("#searchProduct");
+
+
+    const keyword =
+        searchInput
+        ? searchInput.value
+            .trim()
+            .toLowerCase()
+        : "";
+
+
+    return products.filter(
+        function(product){
+
+            const name =
+                String(
+                    product.name || ""
+                ).toLowerCase();
+
+
+            const type =
+                String(
+                    product.type || ""
+                ).toLowerCase();
+
+
+            const description =
+                String(
+                    product.description || ""
+                ).toLowerCase();
+
+
+            const category =
+                String(
+                    product.category || ""
+                );
+
+
+            const subcategory =
+                String(
+                    product.subcategory || ""
+                );
+
+
+            const matchSearch =
+                !keyword ||
+                name.includes(keyword) ||
+                type.includes(keyword) ||
+                description.includes(keyword) ||
+                category.includes(keyword) ||
+                subcategory.includes(keyword);
+
+
+            const matchMainCategory =
+                selectedMainCategory ===
+                    "all" ||
+                category ===
+                    selectedMainCategory;
+
+
+            const matchSubCategory =
+                selectedSubCategory ===
+                    "all" ||
+                subcategory ===
+                    selectedSubCategory;
+
+
+            return (
+                matchSearch &&
+                matchMainCategory &&
+                matchSubCategory
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   LOAD PRODUCTS
+========================================================== */
+
+async function loadProducts(){
 
     const productList =
         $("#productList");
 
-    if(!productList) return;
+
+    if(!productList)
+        return;
 
 
     try{
@@ -555,59 +884,8 @@ async function loadProducts(
         await ensureProductsLoaded();
 
 
-        const searchInput =
-            $("#searchProduct");
-
-
-        const keyword =
-            searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
-            : "";
-
-
         let filtered =
-            products.filter(
-                function(product){
-
-                    const name =
-                        String(
-                            product.name || ""
-                        ).toLowerCase();
-
-
-                    const type =
-                        String(
-                            product.type || ""
-                        ).toLowerCase();
-
-
-                    const description =
-                        String(
-                            product.description || ""
-                        ).toLowerCase();
-
-
-                    const matchCategory =
-                        category === "all" ||
-                        product.category ===
-                            category;
-
-
-                    const matchSearch =
-                        name.includes(keyword) ||
-                        type.includes(keyword) ||
-                        description.includes(keyword);
-
-
-                    return (
-                        matchCategory &&
-                        matchSearch
-                    );
-
-                }
-            );
+            filterProducts();
 
 
         /* ==========================
@@ -681,7 +959,8 @@ async function loadProducts(
         }
 
 
-        productList.innerHTML = "";
+        productList.innerHTML =
+            "";
 
 
         /* ==========================
@@ -699,7 +978,7 @@ async function loadProducts(
 </h2>
 
 <p>
-অন্য কোনো নাম বা ক্যাটাগরি দিয়ে চেষ্টা করুন।
+অন্য কোনো নাম, ক্যাটাগরি অথবা উপ-ক্যাটাগরি দিয়ে চেষ্টা করুন।
 </p>
 
 </div>
@@ -712,7 +991,7 @@ async function loadProducts(
 
 
         /* ==========================
-           PRODUCT CARDS
+           CARDS
         ========================== */
 
         filtered.forEach(
@@ -720,6 +999,13 @@ async function loadProducts(
 
                 const gallery =
                     getGallery(product);
+
+
+                const categoryName =
+                    getCategoryName(
+                        product.category,
+                        product.subcategory
+                    );
 
 
                 productList.innerHTML += `
@@ -732,14 +1018,14 @@ ${
     : ""
 }
 
+
 <button
     class="wishlist-btn"
     data-id="${product.id}"
     type="button"
-    aria-label="Wishlist">
-
-🤍
-
+    aria-label="Wishlist"
+>
+    🤍
 </button>
 
 
@@ -760,7 +1046,8 @@ ${
     }"
     alt="${product.name}"
     loading="lazy"
-    onerror="this.style.display='none';">
+    onerror="this.style.display='none';"
+>
 
 `;
 
@@ -771,8 +1058,19 @@ ${
 </div>
 
 
+${
+    categoryName
+    ? `
+<span class="product-category-label">
+${categoryName}
+</span>
+`
+    : ""
+}
+
+
 <h3>
-${product.name}
+${product.name || ""}
 </h3>
 
 
@@ -809,11 +1107,11 @@ ${product.description || ""}
 
 <a
     href="product.html?id=${product.id}"
-    class="btn">
-
-📖 বিস্তারিত দেখুন
-
+    class="btn"
+>
+    📖 বিস্তারিত দেখুন
 </a>
+
 
 </div>
 
@@ -866,69 +1164,19 @@ function initSearch(){
     const input =
         $("#searchProduct");
 
-    if(!input) return;
+
+    if(!input)
+        return;
 
 
     input.addEventListener(
         "input",
         function(){
 
-            const active =
-                $(".filter-btn.active");
-
-
-            loadProducts(
-                active
-                ? active.dataset.category
-                : "all"
-            );
+            loadProducts();
 
         }
     );
-
-}
-
-
-/* ==========================================================
-   CATEGORY FILTER
-========================================================== */
-
-function initCategoryFilter(){
-
-    $$(".filter-btn")
-        .forEach(
-            function(btn){
-
-                btn.addEventListener(
-                    "click",
-                    function(){
-
-                        $$(".filter-btn")
-                            .forEach(
-                                function(b){
-
-                                    b.classList.remove(
-                                        "active"
-                                    );
-
-                                }
-                            );
-
-
-                        btn.classList.add(
-                            "active"
-                        );
-
-
-                        loadProducts(
-                            btn.dataset.category
-                        );
-
-                    }
-                );
-
-            }
-        );
 
 }
 
@@ -942,22 +1190,16 @@ function initSort(){
     const select =
         $("#sortProducts");
 
-    if(!select) return;
+
+    if(!select)
+        return;
 
 
     select.addEventListener(
         "change",
         function(){
 
-            const active =
-                $(".filter-btn.active");
-
-
-            loadProducts(
-                active
-                ? active.dataset.category
-                : "all"
-            );
+            loadProducts();
 
         }
     );
@@ -966,7 +1208,7 @@ function initSort(){
 
 
 /* ==========================================================
-   PRODUCT DETAILS PAGE
+   PRODUCT DETAILS
 ========================================================== */
 
 async function loadProductDetails(){
@@ -974,7 +1216,9 @@ async function loadProductDetails(){
     const slider =
         $("#productSlider");
 
-    if(!slider) return;
+
+    if(!slider)
+        return;
 
 
     try{
@@ -999,15 +1243,15 @@ async function loadProductDetails(){
 
         if(!currentProduct){
 
-            const card =
+            const gallery =
                 document.querySelector(
                     ".product-gallery"
                 );
 
 
-            if(card){
+            if(gallery){
 
-                card.innerHTML = `
+                gallery.innerHTML = `
 
 <div class="card">
 
@@ -1017,10 +1261,9 @@ async function loadProductDetails(){
 
 <a
 href="products.html"
-class="btn">
-
+class="btn"
+>
 📦 প্রোডাক্ট দেখুন
-
 </a>
 
 </div>
@@ -1034,76 +1277,67 @@ class="btn">
         }
 
 
-        /* ==========================
-           PRODUCT INFO
-        ========================== */
+        const fields = {
 
-        const name =
-            $("#productName");
+            "#productName":
+                currentProduct.name || "",
 
-        const brand =
-            $("#productBrand");
+            "#productBrand":
+                currentProduct.brand ||
+                "Maliha Agro Industry",
 
-        const brandInfo =
-            $("#productBrandInfo");
+            "#productBrandInfo":
+                currentProduct.brand ||
+                "Maliha Agro Industry",
 
-        const rating =
-            $("#productRating");
+            "#productRating":
+                `(${currentProduct.rating || 0})`,
+
+            "#productStockInfo":
+                currentProduct.stock ||
+                "স্টকে আছে",
+
+            "#productCategory":
+                getCategoryName(
+                    currentProduct.category,
+                    "all"
+                ),
+
+            "#productType":
+                currentProduct.type || "-",
+
+            "#productSku":
+                currentProduct.sku || "-",
+
+            "#productWeight":
+                currentProduct.weight || "-",
+
+            "#productDescription":
+                currentProduct.description || ""
+
+        };
+
+
+        Object.entries(fields)
+            .forEach(
+                function([selector,value]){
+
+                    const element =
+                        $(selector);
+
+                    if(element){
+
+                        element.textContent =
+                            value;
+
+                    }
+
+                }
+            );
+
 
         const stock =
             $("#productStock");
-
-        const stockInfo =
-            $("#productStockInfo");
-
-        const category =
-            $("#productCategory");
-
-        const type =
-            $("#productType");
-
-        const sku =
-            $("#productSku");
-
-        const weight =
-            $("#productWeight");
-
-        const description =
-            $("#productDescription");
-
-
-        if(name){
-
-            name.textContent =
-                currentProduct.name || "";
-
-        }
-
-
-        if(brand){
-
-            brand.textContent =
-                currentProduct.brand ||
-                "Maliha Agro Industry";
-
-        }
-
-
-        if(brandInfo){
-
-            brandInfo.textContent =
-                currentProduct.brand ||
-                "Maliha Agro Industry";
-
-        }
-
-
-        if(rating){
-
-            rating.textContent =
-                `(${currentProduct.rating || 0})`;
-
-        }
 
 
         if(stock){
@@ -1118,63 +1352,7 @@ class="btn">
         }
 
 
-        if(stockInfo){
-
-            stockInfo.textContent =
-                currentProduct.stock ||
-                "স্টকে আছে";
-
-        }
-
-
-        if(category){
-
-            category.textContent =
-                currentProduct.category ||
-                "-";
-
-        }
-
-
-        if(type){
-
-            type.textContent =
-                currentProduct.type ||
-                "-";
-
-        }
-
-
-        if(sku){
-
-            sku.textContent =
-                currentProduct.sku ||
-                "-";
-
-        }
-
-
-        if(weight){
-
-            weight.textContent =
-                currentProduct.weight ||
-                "-";
-
-        }
-
-
-        if(description){
-
-            description.textContent =
-                currentProduct.description ||
-                "";
-
-        }
-
-
-        /* ==========================
-           PRICE
-        ========================== */
+        /* PRICE */
 
         const price =
             Number(
@@ -1191,11 +1369,14 @@ class="btn">
         const priceElement =
             $("#productPrice");
 
+
         const oldPriceElement =
             $("#productOldPrice");
 
+
         const discountElement =
             $("#productDiscount");
+
 
         const reviewElement =
             $("#productReview");
@@ -1219,7 +1400,8 @@ class="btn">
                 oldPriceElement.style.display =
                     "inline";
 
-            }else{
+            }
+            else{
 
                 oldPriceElement.style.display =
                     "none";
@@ -1248,10 +1430,12 @@ class="btn">
                 discountElement.textContent =
                     discount + "% OFF";
 
+
                 discountElement.style.display =
                     "inline-block";
 
-            }else{
+            }
+            else{
 
                 discountElement.style.display =
                     "none";
@@ -1269,9 +1453,7 @@ class="btn">
         }
 
 
-        /* ==========================
-           PRODUCT GALLERY
-        ========================== */
+        /* GALLERY */
 
         const gallery =
             getGallery(
@@ -1279,121 +1461,69 @@ class="btn">
             );
 
 
-        slider.innerHTML = "";
+        slider.innerHTML =
+            "";
 
 
-        if(gallery.length === 0){
+        gallery.forEach(
+            function(src,index){
 
-            slider.innerHTML = `
-
-<div class="no-image">
-
-<p>
-❌ এই পণ্যের কোনো ছবি পাওয়া যায়নি।
-</p>
-
-</div>
-
-`;
-
-        }
-        else{
-
-            gallery.forEach(
-                function(src,index){
-
-                    const img =
-                        document.createElement(
-                            "img"
-                        );
-
-
-                    img.src =
-                        src;
-
-
-                    img.alt =
-                        currentProduct.name ||
-                        "Maliha Agro Industry";
-
-
-                    img.className =
-                        "product-img" +
-                        (
-                            index === 0
-                            ? " active"
-                            : ""
-                        );
-
-
-                    img.loading =
-                        index === 0
-                        ? "eager"
-                        : "lazy";
-
-
-                    img.onerror =
-                        function(){
-
-                            console.error(
-                                "Image Load Failed:",
-                                src
-                            );
-
-                            this.style.display =
-                                "none";
-
-                        };
-
-
-                    slider.appendChild(
-                        img
+                const img =
+                    document.createElement(
+                        "img"
                     );
 
-                }
-            );
 
-        }
+                img.src =
+                    src;
 
 
-        /* ==========================
-           DETAIL SLIDER
-        ========================== */
+                img.alt =
+                    currentProduct.name ||
+                    "Maliha Agro Industry";
+
+
+                img.className =
+                    "product-img" +
+                    (
+                        index === 0
+                        ? " active"
+                        : ""
+                    );
+
+
+                img.loading =
+                    index === 0
+                    ? "eager"
+                    : "lazy";
+
+
+                img.onerror =
+                    function(){
+
+                        this.style.display =
+                            "none";
+
+                    };
+
+
+                slider.appendChild(
+                    img
+                );
+
+            }
+        );
+
 
         initDetailGallery();
 
-
-        /* ==========================
-           QUANTITY
-        ========================== */
-
         initQuantity();
-
-
-        /* ==========================
-           ORDER
-        ========================== */
 
         initOrderButton();
 
-
-        /* ==========================
-           SHARE
-        ========================== */
-
         initShareProductButtons();
 
-
-        /* ==========================
-           WISHLIST
-        ========================== */
-
         initProductWishlist();
-
-
-        /* ==========================
-           RELATED PRODUCTS
-        ========================== */
 
         loadRelatedProducts();
 
@@ -1405,30 +1535,13 @@ class="btn">
             error
         );
 
-
-        slider.innerHTML = `
-
-<div class="card">
-
-<h2>
-❌ Product Load Failed
-</h2>
-
-<p>
-পণ্য লোড করতে সমস্যা হয়েছে।
-</p>
-
-</div>
-
-`;
-
     }
 
 }
 
 
 /* ==========================================================
-   DETAIL PRODUCT GALLERY
+   DETAIL GALLERY
 ========================================================== */
 
 function initDetailGallery(){
@@ -1436,7 +1549,9 @@ function initDetailGallery(){
     const slider =
         $("#productSlider");
 
-    if(!slider) return;
+
+    if(!slider)
+        return;
 
 
     const images =
@@ -1448,8 +1563,10 @@ function initDetailGallery(){
     const prev =
         $("#prevImage");
 
+
     const next =
         $("#nextImage");
+
 
     const counter =
         $("#sliderCounter");
@@ -1469,7 +1586,8 @@ function initDetailGallery(){
     }
 
 
-    detailSliderIndex = 0;
+    detailSliderIndex =
+        0;
 
 
     function showImage(index){
@@ -1558,6 +1676,7 @@ function initDetailGallery(){
                     const modal =
                         $("#imageModal");
 
+
                     const modalImage =
                         $("#modalImage");
 
@@ -1588,7 +1707,7 @@ function initDetailGallery(){
 
 
 /* ==========================================================
-   ORDER BUTTON
+   ORDER
 ========================================================== */
 
 function initOrderButton(){
@@ -1596,47 +1715,15 @@ function initOrderButton(){
     const orderNow =
         $("#orderNow");
 
+
     if(
         !orderNow ||
         !currentProduct
-    ){
-
+    )
         return;
 
-    }
 
-
-    const price =
-        Number(
-            currentProduct.price || 0
-        );
-
-
-    const message =
-
-`🌿 Maliha Agro Industry
-
-আমি ${currentProduct.name} অর্ডার করতে চাই।
-
-💰 মূল্য: ${formatPrice(price)}
-
-📦 পরিমাণ: 1
-
-🔗 ${window.location.href}`;
-
-
-    orderNow.href =
-        "https://wa.me/8801303679189?text=" +
-        encodeURIComponent(
-            message
-        );
-
-
-    orderNow.target =
-        "_blank";
-
-    orderNow.rel =
-        "noopener noreferrer";
+    updateOrderLink(1);
 
 }
 
@@ -1650,11 +1737,14 @@ function initQuantity(){
     const qtyInput =
         $("#qty");
 
+
     const total =
         $("#totalPrice");
 
+
     const plus =
         $("#plusQty");
+
 
     const minus =
         $("#minusQty");
@@ -1666,11 +1756,8 @@ function initQuantity(){
         !plus ||
         !minus ||
         !currentProduct
-    ){
-
+    )
         return;
-
-    }
 
 
     let qty = 1;
@@ -1690,9 +1777,7 @@ function initQuantity(){
             );
 
 
-        updateOrderLink(
-            qty
-        );
+        updateOrderLink(qty);
 
     }
 
@@ -1727,7 +1812,7 @@ function initQuantity(){
 
 
 /* ==========================================================
-   UPDATE ORDER LINK
+   UPDATE ORDER
 ========================================================== */
 
 function updateOrderLink(qty){
@@ -1735,14 +1820,12 @@ function updateOrderLink(qty){
     const orderNow =
         $("#orderNow");
 
+
     if(
         !orderNow ||
         !currentProduct
-    ){
-
+    )
         return;
-
-    }
 
 
     const price =
@@ -1761,20 +1844,35 @@ function updateOrderLink(qty){
 
 আমি ${currentProduct.name} অর্ডার করতে চাই।
 
-💰 একক মূল্য: ${formatPrice(price)}
+📂 ক্যাটাগরি:
+${getCategoryName(
+    currentProduct.category,
+    currentProduct.subcategory
+)}
 
-📦 পরিমাণ: ${qty}
+💰 একক মূল্য:
+${formatPrice(price)}
 
-💵 মোট মূল্য: ${formatPrice(total)}
+📦 পরিমাণ:
+${qty}
+
+💵 মোট মূল্য:
+${formatPrice(total)}
 
 🔗 ${window.location.href}`;
 
 
     orderNow.href =
         "https://wa.me/8801303679189?text=" +
-        encodeURIComponent(
-            message
-        );
+        encodeURIComponent(message);
+
+
+    orderNow.target =
+        "_blank";
+
+
+    orderNow.rel =
+        "noopener noreferrer";
 
 }
 
@@ -1837,9 +1935,7 @@ function initShareProductButtons(){
                                 "AbortError"
                             ){
 
-                                console.error(
-                                    error
-                                );
+                                console.error(error);
 
                             }
 
@@ -1888,7 +1984,9 @@ function updateWishlistCounter(){
     const counter =
         $("#wishlistCounter");
 
-    if(!counter) return;
+
+    if(!counter)
+        return;
 
 
     counter.textContent =
@@ -1898,7 +1996,7 @@ function updateWishlistCounter(){
 
 
 /* ==========================================================
-   WISHLIST INIT
+   WISHLIST
 ========================================================== */
 
 function initWishlist(){
@@ -1940,9 +2038,7 @@ function initWishlist(){
                 btn.onclick =
                     function(){
 
-                        toggleWishlist(
-                            id
-                        );
+                        toggleWishlist(id);
 
                     };
 
@@ -1971,11 +2067,8 @@ function toggleWishlist(id){
 
         wishlist =
             wishlist.filter(
-                function(item){
-
-                    return item !== id;
-
-                }
+                item =>
+                    item !== id
             );
 
     }
@@ -1988,9 +2081,7 @@ function toggleWishlist(id){
 
     localStorage.setItem(
         "wishlist",
-        JSON.stringify(
-            wishlist
-        )
+        JSON.stringify(wishlist)
     );
 
 
@@ -2000,7 +2091,7 @@ function toggleWishlist(id){
 
 
 /* ==========================================================
-   PRODUCT PAGE WISHLIST
+   PRODUCT DETAIL WISHLIST
 ========================================================== */
 
 function initProductWishlist(){
@@ -2062,8 +2153,6 @@ function initProductWishlist(){
 
                     toggleWishlist(id);
 
-                    updateWishlistCounter();
-
                     update();
 
                 };
@@ -2086,25 +2175,26 @@ async function loadWishlistPage(){
     const container =
         $("#wishlistProducts");
 
-    if(!container) return;
+
+    if(!container)
+        return;
 
 
     try{
 
         await ensureProductsLoaded();
 
-        container.innerHTML = "";
+
+        container.innerHTML =
+            "";
 
 
         const items =
             products.filter(
-                function(product){
-
-                    return wishlist.includes(
+                product =>
+                    wishlist.includes(
                         Number(product.id)
-                    );
-
-                }
+                    )
             );
 
 
@@ -2120,10 +2210,9 @@ async function loadWishlistPage(){
 
 <a
 href="products.html"
-class="btn">
-
+class="btn"
+>
 📦 প্রোডাক্ট দেখুন
-
 </a>
 
 </div>
@@ -2143,9 +2232,7 @@ class="btn">
 
 
                 const image =
-                    gallery.length
-                    ? gallery[0]
-                    : "";
+                    gallery[0] || "";
 
 
                 container.innerHTML += `
@@ -2159,7 +2246,7 @@ src="${image}"
 class="product-img active"
 alt="${product.name}"
 loading="lazy"
-onerror="this.style.display='none';">
+>
 
 </div>
 
@@ -2176,20 +2263,18 @@ ${formatPrice(product.price)}
 
 <a
 href="product.html?id=${product.id}"
-class="btn">
-
+class="btn"
+>
 📖 বিস্তারিত দেখুন
-
 </a>
 
 
 <button
 class="btn removeWishlist"
 data-id="${product.id}"
-type="button">
-
+type="button"
+>
 🗑 Remove
-
 </button>
 
 
@@ -2247,27 +2332,23 @@ function loadRelatedProducts(){
     const related =
         $("#relatedProducts");
 
+
     if(
         !related ||
         !currentProduct
-    ){
-
+    )
         return;
 
-    }
 
-
-    related.innerHTML = "";
+    related.innerHTML =
+        "";
 
 
     products
         .filter(
-            function(product){
-
-                return Number(product.id) !==
-                    Number(currentProduct.id);
-
-            }
+            product =>
+                Number(product.id) !==
+                Number(currentProduct.id)
         )
         .slice(0,4)
         .forEach(
@@ -2278,9 +2359,7 @@ function loadRelatedProducts(){
 
 
                 const image =
-                    gallery.length
-                    ? gallery[0]
-                    : "";
+                    gallery[0] || "";
 
 
                 related.innerHTML += `
@@ -2294,7 +2373,7 @@ src="${image}"
 class="product-img active"
 alt="${item.name}"
 loading="lazy"
-onerror="this.style.display='none';">
+>
 
 </div>
 
@@ -2311,10 +2390,9 @@ ${formatPrice(item.price)}
 
 <a
 href="product.html?id=${item.id}"
-class="btn">
-
+class="btn"
+>
 📖 বিস্তারিত দেখুন
-
 </a>
 
 </div>
@@ -2334,11 +2412,8 @@ class="btn">
 function startHomeSlider(){
 
     homeSliderTimers.forEach(
-        function(timer){
-
-            clearInterval(timer);
-
-        }
+        timer =>
+            clearInterval(timer)
     );
 
 
@@ -2358,11 +2433,8 @@ function startHomeSlider(){
                     );
 
 
-                if(images.length <= 1){
-
+                if(images.length <= 1)
                     return;
-
-                }
 
 
                 let current = 0;
@@ -2422,6 +2494,7 @@ function initImagePreview(){
     const modal =
         $("#imageModal");
 
+
     const modalImg =
         $("#modalImage");
 
@@ -2429,11 +2502,8 @@ function initImagePreview(){
     if(
         !modal ||
         !modalImg
-    ){
-
+    )
         return;
-
-    }
 
 
     document.addEventListener(
@@ -2447,20 +2517,12 @@ function initImagePreview(){
                 )
             ){
 
-                /*
-                   Product detail gallery-তে
-                   click already handled হয়েছে।
-                */
-
                 if(
                     e.target.closest(
                         "#productSlider"
                     )
-                ){
-
+                )
                     return;
-
-                }
 
 
                 modal.style.display =
@@ -2513,6 +2575,124 @@ function initImagePreview(){
 
 
 /* ==========================================================
+   SHARE CARD
+========================================================== */
+
+function initShareCard(){
+
+    const btn =
+        $("#shareCard");
+
+
+    if(!btn)
+        return;
+
+
+    btn.addEventListener(
+        "click",
+        async function(e){
+
+            e.preventDefault();
+
+
+            const shareData = {
+
+                title:
+                    "Maliha Agro Industry",
+
+                text:
+                    "Maliha Agro Industry - Digital Business Card",
+
+                url:
+                    window.location.href
+
+            };
+
+
+            if(navigator.share){
+
+                try{
+
+                    await navigator.share(
+                        shareData
+                    );
+
+                }
+                catch(error){
+
+                    if(
+                        error.name !==
+                        "AbortError"
+                    ){
+
+                        console.error(error);
+
+                    }
+
+                }
+
+            }
+            else{
+
+                try{
+
+                    await navigator.clipboard
+                        .writeText(
+                            window.location.href
+                        );
+
+
+                    alert(
+                        "✅ লিংক কপি হয়েছে"
+                    );
+
+                }
+                catch(error){
+
+                    alert(
+                        "❌ লিংক কপি করা যায়নি"
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   SAVE CONTACT
+========================================================== */
+
+function initSaveContact(){
+
+    const btn =
+        $("#saveContact");
+
+
+    if(!btn)
+        return;
+
+
+    btn.addEventListener(
+        "click",
+        function(e){
+
+            e.preventDefault();
+
+            window.location.href =
+                "contact.vcf";
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
    CONTACT FORM
 ========================================================== */
 
@@ -2521,7 +2701,9 @@ function initContactForm(){
     const form =
         $("#contactForm");
 
-    if(!form) return;
+
+    if(!form)
+        return;
 
 
     form.addEventListener(
@@ -2533,32 +2715,27 @@ function initContactForm(){
 
             const name =
                 $("#contactName")
-                ?.value
-                .trim() || "";
+                ?.value.trim() || "";
 
 
             const phone =
                 $("#contactPhone")
-                ?.value
-                .trim() || "";
+                ?.value.trim() || "";
 
 
             const email =
                 $("#contactEmail")
-                ?.value
-                .trim() || "";
+                ?.value.trim() || "";
 
 
             const subject =
                 $("#contactSubject")
-                ?.value
-                .trim() || "";
+                ?.value.trim() || "";
 
 
             const message =
                 $("#contactMessage")
-                ?.value
-                .trim() || "";
+                ?.value.trim() || "";
 
 
             if(!name){
@@ -2567,9 +2744,6 @@ function initContactForm(){
                     "❌ আপনার নাম লিখুন।",
                     "error"
                 );
-
-                $("#contactName")
-                    ?.focus();
 
                 return;
 
@@ -2583,9 +2757,6 @@ function initContactForm(){
                     "error"
                 );
 
-                $("#contactPhone")
-                    ?.focus();
-
                 return;
 
             }
@@ -2598,9 +2769,6 @@ function initContactForm(){
                     "error"
                 );
 
-                $("#contactSubject")
-                    ?.focus();
-
                 return;
 
             }
@@ -2612,9 +2780,6 @@ function initContactForm(){
                     "❌ আপনার মেসেজ লিখুন।",
                     "error"
                 );
-
-                $("#contactMessage")
-                    ?.focus();
 
                 return;
 
@@ -2665,10 +2830,7 @@ ${email || "দেওয়া হয়নি"}
 ${selectedSubject}
 
 💬 মেসেজ:
-${message}
-
-━━━━━━━━━━━━━━
-Maliha Agro Industry`;
+${message}`;
 
 
             const whatsappURL =
@@ -2715,7 +2877,9 @@ function showContactStatus(
     const status =
         $("#contactFormStatus");
 
-    if(!status) return;
+
+    if(!status)
+        return;
 
 
     status.textContent =
@@ -2765,7 +2929,9 @@ function initBackToTop(){
     const btn =
         $("#backToTop");
 
-    if(!btn) return;
+
+    if(!btn)
+        return;
 
 
     window.addEventListener(
@@ -2820,13 +2986,9 @@ document.addEventListener(
     async function(){
 
         console.log(
-            "✅ Maliha Agro Industry JS FINAL Loaded"
+            "✅ Maliha Agro Industry JS FINAL CATEGORY VERSION Loaded"
         );
 
-
-        /* ==========================
-           GLOBAL
-        ========================== */
 
         updateWishlistCounter();
 
@@ -2845,9 +3007,7 @@ document.addEventListener(
         initBackToTop();
 
 
-        /* ==========================
-           PRODUCTS PAGE
-        ========================== */
+        /* PRODUCTS */
 
         if($("#productList")){
 
@@ -2857,16 +3017,12 @@ document.addEventListener(
 
             initCategoryFilter();
 
-            await loadProducts(
-                "all"
-            );
+            await loadProducts();
 
         }
 
 
-        /* ==========================
-           PRODUCT DETAILS PAGE
-        ========================== */
+        /* PRODUCT DETAILS */
 
         if($("#productSlider")){
 
@@ -2875,9 +3031,7 @@ document.addEventListener(
         }
 
 
-        /* ==========================
-           WISHLIST PAGE
-        ========================== */
+        /* WISHLIST */
 
         if($("#wishlistProducts")){
 
@@ -2887,3 +3041,4 @@ document.addEventListener(
 
     }
 );
+
