@@ -3,344 +3,87 @@
         "id": 1,
         "name": "মালিহা জৈব সার",
         "brand": "Maliha Agro Industry",
-        "category": "agriculture",
-        "subcategory": "organic-fertilizer",
+        "category": "কৃষি",
+        "subCategory": "জৈব সার",
         "type": "ভার্মি কম্পোস্ট কেঁচো সার",
-        "sku": "MAI-OF-001",
-        "weight": "১ কেজি",
-        "price": 100,
-        "oldPrice": 120,
+        "sku": "MAI-ORG-001",
+        "weight": "২৫ কেজি",
+        "price": 850,
+        "oldPrice": 950,
         "rating": 5,
         "stock": "স্টকে আছে",
         "offer": true,
-        "newArrival": 1,
-        "bestSeller": 1,
-        "description": "গাছের বৃদ্ধি ও মাটির উর্বরতা বৃদ্ধিতে সহায়ক মানসম্মত জৈব সার।",
+        "newArrival": true,
+        "bestSeller": true,
+        "description": "উন্নতমানের প্রাকৃতিক জৈব সার।",
         "gallery": [
-            "images/maliha-organic-fertilizer.jpg"
+            "images/vermi-compost.jpg"
         ]
     },
 
-
     {
         "id": 2,
-        "name": "মালিহা ট্রাইকো কম্পোস্ট",
+        "name": "মরিচের গুঁড়া",
         "brand": "Maliha Agro Industry",
-        "category": "agriculture",
-        "subcategory": "organic-fertilizer",
-        "type": "ট্রাইকো কম্পোস্ট সার",
-        "sku": "MAI-TC-001",
-        "weight": "১ কেজি",
+        "category": "মসলা",
+        "subCategory": "মরিচের গুঁড়া",
+        "type": "মসলা",
+        "sku": "MAI-SPC-001",
+        "weight": "২০০ গ্রাম",
         "price": 120,
         "oldPrice": 140,
         "rating": 5,
         "stock": "স্টকে আছে",
         "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "মাটির স্বাস্থ্য ও গাছের স্বাভাবিক বৃদ্ধির জন্য উপযোগী জৈব সার।",
-        "gallery": [
-            "images/tricho-compost.jpg"
-        ]
-    },
-
-
-    {
-        "id": 3,
-        "name": "মরিচের গুঁড়ো",
-        "brand": "Maliha Agro Industry",
-        "category": "spices",
-        "subcategory": "chili-powder",
-        "type": "মসলা",
-        "sku": "MAI-SP-001",
-        "weight": "২০০ গ্রাম",
-        "price": 80,
-        "oldPrice": 90,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 1,
-        "description": "মানসম্মত মরিচ থেকে প্রস্তুত সুস্বাদু ও ঝাল মরিচের গুঁড়ো।",
+        "newArrival": true,
+        "bestSeller": false,
+        "description": "মানসম্মত মরিচের গুঁড়া।",
         "gallery": [
             "images/chili-powder.jpg"
         ]
     },
 
-
     {
-        "id": 4,
-        "name": "ধনিয়া গুঁড়ো",
+        "id": 3,
+        "name": "চাল",
         "brand": "Maliha Agro Industry",
-        "category": "spices",
-        "subcategory": "coriander-powder",
-        "type": "মসলা",
-        "sku": "MAI-SP-002",
-        "weight": "২০০ গ্রাম",
-        "price": 70,
-        "oldPrice": 80,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "সুগন্ধি ও মানসম্মত ধনিয়া থেকে প্রস্তুত ধনিয়া গুঁড়ো।",
-        "gallery": [
-            "images/coriander-powder.jpg"
-        ]
-    },
-
-
-    {
-        "id": 5,
-        "name": "জিরা গুঁড়ো",
-        "brand": "Maliha Agro Industry",
-        "category": "spices",
-        "subcategory": "cumin-powder",
-        "type": "মসলা",
-        "sku": "MAI-SP-003",
-        "weight": "১০০ গ্রাম",
-        "price": 90,
-        "oldPrice": 100,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "সুগন্ধি ও রান্নার স্বাদ বৃদ্ধির জন্য মানসম্মত জিরা গুঁড়ো।",
-        "gallery": [
-            "images/cumin-powder.jpg"
-        ]
-    },
-
-
-    {
-        "id": 6,
-        "name": "গরম মসলা গুঁড়ো",
-        "brand": "Maliha Agro Industry",
-        "category": "spices",
-        "subcategory": "garam-masala",
-        "type": "মসলা",
-        "sku": "MAI-SP-004",
-        "weight": "১০০ গ্রাম",
-        "price": 120,
-        "oldPrice": 140,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 1,
-        "description": "বিভিন্ন মানসম্মত মসলার সমন্বয়ে তৈরি সুগন্ধি গরম মসলা।",
-        "gallery": [
-            "images/garam-masala.jpg"
-        ]
-    },
-
-
-    {
-        "id": 7,
-        "name": "মানসম্মত চাল",
-        "brand": "Maliha Agro Industry",
-        "category": "food",
-        "subcategory": "rice",
-        "type": "চাল",
-        "sku": "MAI-FD-001",
+        "category": "খাদ্যপণ্য",
+        "subCategory": "চাল",
+        "type": "খাদ্যপণ্য",
+        "sku": "MAI-FOD-001",
         "weight": "৫ কেজি",
         "price": 450,
         "oldPrice": 480,
         "rating": 5,
         "stock": "স্টকে আছে",
         "offer": false,
-        "newArrival": 0,
-        "bestSeller": 1,
-        "description": "মানসম্মত ও পরিচ্ছন্ন চাল।",
+        "newArrival": false,
+        "bestSeller": true,
+        "description": "মানসম্মত চাল।",
         "gallery": [
             "images/rice.jpg"
         ]
     },
 
-
     {
-        "id": 8,
-        "name": "মসুর ডাল",
-        "brand": "Maliha Agro Industry",
-        "category": "food",
-        "subcategory": "lentils",
-        "type": "ডাল",
-        "sku": "MAI-FD-002",
-        "weight": "১ কেজি",
-        "price": 150,
-        "oldPrice": 165,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 1,
-        "description": "মানসম্মত মসুর ডাল।",
-        "gallery": [
-            "images/lentils.jpg"
-        ]
-    },
-
-
-    {
-        "id": 9,
-        "name": "ছাতু",
-        "brand": "Maliha Agro Industry",
-        "category": "food",
-        "subcategory": "sattu",
-        "type": "খাদ্যপণ্য",
-        "sku": "MAI-FD-003",
-        "weight": "৫০০ গ্রাম",
-        "price": 100,
-        "oldPrice": 110,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "খাদ্য হিসেবে ব্যবহারযোগ্য মানসম্মত ছাতু।",
-        "gallery": [
-            "images/sattu.jpg"
-        ]
-    },
-
-
-    {
-        "id": 10,
-        "name": "আটা",
-        "brand": "Maliha Agro Industry",
-        "category": "food",
-        "subcategory": "flour",
-        "type": "আটা",
-        "sku": "MAI-FD-004",
-        "weight": "১ কেজি",
-        "price": 70,
-        "oldPrice": 80,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "মানসম্মত আটা।",
-        "gallery": [
-            "images/flour.jpg"
-        ]
-    },
-
-
-    {
-        "id": 11,
+        "id": 4,
         "name": "হ্যান্ড ওয়াশ",
         "brand": "Maliha Agro Industry",
-        "category": "cleaning",
-        "subcategory": "hand-wash",
-        "type": "পরিষ্কার-পরিচ্ছন্নতা",
-        "sku": "MAI-CL-001",
+        "category": "গৃহস্থালি",
+        "subCategory": "হ্যান্ড ওয়াশ",
+        "type": "পরিচ্ছন্নতা পণ্য",
+        "sku": "MAI-HOM-001",
         "weight": "২৫০ মিলি",
-        "price": 100,
-        "oldPrice": 110,
+        "price": 150,
+        "oldPrice": 170,
         "rating": 5,
         "stock": "স্টকে আছে",
         "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "হাত পরিষ্কার রাখার জন্য ব্যবহারযোগ্য হ্যান্ড ওয়াশ।",
+        "newArrival": true,
+        "bestSeller": false,
+        "description": "দৈনন্দিন ব্যবহারের হ্যান্ড ওয়াশ।",
         "gallery": [
             "images/hand-wash.jpg"
         ]
-    },
-
-
-    {
-        "id": 12,
-        "name": "ডিটারজেন্ট",
-        "brand": "Maliha Agro Industry",
-        "category": "cleaning",
-        "subcategory": "detergent",
-        "type": "পরিষ্কার-পরিচ্ছন্নতা",
-        "sku": "MAI-CL-002",
-        "weight": "৫০০ গ্রাম",
-        "price": 90,
-        "oldPrice": 100,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "কাপড় পরিষ্কারের জন্য ব্যবহারযোগ্য ডিটারজেন্ট।",
-        "gallery": [
-            "images/detergent.jpg"
-        ]
-    },
-
-
-    {
-        "id": 13,
-        "name": "ডিশ ওয়াশ",
-        "brand": "Maliha Agro Industry",
-        "category": "cleaning",
-        "subcategory": "dish-wash",
-        "type": "পরিষ্কার-পরিচ্ছন্নতা",
-        "sku": "MAI-CL-003",
-        "weight": "২৫০ মিলি",
-        "price": 80,
-        "oldPrice": 90,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "থালা-বাসন পরিষ্কারের জন্য ডিশ ওয়াশ।",
-        "gallery": [
-            "images/dish-wash.jpg"
-        ]
-    },
-
-
-    {
-        "id": 14,
-        "name": "ডিশ বার",
-        "brand": "Maliha Agro Industry",
-        "category": "cleaning",
-        "subcategory": "dish-bar",
-        "type": "পরিষ্কার-পরিচ্ছন্নতা",
-        "sku": "MAI-CL-004",
-        "weight": "২০০ গ্রাম",
-        "price": 50,
-        "oldPrice": 60,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "থালা-বাসন পরিষ্কারের জন্য ডিশ বার।",
-        "gallery": [
-            "images/dish-bar.jpg"
-        ]
-    },
-
-
-    {
-        "id": 15,
-        "name": "হারপিক",
-        "brand": "Maliha Agro Industry",
-        "category": "cleaning",
-        "subcategory": "harpic",
-        "type": "পরিষ্কার-পরিচ্ছন্নতা",
-        "sku": "MAI-CL-005",
-        "weight": "৫০০ মিলি",
-        "price": 120,
-        "oldPrice": 135,
-        "rating": 5,
-        "stock": "স্টকে আছে",
-        "offer": false,
-        "newArrival": 1,
-        "bestSeller": 0,
-        "description": "বাথরুম ও টয়লেট পরিষ্কারের জন্য ব্যবহারযোগ্য ক্লিনিং পণ্য।",
-        "gallery": [
-            "images/harpic.jpg"
-        ]
     }
-
 ]
