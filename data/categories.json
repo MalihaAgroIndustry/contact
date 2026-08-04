@@ -1,1 +1,73 @@
-h
+[
+  {
+    "id": "agriculture-organic-fertilizer",
+    "name": "কৃষি ও জৈব সার",
+    "icon": "🌱",
+    "subCategories": [
+      {
+        "id": "vermicompost",
+        "name": "ভার্মি কম্পোস্ট কেঁচো সার",
+        "icon": "🌱"
+      },
+      {
+        "id": "tricho-compost",
+        "name": "ট্রাইকো কম্পোস্ট",
+        "icon": "🪴"
+      },
+      {
+        "id": "organic-fertilizer",
+        "name": "অন্যান্য জৈব সার",
+        "icon": "🌿"
+      }
+    ]
+  },
+  {
+    "id": "spices",
+    "name": "মসলা",
+    "icon": "🌶️",
+    "subCategories": [
+      {
+        "id": "chili-powder",
+        "name": "মরিচের গুঁড়া",
+        "icon": "🌶️"
+      },
+      {
+        "id": "coriander-powder",
+        "name": "ধনিয়ার গুঁড়া",
+        "icon": "🌿"
+      },
+      {
+        "id": "turmeric-powder",
+        "name": "হলুদের গুঁড়া",
+        "icon": "🟡"
+      },
+      {
+        "id": "cumin-powder",
+        "name": "জিরার গুঁড়া",
+        "icon": "🌿"
+      }
+    ]
+  },
+  {
+    "id": "food-products",
+    "name": "খাদ্যপণ্য",
+    "icon": "🍚",
+    "subCategories": [
+      {
+        "id": "flour",
+        "name": "আটা",
+        "icon": "🌾"
+      },
+      {
+        "id": "noodles",
+        "name": "নুডলস",
+        "icon": "🍜"
+      },
+      {
+        "id": "other-food",
+        "name": "অন্যান্য খাদ্যপণ্য",
+        "icon": "🍱"
+      }
+    ]
+  }
+]
