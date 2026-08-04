@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Maliha Agro Industry Admin Panel - Category Management"
+    >
+
+    <meta
+        name="theme-color"
+        content="#1F8F4D"
+    >
+
+    <title>
+        Category Management | Maliha Agro Industry
+    </title>
+
+
+    <!-- Google Font -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: "Poppins", sans-serif;
+
+            background: #f4f8f5;
+
+            color: #222;
+
+        }
+
+
+        button,
+        input,
+        select {
+
+            font-family: inherit;
+
+        }
+
+
+        .admin-wrapper {
+
+            width: 100%;
+
+            max-width: 1400px;
+
+            margin: auto;
+
+            padding: 25px;
+
+        }
+
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .admin-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            background: #fff;
+
+            border-radius: 20px;
+
+            padding: 20px 25px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,.06);
+
+        }
+
+
+        .admin-header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+        }
+
+
+        .admin-logo {
+
+            width: 52px;
+
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: #e9f8ef;
+
+            color: #1F8F4D;
+
+            font-size: 25px;
+
+        }
+
+
+        .admin-header h1 {
+
+            margin: 0;
+
+            color: #166C39;
+
+            font-size: 24px;
+
+        }
+
+
+        .admin-header p {
+
+            margin: 3px 0 0;
+
+            color: #777;
+
+            font-size: 13px;
+
+        }
+
+
+        .back-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            min-height: 44px;
+
+            padding: 0 17px;
+
+            border-radius: 12px;
+
+            background: #1F8F4D;
+
+            color: #fff;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+        }
+
+
+        .back-btn:hover {
+
+            background: #166C39;
+
+        }
+
+
+        /* ==================================================
+           GRID
+        ================================================== */
+
+        .management-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                380px
+                1fr;
+
+            gap: 25px;
+
+            align-items: start;
+
+        }
+
+
+        /* ==================================================
+           CARD
+        ================================================== */
+
+        .admin-card {
+
+            background: #fff;
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,.06);
+
+            border:
+                1px solid #e9efeb;
+
+        }
+
+
+        .admin-card h2 {
+
+            margin:
+                0 0 5px;
+
+            color: #166C39;
+
+            font-size: 19px;
+
+        }
+
+
+        .admin-card-description {
+
+            margin:
+                0 0 20px;
+
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* ==================================================
+           FORM
+        ================================================== */
+
+        .form-group {
+
+            margin-bottom: 16px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #444;
+
+        }
+
+
+        .form-group input,
+        .form-group select {
+
+            width: 100%;
+
+            height: 48px;
+
+            padding:
+                0 13px;
+
+            border:
+                1px solid #dfe7e1;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            background: #fbfdfb;
+
+            font-size: 14px;
+
+        }
+
+
+        .form-group input:focus,
+        .form-group select:focus {
+
+            border-color:
+                #1F8F4D;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(31,143,77,.08);
+
+            background: #fff;
+
+        }
+
+
+        .form-actions {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .btn {
+
+            min-height: 45px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            padding:
+                0 17px;
+
+            cursor: pointer;
+
+            font-weight: 600;
+
+            font-size: 13px;
+
+        }
+
+
+        .btn-primary {
+
+            background: #1F8F4D;
+
+            color: #fff;
+
+            flex: 1;
+
+        }
+
+
+        .btn-primary:hover {
+
+            background: #166C39;
+
+        }
+
+
+        .btn-secondary {
+
+            background: #eef2ef;
+
+            color: #444;
+
+        }
+
+
+        /* ==================================================
+           CATEGORY LIST
+        ================================================== */
+
+        .category-toolbar {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .category-count {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            padding:
+                7px
+                11px;
+
+            border-radius: 20px;
+
+            background: #e9f8ef;
+
+            color: #166C39;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+        }
+
+
+        #categoryList {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 14px;
+
+        }
+
+
+        .category-item {
+
+            border:
+                1px solid #e5ebe7;
+
+            border-radius: 16px;
+
+            padding: 17px;
+
+            background: #fbfdfb;
+
+        }
+
+
+        .category-main {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+        }
+
+
+        .category-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            min-width: 0;
+
+        }
+
+
+        .category-icon {
+
+            width: 45px;
+
+            height: 45px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #e9f8ef;
+
+            font-size: 22px;
+
+        }
+
+
+        .category-info h3 {
+
+            margin: 0;
+
+            color: #174c2d;
+
+            font-size: 16px;
+
+        }
+
+
+        .category-id {
+
+            margin-top: 3px;
+
+            color: #999;
+
+            font-size: 11px;
+
+        }
+
+
+        .category-actions {
+
+            display: flex;
+
+            gap: 7px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .icon-btn {
+
+            width: 38px;
+
+            height: 38px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .edit-btn {
+
+            background: #fff4d8;
+
+            color: #a66b00;
+
+        }
+
+
+        .delete-btn {
+
+            background: #ffebeb;
+
+            color: #c62828;
+
+        }
+
+
+        /* ==================================================
+           SUB CATEGORY
+        ================================================== */
+
+        .subcategory-list {
+
+            margin-top: 14px;
+
+            padding-top: 14px;
+
+            border-top:
+                1px solid #e8eee9;
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+        }
+
+
+        .subcategory-chip {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding:
+                7px
+                10px;
+
+            border-radius: 20px;
+
+            background: #fff;
+
+            border:
+                1px solid #dfe8e1;
+
+            color: #555;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .empty-state {
+
+            text-align: center;
+
+            padding: 40px 20px;
+
+            color: #777;
+
+        }
+
+
+        .empty-state i {
+
+            font-size: 38px;
+
+            color: #b9c9bd;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        /* ==================================================
+           STATUS
+        ================================================== */
+
+        #statusMessage {
+
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding: 12px 15px;
+
+            border-radius: 11px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        #statusMessage.show {
+
+            display: block;
+
+        }
+
+
+        #statusMessage.success {
+
+            background: #e9f8ef;
+
+            color: #166C39;
+
+        }
+
+
+        #statusMessage.error {
+
+            background: #ffebee;
+
+            color: #b71c1c;
+
+        }
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media (max-width: 900px) {
+
+            .management-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .admin-wrapper {
+
+                padding: 12px;
+
+            }
+
+
+            .admin-header {
+
+                padding: 16px;
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .admin-header h1 {
+
+                font-size: 20px;
+
+            }
+
+
+            .back-btn {
+
+                justify-content: center;
+
+            }
+
+
+            .admin-card {
+
+                padding: 17px;
+
+                border-radius: 17px;
+
+            }
+
+
+            .category-main {
+
+                align-items: flex-start;
+
+            }
+
+
+            .category-actions {
+
+                flex-direction: column;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-wrapper">
+
+
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
+
+    <header class="admin-header">
+
+        <div class="admin-header-left">
+
+            <div class="admin-logo">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Category Management
+                </h1>
+
+                <p>
+                    Maliha Agro Industry Admin Panel
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="index.html"
+            class="back-btn"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Admin Home
+
+        </a>
+
+    </header>
+
+
+    <!-- ==================================================
+         STATUS
+    ================================================== -->
+
+    <div
+        id="statusMessage"
+    ></div>
+
+
+    <!-- ==================================================
+         MANAGEMENT
+    ================================================== -->
+
+    <div class="management-grid">
+
+
+        <!-- ==================================================
+             ADD CATEGORY
+        ================================================== -->
+
+        <section class="admin-card">
+
+            <h2>
+                <i class="fa-solid fa-plus"></i>
+                নতুন Category
+            </h2>
+
+            <p class="admin-card-description">
+
+                এখানে নতুন প্রধান Category তৈরি করবে।
+                এরপর Product Management থেকে
+                এই Category-এর অধীনে পণ্য যোগ করা যাবে।
+
+            </p>
+
+
+            <form
+                id="categoryForm"
+            >
+
+                <div class="form-group">
+
+                    <label
+                        for="categoryName"
+                    >
+                        Category Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="categoryName"
+                        placeholder="যেমন: মসলা"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label
+                        for="categoryId"
+                    >
+                        Category ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="categoryId"
+                        placeholder="যেমন: spices"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label
+                        for="categoryIcon"
+                    >
+                        Icon / Emoji
+                    </label>
+
+                    <input
+                        type="text"
+                        id="categoryIcon"
+                        placeholder="🌶️"
+                        maxlength="10"
+                    >
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Category যোগ করুন
+
+                    </button>
+
+
+                    <button
+                        type="reset"
+                        class="btn btn-secondary"
+                    >
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- ==================================================
+             CATEGORY LIST
+        ================================================== -->
+
+        <section class="admin-card">
+
+            <div class="category-toolbar">
+
+                <div>
+
+                    <h2>
+                        <i class="fa-solid fa-folder-tree"></i>
+                        Category List
+                    </h2>
+
+                </div>
+
+
+                <span
+                    class="category-count"
+                    id="categoryCount"
+                >
+
+                    0 Category
+
+                </span>
+
+            </div>
+
+
+            <div
+                id="categoryList"
+            >
+
+                <div class="empty-state">
+
+                    <i
+                        class="fa-solid fa-spinner fa-spin"
+                    ></i>
+
+                    <p>
+                        Category লোড হচ্ছে...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* ==========================================================
+   CONFIG
+========================================================== */
+
+const CATEGORY_API =
+    "../data/categories.json";
+
+
+/* ==========================================================
+   VARIABLES
+========================================================== */
+
+let categories = [];
+
+let editingCategoryId = null;
+
+
+/* ==========================================================
+   SHORTCUT
+========================================================== */
+
+const $ =
+    selector =>
+        document.querySelector(selector);
+
+
+/* ==========================================================
+   STATUS MESSAGE
+========================================================== */
+
+function showStatus(
+    message,
+    type = "success"
+) {
+
+    const status =
+        $("#statusMessage");
+
+
+    if (!status) return;
+
+
+    status.textContent =
+        message;
+
+
+    status.className =
+        "show " + type;
+
+
+    setTimeout(
+        function () {
+
+            status.className = "";
+
+        },
+        3500
+    );
+
+}
+
+
+/* ==========================================================
+   NORMALIZE ID
+========================================================== */
+
+function normalizeId(value) {
+
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(
+            /[^a-z0-9\u0980-\u09ff-]/g,
+            ""
+        );
+
+}
+
+
+/* ==========================================================
+   LOAD CATEGORIES
+========================================================== */
+
+async function loadCategories() {
+
+    const list =
+        $("#categoryList");
+
+
+    try {
+
+        const response =
+            await fetch(
+                CATEGORY_API,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "categories.json পাওয়া যায়নি"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (!Array.isArray(data)) {
+
+            throw new Error(
+                "Category data array নয়"
+            );
+
+        }
+
+
+        categories =
+            data;
+
+
+        renderCategories();
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+
+        if (list) {
+
+            list.innerHTML = `
+
+                <div class="empty-state">
+
+                    <i
+                        class="fa-solid fa-triangle-exclamation"
+                    ></i>
+
+                    <p>
+                        Category লোড করা যায়নি।
+                    </p>
+
+                    <small>
+                        categories.json সঠিকভাবে
+                        data ফোল্ডারে আছে কিনা দেখুন।
+                    </small>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* ==========================================================
+   RENDER CATEGORIES
+========================================================== */
+
+function renderCategories() {
+
+    const list =
+        $("#categoryList");
+
+    const count =
+        $("#categoryCount");
+
+
+    if (!list) return;
+
+
+    if (count) {
+
+        count.textContent =
+            `${categories.length} Category`;
+
+    }
+
+
+    if (!categories.length) {
+
+        list.innerHTML = `
+
+            <div class="empty-state">
+
+                <i
+                    class="fa-solid fa-folder-open"
+                ></i>
+
+                <p>
+                    কোনো Category নেই।
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        categories
+            .map(
+                function (category) {
+
+                    const subs =
+                        Array.isArray(
+                            category.subCategories
+                        )
+                        ? category.subCategories
+                        : [];
+
+
+                    return `
+
+                        <div
+                            class="category-item"
+                            data-id="${category.id}"
+                        >
+
+                            <div
+                                class="category-main"
+                            >
+
+                                <div
+                                    class="category-info"
+                                >
+
+                                    <div
+                                        class="category-icon"
+                                    >
+
+                                        ${
+                                            category.icon ||
+                                            "📂"
+                                        }
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <h3>
+
+                                            ${
+                                                category.name ||
+                                                "Category"
+                                            }
+
+                                        </h3>
+
+
+                                        <div
+                                            class="category-id"
+                                        >
+
+                                            ID:
+                                            ${
+                                                category.id ||
+                                                "-"
+                                            }
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    class="category-actions"
+                                >
+
+                                    <button
+                                        type="button"
+                                        class="icon-btn edit-btn"
+                                        data-edit="${category.id}"
+                                        title="Edit"
+                                    >
+
+                                        <i
+                                            class="fa-solid fa-pen"
+                                        ></i>
+
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="icon-btn delete-btn"
+                                        data-delete="${category.id}"
+                                        title="Delete"
+                                    >
+
+                                        <i
+                                            class="fa-solid fa-trash"
+                                        ></i>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            ${
+                                subs.length
+                                ?
+                                `
+
+                                <div
+                                    class="subcategory-list"
+                                >
+
+                                    ${
+                                        subs
+                                            .map(
+                                                sub =>
+                                                    `
+                                                    <span
+                                                        class="subcategory-chip"
+                                                    >
+
+                                                        ${
+                                                            sub.icon ||
+                                                            "📦"
+                                                        }
+
+                                                        ${
+                                                            sub.name ||
+                                                            "Sub Category"
+                                                        }
+
+                                                    </span>
+                                                    `
+                                            )
+                                            .join("")
+                                    }
+
+                                </div>
+
+                                `
+                                :
+                                `
+                                <div
+                                    class="subcategory-list"
+                                >
+
+                                    <span
+                                        class="subcategory-chip"
+                                    >
+
+                                        📦
+                                        কোনো Sub-category নেই
+
+                                    </span>
+
+                                </div>
+
+                                `
+                            }
+
+                        </div>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    initCategoryActions();
+
+}
+
+
+/* ==========================================================
+   CATEGORY ACTIONS
+========================================================== */
+
+function initCategoryActions() {
+
+    document
+        .querySelectorAll(
+            "[data-edit]"
+        )
+        .forEach(
+            function (button) {
+
+                button.onclick =
+                    function () {
+
+                        editCategory(
+                            button.dataset.edit
+                        );
+
+                    };
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-delete]"
+        )
+        .forEach(
+            function (button) {
+
+                button.onclick =
+                    function () {
+
+                        deleteCategory(
+                            button.dataset.delete
+                        );
+
+                    };
+
+            }
+        );
+
+}
+
+
+/* ==========================================================
+   EDIT CATEGORY
+========================================================== */
+
+function editCategory(id) {
+
+    const category =
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!category) return;
+
+
+    editingCategoryId =
+        category.id;
+
+
+    $("#categoryName").value =
+        category.name || "";
+
+
+    $("#categoryId").value =
+        category.id || "";
+
+
+    $("#categoryIcon").value =
+        category.icon || "";
+
+
+    $("#categoryId").readOnly =
+        true;
+
+
+    const submitButton =
+        document.querySelector(
+            "#categoryForm button[type='submit']"
+        );
+
+
+    if (submitButton) {
+
+        submitButton.innerHTML = `
+
+            <i
+                class="fa-solid fa-floppy-disk"
+            ></i>
+
+            Category আপডেট করুন
+
+        `;
+
+    }
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* ==========================================================
+   DELETE CATEGORY
+========================================================== */
+
+function deleteCategory(id) {
+
+    const category =
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!category) return;
+
+
+    const subCount =
+        Array.isArray(
+            category.subCategories
+        )
+        ?
+        category.subCategories.length
+        :
+        0;
+
+
+    const message =
+        subCount
+        ?
+        `"${category.name}" Category-এর ${subCount}টি Sub-category আছে।
+
+আপনি কি সত্যিই এটি Delete করতে চান?`
+        :
+        `"${category.name}" Category কি Delete করবেন?`;
+
+
+    const confirmed =
+        window.confirm(message);
+
+
+    if (!confirmed) return;
+
+
+    categories =
+        categories.filter(
+            item =>
+                String(item.id) !==
+                String(id)
+        );
+
+
+    renderCategories();
+
+
+    showStatus(
+        "Category তালিকা থেকে বাদ দেওয়া হয়েছে।",
+        "success"
+    );
+
+
+    /*
+       গুরুত্বপূর্ণ:
+       Static JSON ফাইল browser থেকে সরাসরি
+       overwrite করা যায় না।
+
+       পরবর্তী Admin API/Backend পার্টে
+       এই একই action database/API-এর মাধ্যমে
+       permanent করা হবে।
+    */
+
+}
+
+
+/* ==========================================================
+   FORM
+========================================================== */
+
+const categoryForm =
+    $("#categoryForm");
+
+
+if (categoryForm) {
+
+    categoryForm.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            const name =
+                $("#categoryName")
+                    .value
+                    .trim();
+
+
+            let id =
+                $("#categoryId")
+                    .value
+                    .trim();
+
+
+            const icon =
+                $("#categoryIcon")
+                    .value
+                    .trim() ||
+                "📂";
+
+
+            if (!name) {
+
+                showStatus(
+                    "❌ Category Name লিখুন।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            id =
+                normalizeId(id);
+
+
+            if (!id) {
+
+                id =
+                    normalizeId(name);
+
+            }
+
+
+            /* ---------------------------------------------
+               EDIT
+            --------------------------------------------- */
+
+            if (editingCategoryId) {
+
+                const category =
+                    categories.find(
+                        item =>
+                            String(item.id) ===
+                            String(editingCategoryId)
+                    );
+
+
+                if (category) {
+
+                    category.name =
+                        name;
+
+                    category.icon =
+                        icon;
+
+                }
+
+
+                showStatus(
+                    "✅ Category আপডেট হয়েছে।",
+                    "success"
+                );
+
+            }
+
+
+            /* ---------------------------------------------
+               NEW
+            --------------------------------------------- */
+
+            else {
+
+                const exists =
+                    categories.some(
+                        item =>
+                            normalizeId(
+                                item.id
+                            ) === id
+                    );
+
+
+                if (exists) {
+
+                    showStatus(
+                        "❌ এই Category ID আগে থেকেই আছে।",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                categories.push({
+
+                    id: id,
+
+                    name: name,
+
+                    icon: icon,
+
+                    subCategories: []
+
+                });
+
+
+                showStatus(
+                    "✅ নতুন Category যোগ হয়েছে।",
+                    "success"
+                );
+
+            }
+
+
+            resetForm();
+
+            renderCategories();
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   RESET FORM
+========================================================== */
+
+function resetForm() {
+
+    editingCategoryId =
+        null;
+
+
+    if ($("#categoryForm")) {
+
+        $("#categoryForm").reset();
+
+    }
+
+
+    if ($("#categoryId")) {
+
+        $("#categoryId").readOnly =
+            false;
+
+    }
+
+
+    const submitButton =
+        document.querySelector(
+            "#categoryForm button[type='submit']"
+        );
+
+
+    if (submitButton) {
+
+        submitButton.innerHTML = `
+
+            <i
+                class="fa-solid fa-plus"
+            ></i>
+
+            Category যোগ করুন
+
+        `;
+
+    }
+
+}
+
+
+/* ==========================================================
+   FORM RESET BUTTON
+========================================================== */
+
+const resetButton =
+    document.querySelector(
+        "#categoryForm button[type='reset']"
+    );
+
+
+if (resetButton) {
+
+    resetButton.addEventListener(
+        "click",
+        function () {
+
+            editingCategoryId =
+                null;
+
+
+            if ($("#categoryId")) {
+
+                $("#categoryId").readOnly =
+                    false;
+
+            }
+
+
+            const submitButton =
+                document.querySelector(
+                    "#categoryForm button[type='submit']"
+                );
+
+
+            if (submitButton) {
+
+                submitButton.innerHTML = `
+
+                    <i
+                        class="fa-solid fa-plus"
+                    ></i>
+
+                    Category যোগ করুন
+
+                `;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   AUTO CATEGORY ID
+========================================================== */
+
+const categoryNameInput =
+    $("#categoryName");
+
+
+if (categoryNameInput) {
+
+    categoryNameInput.addEventListener(
+        "input",
+        function () {
+
+            if (
+                editingCategoryId ||
+                $("#categoryId").readOnly
+            ) {
+
+                return;
+
+            }
+
+
+            $("#categoryId").value =
+                normalizeId(
+                    categoryNameInput.value
+                );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   INITIALIZE
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        loadCategories();
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
