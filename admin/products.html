@@ -1,0 +1,3322 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Maliha Agro Industry Admin Panel - Product Management"
+    >
+
+    <meta
+        name="theme-color"
+        content="#1F8F4D"
+    >
+
+    <title>
+        Product Management | Maliha Agro Industry
+    </title>
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: "Poppins", sans-serif;
+
+            background: #f4f8f5;
+
+            color: #222;
+
+        }
+
+
+        button,
+        input,
+        textarea,
+        select {
+
+            font-family: inherit;
+
+        }
+
+
+        .admin-wrapper {
+
+            width: 100%;
+
+            max-width: 1450px;
+
+            margin: auto;
+
+            padding: 25px;
+
+        }
+
+
+        /* ==================================================
+           HEADER
+        ================================================== */
+
+        .admin-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            background: #fff;
+
+            border-radius: 20px;
+
+            padding: 20px 25px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,.06);
+
+        }
+
+
+        .admin-header-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+        }
+
+
+        .admin-logo {
+
+            width: 52px;
+
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: #e9f8ef;
+
+            color: #1F8F4D;
+
+            font-size: 25px;
+
+        }
+
+
+        .admin-header h1 {
+
+            margin: 0;
+
+            color: #166C39;
+
+            font-size: 24px;
+
+        }
+
+
+        .admin-header p {
+
+            margin: 3px 0 0;
+
+            color: #777;
+
+            font-size: 13px;
+
+        }
+
+
+        .back-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            min-height: 44px;
+
+            padding: 0 17px;
+
+            border-radius: 12px;
+
+            background: #1F8F4D;
+
+            color: #fff;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            font-size: 14px;
+
+        }
+
+
+        .back-btn:hover {
+
+            background: #166C39;
+
+        }
+
+
+        /* ==================================================
+           STATUS
+        ================================================== */
+
+        #statusMessage {
+
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding: 12px 15px;
+
+            border-radius: 11px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        #statusMessage.show {
+
+            display: block;
+
+        }
+
+
+        #statusMessage.success {
+
+            background: #e9f8ef;
+
+            color: #166C39;
+
+        }
+
+
+        #statusMessage.error {
+
+            background: #ffebee;
+
+            color: #b71c1c;
+
+        }
+
+
+        /* ==================================================
+           LAYOUT
+        ================================================== */
+
+        .management-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                420px
+                1fr;
+
+            gap: 25px;
+
+            align-items: start;
+
+        }
+
+
+        .admin-card {
+
+            background: #fff;
+
+            border-radius: 20px;
+
+            padding: 24px;
+
+            border:
+                1px solid #e7eee9;
+
+            box-shadow:
+                0 8px 30px rgba(0,0,0,.06);
+
+        }
+
+
+        .admin-card h2 {
+
+            margin:
+                0 0 6px;
+
+            color: #166C39;
+
+            font-size: 19px;
+
+        }
+
+
+        .card-description {
+
+            margin:
+                0 0 20px;
+
+            color: #777;
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+        }
+
+
+        /* ==================================================
+           FORM
+        ================================================== */
+
+        .form-group {
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 12px;
+
+        }
+
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            color: #444;
+
+        }
+
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+
+            width: 100%;
+
+            border:
+                1px solid #dfe7e1;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            background: #fbfdfb;
+
+            padding:
+                0 13px;
+
+            font-size: 13px;
+
+        }
+
+
+        .form-group input,
+        .form-group select {
+
+            height: 47px;
+
+        }
+
+
+        .form-group textarea {
+
+            min-height: 95px;
+
+            padding:
+                12px 13px;
+
+            resize: vertical;
+
+            line-height: 1.6;
+
+        }
+
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+
+            border-color:
+                #1F8F4D;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(31,143,77,.08);
+
+            background: #fff;
+
+        }
+
+
+        /* ==================================================
+           IMAGE INPUT
+        ================================================== */
+
+        .image-input-help {
+
+            margin-top: 5px;
+
+            color: #999;
+
+            font-size: 11px;
+
+            line-height: 1.6;
+
+        }
+
+
+        .image-preview {
+
+            margin-top: 10px;
+
+            display: none;
+
+            width: 100%;
+
+            height: 180px;
+
+            overflow: hidden;
+
+            border-radius: 13px;
+
+            background: #f2f6f3;
+
+            border:
+                1px solid #e1e9e3;
+
+        }
+
+
+        .image-preview.show {
+
+            display: block;
+
+        }
+
+
+        .image-preview img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: contain;
+
+        }
+
+
+        /* ==================================================
+           CHECKBOX
+        ================================================== */
+
+        .check-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 8px;
+
+            margin-top: 8px;
+
+        }
+
+
+        .check-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding:
+                9px;
+
+            border-radius: 10px;
+
+            background: #f5faf6;
+
+            border:
+                1px solid #e4eee7;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            color: #555;
+
+        }
+
+
+        .check-item input {
+
+            width: auto;
+
+        }
+
+
+        /* ==================================================
+           FORM BUTTON
+        ================================================== */
+
+        .form-actions {
+
+            display: flex;
+
+            gap: 9px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .btn {
+
+            min-height: 45px;
+
+            padding:
+                0 16px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .btn-primary {
+
+            flex: 1;
+
+            background: #1F8F4D;
+
+            color: #fff;
+
+        }
+
+
+        .btn-primary:hover {
+
+            background: #166C39;
+
+        }
+
+
+        .btn-secondary {
+
+            background: #eef2ef;
+
+            color: #444;
+
+        }
+
+
+        /* ==================================================
+           PRODUCT TOOLBAR
+        ================================================== */
+
+        .product-toolbar {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                180px;
+
+            gap: 12px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .product-toolbar input,
+        .product-toolbar select {
+
+            height: 46px;
+
+            border:
+                1px solid #dfe7e1;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            padding:
+                0 12px;
+
+            background: #fbfdfb;
+
+            font-size: 13px;
+
+        }
+
+
+        .product-toolbar input:focus,
+        .product-toolbar select:focus {
+
+            border-color:
+                #1F8F4D;
+
+        }
+
+
+        /* ==================================================
+           PRODUCT LIST
+        ================================================== */
+
+        #productList {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0,1fr)
+                );
+
+            gap: 15px;
+
+        }
+
+
+        .product-item {
+
+            border:
+                1px solid #e5ebe7;
+
+            border-radius: 16px;
+
+            overflow: hidden;
+
+            background: #fbfdfb;
+
+        }
+
+
+        .product-image {
+
+            width: 100%;
+
+            height: 190px;
+
+            background: #eef4ef;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            overflow: hidden;
+
+        }
+
+
+        .product-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+        }
+
+
+        .no-image {
+
+            font-size: 45px;
+
+            color: #aab9ae;
+
+        }
+
+
+        .product-body {
+
+            padding: 15px;
+
+        }
+
+
+        .product-body h3 {
+
+            margin:
+                0 0 7px;
+
+            color: #174c2d;
+
+            font-size: 16px;
+
+            line-height: 1.5;
+
+        }
+
+
+        .product-category {
+
+            display: inline-flex;
+
+            padding:
+                5px 9px;
+
+            border-radius: 20px;
+
+            background: #e9f8ef;
+
+            color: #166C39;
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .product-price {
+
+            color: #1F8F4D;
+
+            font-size: 19px;
+
+            font-weight: 700;
+
+        }
+
+
+        .product-old-price {
+
+            color: #999;
+
+            text-decoration: line-through;
+
+            font-size: 12px;
+
+            margin-left: 5px;
+
+        }
+
+
+        .product-meta {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 6px;
+
+            margin-top: 8px;
+
+        }
+
+
+        .meta-chip {
+
+            padding:
+                5px 8px;
+
+            border-radius: 15px;
+
+            background: #fff;
+
+            border:
+                1px solid #e1e9e3;
+
+            font-size: 10px;
+
+            color: #666;
+
+        }
+
+
+        .product-actions {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 13px;
+
+        }
+
+
+        .product-actions button {
+
+            flex: 1;
+
+            min-height: 38px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+        }
+
+
+        .edit-product {
+
+            background: #fff3d7;
+
+            color: #986300;
+
+        }
+
+
+        .delete-product {
+
+            background: #ffebeb;
+
+            color: #c62828;
+
+        }
+
+
+        /* ==================================================
+           EMPTY
+        ================================================== */
+
+        .empty-state {
+
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 45px 20px;
+
+            color: #777;
+
+        }
+
+
+        .empty-state i {
+
+            display: block;
+
+            margin-bottom: 12px;
+
+            font-size: 40px;
+
+            color: #b8c8bc;
+
+        }
+
+
+        /* ==================================================
+           MOBILE
+        ================================================== */
+
+        @media (max-width: 1050px) {
+
+            .management-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .admin-wrapper {
+
+                padding: 12px;
+
+            }
+
+
+            .admin-header {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+                padding: 17px;
+
+            }
+
+
+            .admin-header h1 {
+
+                font-size: 20px;
+
+            }
+
+
+            .back-btn {
+
+                width: 100%;
+
+            }
+
+
+            .form-row {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .check-grid {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .product-toolbar {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            #productList {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .admin-card {
+
+                padding: 17px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-wrapper">
+
+
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
+
+    <header class="admin-header">
+
+        <div class="admin-header-left">
+
+            <div class="admin-logo">
+
+                <i class="fa-solid fa-box-open"></i>
+
+            </div>
+
+            <div>
+
+                <h1>
+                    Product Management
+                </h1>
+
+                <p>
+                    Maliha Agro Industry Admin Panel
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="index.html"
+            class="back-btn"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Admin Home
+
+        </a>
+
+    </header>
+
+
+    <div
+        id="statusMessage"
+    ></div>
+
+
+    <div class="management-grid">
+
+
+        <!-- ==================================================
+             PRODUCT FORM
+        ================================================== -->
+
+        <section class="admin-card">
+
+            <h2>
+
+                <i class="fa-solid fa-plus"></i>
+
+                নতুন Product
+
+            </h2>
+
+
+            <p class="card-description">
+
+                Category নির্বাচন করে নতুন পণ্য যোগ করুন।
+                ভবিষ্যতে যেকোনো নতুন Category-এর পণ্য
+                এখান থেকেই যোগ করা যাবে।
+
+            </p>
+
+
+            <form
+                id="productForm"
+            >
+
+
+                <!-- PRODUCT NAME -->
+
+                <div class="form-group">
+
+                    <label
+                        for="productName"
+                    >
+                        Product Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productName"
+                        placeholder="যেমন: মালিহা জৈব সার"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="form-group">
+
+                    <label
+                        for="productCategory"
+                    >
+                        Main Category *
+                    </label>
+
+                    <select
+                        id="productCategory"
+                        required
+                    >
+
+                        <option value="">
+                            Category নির্বাচন করুন
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- SUB CATEGORY -->
+
+                <div class="form-group">
+
+                    <label
+                        for="productSubCategory"
+                    >
+                        Sub-category
+                    </label>
+
+                    <select
+                        id="productSubCategory"
+                    >
+
+                        <option value="">
+                            Sub-category নির্বাচন করুন
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TYPE -->
+
+                <div class="form-group">
+
+                    <label
+                        for="productType"
+                    >
+                        Product Type
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productType"
+                        placeholder="যেমন: ভার্মি কম্পোস্ট"
+                    >
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label
+                            for="productPrice"
+                        >
+                            বর্তমান মূল্য *
+                        </label>
+
+                        <input
+                            type="number"
+                            id="productPrice"
+                            min="0"
+                            step="0.01"
+                            placeholder="500"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label
+                            for="productOldPrice"
+                        >
+                            পুরাতন মূল্য
+                        </label>
+
+                        <input
+                            type="number"
+                            id="productOldPrice"
+                            min="0"
+                            step="0.01"
+                            placeholder="600"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- STOCK + WEIGHT -->
+
+                <div class="form-row">
+
+
+                    <div class="form-group">
+
+                        <label
+                            for="productStock"
+                        >
+                            Stock
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productStock"
+                            placeholder="স্টকে আছে"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label
+                            for="productWeight"
+                        >
+                            Weight
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productWeight"
+                            placeholder="১ কেজি"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- RATING -->
+
+                <div class="form-group">
+
+                    <label
+                        for="productRating"
+                    >
+                        Rating
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productRating"
+                        min="0"
+                        max="5"
+                        step="0.1"
+                        value="5"
+                        placeholder="5"
+                    >
+
+                </div>
+
+
+                <!-- IMAGE -->
+
+                <div class="form-group">
+
+                    <label
+                        for="productImage"
+                    >
+                        Product Image
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productImage"
+                        placeholder="images/vermi-compost.jpg"
+                    >
+
+                    <div class="image-input-help">
+
+                        উদাহরণ:
+                        <strong>
+                            images/vermi-compost.jpg
+                        </strong>
+
+                        অথবা সম্পূর্ণ Image URL ব্যবহার করতে পারেন।
+
+                    </div>
+
+
+                    <div
+                        class="image-preview"
+                        id="imagePreview"
+                    >
+
+                        <img
+                            id="previewImage"
+                            src=""
+                            alt="Preview"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="form-group">
+
+                    <label
+                        for="productDescription"
+                    >
+                        Description
+                    </label>
+
+                    <textarea
+                        id="productDescription"
+                        placeholder="পণ্যের বিস্তারিত বর্ণনা লিখুন..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- SKU -->
+
+                <div class="form-group">
+
+                    <label
+                        for="productSku"
+                    >
+                        SKU
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productSku"
+                        placeholder="MAI-VC-001"
+                    >
+
+                </div>
+
+
+                <!-- FLAGS -->
+
+                <div class="form-group">
+
+                    <label>
+                        Product Status
+                    </label>
+
+
+                    <div class="check-grid">
+
+
+                        <label
+                            class="check-item"
+                        >
+
+                            <input
+                                type="checkbox"
+                                id="productOffer"
+                            >
+
+                            🔥 Offer
+
+                        </label>
+
+
+                        <label
+                            class="check-item"
+                        >
+
+                            <input
+                                type="checkbox"
+                                id="productNew"
+                            >
+
+                            🆕 New
+
+                        </label>
+
+
+                        <label
+                            class="check-item"
+                        >
+
+                            <input
+                                type="checkbox"
+                                id="productBest"
+                            >
+
+                            ⭐ Best Seller
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="form-actions">
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="submitProduct"
+                    >
+
+                        <i
+                            class="fa-solid fa-plus"
+                        ></i>
+
+                        Product যোগ করুন
+
+                    </button>
+
+
+                    <button
+                        type="reset"
+                        class="btn btn-secondary"
+                        id="resetProduct"
+                    >
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+
+            </form>
+
+        </section>
+
+
+        <!-- ==================================================
+             PRODUCT LIST
+        ================================================== -->
+
+        <section class="admin-card">
+
+
+            <div
+                style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:10px;
+                    margin-bottom:18px;
+                "
+            >
+
+                <div>
+
+                    <h2>
+
+                        <i
+                            class="fa-solid fa-list"
+                        ></i>
+
+                        Product List
+
+                    </h2>
+
+                </div>
+
+
+                <span
+                    id="productCount"
+                    style="
+                        padding:7px 11px;
+                        border-radius:20px;
+                        background:#e9f8ef;
+                        color:#166C39;
+                        font-size:11px;
+                        font-weight:600;
+                    "
+                >
+
+                    0 Product
+
+                </span>
+
+            </div>
+
+
+            <!-- SEARCH + FILTER -->
+
+            <div class="product-toolbar">
+
+
+                <input
+                    type="search"
+                    id="productSearch"
+                    placeholder="পণ্য খুঁজুন..."
+                >
+
+
+                <select
+                    id="listCategoryFilter"
+                >
+
+                    <option value="all">
+                        সব Category
+                    </option>
+
+                </select>
+
+
+            </div>
+
+
+            <div
+                id="productList"
+            >
+
+                <div class="empty-state">
+
+                    <i
+                        class="fa-solid fa-spinner fa-spin"
+                    ></i>
+
+                    Product লোড হচ্ছে...
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+    </div>
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+/* ==========================================================
+   CONFIG
+========================================================== */
+
+const CATEGORY_API =
+    "../data/categories.json";
+
+
+const PRODUCT_API =
+    "../data/products.json";
+
+
+/* ==========================================================
+   VARIABLES
+========================================================== */
+
+let categories = [];
+
+let products = [];
+
+let editingProductId = null;
+
+
+/* ==========================================================
+   SHORTCUT
+========================================================== */
+
+const $ =
+    selector =>
+        document.querySelector(selector);
+
+
+/* ==========================================================
+   STATUS
+========================================================== */
+
+function showStatus(
+    message,
+    type = "success"
+) {
+
+    const element =
+        $("#statusMessage");
+
+
+    if (!element) return;
+
+
+    element.textContent =
+        message;
+
+
+    element.className =
+        "show " + type;
+
+
+    setTimeout(
+        function () {
+
+            element.className = "";
+
+        },
+        4000
+    );
+
+}
+
+
+/* ==========================================================
+   NORMALIZE
+========================================================== */
+
+function normalizeId(value) {
+
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(
+            /[^a-z0-9\u0980-\u09ff-]/g,
+            ""
+        );
+
+}
+
+
+/* ==========================================================
+   IMAGE PATH
+========================================================== */
+
+function normalizeImagePath(path) {
+
+    if (!path) return "";
+
+    const value =
+        String(path)
+            .trim()
+            .replace(/\\/g, "/");
+
+
+    if (
+        /^https?:\/\//i.test(value)
+    ) {
+
+        return value;
+
+    }
+
+
+    if (
+        value.startsWith("images/")
+    ) {
+
+        return value;
+
+    }
+
+
+    if (
+        value.startsWith("../images/")
+    ) {
+
+        return value.substring(3);
+
+    }
+
+
+    if (
+        value.startsWith("./images/")
+    ) {
+
+        return value.substring(2);
+
+    }
+
+
+    return value;
+
+}
+
+
+/* ==========================================================
+   LOAD CATEGORIES
+========================================================== */
+
+async function loadCategories() {
+
+    try {
+
+        const response =
+            await fetch(
+                CATEGORY_API,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Category load failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        categories =
+            Array.isArray(data)
+            ? data
+            : [];
+
+
+        renderCategorySelects();
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+
+        showStatus(
+            "❌ Category লোড করা যায়নি।",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   CATEGORY SELECTS
+========================================================== */
+
+function renderCategorySelects() {
+
+    const categorySelect =
+        $("#productCategory");
+
+
+    const filterSelect =
+        $("#listCategoryFilter");
+
+
+    if (categorySelect) {
+
+        categorySelect.innerHTML = `
+
+            <option value="">
+                Category নির্বাচন করুন
+            </option>
+
+            ${
+                categories
+                    .map(
+                        category =>
+                            `
+
+                            <option
+                                value="${category.id}"
+                            >
+
+                                ${
+                                    category.icon ||
+                                    "📂"
+                                }
+
+                                ${
+                                    category.name ||
+                                    category.id
+                                }
+
+                            </option>
+
+                            `
+                    )
+                    .join("")
+            }
+
+        `;
+
+    }
+
+
+    if (filterSelect) {
+
+        filterSelect.innerHTML = `
+
+            <option value="all">
+                সব Category
+            </option>
+
+            ${
+                categories
+                    .map(
+                        category =>
+                            `
+
+                            <option
+                                value="${category.id}"
+                            >
+
+                                ${
+                                    category.name ||
+                                    category.id
+                                }
+
+                            </option>
+
+                            `
+                    )
+                    .join("")
+            }
+
+        `;
+
+    }
+
+}
+
+
+/* ==========================================================
+   SUB CATEGORY
+========================================================== */
+
+function renderSubCategories() {
+
+    const categoryId =
+        $("#productCategory")?.value;
+
+
+    const select =
+        $("#productSubCategory");
+
+
+    if (!select) return;
+
+
+    select.innerHTML = `
+
+        <option value="">
+            Sub-category নির্বাচন করুন
+        </option>
+
+    `;
+
+
+    const category =
+        categories.find(
+            item =>
+                normalizeId(item.id) ===
+                normalizeId(categoryId)
+        );
+
+
+    if (
+        !category ||
+        !Array.isArray(
+            category.subCategories
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    category.subCategories
+        .forEach(
+            function (sub) {
+
+                select.innerHTML += `
+
+                    <option
+                        value="${sub.id}"
+                    >
+
+                        ${
+                            sub.icon ||
+                            "📦"
+                        }
+
+                        ${
+                            sub.name ||
+                            sub.id
+                        }
+
+                    </option>
+
+                `;
+
+            }
+        );
+
+}
+
+
+/* ==========================================================
+   LOAD PRODUCTS
+========================================================== */
+
+async function loadProducts() {
+
+    try {
+
+        const response =
+            await fetch(
+                PRODUCT_API,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Product load failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        products =
+            Array.isArray(data)
+            ? data
+            : [];
+
+
+        renderProducts();
+
+    }
+    catch (error) {
+
+        console.error(error);
+
+
+        showStatus(
+            "❌ Product লোড করা যায়নি।",
+            "error"
+        );
+
+
+        const list =
+            $("#productList");
+
+
+        if (list) {
+
+            list.innerHTML = `
+
+                <div class="empty-state">
+
+                    <i
+                        class="fa-solid fa-triangle-exclamation"
+                    ></i>
+
+                    <p>
+                        Product data পাওয়া যায়নি।
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    }
+
+}
+
+
+/* ==========================================================
+   FIND CATEGORY
+========================================================== */
+
+function getCategory(categoryId) {
+
+    return categories.find(
+        category =>
+            normalizeId(
+                category.id
+            ) ===
+            normalizeId(
+                categoryId
+            )
+    );
+
+}
+
+
+/* ==========================================================
+   CATEGORY NAME
+========================================================== */
+
+function getCategoryName(categoryId) {
+
+    const category =
+        getCategory(
+            categoryId
+        );
+
+
+    return category
+        ? category.name
+        : categoryId || "-";
+
+}
+
+
+/* ==========================================================
+   SUB CATEGORY NAME
+========================================================== */
+
+function getSubCategoryName(
+    categoryId,
+    subCategoryId
+) {
+
+    const category =
+        getCategory(
+            categoryId
+        );
+
+
+    if (
+        !category ||
+        !Array.isArray(
+            category.subCategories
+        )
+    ) {
+
+        return subCategoryId || "";
+
+    }
+
+
+    const sub =
+        category.subCategories.find(
+            item =>
+                normalizeId(
+                    item.id
+                ) ===
+                normalizeId(
+                    subCategoryId
+                )
+        );
+
+
+    return sub
+        ? sub.name
+        : subCategoryId || "";
+
+}
+
+
+/* ==========================================================
+   RENDER PRODUCTS
+========================================================== */
+
+function renderProducts() {
+
+    const list =
+        $("#productList");
+
+
+    if (!list) return;
+
+
+    const keyword =
+        $("#productSearch")
+            ?.value
+            .trim()
+            .toLowerCase() || "";
+
+
+    const categoryFilter =
+        $("#listCategoryFilter")
+            ?.value ||
+        "all";
+
+
+    let filtered =
+        products.filter(
+            function (product) {
+
+                const name =
+                    String(
+                        product.name || ""
+                    ).toLowerCase();
+
+
+                const description =
+                    String(
+                        product.description || ""
+                    ).toLowerCase();
+
+
+                const categoryName =
+                    String(
+                        product.categoryName || ""
+                    ).toLowerCase();
+
+
+                const matchesSearch =
+                    !keyword ||
+                    name.includes(keyword) ||
+                    description.includes(keyword) ||
+                    categoryName.includes(keyword);
+
+
+                const matchesCategory =
+                    categoryFilter === "all" ||
+                    normalizeId(
+                        product.category
+                    ) ===
+                    normalizeId(
+                        categoryFilter
+                    );
+
+
+                return (
+                    matchesSearch &&
+                    matchesCategory
+                );
+
+            }
+        );
+
+
+    const count =
+        $("#productCount");
+
+
+    if (count) {
+
+        count.textContent =
+            `${filtered.length} Product`;
+
+    }
+
+
+    if (!filtered.length) {
+
+        list.innerHTML = `
+
+            <div class="empty-state">
+
+                <i
+                    class="fa-solid fa-box-open"
+                ></i>
+
+                <p>
+                    কোনো Product পাওয়া যায়নি।
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML =
+        filtered
+            .map(
+                function (product) {
+
+                    const image =
+                        normalizeImagePath(
+                            product.image ||
+                            product.gallery?.[0] ||
+                            ""
+                        );
+
+
+                    const categoryName =
+                        product.categoryName ||
+                        getCategoryName(
+                            product.category
+                        );
+
+
+                    const subName =
+                        product.subCategoryName ||
+                        getSubCategoryName(
+                            product.category,
+                            product.subCategory
+                        );
+
+
+                    return `
+
+                        <article
+                            class="product-item"
+                        >
+
+                            <div
+                                class="product-image"
+                            >
+
+                                ${
+                                    image
+                                    ?
+
+                                    `
+
+                                    <img
+                                        src="${image}"
+                                        alt="${product.name || "Product"}"
+                                        loading="lazy"
+                                        onerror="
+                                            this.style.display='none';
+                                            this.parentElement.innerHTML='<div class=&quot;no-image&quot;>🌱</div>';
+                                        "
+                                    >
+
+                                    `
+
+                                    :
+
+                                    `
+
+                                    <div
+                                        class="no-image"
+                                    >
+
+                                        🌱
+
+                                    </div>
+
+                                    `
+
+                                }
+
+                            </div>
+
+
+                            <div
+                                class="product-body"
+                            >
+
+                                <h3>
+                                    ${
+                                        product.name ||
+                                        "Product"
+                                    }
+                                </h3>
+
+
+                                <span
+                                    class="product-category"
+                                >
+
+                                    📂
+                                    ${categoryName}
+
+                                    ${
+                                        subName
+                                        ?
+                                        `
+                                        /
+                                        ${subName}
+                                        `
+                                        :
+                                        ""
+                                    }
+
+                                </span>
+
+
+                                <div>
+
+                                    <span
+                                        class="product-price"
+                                    >
+
+                                        ৳
+                                        ${
+                                            Number(
+                                                product.price || 0
+                                            )
+                                            .toLocaleString(
+                                                "en-BD"
+                                            )
+                                        }
+
+                                    </span>
+
+
+                                    ${
+                                        Number(
+                                            product.oldPrice || 0
+                                        )
+                                        >
+                                        Number(
+                                            product.price || 0
+                                        )
+                                        ?
+                                        `
+
+                                        <span
+                                            class="product-old-price"
+                                        >
+
+                                            ৳
+                                            ${
+                                                Number(
+                                                    product.oldPrice
+                                                )
+                                                .toLocaleString(
+                                                    "en-BD"
+                                                )
+                                            }
+
+                                        </span>
+
+                                        `
+                                        :
+                                        ""
+                                    }
+
+                                </div>
+
+
+                                <div
+                                    class="product-meta"
+                                >
+
+                                    ${
+                                        product.stock
+                                        ?
+                                        `
+                                        <span
+                                            class="meta-chip"
+                                        >
+
+                                            🟢
+                                            ${product.stock}
+
+                                        </span>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+
+                                    ${
+                                        product.weight
+                                        ?
+                                        `
+                                        <span
+                                            class="meta-chip"
+                                        >
+
+                                            ⚖️
+                                            ${product.weight}
+
+                                        </span>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+
+                                    ${
+                                        product.offer
+                                        ?
+                                        `
+                                        <span
+                                            class="meta-chip"
+                                        >
+
+                                            🔥 Offer
+
+                                        </span>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+
+                                    ${
+                                        product.newArrival
+                                        ?
+                                        `
+                                        <span
+                                            class="meta-chip"
+                                        >
+
+                                            🆕 New
+
+                                        </span>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+
+                                    ${
+                                        product.bestSeller
+                                        ?
+                                        `
+                                        <span
+                                            class="meta-chip"
+                                        >
+
+                                            ⭐ Best
+
+                                        </span>
+                                        `
+                                        :
+                                        ""
+                                    }
+
+                                </div>
+
+
+                                <div
+                                    class="product-actions"
+                                >
+
+                                    <button
+                                        type="button"
+                                        class="edit-product"
+                                        data-edit-product="${product.id}"
+                                    >
+
+                                        <i
+                                            class="fa-solid fa-pen"
+                                        ></i>
+
+                                        Edit
+
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="delete-product"
+                                        data-delete-product="${product.id}"
+                                    >
+
+                                        <i
+                                            class="fa-solid fa-trash"
+                                        ></i>
+
+                                        Delete
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </article>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    initProductActions();
+
+}
+
+
+/* ==========================================================
+   PRODUCT ACTIONS
+========================================================== */
+
+function initProductActions() {
+
+    document
+        .querySelectorAll(
+            "[data-edit-product]"
+        )
+        .forEach(
+            button => {
+
+                button.onclick =
+                    function () {
+
+                        editProduct(
+                            button.dataset.editProduct
+                        );
+
+                    };
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            "[data-delete-product]"
+        )
+        .forEach(
+            button => {
+
+                button.onclick =
+                    function () {
+
+                        deleteProduct(
+                            button.dataset.deleteProduct
+                        );
+
+                    };
+
+            }
+        );
+
+}
+
+
+/* ==========================================================
+   EDIT PRODUCT
+========================================================== */
+
+function editProduct(id) {
+
+    const product =
+        products.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!product) return;
+
+
+    editingProductId =
+        product.id;
+
+
+    $("#productName").value =
+        product.name || "";
+
+
+    $("#productCategory").value =
+        product.category || "";
+
+
+    renderSubCategories();
+
+
+    $("#productSubCategory").value =
+        product.subCategory || "";
+
+
+    $("#productType").value =
+        product.type || "";
+
+
+    $("#productPrice").value =
+        product.price || "";
+
+
+    $("#productOldPrice").value =
+        product.oldPrice || "";
+
+
+    $("#productStock").value =
+        product.stock || "";
+
+
+    $("#productWeight").value =
+        product.weight || "";
+
+
+    $("#productRating").value =
+        product.rating || 5;
+
+
+    $("#productImage").value =
+        product.image ||
+        product.gallery?.[0] ||
+        "";
+
+
+    $("#productDescription").value =
+        product.description || "";
+
+
+    $("#productSku").value =
+        product.sku || "";
+
+
+    $("#productOffer").checked =
+        Boolean(
+            product.offer
+        );
+
+
+    $("#productNew").checked =
+        Boolean(
+            product.newArrival
+        );
+
+
+    $("#productBest").checked =
+        Boolean(
+            product.bestSeller
+        );
+
+
+    updateImagePreview();
+
+
+    $("#submitProduct").innerHTML = `
+
+        <i
+            class="fa-solid fa-floppy-disk"
+        ></i>
+
+        Product আপডেট করুন
+
+    `;
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* ==========================================================
+   DELETE PRODUCT
+========================================================== */
+
+function deleteProduct(id) {
+
+    const product =
+        products.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (!product) return;
+
+
+    const confirmed =
+        window.confirm(
+            `"${product.name}" Product কি Delete করবেন?`
+        );
+
+
+    if (!confirmed) return;
+
+
+    products =
+        products.filter(
+            item =>
+                String(item.id) !==
+                String(id)
+        );
+
+
+    renderProducts();
+
+
+    showStatus(
+        "✅ Product তালিকা থেকে বাদ দেওয়া হয়েছে।",
+        "success"
+    );
+
+
+    /*
+       Static JSON browser থেকে permanent update করা যাবে না।
+       Backend/API পর্বে database-এ save হবে।
+    */
+
+}
+
+
+/* ==========================================================
+   GENERATE PRODUCT ID
+========================================================== */
+
+function generateProductId() {
+
+    if (!products.length) {
+
+        return 1;
+
+    }
+
+
+    return (
+        Math.max(
+            ...products.map(
+                product =>
+                    Number(
+                        product.id
+                    ) || 0
+            )
+        )
+        + 1
+    );
+
+}
+
+
+/* ==========================================================
+   IMAGE PREVIEW
+========================================================== */
+
+function updateImagePreview() {
+
+    const value =
+        $("#productImage")
+            ?.value
+            .trim();
+
+
+    const preview =
+        $("#imagePreview");
+
+
+    const image =
+        $("#previewImage");
+
+
+    if (
+        !preview ||
+        !image
+    ) {
+
+        return;
+
+    }
+
+
+    if (!value) {
+
+        preview.classList.remove(
+            "show"
+        );
+
+        image.src = "";
+
+        return;
+
+    }
+
+
+    const src =
+        normalizeImagePath(
+            value
+        );
+
+
+    image.src =
+        src;
+
+
+    image.onload =
+        function () {
+
+            preview.classList.add(
+                "show"
+            );
+
+        };
+
+
+    image.onerror =
+        function () {
+
+            preview.classList.remove(
+                "show"
+            );
+
+        };
+
+}
+
+
+/* ==========================================================
+   PRODUCT FORM
+========================================================== */
+
+const productForm =
+    $("#productForm");
+
+
+if (productForm) {
+
+    productForm.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+
+            const name =
+                $("#productName")
+                    .value
+                    .trim();
+
+
+            const category =
+                $("#productCategory")
+                    .value
+                    .trim();
+
+
+            const subCategory =
+                $("#productSubCategory")
+                    .value
+                    .trim();
+
+
+            const type =
+                $("#productType")
+                    .value
+                    .trim();
+
+
+            const price =
+                Number(
+                    $("#productPrice")
+                        .value
+                );
+
+
+            const oldPrice =
+                Number(
+                    $("#productOldPrice")
+                        .value
+                ) || 0;
+
+
+            const stock =
+                $("#productStock")
+                    .value
+                    .trim();
+
+
+            const weight =
+                $("#productWeight")
+                    .value
+                    .trim();
+
+
+            const rating =
+                Number(
+                    $("#productRating")
+                        .value
+                ) || 0;
+
+
+            const image =
+                normalizeImagePath(
+                    $("#productImage")
+                        .value
+                        .trim()
+                );
+
+
+            const description =
+                $("#productDescription")
+                    .value
+                    .trim();
+
+
+            const sku =
+                $("#productSku")
+                    .value
+                    .trim();
+
+
+            const offer =
+                $("#productOffer")
+                    .checked;
+
+
+            const newArrival =
+                $("#productNew")
+                    .checked;
+
+
+            const bestSeller =
+                $("#productBest")
+                    .checked;
+
+
+            if (!name) {
+
+                showStatus(
+                    "❌ Product Name লিখুন।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (!category) {
+
+                showStatus(
+                    "❌ Main Category নির্বাচন করুন।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !Number.isFinite(price) ||
+                price < 0
+            ) {
+
+                showStatus(
+                    "❌ সঠিক মূল্য দিন।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const categoryObject =
+                getCategory(
+                    category
+                );
+
+
+            const categoryName =
+                categoryObject
+                ? categoryObject.name
+                : category;
+
+
+            const subCategoryName =
+                getSubCategoryName(
+                    category,
+                    subCategory
+                );
+
+
+            /* ==================================================
+               EDIT
+            ================================================== */
+
+            if (
+                editingProductId !== null
+            ) {
+
+                const product =
+                    products.find(
+                        item =>
+                            String(
+                                item.id
+                            ) ===
+                            String(
+                                editingProductId
+                            )
+                    );
+
+
+                if (product) {
+
+                    product.name =
+                        name;
+
+                    product.category =
+                        category;
+
+                    product.categoryName =
+                        categoryName;
+
+                    product.subCategory =
+                        subCategory;
+
+                    product.subCategoryName =
+                        subCategoryName;
+
+                    product.type =
+                        type;
+
+                    product.price =
+                        price;
+
+                    product.oldPrice =
+                        oldPrice;
+
+                    product.stock =
+                        stock;
+
+                    product.weight =
+                        weight;
+
+                    product.rating =
+                        rating;
+
+                    product.image =
+                        image;
+
+                    product.gallery =
+                        image
+                        ? [image]
+                        : [];
+
+                    product.description =
+                        description;
+
+                    product.sku =
+                        sku;
+
+                    product.offer =
+                        offer;
+
+                    product.newArrival =
+                        newArrival
+                        ? 1
+                        : 0;
+
+                    product.bestSeller =
+                        bestSeller
+                        ? 1
+                        : 0;
+
+                }
+
+
+                showStatus(
+                    "✅ Product আপডেট হয়েছে।",
+                    "success"
+                );
+
+            }
+
+
+            /* ==================================================
+               NEW PRODUCT
+            ================================================== */
+
+            else {
+
+                const product = {
+
+                    id:
+                        generateProductId(),
+
+                    name:
+                        name,
+
+                    category:
+                        category,
+
+                    categoryName:
+                        categoryName,
+
+                    subCategory:
+                        subCategory,
+
+                    subCategoryName:
+                        subCategoryName,
+
+                    type:
+                        type,
+
+                    price:
+                        price,
+
+                    oldPrice:
+                        oldPrice,
+
+                    stock:
+                        stock ||
+                        "স্টকে আছে",
+
+                    weight:
+                        weight,
+
+                    rating:
+                        rating,
+
+                    image:
+                        image,
+
+                    gallery:
+                        image
+                        ? [image]
+                        : [],
+
+                    description:
+                        description,
+
+                    sku:
+                        sku,
+
+                    offer:
+                        offer,
+
+                    newArrival:
+                        newArrival
+                        ? 1
+                        : 0,
+
+                    bestSeller:
+                        bestSeller
+                        ? 1
+                        : 0
+
+                };
+
+
+                products.push(
+                    product
+                );
+
+
+                showStatus(
+                    "✅ নতুন Product যোগ হয়েছে।",
+                    "success"
+                );
+
+            }
+
+
+            resetProductForm();
+
+            renderProducts();
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   RESET PRODUCT FORM
+========================================================== */
+
+function resetProductForm() {
+
+    editingProductId =
+        null;
+
+
+    if (productForm) {
+
+        productForm.reset();
+
+    }
+
+
+    $("#productRating").value =
+        5;
+
+
+    $("#productSubCategory").innerHTML = `
+
+        <option value="">
+            Sub-category নির্বাচন করুন
+        </option>
+
+    `;
+
+
+    $("#imagePreview")
+        ?.classList
+        .remove(
+            "show"
+        );
+
+
+    $("#previewImage").src =
+        "";
+
+
+    $("#submitProduct").innerHTML = `
+
+        <i
+            class="fa-solid fa-plus"
+        ></i>
+
+        Product যোগ করুন
+
+    `;
+
+}
+
+
+/* ==========================================================
+   CATEGORY CHANGE
+========================================================== */
+
+$("#productCategory")
+    ?.addEventListener(
+        "change",
+        function () {
+
+            renderSubCategories();
+
+        }
+    );
+
+
+/* ==========================================================
+   IMAGE INPUT
+========================================================== */
+
+$("#productImage")
+    ?.addEventListener(
+        "input",
+        function () {
+
+            updateImagePreview();
+
+        }
+    );
+
+
+/* ==========================================================
+   SEARCH
+========================================================== */
+
+$("#productSearch")
+    ?.addEventListener(
+        "input",
+        function () {
+
+            renderProducts();
+
+        }
+    );
+
+
+/* ==========================================================
+   CATEGORY FILTER
+========================================================== */
+
+$("#listCategoryFilter")
+    ?.addEventListener(
+        "change",
+        function () {
+
+            renderProducts();
+
+        }
+    );
+
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+$("#resetProduct")
+    ?.addEventListener(
+        "click",
+        function () {
+
+            setTimeout(
+                function () {
+
+                    resetProductForm();
+
+                },
+                0
+            );
+
+        }
+    );
+
+
+/* ==========================================================
+   INITIALIZE
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function () {
+
+        await loadCategories();
+
+        await loadProducts();
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
