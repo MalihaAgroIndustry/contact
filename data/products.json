@@ -1,202 +1,56 @@
 [
   {
     "id": 1,
-    "name": "মালিহা জৈব সার",
+    "name": "মালিহা জৈব সার — ভার্মি কম্পোস্ট কেঁচো সার",
     "brand": "Maliha Agro Industry",
-    "category": "agriculture-organic-fertilizer",
-    "categoryName": "কৃষি ও জৈব সার",
+
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
     "categoryIcon": "🌱",
+
     "subCategory": "vermicompost",
     "subCategoryName": "ভার্মি কম্পোস্ট কেঁচো সার",
-    "subCategoryIcon": "🌱",
-    "type": "ভার্মি কম্পোস্ট কেঁচো সার",
+    "subCategoryIcon": "🪱",
+
+    "type": "ভার্মি কম্পোস্ট",
+
     "sku": "MAI-VC-001",
+
     "weight": "১ কেজি",
-    "price": 100,
-    "oldPrice": 120,
+
+    "price": 50,
+    "oldPrice": 60,
+
     "rating": 5,
+    "reviewCount": 0,
+
     "stock": "স্টকে আছে",
+
     "offer": true,
     "newArrival": 1,
     "bestSeller": 1,
-    "description": "১০০% প্রাকৃতিক ও নিরাপদ ভার্মি কম্পোস্ট কেঁচো সার। সবজি, ফল ও ফুলের গাছের জন্য উপযোগী।",
+
+    "description": "মালিহা এগ্রো ইন্ডাস্ট্রির প্রাকৃতিক ভার্মি কম্পোস্ট কেঁচো সার। মাটির উর্বরতা ও জৈব গুণাগুণ বৃদ্ধিতে সহায়ক। সবজি, ফলজ, ফুল ও বিভিন্ন কৃষি কাজে ব্যবহারযোগ্য।",
+
+    "shortDescription": "১০০% প্রাকৃতিক ভার্মি কম্পোস্ট কেঁচো সার।",
+
     "gallery": [
-      "images/vermicompost.jpg"
-    ]
-  },
-  {
-    "id": 2,
-    "name": "মালিহা ট্রাইকো কম্পোস্ট",
-    "brand": "Maliha Agro Industry",
-    "category": "agriculture-organic-fertilizer",
-    "categoryName": "কৃষি ও জৈব সার",
-    "categoryIcon": "🌱",
-    "subCategory": "tricho-compost",
-    "subCategoryName": "ট্রাইকো কম্পোস্ট",
-    "subCategoryIcon": "🪴",
-    "type": "ট্রাইকো কম্পোস্ট সার",
-    "sku": "MAI-TC-001",
-    "weight": "১ কেজি",
-    "price": 120,
-    "oldPrice": 140,
-    "rating": 5,
-    "stock": "স্টকে আছে",
-    "offer": false,
-    "newArrival": 1,
-    "bestSeller": 0,
-    "description": "মাটির স্বাস্থ্য ও গাছের বৃদ্ধি উন্নত করতে সহায়ক ট্রাইকো কম্পোস্ট সার।",
-    "gallery": [
-      "images/tricho-compost.jpg"
-    ]
-  },
-  {
-    "id": 3,
-    "name": "মালিহা মরিচের গুঁড়া",
-    "brand": "Maliha Agro Industry",
-    "category": "spices",
-    "categoryName": "মসলা",
-    "categoryIcon": "🌶️",
-    "subCategory": "chili-powder",
-    "subCategoryName": "মরিচের গুঁড়া",
-    "subCategoryIcon": "🌶️",
-    "type": "মরিচের গুঁড়া",
-    "sku": "MAI-CP-001",
-    "weight": "২০০ গ্রাম",
-    "price": 80,
-    "oldPrice": 90,
-    "rating": 5,
-    "stock": "স্টকে আছে",
-    "offer": false,
-    "newArrival": 1,
-    "bestSeller": 1,
-    "description": "বাছাই করা মরিচ থেকে প্রস্তুত সুস্বাদু ও মানসম্মত মরিচের গুঁড়া।",
-    "gallery": [
-      "images/chili-powder.jpg"
-    ]
-  },
-  {
-    "id": 4,
-    "name": "মালিহা ধনিয়ার গুঁড়া",
-    "brand": "Maliha Agro Industry",
-    "category": "spices",
-    "categoryName": "মসলা",
-    "categoryIcon": "🌶️",
-    "subCategory": "coriander-powder",
-    "subCategoryName": "ধনিয়ার গুঁড়া",
-    "subCategoryIcon": "🌿",
-    "type": "ধনিয়ার গুঁড়া",
-    "sku": "MAI-COP-001",
-    "weight": "২০০ গ্রাম",
-    "price": 70,
-    "oldPrice": 80,
-    "rating": 5,
-    "stock": "স্টকে আছে",
-    "offer": false,
-    "newArrival": 1,
-    "bestSeller": 0,
-    "description": "সুগন্ধি ধনিয়া থেকে প্রস্তুত মানসম্মত ধনিয়ার গুঁড়া।",
-    "gallery": [
-      "images/coriander-powder.jpg"
-    ]
-  },
-  {
-    "id": 5,
-    "name": "মালিহা হলুদের গুঁড়া",
-    "brand": "Maliha Agro Industry",
-    "category": "spices",
-    "categoryName": "মসলা",
-    "categoryIcon": "🌶️",
-    "subCategory": "turmeric-powder",
-    "subCategoryName": "হলুদের গুঁড়া",
-    "subCategoryIcon": "🟡",
-    "type": "হলুদের গুঁড়া",
-    "sku": "MAI-TP-001",
-    "weight": "২০০ গ্রাম",
-    "price": 75,
-    "oldPrice": 85,
-    "rating": 5,
-    "stock": "স্টকে আছে",
-    "offer": false,
-    "newArrival": 1,
-    "bestSeller": 0,
-    "description": "মানসম্মত হলুদ থেকে প্রস্তুত বিশুদ্ধ ও সুগন্ধি হলুদের গুঁড়া।",
-    "gallery": [
-      "images/turmeric-powder.jpg"
-    ]
-  },
-  {
-    "id": 6,
-    "name": "মালিহা জিরার গুঁড়া",
-    "brand": "Maliha Agro Industry",
-    "category": "spices",
-    "categoryName": "মসলা",
-    "categoryIcon": "🌶️",
-    "subCategory": "cumin-powder",
-    "subCategoryName": "জিরার গুঁড়া",
-    "subCategoryIcon": "🌿",
-    "type": "জিরার গুঁড়া",
-    "sku": "MAI-CU-001",
-    "weight": "১০০ গ্রাম",
-    "price": 90,
-    "oldPrice": 100,
-    "rating": 5,
-    "stock": "স্টকে আছে",
-    "offer": false,
-    "newArrival": 1,
-    "bestSeller": 0,
-    "description": "সুগন্ধি জিরা থেকে প্রস্তুত মানসম্মত জিরার গুঁড়া।",
-    "gallery": [
-      "images/cumin-powder.jpg"
-    ]
-  },
-  {
-    "id": 7,
-    "name": "মালিহা আটা",
-    "brand": "Maliha Agro Industry",
-    "category": "food-products",
-    "categoryName": "খাদ্যপণ্য",
-    "categoryIcon": "🍚",
-    "subCategory": "flour",
-    "subCategoryName": "আটা",
-    "subCategoryIcon": "🌾",
-    "type": "আটা",
-    "sku": "MAI-FL-001",
-    "weight": "১ কেজি",
-    "price": 70,
-    "oldPrice": 80,
-    "rating": 5,
-    "stock": "স্টকে আছে",
-    "offer": false,
-    "newArrival": 1,
-    "bestSeller": 1,
-    "description": "মানসম্মত গম থেকে প্রস্তুত পরিষ্কার ও স্বাস্থ্যসম্মত আটা।",
-    "gallery": [
-      "images/flour.jpg"
-    ]
-  },
-  {
-    "id": 8,
-    "name": "মালিহা নুডলস",
-    "brand": "Maliha Agro Industry",
-    "category": "food-products",
-    "categoryName": "খাদ্যপণ্য",
-    "categoryIcon": "🍚",
-    "subCategory": "noodles",
-    "subCategoryName": "নুডলস",
-    "subCategoryIcon": "🍜",
-    "type": "নুডলস",
-    "sku": "MAI-ND-001",
-    "weight": "৪০০ গ্রাম",
-    "price": 60,
-    "oldPrice": 70,
-    "rating": 5,
-    "stock": "স্টকে আছে",
-    "offer": false,
-    "newArrival": 1,
-    "bestSeller": 0,
-    "description": "পরিবারের সবার জন্য উপযোগী সুস্বাদু নুডলস।",
-    "gallery": [
-      "images/noodles.jpg"
-    ]
+      "images/products/vermicompost-1.jpg",
+      "images/products/vermicompost-2.jpg",
+      "images/products/vermicompost-3.jpg"
+    ],
+
+    "features": [
+      "১০০% প্রাকৃতিক জৈব সার",
+      "মাটির উর্বরতা বৃদ্ধিতে সহায়ক",
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়ক",
+      "সবজি, ফল ও ফুলের গাছে ব্যবহারযোগ্য",
+      "বাগান ও কৃষি কাজে ব্যবহারযোগ্য"
+    ],
+
+    "active": true,
+
+    "createdAt": "2026-08-01",
+    "updatedAt": "2026-08-01"
   }
 ]
