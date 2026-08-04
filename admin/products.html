@@ -1,1081 +1,364 @@
 <!DOCTYPE html>
 <html lang="bn">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <meta
-        name="description"
-        content="Maliha Agro Industry Admin Panel - Product Management"
-    >
-
-    <meta
-        name="theme-color"
-        content="#1F8F4D"
-    >
-
-    <title>
-        Product Management | Maliha Agro Industry
-    </title>
-
-
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
-
+    <title>Product Management | Maliha Agro Industry</title>
 
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     >
 
-
     <style>
-
         * {
             box-sizing: border-box;
         }
 
-
         body {
-
             margin: 0;
-
-            font-family: "Poppins", sans-serif;
-
-            background: #f4f8f5;
-
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
             color: #222;
-
         }
-
-
-        button,
-        input,
-        textarea,
-        select {
-
-            font-family: inherit;
-
-        }
-
-
-        .admin-wrapper {
-
-            width: 100%;
-
-            max-width: 1450px;
-
-            margin: auto;
-
-            padding: 25px;
-
-        }
-
-
-        /* ==================================================
-           HEADER
-        ================================================== */
 
         .admin-header {
+            background: linear-gradient(135deg, #166c39, #1f8f4d);
+            color: #fff;
+            padding: 20px;
+        }
 
+        .admin-header-inner {
+            max-width: 1400px;
+            margin: auto;
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
-
             gap: 15px;
-
-            background: #fff;
-
-            border-radius: 20px;
-
-            padding: 20px 25px;
-
-            margin-bottom: 25px;
-
-            box-shadow:
-                0 8px 30px rgba(0,0,0,.06);
-
         }
-
-
-        .admin-header-left {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 14px;
-
-        }
-
-
-        .admin-logo {
-
-            width: 52px;
-
-            height: 52px;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border-radius: 15px;
-
-            background: #e9f8ef;
-
-            color: #1F8F4D;
-
-            font-size: 25px;
-
-        }
-
 
         .admin-header h1 {
-
             margin: 0;
-
-            color: #166C39;
-
             font-size: 24px;
-
         }
-
 
         .admin-header p {
-
-            margin: 3px 0 0;
-
-            color: #777;
-
-            font-size: 13px;
-
+            margin: 5px 0 0;
+            opacity: .9;
         }
-
 
         .back-btn {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            gap: 8px;
-
-            min-height: 44px;
-
-            padding: 0 17px;
-
-            border-radius: 12px;
-
-            background: #1F8F4D;
-
-            color: #fff;
-
-            text-decoration: none;
-
-            font-weight: 600;
-
-            font-size: 14px;
-
-        }
-
-
-        .back-btn:hover {
-
-            background: #166C39;
-
-        }
-
-
-        /* ==================================================
-           STATUS
-        ================================================== */
-
-        #statusMessage {
-
-            display: none;
-
-            margin-bottom: 18px;
-
-            padding: 12px 15px;
-
-            border-radius: 11px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-        }
-
-
-        #statusMessage.show {
-
-            display: block;
-
-        }
-
-
-        #statusMessage.success {
-
-            background: #e9f8ef;
-
-            color: #166C39;
-
-        }
-
-
-        #statusMessage.error {
-
-            background: #ffebee;
-
-            color: #b71c1c;
-
-        }
-
-
-        /* ==================================================
-           LAYOUT
-        ================================================== */
-
-        .management-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                420px
-                1fr;
-
-            gap: 25px;
-
-            align-items: start;
-
-        }
-
-
-        .admin-card {
-
+            color: #166c39;
             background: #fff;
-
-            border-radius: 20px;
-
-            padding: 24px;
-
-            border:
-                1px solid #e7eee9;
-
-            box-shadow:
-                0 8px 30px rgba(0,0,0,.06);
-
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
         }
 
-
-        .admin-card h2 {
-
-            margin:
-                0 0 6px;
-
-            color: #166C39;
-
-            font-size: 19px;
-
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 25px 18px 100px;
         }
 
-
-        .card-description {
-
-            margin:
-                0 0 20px;
-
-            color: #777;
-
-            font-size: 13px;
-
-            line-height: 1.7;
-
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 22px;
+            border: 1px solid #e4ebe6;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
         }
 
+        .card h2 {
+            margin-top: 0;
+            color: #166c39;
+            font-size: 20px;
+        }
 
-        /* ==================================================
-           FORM
-        ================================================== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
 
         .form-group {
-
-            margin-bottom: 15px;
-
-        }
-
-
-        .form-row {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr
-                1fr;
-
-            gap: 12px;
-
-        }
-
-
-        .form-group label {
-
-            display: block;
-
-            margin-bottom: 6px;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
-            color: #444;
-
-        }
-
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-
-            width: 100%;
-
-            border:
-                1px solid #dfe7e1;
-
-            border-radius: 11px;
-
-            outline: none;
-
-            background: #fbfdfb;
-
-            padding:
-                0 13px;
-
-            font-size: 13px;
-
-        }
-
-
-        .form-group input,
-        .form-group select {
-
-            height: 47px;
-
-        }
-
-
-        .form-group textarea {
-
-            min-height: 95px;
-
-            padding:
-                12px 13px;
-
-            resize: vertical;
-
-            line-height: 1.6;
-
-        }
-
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-
-            border-color:
-                #1F8F4D;
-
-            box-shadow:
-                0 0 0 4px
-                rgba(31,143,77,.08);
-
-            background: #fff;
-
-        }
-
-
-        /* ==================================================
-           IMAGE INPUT
-        ================================================== */
-
-        .image-input-help {
-
-            margin-top: 5px;
-
-            color: #999;
-
-            font-size: 11px;
-
-            line-height: 1.6;
-
-        }
-
-
-        .image-preview {
-
-            margin-top: 10px;
-
-            display: none;
-
-            width: 100%;
-
-            height: 180px;
-
-            overflow: hidden;
-
-            border-radius: 13px;
-
-            background: #f2f6f3;
-
-            border:
-                1px solid #e1e9e3;
-
-        }
-
-
-        .image-preview.show {
-
-            display: block;
-
-        }
-
-
-        .image-preview img {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: contain;
-
-        }
-
-
-        /* ==================================================
-           CHECKBOX
-        ================================================== */
-
-        .check-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 8px;
-
-            margin-top: 8px;
-
-        }
-
-
-        .check-item {
-
             display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
 
-            align-items: center;
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
 
-            gap: 6px;
+        label {
+            font-weight: 700;
+            font-size: 14px;
+        }
 
-            padding:
-                9px;
-
+        input,
+        select,
+        textarea {
+            width: 100%;
+            min-height: 46px;
+            border: 1px solid #d9e3dc;
             border-radius: 10px;
-
-            background: #f5faf6;
-
-            border:
-                1px solid #e4eee7;
-
-            cursor: pointer;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-            color: #555;
-
+            padding: 10px 12px;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
         }
 
-
-        .check-item input {
-
-            width: auto;
-
+        textarea {
+            min-height: 110px;
+            resize: vertical;
         }
 
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1f8f4d;
+            box-shadow: 0 0 0 3px rgba(31,143,77,.1);
+        }
 
-        /* ==================================================
-           FORM BUTTON
-        ================================================== */
-
-        .form-actions {
-
+        .image-list {
             display: flex;
-
-            gap: 9px;
-
-            margin-top: 20px;
-
+            flex-direction: column;
+            gap: 10px;
         }
 
+        .image-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .image-row input {
+            flex: 1;
+        }
+
+        .remove-image {
+            width: 45px;
+            border: none;
+            border-radius: 10px;
+            background: #ffebee;
+            color: #c62828;
+            cursor: pointer;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        button {
+            font-family: inherit;
+        }
 
         .btn {
-
             min-height: 45px;
-
-            padding:
-                0 16px;
-
             border: none;
-
-            border-radius: 11px;
-
+            border-radius: 10px;
+            padding: 0 18px;
             cursor: pointer;
-
-            font-size: 13px;
-
-            font-weight: 600;
-
+            font-weight: 700;
         }
-
 
         .btn-primary {
-
-            flex: 1;
-
-            background: #1F8F4D;
-
+            background: #1f8f4d;
             color: #fff;
-
         }
-
 
         .btn-primary:hover {
-
-            background: #166C39;
-
+            background: #166c39;
         }
-
 
         .btn-secondary {
-
-            background: #eef2ef;
-
-            color: #444;
-
+            background: #eef3ef;
+            color: #333;
         }
 
-
-        /* ==================================================
-           PRODUCT TOOLBAR
-        ================================================== */
-
-        .product-toolbar {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr
-                180px;
-
-            gap: 12px;
-
-            margin-bottom: 20px;
-
-        }
-
-
-        .product-toolbar input,
-        .product-toolbar select {
-
-            height: 46px;
-
-            border:
-                1px solid #dfe7e1;
-
-            border-radius: 11px;
-
-            outline: none;
-
-            padding:
-                0 12px;
-
-            background: #fbfdfb;
-
-            font-size: 13px;
-
-        }
-
-
-        .product-toolbar input:focus,
-        .product-toolbar select:focus {
-
-            border-color:
-                #1F8F4D;
-
-        }
-
-
-        /* ==================================================
-           PRODUCT LIST
-        ================================================== */
-
-        #productList {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(
-                    2,
-                    minmax(0,1fr)
-                );
-
-            gap: 15px;
-
-        }
-
-
-        .product-item {
-
-            border:
-                1px solid #e5ebe7;
-
-            border-radius: 16px;
-
-            overflow: hidden;
-
-            background: #fbfdfb;
-
-        }
-
-
-        .product-image {
-
-            width: 100%;
-
-            height: 190px;
-
-            background: #eef4ef;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            overflow: hidden;
-
-        }
-
-
-        .product-image img {
-
-            width: 100%;
-
-            height: 100%;
-
-            object-fit: cover;
-
-        }
-
-
-        .no-image {
-
-            font-size: 45px;
-
-            color: #aab9ae;
-
-        }
-
-
-        .product-body {
-
-            padding: 15px;
-
-        }
-
-
-        .product-body h3 {
-
-            margin:
-                0 0 7px;
-
-            color: #174c2d;
-
-            font-size: 16px;
-
-            line-height: 1.5;
-
-        }
-
-
-        .product-category {
-
-            display: inline-flex;
-
-            padding:
-                5px 9px;
-
-            border-radius: 20px;
-
-            background: #e9f8ef;
-
-            color: #166C39;
-
-            font-size: 10px;
-
-            font-weight: 600;
-
-            margin-bottom: 8px;
-
-        }
-
-
-        .product-price {
-
-            color: #1F8F4D;
-
-            font-size: 19px;
-
-            font-weight: 700;
-
-        }
-
-
-        .product-old-price {
-
-            color: #999;
-
-            text-decoration: line-through;
-
-            font-size: 12px;
-
-            margin-left: 5px;
-
-        }
-
-
-        .product-meta {
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            gap: 6px;
-
-            margin-top: 8px;
-
-        }
-
-
-        .meta-chip {
-
-            padding:
-                5px 8px;
-
-            border-radius: 15px;
-
-            background: #fff;
-
-            border:
-                1px solid #e1e9e3;
-
-            font-size: 10px;
-
-            color: #666;
-
-        }
-
-
-        .product-actions {
-
-            display: flex;
-
-            gap: 8px;
-
-            margin-top: 13px;
-
-        }
-
-
-        .product-actions button {
-
-            flex: 1;
-
-            min-height: 38px;
-
-            border: none;
-
-            border-radius: 9px;
-
-            cursor: pointer;
-
-            font-size: 11px;
-
-            font-weight: 600;
-
-        }
-
-
-        .edit-product {
-
-            background: #fff3d7;
-
-            color: #986300;
-
-        }
-
-
-        .delete-product {
-
-            background: #ffebeb;
-
+        .btn-danger {
+            background: #ffebee;
             color: #c62828;
-
         }
 
-
-        /* ==================================================
-           EMPTY
-        ================================================== */
-
-        .empty-state {
-
-            grid-column: 1 / -1;
-
-            text-align: center;
-
-            padding: 45px 20px;
-
-            color: #777;
-
+        .btn-small {
+            min-height: 36px;
+            padding: 0 12px;
+            font-size: 12px;
         }
 
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+            font-size: 14px;
+        }
 
-        .empty-state i {
-
+        .status.show {
             display: block;
-
-            margin-bottom: 12px;
-
-            font-size: 40px;
-
-            color: #b8c8bc;
-
         }
 
-
-        /* ==================================================
-           MOBILE
-        ================================================== */
-
-        @media (max-width: 1050px) {
-
-            .management-grid {
-
-                grid-template-columns: 1fr;
-
-            }
-
+        .status.success {
+            background: #e8f5e9;
+            color: #1b5e20;
         }
 
+        .status.error {
+            background: #ffebee;
+            color: #b71c1c;
+        }
 
-        @media (max-width: 700px) {
+        .products-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
 
-            .admin-wrapper {
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
 
-                padding: 12px;
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #edf1ee;
+            text-align: left;
+            vertical-align: middle;
+            font-size: 13px;
+        }
 
-            }
+        th {
+            background: #f4faf6;
+            color: #166c39;
+        }
 
+        .product-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 9px;
+            background: #f3f6f3;
+        }
 
-            .admin-header {
+        .category-badge {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: #e9f8ef;
+            color: #166c39;
+            font-size: 11px;
+            font-weight: 700;
+        }
 
+        .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 35px;
+            color: #777;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media(max-width: 700px) {
+
+            .admin-header-inner {
                 flex-direction: column;
-
-                align-items: stretch;
-
-                padding: 17px;
-
+                align-items: flex-start;
             }
 
-
-            .admin-header h1 {
-
-                font-size: 20px;
-
-            }
-
-
-            .back-btn {
-
-                width: 100%;
-
-            }
-
-
-            .form-row {
-
+            .form-grid {
                 grid-template-columns: 1fr;
-
             }
 
-
-            .check-grid {
-
-                grid-template-columns:
-                    1fr;
-
+            .form-group.full {
+                grid-column: auto;
             }
 
-
-            .product-toolbar {
-
-                grid-template-columns: 1fr;
-
+            .card {
+                padding: 16px;
             }
-
-
-            #productList {
-
-                grid-template-columns: 1fr;
-
-            }
-
-
-            .admin-card {
-
-                padding: 17px;
-
-            }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+<header class="admin-header">
 
-<div class="admin-wrapper">
+    <div class="admin-header-inner">
 
-
-    <!-- ==================================================
-         HEADER
-    ================================================== -->
-
-    <header class="admin-header">
-
-        <div class="admin-header-left">
-
-            <div class="admin-logo">
-
+        <div>
+            <h1>
                 <i class="fa-solid fa-box-open"></i>
+                Product Management
+            </h1>
 
-            </div>
-
-            <div>
-
-                <h1>
-                    Product Management
-                </h1>
-
-                <p>
-                    Maliha Agro Industry Admin Panel
-                </p>
-
-            </div>
-
+            <p>
+                Maliha Agro Industry — পণ্য ব্যবস্থাপনা
+            </p>
         </div>
-
 
         <a
             href="index.html"
             class="back-btn"
         >
-
             <i class="fa-solid fa-arrow-left"></i>
-
-            Admin Home
-
+            Admin Dashboard
         </a>
 
-    </header>
+    </div>
+
+</header>
 
 
-    <div
-        id="statusMessage"
-    ></div>
+<main class="container">
 
 
-    <div class="management-grid">
+    <!-- =====================================================
+         ADD / EDIT PRODUCT
+    ===================================================== -->
+
+    <section class="card">
+
+        <h2 id="formTitle">
+            <i class="fa-solid fa-plus"></i>
+            নতুন পণ্য যোগ করুন
+        </h2>
 
 
-        <!-- ==================================================
-             PRODUCT FORM
-        ================================================== -->
+        <form id="productForm">
 
-        <section class="admin-card">
-
-            <h2>
-
-                <i class="fa-solid fa-plus"></i>
-
-                নতুন Product
-
-            </h2>
-
-
-            <p class="card-description">
-
-                Category নির্বাচন করে নতুন পণ্য যোগ করুন।
-                ভবিষ্যতে যেকোনো নতুন Category-এর পণ্য
-                এখান থেকেই যোগ করা যাবে।
-
-            </p>
-
-
-            <form
-                id="productForm"
+            <input
+                type="hidden"
+                id="productId"
             >
+
+
+            <div class="form-grid">
 
 
                 <!-- PRODUCT NAME -->
 
                 <div class="form-group">
 
-                    <label
-                        for="productName"
-                    >
-                        Product Name *
+                    <label for="productName">
+                        পণ্যের নাম *
                     </label>
 
                     <input
@@ -1088,14 +371,29 @@
                 </div>
 
 
+                <!-- BRAND -->
+
+                <div class="form-group">
+
+                    <label for="productBrand">
+                        ব্র্যান্ড
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productBrand"
+                        value="Maliha Agro Industry"
+                    >
+
+                </div>
+
+
                 <!-- CATEGORY -->
 
                 <div class="form-group">
 
-                    <label
-                        for="productCategory"
-                    >
-                        Main Category *
+                    <label for="productCategory">
+                        প্রধান ক্যাটাগরি *
                     </label>
 
                     <select
@@ -1104,7 +402,7 @@
                     >
 
                         <option value="">
-                            Category নির্বাচন করুন
+                            ক্যাটাগরি নির্বাচন করুন
                         </option>
 
                     </select>
@@ -1116,10 +414,8 @@
 
                 <div class="form-group">
 
-                    <label
-                        for="productSubCategory"
-                    >
-                        Sub-category
+                    <label for="productSubCategory">
+                        সাব-ক্যাটাগরি
                     </label>
 
                     <select
@@ -1127,7 +423,7 @@
                     >
 
                         <option value="">
-                            Sub-category নির্বাচন করুন
+                            সাব-ক্যাটাগরি নির্বাচন করুন
                         </option>
 
                     </select>
@@ -1135,108 +431,92 @@
                 </div>
 
 
-                <!-- TYPE -->
+                <!-- PRICE -->
 
                 <div class="form-group">
 
-                    <label
-                        for="productType"
+                    <label for="productPrice">
+                        বর্তমান মূল্য *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="যেমন: 350"
+                        required
                     >
-                        Product Type
+
+                </div>
+
+
+                <!-- OLD PRICE -->
+
+                <div class="form-group">
+
+                    <label for="productOldPrice">
+                        পুরাতন মূল্য
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productOldPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="অফার থাকলে দিন"
+                    >
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="form-group">
+
+                    <label for="productStock">
+                        স্টক
                     </label>
 
                     <input
                         type="text"
-                        id="productType"
-                        placeholder="যেমন: ভার্মি কম্পোস্ট"
+                        id="productStock"
+                        value="স্টকে আছে"
                     >
 
                 </div>
 
 
-                <!-- PRICE -->
+                <!-- WEIGHT -->
 
-                <div class="form-row">
+                <div class="form-group">
 
+                    <label for="productWeight">
+                        ওজন / পরিমাণ
+                    </label>
 
-                    <div class="form-group">
-
-                        <label
-                            for="productPrice"
-                        >
-                            বর্তমান মূল্য *
-                        </label>
-
-                        <input
-                            type="number"
-                            id="productPrice"
-                            min="0"
-                            step="0.01"
-                            placeholder="500"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label
-                            for="productOldPrice"
-                        >
-                            পুরাতন মূল্য
-                        </label>
-
-                        <input
-                            type="number"
-                            id="productOldPrice"
-                            min="0"
-                            step="0.01"
-                            placeholder="600"
-                        >
-
-                    </div>
+                    <input
+                        type="text"
+                        id="productWeight"
+                        placeholder="যেমন: ১ কেজি"
+                    >
 
                 </div>
 
 
-                <!-- STOCK + WEIGHT -->
+                <!-- SKU -->
 
-                <div class="form-row">
+                <div class="form-group">
 
+                    <label for="productSku">
+                        SKU
+                    </label>
 
-                    <div class="form-group">
-
-                        <label
-                            for="productStock"
-                        >
-                            Stock
-                        </label>
-
-                        <input
-                            type="text"
-                            id="productStock"
-                            placeholder="স্টকে আছে"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label
-                            for="productWeight"
-                        >
-                            Weight
-                        </label>
-
-                        <input
-                            type="text"
-                            id="productWeight"
-                            placeholder="১ কেজি"
-                        >
-
-                    </div>
+                    <input
+                        type="text"
+                        id="productSku"
+                        placeholder="যেমন: MAI-VC-001"
+                    >
 
                 </div>
 
@@ -1245,9 +525,7 @@
 
                 <div class="form-group">
 
-                    <label
-                        for="productRating"
-                    >
+                    <label for="productRating">
                         Rating
                     </label>
 
@@ -1258,287 +536,230 @@
                         max="5"
                         step="0.1"
                         value="5"
-                        placeholder="5"
                     >
-
-                </div>
-
-
-                <!-- IMAGE -->
-
-                <div class="form-group">
-
-                    <label
-                        for="productImage"
-                    >
-                        Product Image
-                    </label>
-
-                    <input
-                        type="text"
-                        id="productImage"
-                        placeholder="images/vermi-compost.jpg"
-                    >
-
-                    <div class="image-input-help">
-
-                        উদাহরণ:
-                        <strong>
-                            images/vermi-compost.jpg
-                        </strong>
-
-                        অথবা সম্পূর্ণ Image URL ব্যবহার করতে পারেন।
-
-                    </div>
-
-
-                    <div
-                        class="image-preview"
-                        id="imagePreview"
-                    >
-
-                        <img
-                            id="previewImage"
-                            src=""
-                            alt="Preview"
-                        >
-
-                    </div>
 
                 </div>
 
 
                 <!-- DESCRIPTION -->
 
-                <div class="form-group">
+                <div class="form-group full">
 
-                    <label
-                        for="productDescription"
-                    >
-                        Description
+                    <label for="productDescription">
+                        পণ্যের বিবরণ
                     </label>
 
                     <textarea
                         id="productDescription"
-                        placeholder="পণ্যের বিস্তারিত বর্ণনা লিখুন..."
+                        placeholder="পণ্যের বিস্তারিত লিখুন..."
                     ></textarea>
 
                 </div>
 
 
-                <!-- SKU -->
+                <!-- IMAGES -->
 
-                <div class="form-group">
-
-                    <label
-                        for="productSku"
-                    >
-                        SKU
-                    </label>
-
-                    <input
-                        type="text"
-                        id="productSku"
-                        placeholder="MAI-VC-001"
-                    >
-
-                </div>
-
-
-                <!-- FLAGS -->
-
-                <div class="form-group">
+                <div class="form-group full">
 
                     <label>
-                        Product Status
+                        পণ্যের ছবি
                     </label>
 
+                    <div
+                        id="imageList"
+                        class="image-list"
+                    >
 
-                    <div class="check-grid">
-
-
-                        <label
-                            class="check-item"
-                        >
-
-                            <input
-                                type="checkbox"
-                                id="productOffer"
-                            >
-
-                            🔥 Offer
-
-                        </label>
-
-
-                        <label
-                            class="check-item"
-                        >
+                        <div class="image-row">
 
                             <input
-                                type="checkbox"
-                                id="productNew"
+                                type="text"
+                                class="product-image"
+                                placeholder="images/product.jpg"
                             >
 
-                            🆕 New
+                            <button
+                                type="button"
+                                class="remove-image"
+                                title="Remove"
+                            >
+                                ×
+                            </button>
 
-                        </label>
+                        </div>
+
+                    </div>
 
 
-                        <label
-                            class="check-item"
+                    <div class="btn-row">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="addImageBtn"
                         >
-
-                            <input
-                                type="checkbox"
-                                id="productBest"
-                            >
-
-                            ⭐ Best Seller
-
-                        </label>
+                            <i class="fa-solid fa-plus"></i>
+                            আরও ছবি
+                        </button>
 
                     </div>
 
                 </div>
 
 
-                <!-- BUTTONS -->
+                <!-- CHECKBOXES -->
 
-                <div class="form-actions">
+                <div class="form-group">
 
-                    <button
-                        type="submit"
-                        class="btn btn-primary"
-                        id="submitProduct"
-                    >
-
-                        <i
-                            class="fa-solid fa-plus"
-                        ></i>
-
-                        Product যোগ করুন
-
-                    </button>
-
-
-                    <button
-                        type="reset"
-                        class="btn btn-secondary"
-                        id="resetProduct"
-                    >
-
-                        Reset
-
-                    </button>
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="productOffer"
+                        >
+                        🔥 অফার পণ্য
+                    </label>
 
                 </div>
 
 
-            </form>
+                <div class="form-group">
 
-        </section>
-
-
-        <!-- ==================================================
-             PRODUCT LIST
-        ================================================== -->
-
-        <section class="admin-card">
-
-
-            <div
-                style="
-                    display:flex;
-                    align-items:center;
-                    justify-content:space-between;
-                    gap:10px;
-                    margin-bottom:18px;
-                "
-            >
-
-                <div>
-
-                    <h2>
-
-                        <i
-                            class="fa-solid fa-list"
-                        ></i>
-
-                        Product List
-
-                    </h2>
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="productNew"
+                        >
+                        🆕 নতুন পণ্য
+                    </label>
 
                 </div>
 
 
-                <span
-                    id="productCount"
-                    style="
-                        padding:7px 11px;
-                        border-radius:20px;
-                        background:#e9f8ef;
-                        color:#166C39;
-                        font-size:11px;
-                        font-weight:600;
-                    "
-                >
+                <div class="form-group">
 
-                    0 Product
+                    <label>
+                        <input
+                            type="checkbox"
+                            id="productBest"
+                        >
+                        ⭐ বেস্ট সেলার
+                    </label>
 
-                </span>
+                </div>
 
             </div>
 
 
-            <!-- SEARCH + FILTER -->
+            <div class="btn-row">
 
-            <div class="product-toolbar">
-
-
-                <input
-                    type="search"
-                    id="productSearch"
-                    placeholder="পণ্য খুঁজুন..."
+                <button
+                    type="submit"
+                    class="btn btn-primary"
                 >
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    <span id="saveButtonText">
+                        পণ্য সংরক্ষণ করুন
+                    </span>
+                </button>
 
 
-                <select
-                    id="listCategoryFilter"
+                <button
+                    type="button"
+                    class="btn btn-secondary hidden"
+                    id="cancelEditBtn"
                 >
-
-                    <option value="all">
-                        সব Category
-                    </option>
-
-                </select>
-
+                    <i class="fa-solid fa-xmark"></i>
+                    Edit বাতিল
+                </button>
 
             </div>
 
 
             <div
-                id="productList"
-            >
+                id="status"
+                class="status"
+            ></div>
 
-                <div class="empty-state">
+        </form>
 
-                    <i
-                        class="fa-solid fa-spinner fa-spin"
-                    ></i>
-
-                    Product লোড হচ্ছে...
-
-                </div>
-
-            </div>
+    </section>
 
 
-        </section>
+    <!-- =====================================================
+         PRODUCT LIST
+    ===================================================== -->
 
-    </div>
+    <section class="card">
 
-</div>
+        <h2>
+            <i class="fa-solid fa-list"></i>
+            সকল পণ্য
+        </h2>
+
+
+        <div class="products-table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ছবি
+                        </th>
+
+                        <th>
+                            পণ্য
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Sub-category
+                        </th>
+
+                        <th>
+                            মূল্য
+                        </th>
+
+                        <th>
+                            Stock
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="productsTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            class="empty"
+                        >
+                            ⏳ পণ্য লোড হচ্ছে...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
 
 
 <script>
@@ -1550,23 +771,20 @@
    CONFIG
 ========================================================== */
 
+const PRODUCT_API =
+    "../data/products.json";
+
 const CATEGORY_API =
     "../data/categories.json";
 
 
-const PRODUCT_API =
-    "../data/products.json";
-
-
 /* ==========================================================
-   VARIABLES
+   DATA
 ========================================================== */
-
-let categories = [];
 
 let products = [];
 
-let editingProductId = null;
+let categories = [];
 
 
 /* ==========================================================
@@ -1585,104 +803,18 @@ const $ =
 function showStatus(
     message,
     type = "success"
-) {
+){
 
-    const element =
-        $("#statusMessage");
+    const status =
+        $("#status");
 
+    if(!status) return;
 
-    if (!element) return;
-
-
-    element.textContent =
+    status.textContent =
         message;
 
-
-    element.className =
-        "show " + type;
-
-
-    setTimeout(
-        function () {
-
-            element.className = "";
-
-        },
-        4000
-    );
-
-}
-
-
-/* ==========================================================
-   NORMALIZE
-========================================================== */
-
-function normalizeId(value) {
-
-    return String(value || "")
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(
-            /[^a-z0-9\u0980-\u09ff-]/g,
-            ""
-        );
-
-}
-
-
-/* ==========================================================
-   IMAGE PATH
-========================================================== */
-
-function normalizeImagePath(path) {
-
-    if (!path) return "";
-
-    const value =
-        String(path)
-            .trim()
-            .replace(/\\/g, "/");
-
-
-    if (
-        /^https?:\/\//i.test(value)
-    ) {
-
-        return value;
-
-    }
-
-
-    if (
-        value.startsWith("images/")
-    ) {
-
-        return value;
-
-    }
-
-
-    if (
-        value.startsWith("../images/")
-    ) {
-
-        return value.substring(3);
-
-    }
-
-
-    if (
-        value.startsWith("./images/")
-    ) {
-
-        return value.substring(2);
-
-    }
-
-
-    return value;
+    status.className =
+        "status show " + type;
 
 }
 
@@ -1691,9 +823,9 @@ function normalizeImagePath(path) {
    LOAD CATEGORIES
 ========================================================== */
 
-async function loadCategories() {
+async function loadCategories(){
 
-    try {
+    try{
 
         const response =
             await fetch(
@@ -1704,7 +836,7 @@ async function loadCategories() {
             );
 
 
-        if (!response.ok) {
+        if(!response.ok){
 
             throw new Error(
                 "Category load failed"
@@ -1723,16 +855,15 @@ async function loadCategories() {
             : [];
 
 
-        renderCategorySelects();
+        renderCategorySelect();
 
     }
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
-
         showStatus(
-            "❌ Category লোড করা যায়নি।",
+            "❌ categories.json লোড করা যায়নি।",
             "error"
         );
 
@@ -1742,92 +873,39 @@ async function loadCategories() {
 
 
 /* ==========================================================
-   CATEGORY SELECTS
+   RENDER CATEGORY SELECT
 ========================================================== */
 
-function renderCategorySelects() {
+function renderCategorySelect(){
 
-    const categorySelect =
+    const select =
         $("#productCategory");
 
-
-    const filterSelect =
-        $("#listCategoryFilter");
+    if(!select) return;
 
 
-    if (categorySelect) {
+    select.innerHTML = `
 
-        categorySelect.innerHTML = `
+<option value="">
+    ক্যাটাগরি নির্বাচন করুন
+</option>
 
-            <option value="">
-                Category নির্বাচন করুন
-            </option>
+${
+    categories
+        .map(
+            category => `
 
-            ${
-                categories
-                    .map(
-                        category =>
-                            `
+<option value="${category.id}">
+    ${category.icon || "📂"}
+    ${category.name}
+</option>
 
-                            <option
-                                value="${category.id}"
-                            >
+`
+        )
+        .join("")
+}
 
-                                ${
-                                    category.icon ||
-                                    "📂"
-                                }
-
-                                ${
-                                    category.name ||
-                                    category.id
-                                }
-
-                            </option>
-
-                            `
-                    )
-                    .join("")
-            }
-
-        `;
-
-    }
-
-
-    if (filterSelect) {
-
-        filterSelect.innerHTML = `
-
-            <option value="all">
-                সব Category
-            </option>
-
-            ${
-                categories
-                    .map(
-                        category =>
-                            `
-
-                            <option
-                                value="${category.id}"
-                            >
-
-                                ${
-                                    category.name ||
-                                    category.id
-                                }
-
-                            </option>
-
-                            `
-                    )
-                    .join("")
-            }
-
-        `;
-
-    }
+`;
 
 }
 
@@ -1836,85 +914,252 @@ function renderCategorySelects() {
    SUB CATEGORY
 ========================================================== */
 
-function renderSubCategories() {
-
-    const categoryId =
-        $("#productCategory")?.value;
-
+function loadSubCategories(
+    categoryId,
+    selected = ""
+){
 
     const select =
         $("#productSubCategory");
 
-
-    if (!select) return;
-
-
-    select.innerHTML = `
-
-        <option value="">
-            Sub-category নির্বাচন করুন
-        </option>
-
-    `;
+    if(!select) return;
 
 
     const category =
         categories.find(
             item =>
-                normalizeId(item.id) ===
-                normalizeId(categoryId)
+                String(item.id) ===
+                String(categoryId)
         );
 
 
-    if (
+    select.innerHTML = `
+
+<option value="">
+    সাব-ক্যাটাগরি নির্বাচন করুন
+</option>
+
+`;
+
+
+    if(
         !category ||
         !Array.isArray(
             category.subCategories
         )
-    ) {
+    ){
 
         return;
 
     }
 
 
-    category.subCategories
-        .forEach(
-            function (sub) {
+    category.subCategories.forEach(
+        sub => {
 
-                select.innerHTML += `
+            const option =
+                document.createElement(
+                    "option"
+                );
 
-                    <option
-                        value="${sub.id}"
-                    >
 
-                        ${
-                            sub.icon ||
-                            "📦"
-                        }
+            option.value =
+                sub.id;
 
-                        ${
-                            sub.name ||
-                            sub.id
-                        }
 
-                    </option>
+            option.textContent =
+                `${sub.icon || "📦"} ${sub.name}`;
 
-                `;
+
+            if(
+                String(sub.id) ===
+                String(selected)
+            ){
+
+                option.selected =
+                    true;
 
             }
-        );
+
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
 
 }
+
+
+/* ==========================================================
+   CATEGORY CHANGE
+========================================================== */
+
+$("#productCategory")
+    .addEventListener(
+        "change",
+        function(){
+
+            loadSubCategories(
+                this.value
+            );
+
+        }
+    );
+
+
+/* ==========================================================
+   IMAGE ROW
+========================================================== */
+
+function addImageRow(
+    value = ""
+){
+
+    const list =
+        $("#imageList");
+
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+
+    row.className =
+        "image-row";
+
+
+    row.innerHTML = `
+
+<input
+    type="text"
+    class="product-image"
+    placeholder="images/product.jpg"
+    value="${value}"
+>
+
+<button
+    type="button"
+    class="remove-image"
+>
+    ×
+</button>
+
+`;
+
+
+    list.appendChild(
+        row
+    );
+
+
+    row.querySelector(
+        ".remove-image"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            const rows =
+                list.querySelectorAll(
+                    ".image-row"
+                );
+
+
+            if(rows.length <= 1){
+
+                row.querySelector(
+                    "input"
+                ).value = "";
+
+                return;
+
+            }
+
+
+            row.remove();
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   ADD IMAGE BUTTON
+========================================================== */
+
+$("#addImageBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            addImageRow();
+
+        }
+    );
+
+
+/* ==========================================================
+   REMOVE FIRST IMAGE BUTTON
+========================================================== */
+
+document.addEventListener(
+    "click",
+    function(e){
+
+        if(
+            !e.target.classList.contains(
+                "remove-image"
+            )
+        ){
+
+            return;
+
+        }
+
+
+        const row =
+            e.target.closest(
+                ".image-row"
+            );
+
+
+        if(!row) return;
+
+
+        const rows =
+            document.querySelectorAll(
+                ".image-row"
+            );
+
+
+        if(rows.length <= 1){
+
+            row.querySelector(
+                "input"
+            ).value = "";
+
+        }
+        else{
+
+            row.remove();
+
+        }
+
+    }
+);
 
 
 /* ==========================================================
    LOAD PRODUCTS
 ========================================================== */
 
-async function loadProducts() {
+async function loadProducts(){
 
-    try {
+    try{
 
         const response =
             await fetch(
@@ -1925,7 +1170,7 @@ async function loadProducts() {
             );
 
 
-        if (!response.ok) {
+        if(!response.ok){
 
             throw new Error(
                 "Product load failed"
@@ -1947,61 +1192,28 @@ async function loadProducts() {
         renderProducts();
 
     }
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
 
-        showStatus(
-            "❌ Product লোড করা যায়নি।",
-            "error"
-        );
+        $("#productsTableBody")
+            .innerHTML = `
 
+<tr>
 
-        const list =
-            $("#productList");
+<td
+    colspan="7"
+    class="empty"
+>
+    ❌ products.json লোড করা যায়নি।
+</td>
 
+</tr>
 
-        if (list) {
-
-            list.innerHTML = `
-
-                <div class="empty-state">
-
-                    <i
-                        class="fa-solid fa-triangle-exclamation"
-                    ></i>
-
-                    <p>
-                        Product data পাওয়া যায়নি।
-                    </p>
-
-                </div>
-
-            `;
-
-        }
+`;
 
     }
-
-}
-
-
-/* ==========================================================
-   FIND CATEGORY
-========================================================== */
-
-function getCategory(categoryId) {
-
-    return categories.find(
-        category =>
-            normalizeId(
-                category.id
-            ) ===
-            normalizeId(
-                categoryId
-            )
-    );
 
 }
 
@@ -2010,16 +1222,20 @@ function getCategory(categoryId) {
    CATEGORY NAME
 ========================================================== */
 
-function getCategoryName(categoryId) {
+function getCategoryName(
+    categoryId
+){
 
     const category =
-        getCategory(
-            categoryId
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(categoryId)
         );
 
 
     return category
-        ? category.name
+        ? `${category.icon || "📂"} ${category.name}`
         : categoryId || "-";
 
 }
@@ -2031,42 +1247,37 @@ function getCategoryName(categoryId) {
 
 function getSubCategoryName(
     categoryId,
-    subCategoryId
-) {
+    subId
+){
 
     const category =
-        getCategory(
-            categoryId
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(categoryId)
         );
 
 
-    if (
-        !category ||
-        !Array.isArray(
-            category.subCategories
-        )
-    ) {
-
-        return subCategoryId || "";
-
-    }
+    if(!category) return subId || "-";
 
 
     const sub =
+        Array.isArray(
+            category.subCategories
+        )
+        ?
         category.subCategories.find(
             item =>
-                normalizeId(
-                    item.id
-                ) ===
-                normalizeId(
-                    subCategoryId
-                )
-        );
+                String(item.id) ===
+                String(subId)
+        )
+        :
+        null;
 
 
     return sub
-        ? sub.name
-        : subCategoryId || "";
+        ? `${sub.icon || "📦"} ${sub.name}`
+        : subId || "-";
 
 }
 
@@ -2075,438 +1286,176 @@ function getSubCategoryName(
    RENDER PRODUCTS
 ========================================================== */
 
-function renderProducts() {
+function renderProducts(){
 
-    const list =
-        $("#productList");
-
-
-    if (!list) return;
+    const tbody =
+        $("#productsTableBody");
 
 
-    const keyword =
-        $("#productSearch")
-            ?.value
-            .trim()
-            .toLowerCase() || "";
+    if(!products.length){
 
+        tbody.innerHTML = `
 
-    const categoryFilter =
-        $("#listCategoryFilter")
-            ?.value ||
-        "all";
+<tr>
 
+<td
+    colspan="7"
+    class="empty"
+>
+    📦 এখনো কোনো পণ্য নেই।
+</td>
 
-    let filtered =
-        products.filter(
-            function (product) {
+</tr>
 
-                const name =
-                    String(
-                        product.name || ""
-                    ).toLowerCase();
-
-
-                const description =
-                    String(
-                        product.description || ""
-                    ).toLowerCase();
-
-
-                const categoryName =
-                    String(
-                        product.categoryName || ""
-                    ).toLowerCase();
-
-
-                const matchesSearch =
-                    !keyword ||
-                    name.includes(keyword) ||
-                    description.includes(keyword) ||
-                    categoryName.includes(keyword);
-
-
-                const matchesCategory =
-                    categoryFilter === "all" ||
-                    normalizeId(
-                        product.category
-                    ) ===
-                    normalizeId(
-                        categoryFilter
-                    );
-
-
-                return (
-                    matchesSearch &&
-                    matchesCategory
-                );
-
-            }
-        );
-
-
-    const count =
-        $("#productCount");
-
-
-    if (count) {
-
-        count.textContent =
-            `${filtered.length} Product`;
-
-    }
-
-
-    if (!filtered.length) {
-
-        list.innerHTML = `
-
-            <div class="empty-state">
-
-                <i
-                    class="fa-solid fa-box-open"
-                ></i>
-
-                <p>
-                    কোনো Product পাওয়া যায়নি।
-                </p>
-
-            </div>
-
-        `;
+`;
 
         return;
 
     }
 
 
-    list.innerHTML =
-        filtered
-            .map(
-                function (product) {
-
-                    const image =
-                        normalizeImagePath(
-                            product.image ||
-                            product.gallery?.[0] ||
-                            ""
-                        );
-
-
-                    const categoryName =
-                        product.categoryName ||
-                        getCategoryName(
-                            product.category
-                        );
-
-
-                    const subName =
-                        product.subCategoryName ||
-                        getSubCategoryName(
-                            product.category,
-                            product.subCategory
-                        );
-
-
-                    return `
-
-                        <article
-                            class="product-item"
-                        >
-
-                            <div
-                                class="product-image"
-                            >
-
-                                ${
-                                    image
-                                    ?
-
-                                    `
-
-                                    <img
-                                        src="${image}"
-                                        alt="${product.name || "Product"}"
-                                        loading="lazy"
-                                        onerror="
-                                            this.style.display='none';
-                                            this.parentElement.innerHTML='<div class=&quot;no-image&quot;>🌱</div>';
-                                        "
-                                    >
-
-                                    `
-
-                                    :
-
-                                    `
-
-                                    <div
-                                        class="no-image"
-                                    >
-
-                                        🌱
-
-                                    </div>
-
-                                    `
-
-                                }
-
-                            </div>
-
-
-                            <div
-                                class="product-body"
-                            >
-
-                                <h3>
-                                    ${
-                                        product.name ||
-                                        "Product"
-                                    }
-                                </h3>
-
-
-                                <span
-                                    class="product-category"
-                                >
-
-                                    📂
-                                    ${categoryName}
-
-                                    ${
-                                        subName
-                                        ?
-                                        `
-                                        /
-                                        ${subName}
-                                        `
-                                        :
-                                        ""
-                                    }
-
-                                </span>
-
-
-                                <div>
-
-                                    <span
-                                        class="product-price"
-                                    >
-
-                                        ৳
-                                        ${
-                                            Number(
-                                                product.price || 0
-                                            )
-                                            .toLocaleString(
-                                                "en-BD"
-                                            )
-                                        }
-
-                                    </span>
-
-
-                                    ${
-                                        Number(
-                                            product.oldPrice || 0
-                                        )
-                                        >
-                                        Number(
-                                            product.price || 0
-                                        )
-                                        ?
-                                        `
-
-                                        <span
-                                            class="product-old-price"
-                                        >
-
-                                            ৳
-                                            ${
-                                                Number(
-                                                    product.oldPrice
-                                                )
-                                                .toLocaleString(
-                                                    "en-BD"
-                                                )
-                                            }
-
-                                        </span>
-
-                                        `
-                                        :
-                                        ""
-                                    }
-
-                                </div>
-
-
-                                <div
-                                    class="product-meta"
-                                >
-
-                                    ${
-                                        product.stock
-                                        ?
-                                        `
-                                        <span
-                                            class="meta-chip"
-                                        >
-
-                                            🟢
-                                            ${product.stock}
-
-                                        </span>
-                                        `
-                                        :
-                                        ""
-                                    }
-
-
-                                    ${
-                                        product.weight
-                                        ?
-                                        `
-                                        <span
-                                            class="meta-chip"
-                                        >
-
-                                            ⚖️
-                                            ${product.weight}
-
-                                        </span>
-                                        `
-                                        :
-                                        ""
-                                    }
-
-
-                                    ${
-                                        product.offer
-                                        ?
-                                        `
-                                        <span
-                                            class="meta-chip"
-                                        >
-
-                                            🔥 Offer
-
-                                        </span>
-                                        `
-                                        :
-                                        ""
-                                    }
-
-
-                                    ${
-                                        product.newArrival
-                                        ?
-                                        `
-                                        <span
-                                            class="meta-chip"
-                                        >
-
-                                            🆕 New
-
-                                        </span>
-                                        `
-                                        :
-                                        ""
-                                    }
-
-
-                                    ${
-                                        product.bestSeller
-                                        ?
-                                        `
-                                        <span
-                                            class="meta-chip"
-                                        >
-
-                                            ⭐ Best
-
-                                        </span>
-                                        `
-                                        :
-                                        ""
-                                    }
-
-                                </div>
-
-
-                                <div
-                                    class="product-actions"
-                                >
-
-                                    <button
-                                        type="button"
-                                        class="edit-product"
-                                        data-edit-product="${product.id}"
-                                    >
-
-                                        <i
-                                            class="fa-solid fa-pen"
-                                        ></i>
-
-                                        Edit
-
-                                    </button>
-
-
-                                    <button
-                                        type="button"
-                                        class="delete-product"
-                                        data-delete-product="${product.id}"
-                                    >
-
-                                        <i
-                                            class="fa-solid fa-trash"
-                                        ></i>
-
-                                        Delete
-
-                                    </button>
-
-                                </div>
-
-                            </div>
-
-                        </article>
-
-                    `;
-
-                }
-            )
-            .join("");
-
-
-    initProductActions();
-
+    tbody.innerHTML = "";
+
+
+    products.forEach(
+        product => {
+
+            const firstImage =
+                Array.isArray(
+                    product.gallery
+                ) &&
+                product.gallery.length
+                ?
+                product.gallery[0]
+                :
+                "";
+
+
+            tbody.innerHTML += `
+
+<tr>
+
+<td>
+
+${
+    firstImage
+    ?
+    `
+<img
+    src="../${firstImage}"
+    class="product-thumb"
+    alt="${product.name || ""}"
+    onerror="this.style.display='none'"
+>
+`
+    :
+    "🌱"
 }
 
+</td>
 
-/* ==========================================================
-   PRODUCT ACTIONS
-========================================================== */
 
-function initProductActions() {
+<td>
+
+<strong>
+    ${product.name || "-"}
+</strong>
+
+<br>
+
+<small>
+    ${product.sku || ""}
+</small>
+
+</td>
+
+
+<td>
+
+<span class="category-badge">
+
+${getCategoryName(
+    product.category
+)}
+
+</span>
+
+</td>
+
+
+<td>
+
+${getSubCategoryName(
+    product.category,
+    product.subCategory
+)}
+
+</td>
+
+
+<td>
+
+<strong>
+    ৳${Number(
+        product.price || 0
+    ).toLocaleString("en-BD")}
+</strong>
+
+</td>
+
+
+<td>
+    ${product.stock || "স্টকে আছে"}
+</td>
+
+
+<td>
+
+<div class="actions">
+
+<button
+    type="button"
+    class="btn btn-primary btn-small edit-product"
+    data-id="${product.id}"
+>
+    ✏️ Edit
+</button>
+
+
+<button
+    type="button"
+    class="btn btn-danger btn-small delete-product"
+    data-id="${product.id}"
+>
+    🗑 Delete
+</button>
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+        }
+    );
+
 
     document
         .querySelectorAll(
-            "[data-edit-product]"
+            ".edit-product"
         )
         .forEach(
             button => {
 
                 button.onclick =
-                    function () {
-
+                    () =>
                         editProduct(
-                            button.dataset.editProduct
+                            Number(
+                                button.dataset.id
+                            )
                         );
-
-                    };
 
             }
         );
@@ -2514,19 +1463,18 @@ function initProductActions() {
 
     document
         .querySelectorAll(
-            "[data-delete-product]"
+            ".delete-product"
         )
         .forEach(
             button => {
 
                 button.onclick =
-                    function () {
-
+                    () =>
                         deleteProduct(
-                            button.dataset.deleteProduct
+                            Number(
+                                button.dataset.id
+                            )
                         );
-
-                    };
 
             }
         );
@@ -2538,20 +1486,29 @@ function initProductActions() {
    EDIT PRODUCT
 ========================================================== */
 
-function editProduct(id) {
+function editProduct(id){
 
     const product =
         products.find(
             item =>
-                String(item.id) ===
-                String(id)
+                Number(item.id) ===
+                Number(id)
         );
 
 
-    if (!product) return;
+    if(!product){
+
+        showStatus(
+            "❌ পণ্য পাওয়া যায়নি।",
+            "error"
+        );
+
+        return;
+
+    }
 
 
-    editingProductId =
+    $("#productId").value =
         product.id;
 
 
@@ -2559,19 +1516,9 @@ function editProduct(id) {
         product.name || "";
 
 
-    $("#productCategory").value =
-        product.category || "";
-
-
-    renderSubCategories();
-
-
-    $("#productSubCategory").value =
-        product.subCategory || "";
-
-
-    $("#productType").value =
-        product.type || "";
+    $("#productBrand").value =
+        product.brand ||
+        "Maliha Agro Industry";
 
 
     $("#productPrice").value =
@@ -2590,54 +1537,85 @@ function editProduct(id) {
         product.weight || "";
 
 
+    $("#productSku").value =
+        product.sku || "";
+
+
     $("#productRating").value =
         product.rating || 5;
-
-
-    $("#productImage").value =
-        product.image ||
-        product.gallery?.[0] ||
-        "";
 
 
     $("#productDescription").value =
         product.description || "";
 
 
-    $("#productSku").value =
-        product.sku || "";
-
-
     $("#productOffer").checked =
-        Boolean(
-            product.offer
-        );
+        Boolean(product.offer);
 
 
     $("#productNew").checked =
-        Boolean(
-            product.newArrival
-        );
+        Boolean(product.newArrival);
 
 
     $("#productBest").checked =
-        Boolean(
-            product.bestSeller
+        Boolean(product.bestSeller);
+
+
+    $("#productCategory").value =
+        product.category || "";
+
+
+    loadSubCategories(
+        product.category,
+        product.subCategory
+    );
+
+
+    $("#imageList").innerHTML = "";
+
+
+    const gallery =
+        Array.isArray(
+            product.gallery
+        )
+        ?
+        product.gallery
+        :
+        [];
+
+
+    if(gallery.length){
+
+        gallery.forEach(
+            image =>
+                addImageRow(
+                    image
+                )
         );
 
+    }
+    else{
 
-    updateImagePreview();
+        addImageRow();
+
+    }
 
 
-    $("#submitProduct").innerHTML = `
+    $("#formTitle").innerHTML = `
 
-        <i
-            class="fa-solid fa-floppy-disk"
-        ></i>
+<i class="fa-solid fa-pen"></i>
+পণ্য Edit করুন
 
-        Product আপডেট করুন
+`;
 
-    `;
+
+    $("#saveButtonText").textContent =
+        "পরিবর্তন সংরক্ষণ করুন";
+
+
+    $("#cancelEditBtn")
+        .classList
+        .remove("hidden");
 
 
     window.scrollTo({
@@ -2652,272 +1630,242 @@ function editProduct(id) {
 
 
 /* ==========================================================
-   DELETE PRODUCT
+   CANCEL EDIT
 ========================================================== */
 
-function deleteProduct(id) {
+$("#cancelEditBtn")
+    .addEventListener(
+        "click",
+        resetForm
+    );
 
-    const product =
-        products.find(
+
+/* ==========================================================
+   RESET FORM
+========================================================== */
+
+function resetForm(){
+
+    $("#productForm").reset();
+
+
+    $("#productId").value =
+        "";
+
+
+    $("#productBrand").value =
+        "Maliha Agro Industry";
+
+
+    $("#productRating").value =
+        "5";
+
+
+    $("#imageList").innerHTML =
+        "";
+
+
+    addImageRow();
+
+
+    $("#productSubCategory").innerHTML = `
+
+<option value="">
+    সাব-ক্যাটাগরি নির্বাচন করুন
+</option>
+
+`;
+
+
+    $("#formTitle").innerHTML = `
+
+<i class="fa-solid fa-plus"></i>
+নতুন পণ্য যোগ করুন
+
+`;
+
+
+    $("#saveButtonText").textContent =
+        "পণ্য সংরক্ষণ করুন";
+
+
+    $("#cancelEditBtn")
+        .classList
+        .add("hidden");
+
+}
+
+
+/* ==========================================================
+   CREATE PRODUCT OBJECT
+========================================================== */
+
+function getFormProduct(){
+
+    const categoryId =
+        $("#productCategory").value;
+
+
+    const subCategoryId =
+        $("#productSubCategory").value;
+
+
+    const category =
+        categories.find(
             item =>
                 String(item.id) ===
-                String(id)
+                String(categoryId)
         );
 
 
-    if (!product) return;
-
-
-    const confirmed =
-        window.confirm(
-            `"${product.name}" Product কি Delete করবেন?`
-        );
-
-
-    if (!confirmed) return;
-
-
-    products =
-        products.filter(
+    const subCategory =
+        category &&
+        Array.isArray(
+            category.subCategories
+        )
+        ?
+        category.subCategories.find(
             item =>
-                String(item.id) !==
-                String(id)
-        );
+                String(item.id) ===
+                String(subCategoryId)
+        )
+        :
+        null;
 
 
-    renderProducts();
-
-
-    showStatus(
-        "✅ Product তালিকা থেকে বাদ দেওয়া হয়েছে।",
-        "success"
-    );
-
-
-    /*
-       Static JSON browser থেকে permanent update করা যাবে না।
-       Backend/API পর্বে database-এ save হবে।
-    */
-
-}
-
-
-/* ==========================================================
-   GENERATE PRODUCT ID
-========================================================== */
-
-function generateProductId() {
-
-    if (!products.length) {
-
-        return 1;
-
-    }
-
-
-    return (
-        Math.max(
-            ...products.map(
-                product =>
-                    Number(
-                        product.id
-                    ) || 0
+    const gallery =
+        Array.from(
+            document.querySelectorAll(
+                ".product-image"
             )
         )
-        + 1
-    );
+        .map(
+            input =>
+                input.value.trim()
+        )
+        .filter(Boolean);
+
+
+    const id =
+        $("#productId").value
+        ?
+        Number(
+            $("#productId").value
+        )
+        :
+        (
+            products.length
+            ?
+            Math.max(
+                ...products.map(
+                    p =>
+                        Number(p.id) || 0
+                )
+            ) + 1
+            :
+            1
+        );
+
+
+    return {
+
+        id,
+
+        name:
+            $("#productName").value.trim(),
+
+        brand:
+            $("#productBrand").value.trim() ||
+            "Maliha Agro Industry",
+
+        category:
+            categoryId,
+
+        categoryName:
+            category?.name || "",
+
+        categoryIcon:
+            category?.icon || "📂",
+
+        subCategory:
+            subCategoryId,
+
+        subCategoryName:
+            subCategory?.name || "",
+
+        subCategoryIcon:
+            subCategory?.icon || "📦",
+
+        price:
+            Number(
+                $("#productPrice").value
+            ) || 0,
+
+        oldPrice:
+            Number(
+                $("#productOldPrice").value
+            ) || 0,
+
+        stock:
+            $("#productStock").value.trim() ||
+            "স্টকে আছে",
+
+        weight:
+            $("#productWeight").value.trim(),
+
+        sku:
+            $("#productSku").value.trim(),
+
+        rating:
+            Number(
+                $("#productRating").value
+            ) || 5,
+
+        description:
+            $("#productDescription")
+                .value
+                .trim(),
+
+        gallery,
+
+        offer:
+            $("#productOffer").checked,
+
+        newArrival:
+            $("#productNew").checked
+            ? 1
+            : 0,
+
+        bestSeller:
+            $("#productBest").checked
+            ? 1
+            : 0
+
+    };
 
 }
 
 
 /* ==========================================================
-   IMAGE PREVIEW
+   SAVE PRODUCT
 ========================================================== */
 
-function updateImagePreview() {
-
-    const value =
-        $("#productImage")
-            ?.value
-            .trim();
-
-
-    const preview =
-        $("#imagePreview");
-
-
-    const image =
-        $("#previewImage");
-
-
-    if (
-        !preview ||
-        !image
-    ) {
-
-        return;
-
-    }
-
-
-    if (!value) {
-
-        preview.classList.remove(
-            "show"
-        );
-
-        image.src = "";
-
-        return;
-
-    }
-
-
-    const src =
-        normalizeImagePath(
-            value
-        );
-
-
-    image.src =
-        src;
-
-
-    image.onload =
-        function () {
-
-            preview.classList.add(
-                "show"
-            );
-
-        };
-
-
-    image.onerror =
-        function () {
-
-            preview.classList.remove(
-                "show"
-            );
-
-        };
-
-}
-
-
-/* ==========================================================
-   PRODUCT FORM
-========================================================== */
-
-const productForm =
-    $("#productForm");
-
-
-if (productForm) {
-
-    productForm.addEventListener(
+$("#productForm")
+    .addEventListener(
         "submit",
-        function (event) {
+        async function(e){
 
-            event.preventDefault();
-
-
-            const name =
-                $("#productName")
-                    .value
-                    .trim();
+            e.preventDefault();
 
 
-            const category =
-                $("#productCategory")
-                    .value
-                    .trim();
+            const product =
+                getFormProduct();
 
 
-            const subCategory =
-                $("#productSubCategory")
-                    .value
-                    .trim();
-
-
-            const type =
-                $("#productType")
-                    .value
-                    .trim();
-
-
-            const price =
-                Number(
-                    $("#productPrice")
-                        .value
-                );
-
-
-            const oldPrice =
-                Number(
-                    $("#productOldPrice")
-                        .value
-                ) || 0;
-
-
-            const stock =
-                $("#productStock")
-                    .value
-                    .trim();
-
-
-            const weight =
-                $("#productWeight")
-                    .value
-                    .trim();
-
-
-            const rating =
-                Number(
-                    $("#productRating")
-                        .value
-                ) || 0;
-
-
-            const image =
-                normalizeImagePath(
-                    $("#productImage")
-                        .value
-                        .trim()
-                );
-
-
-            const description =
-                $("#productDescription")
-                    .value
-                    .trim();
-
-
-            const sku =
-                $("#productSku")
-                    .value
-                    .trim();
-
-
-            const offer =
-                $("#productOffer")
-                    .checked;
-
-
-            const newArrival =
-                $("#productNew")
-                    .checked;
-
-
-            const bestSeller =
-                $("#productBest")
-                    .checked;
-
-
-            if (!name) {
+            if(!product.name){
 
                 showStatus(
-                    "❌ Product Name লিখুন।",
+                    "❌ পণ্যের নাম দিন।",
                     "error"
                 );
 
@@ -2926,10 +1874,10 @@ if (productForm) {
             }
 
 
-            if (!category) {
+            if(!product.category){
 
                 showStatus(
-                    "❌ Main Category নির্বাচন করুন।",
+                    "❌ প্রধান ক্যাটাগরি নির্বাচন করুন।",
                     "error"
                 );
 
@@ -2938,10 +1886,12 @@ if (productForm) {
             }
 
 
-            if (
-                !Number.isFinite(price) ||
-                price < 0
-            ) {
+            if(
+                !Number.isFinite(
+                    product.price
+                ) ||
+                product.price < 0
+            ){
 
                 showStatus(
                     "❌ সঠিক মূল্য দিন।",
@@ -2953,370 +1903,182 @@ if (productForm) {
             }
 
 
-            const categoryObject =
-                getCategory(
-                    category
+            const existingIndex =
+                products.findIndex(
+                    item =>
+                        Number(item.id) ===
+                        Number(product.id)
                 );
 
 
-            const categoryName =
-                categoryObject
-                ? categoryObject.name
-                : category;
+            if(
+                existingIndex >= 0
+            ){
 
-
-            const subCategoryName =
-                getSubCategoryName(
-                    category,
-                    subCategory
-                );
-
-
-            /* ==================================================
-               EDIT
-            ================================================== */
-
-            if (
-                editingProductId !== null
-            ) {
-
-                const product =
-                    products.find(
-                        item =>
-                            String(
-                                item.id
-                            ) ===
-                            String(
-                                editingProductId
-                            )
-                    );
-
-
-                if (product) {
-
-                    product.name =
-                        name;
-
-                    product.category =
-                        category;
-
-                    product.categoryName =
-                        categoryName;
-
-                    product.subCategory =
-                        subCategory;
-
-                    product.subCategoryName =
-                        subCategoryName;
-
-                    product.type =
-                        type;
-
-                    product.price =
-                        price;
-
-                    product.oldPrice =
-                        oldPrice;
-
-                    product.stock =
-                        stock;
-
-                    product.weight =
-                        weight;
-
-                    product.rating =
-                        rating;
-
-                    product.image =
-                        image;
-
-                    product.gallery =
-                        image
-                        ? [image]
-                        : [];
-
-                    product.description =
-                        description;
-
-                    product.sku =
-                        sku;
-
-                    product.offer =
-                        offer;
-
-                    product.newArrival =
-                        newArrival
-                        ? 1
-                        : 0;
-
-                    product.bestSeller =
-                        bestSeller
-                        ? 1
-                        : 0;
-
-                }
-
-
-                showStatus(
-                    "✅ Product আপডেট হয়েছে।",
-                    "success"
-                );
+                products[
+                    existingIndex
+                ] =
+                    product;
 
             }
-
-
-            /* ==================================================
-               NEW PRODUCT
-            ================================================== */
-
-            else {
-
-                const product = {
-
-                    id:
-                        generateProductId(),
-
-                    name:
-                        name,
-
-                    category:
-                        category,
-
-                    categoryName:
-                        categoryName,
-
-                    subCategory:
-                        subCategory,
-
-                    subCategoryName:
-                        subCategoryName,
-
-                    type:
-                        type,
-
-                    price:
-                        price,
-
-                    oldPrice:
-                        oldPrice,
-
-                    stock:
-                        stock ||
-                        "স্টকে আছে",
-
-                    weight:
-                        weight,
-
-                    rating:
-                        rating,
-
-                    image:
-                        image,
-
-                    gallery:
-                        image
-                        ? [image]
-                        : [],
-
-                    description:
-                        description,
-
-                    sku:
-                        sku,
-
-                    offer:
-                        offer,
-
-                    newArrival:
-                        newArrival
-                        ? 1
-                        : 0,
-
-                    bestSeller:
-                        bestSeller
-                        ? 1
-                        : 0
-
-                };
-
+            else{
 
                 products.push(
                     product
                 );
 
-
-                showStatus(
-                    "✅ নতুন Product যোগ হয়েছে।",
-                    "success"
-                );
-
             }
 
 
-            resetProductForm();
+            /*
+               গুরুত্বপূর্ণ:
+
+               GitHub Pages / Static Website
+               থেকে সরাসরি JSON file write
+               করা যায় না।
+
+               তাই আপাতত নতুন data
+               browser localStorage-এ রাখা হচ্ছে।
+            */
+
+
+            localStorage.setItem(
+                "maliha_admin_products",
+                JSON.stringify(
+                    products
+                )
+            );
+
+
+            showStatus(
+                existingIndex >= 0
+                ?
+                "✅ পণ্যের পরিবর্তন সংরক্ষণ হয়েছে।"
+                :
+                "✅ নতুন পণ্য সংরক্ষণ হয়েছে।"
+            );
+
 
             renderProducts();
+
+            resetForm();
 
         }
     );
 
-}
-
 
 /* ==========================================================
-   RESET PRODUCT FORM
+   DELETE PRODUCT
 ========================================================== */
 
-function resetProductForm() {
+function deleteProduct(id){
 
-    editingProductId =
-        null;
-
-
-    if (productForm) {
-
-        productForm.reset();
-
-    }
-
-
-    $("#productRating").value =
-        5;
-
-
-    $("#productSubCategory").innerHTML = `
-
-        <option value="">
-            Sub-category নির্বাচন করুন
-        </option>
-
-    `;
-
-
-    $("#imagePreview")
-        ?.classList
-        .remove(
-            "show"
+    const product =
+        products.find(
+            item =>
+                Number(item.id) ===
+                Number(id)
         );
 
 
-    $("#previewImage").src =
-        "";
+    if(!product) return;
 
 
-    $("#submitProduct").innerHTML = `
+    const confirmed =
+        confirm(
+            `“${product.name}” পণ্যটি মুছে ফেলতে চান?`
+        );
 
-        <i
-            class="fa-solid fa-plus"
-        ></i>
 
-        Product যোগ করুন
+    if(!confirmed) return;
 
-    `;
+
+    products =
+        products.filter(
+            item =>
+                Number(item.id) !==
+                Number(id)
+        );
+
+
+    localStorage.setItem(
+        "maliha_admin_products",
+        JSON.stringify(
+            products
+        )
+    );
+
+
+    renderProducts();
+
+
+    showStatus(
+        "🗑 পণ্য মুছে ফেলা হয়েছে।"
+    );
 
 }
 
 
 /* ==========================================================
-   CATEGORY CHANGE
+   LOAD LOCAL ADMIN PRODUCTS
 ========================================================== */
 
-$("#productCategory")
-    ?.addEventListener(
-        "change",
-        function () {
+function loadLocalProducts(){
 
-            renderSubCategories();
+    try{
 
-        }
-    );
-
-
-/* ==========================================================
-   IMAGE INPUT
-========================================================== */
-
-$("#productImage")
-    ?.addEventListener(
-        "input",
-        function () {
-
-            updateImagePreview();
-
-        }
-    );
-
-
-/* ==========================================================
-   SEARCH
-========================================================== */
-
-$("#productSearch")
-    ?.addEventListener(
-        "input",
-        function () {
-
-            renderProducts();
-
-        }
-    );
-
-
-/* ==========================================================
-   CATEGORY FILTER
-========================================================== */
-
-$("#listCategoryFilter")
-    ?.addEventListener(
-        "change",
-        function () {
-
-            renderProducts();
-
-        }
-    );
-
-
-/* ==========================================================
-   RESET
-========================================================== */
-
-$("#resetProduct")
-    ?.addEventListener(
-        "click",
-        function () {
-
-            setTimeout(
-                function () {
-
-                    resetProductForm();
-
-                },
-                0
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "maliha_admin_products"
+                ) || "null"
             );
 
+
+        if(
+            Array.isArray(saved)
+        ){
+
+            products =
+                saved;
+
         }
-    );
+
+    }
+    catch(error){
+
+        console.error(
+            "Local product data error:",
+            error
+        );
+
+    }
+
+}
 
 
 /* ==========================================================
-   INITIALIZE
+   INIT
 ========================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
-    async function () {
+    async function(){
 
         await loadCategories();
 
         await loadProducts();
+
+        loadLocalProducts();
+
+        renderProducts();
+
+        addImageRow();
 
     }
 );
 
 </script>
 
-
 </body>
-
 </html>
