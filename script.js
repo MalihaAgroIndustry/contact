@@ -2,19 +2,22 @@
 
 /* ==========================================================
    MALIHA AGRO INDUSTRY
-   PRODUCTS SYSTEM — COMPLETE VERSION
+   DYNAMIC PRODUCT SYSTEM
+   ==========================================================
 
-   Supports:
-   - Dynamic Main Category
-   - Dynamic Sub Category
-   - Search
-   - Sort
-   - Wishlist
-   - Product Gallery
-   - Product Details
-   - WhatsApp Order
-   - Related Products
-   - Future Admin Panel / API Ready
+   Features:
+   ✅ Dynamic Main Category
+   ✅ Dynamic Sub Category
+   ✅ Admin/API Ready
+   ✅ Product Search
+   ✅ Product Sort
+   ✅ Wishlist
+   ✅ Product Gallery
+   ✅ Product Details
+   ✅ WhatsApp Order
+   ✅ Related Products
+   ✅ Dynamic Category Name
+   ✅ Future Admin Panel Ready
 ========================================================== */
 
 
@@ -22,23 +25,18 @@
    GLOBAL VARIABLES
 ========================================================== */
 
-let wishlist =
-    JSON.parse(
-        localStorage.getItem("wishlist") || "[]"
-    )
+let wishlist = JSON.parse(
+    localStorage.getItem("wishlist") || "[]"
+)
     .map(Number)
     .filter(Number.isFinite);
 
 let products = [];
-
 let categories = [];
-
 let currentProduct = null;
 
 let deferredPrompt = null;
-
 let homeSliderTimers = [];
-
 let detailSliderIndex = 0;
 
 
@@ -46,30 +44,26 @@ let detailSliderIndex = 0;
    SHORTCUTS
 ========================================================== */
 
-const $ = selector =>
+const $ = (selector) =>
     document.querySelector(selector);
 
-const $$ = selector =>
+const $$ = (selector) =>
     document.querySelectorAll(selector);
 
 
 /* ==========================================================
-   CONFIGURATION
+   SITE CONFIG
 ========================================================== */
 
 const SITE_CONFIG = {
 
-    companyName:
-        "Maliha Agro Industry",
+    companyName: "Maliha Agro Industry",
 
-    whatsapp:
-        "8801303679189",
+    whatsapp: "8801303679189",
 
-    productAPI:
-        "data/products.json",
+    productAPI: "data/products.json",
 
-    categoryAPI:
-        "data/categories.json"
+    categoryAPI: "data/categories.json"
 
 };
 
@@ -78,11 +72,11 @@ const SITE_CONFIG = {
    PRICE FORMAT
 ========================================================== */
 
-function formatPrice(price){
+function formatPrice(price) {
 
     return "৳" +
         Number(price || 0)
-        .toLocaleString("en-BD");
+            .toLocaleString("en-BD");
 
 }
 
@@ -91,7 +85,7 @@ function formatPrice(price){
    PRODUCT ID
 ========================================================== */
 
-function getProductId(){
+function getProductId() {
 
     return Number(
         new URLSearchParams(
@@ -106,69 +100,44 @@ function getProductId(){
    IMAGE PATH
 ========================================================== */
 
-function imagePath(path){
+function imagePath(path) {
 
-    if(!path) return "";
+    if (!path) return "";
 
-    let src =
-        String(path)
+    let src = String(path)
         .trim()
         .replace(/\\/g, "/");
 
-
-    if(
+    if (
         /^https?:\/\//i.test(src) ||
         src.startsWith("data:")
-    ){
-
+    ) {
         return src;
-
     }
 
+    src = src.replace(
+        /^(\.\.\/)+images\//i,
+        "images/"
+    );
 
-    src =
-        src.replace(
-            /^(\.\.\/)+images\//i,
-            "images/"
-        );
+    src = src.replace(
+        /^\.\/images\//i,
+        "images/"
+    );
 
-
-    src =
-        src.replace(
-            /^\.\/images\//i,
-            "images/"
-        );
-
-
-    if(
-        src.startsWith("/images/")
-    ){
-
+    if (src.startsWith("/images/")) {
         return src.substring(1);
-
     }
 
-
-    if(
-        src.startsWith("images/")
-    ){
-
+    if (src.startsWith("images/")) {
         return src;
-
     }
 
-
-    if(
-        !src.includes("/")
-    ){
-
+    if (!src.includes("/")) {
         return "images/" + src;
-
     }
-
 
     return src;
-
 }
 
 
@@ -176,38 +145,33 @@ function imagePath(path){
    PRODUCT GALLERY
 ========================================================== */
 
-function getGallery(product){
+function getGallery(product) {
 
-    if(
+    if (
         !product ||
         !Array.isArray(product.gallery)
-    ){
-
+    ) {
         return [];
-
     }
-
 
     return product.gallery
         .map(imagePath)
         .filter(Boolean);
-
 }
 
 
 /* ==========================================================
-   NORMALIZE CATEGORY
+   NORMALIZE TEXT / CATEGORY ID
 ========================================================== */
 
-function normalizeCategory(category){
+function normalizeCategory(value) {
 
-    if(!category) return "";
+    if (!value) return "";
 
-    return String(category)
+    return String(value)
         .trim()
         .toLowerCase()
         .replace(/\s+/g, "-");
-
 }
 
 
@@ -215,14 +179,13 @@ function normalizeCategory(category){
    NORMALIZE PRODUCT
 ========================================================== */
 
-function normalizeProduct(product){
+function normalizeProduct(product) {
 
     return {
 
         ...product,
 
-        id:
-            Number(product.id),
+        id: Number(product.id),
 
         category:
             normalizeCategory(
@@ -260,10 +223,84 @@ function normalizeProduct(product){
 
 
 /* ==========================================================
+   NORMALIZE CATEGORY DATA
+========================================================== */
+
+function normalizeCategoryData(category) {
+
+    if (!category) return null;
+
+    const mainId =
+        normalizeCategory(
+            category.id ||
+            category.slug ||
+            category.name
+        );
+
+    const subCategories =
+        Array.isArray(
+            category.subCategories
+        )
+            ? category.subCategories
+            : Array.isArray(
+                category.subcategories
+            )
+                ? category.subcategories
+                : [];
+
+    return {
+
+        ...category,
+
+        id: mainId,
+
+        name:
+            category.name ||
+            mainId,
+
+        icon:
+            category.icon ||
+            "📂",
+
+        subCategories:
+            subCategories
+                .map(function (sub) {
+
+                    return {
+
+                        ...sub,
+
+                        id:
+                            normalizeCategory(
+                                sub.id ||
+                                sub.slug ||
+                                sub.name
+                            ),
+
+                        name:
+                            sub.name ||
+                            sub.id ||
+                            "সাব-ক্যাটাগরি",
+
+                        icon:
+                            sub.icon ||
+                            "📦"
+
+                    };
+
+                })
+                .filter(Boolean)
+
+    };
+
+}
+
+
+/* ==========================================================
    FETCH PRODUCTS
 ========================================================== */
 
-async function fetchProducts(){
+async function fetchProducts() {
 
     const response =
         await fetch(
@@ -273,8 +310,7 @@ async function fetchProducts(){
             }
         );
 
-
-    if(!response.ok){
+    if (!response.ok) {
 
         throw new Error(
             "Products API failed"
@@ -282,25 +318,26 @@ async function fetchProducts(){
 
     }
 
-
     const data =
         await response.json();
 
-
-    if(!Array.isArray(data)){
+    if (!Array.isArray(data)) {
 
         throw new Error(
-            "Products data must be an array"
+            "products.json must contain an array"
         );
 
     }
 
-
     products =
-        data.map(
-            normalizeProduct
-        );
-
+        data
+            .map(normalizeProduct)
+            .filter(
+                product =>
+                    Number.isFinite(
+                        product.id
+                    )
+            );
 
     return products;
 
@@ -311,9 +348,9 @@ async function fetchProducts(){
    FETCH CATEGORIES
 ========================================================== */
 
-async function fetchCategories(){
+async function fetchCategories() {
 
-    try{
+    try {
 
         const response =
             await fetch(
@@ -323,10 +360,7 @@ async function fetchCategories(){
                 }
             );
 
-
-        if(
-            !response.ok
-        ){
+        if (!response.ok) {
 
             throw new Error(
                 "Category API failed"
@@ -334,27 +368,27 @@ async function fetchCategories(){
 
         }
 
-
         const data =
             await response.json();
 
-
-        if(
-            Array.isArray(data)
-        ){
+        if (Array.isArray(data)) {
 
             categories =
-                data;
+                data
+                    .map(
+                        normalizeCategoryData
+                    )
+                    .filter(Boolean);
 
         }
-        else{
+        else {
 
             categories = [];
 
         }
 
     }
-    catch(error){
+    catch (error) {
 
         console.warn(
             "categories.json পাওয়া যায়নি। Product data থেকে category তৈরি করা হবে।"
@@ -363,7 +397,6 @@ async function fetchCategories(){
         categories = [];
 
     }
-
 
     return categories;
 
@@ -374,14 +407,13 @@ async function fetchCategories(){
    ENSURE PRODUCTS
 ========================================================== */
 
-async function ensureProductsLoaded(){
+async function ensureProductsLoaded() {
 
-    if(products.length){
+    if (products.length) {
 
         return products;
 
     }
-
 
     return await fetchProducts();
 
@@ -389,24 +421,23 @@ async function ensureProductsLoaded(){
 
 
 /* ==========================================================
-   BUILD CATEGORIES FROM PRODUCTS
-   FALLBACK FOR FUTURE ADMIN DATA
+   BUILD CATEGORY FROM PRODUCT DATA
+   FALLBACK ONLY
 ========================================================== */
 
-function buildCategoriesFromProducts(){
+function buildCategoriesFromProducts() {
 
     const map = {};
 
-
     products.forEach(
-        function(product){
+        function (product) {
 
             const main =
-                product.category ||
-                "other";
+                normalizeCategory(
+                    product.category
+                ) || "other";
 
-
-            if(!map[main]){
+            if (!map[main]) {
 
                 map[main] = {
 
@@ -426,12 +457,12 @@ function buildCategoriesFromProducts(){
 
             }
 
-
             const sub =
-                product.subCategory;
+                normalizeCategory(
+                    product.subCategory
+                );
 
-
-            if(
+            if (
                 sub &&
                 !map[main]
                     .subCategories
@@ -439,7 +470,7 @@ function buildCategoriesFromProducts(){
                         item =>
                             item.id === sub
                     )
-            ){
+            ) {
 
                 map[main]
                     .subCategories
@@ -462,7 +493,6 @@ function buildCategoriesFromProducts(){
         }
     );
 
-
     categories =
         Object.values(map);
 
@@ -470,29 +500,26 @@ function buildCategoriesFromProducts(){
 
 
 /* ==========================================================
-   LOAD CATEGORY DATA
+   ENSURE CATEGORIES
 ========================================================== */
 
-async function ensureCategoriesLoaded(){
+async function ensureCategoriesLoaded() {
 
-    if(categories.length){
+    if (categories.length) {
 
         return categories;
 
     }
 
-
     await ensureProductsLoaded();
 
     await fetchCategories();
 
-
-    if(!categories.length){
+    if (!categories.length) {
 
         buildCategoriesFromProducts();
 
     }
-
 
     return categories;
 
@@ -503,77 +530,202 @@ async function ensureCategoriesLoaded(){
    FIND CATEGORY
 ========================================================== */
 
-function findCategory(id){
+function findCategory(id) {
+
+    const normalizedId =
+        normalizeCategory(id);
 
     return categories.find(
         category =>
             normalizeCategory(
                 category.id
-            ) ===
-            normalizeCategory(id)
+            ) === normalizedId
     );
 
 }
 
 
 /* ==========================================================
-   CREATE CATEGORY BUTTONS
+   FIND SUB CATEGORY
 ========================================================== */
 
-async function renderCategoryButtons(){
+function findSubCategory(
+    categoryId,
+    subCategoryId
+) {
+
+    const category =
+        findCategory(categoryId);
+
+    if (
+        !category ||
+        !Array.isArray(
+            category.subCategories
+        )
+    ) {
+
+        return null;
+
+    }
+
+    return category.subCategories.find(
+        sub =>
+            normalizeCategory(
+                sub.id
+            ) ===
+            normalizeCategory(
+                subCategoryId
+            )
+    ) || null;
+
+}
+
+
+/* ==========================================================
+   CATEGORY INFO
+========================================================== */
+
+function updateCategoryInfo(
+    categoryId,
+    subCategoryId = "all"
+) {
+
+    const info =
+        $("#categoryInfo");
+
+    if (!info) return;
+
+    if (
+        !categoryId ||
+        categoryId === "all"
+    ) {
+
+        info.textContent = "";
+
+        info.classList.remove(
+            "show"
+        );
+
+        return;
+
+    }
+
+    const category =
+        findCategory(categoryId);
+
+    if (!category) {
+
+        info.textContent = "";
+
+        info.classList.remove(
+            "show"
+        );
+
+        return;
+
+    }
+
+    if (
+        subCategoryId &&
+        subCategoryId !== "all"
+    ) {
+
+        const sub =
+            findSubCategory(
+                categoryId,
+                subCategoryId
+            );
+
+        info.textContent =
+            `📂 ${category.name} → ${sub?.name || subCategoryId}`;
+
+    }
+    else {
+
+        info.textContent =
+            `📂 নির্বাচিত ক্যাটাগরি: ${category.name}`;
+
+    }
+
+    info.classList.add(
+        "show"
+    );
+
+}
+
+
+/* ==========================================================
+   RENDER MAIN CATEGORIES
+========================================================== */
+
+async function renderCategoryButtons() {
 
     const wrapper =
+        $("#mainCategoryButtons") ||
         $(".products-category-buttons");
 
-    if(!wrapper) return;
-
+    if (!wrapper) return;
 
     await ensureCategoriesLoaded();
 
-
     wrapper.innerHTML = "";
 
+    /* ALL PRODUCTS */
 
-    /* ALL */
+    const allButton =
+        document.createElement(
+            "button"
+        );
 
-    wrapper.innerHTML += `
+    allButton.type = "button";
 
-<button
-    type="button"
-    class="filter-btn active"
-    data-category="all"
-    data-subcategory="all"
->
+    allButton.className =
+        "filter-btn active";
 
-    🛍️ সব পণ্য
+    allButton.dataset.category =
+        "all";
 
-</button>
+    allButton.dataset.subcategory =
+        "all";
 
-`;
+    allButton.textContent =
+        "🛍️ সব পণ্য";
 
+    wrapper.appendChild(
+        allButton
+    );
+
+
+    /* DYNAMIC CATEGORIES */
 
     categories.forEach(
-        function(category){
+        function (category) {
 
-            wrapper.innerHTML += `
+            const button =
+                document.createElement(
+                    "button"
+                );
 
-<button
-    type="button"
-    class="filter-btn main-category-btn"
-    data-category="${category.id}"
-    data-subcategory="all"
->
+            button.type = "button";
 
-    ${category.icon || "📂"}
-    ${category.name}
+            button.className =
+                "filter-btn main-category-btn";
 
-</button>
+            button.dataset.category =
+                category.id;
 
-`;
+            button.dataset.subcategory =
+                "all";
+
+            button.textContent =
+                `${category.icon || "📂"} ${category.name}`;
+
+            wrapper.appendChild(
+                button
+            );
 
         }
     );
-
 
     initCategoryFilter();
 
@@ -581,126 +733,152 @@ async function renderCategoryButtons(){
 
 
 /* ==========================================================
-   CREATE SUB CATEGORY AREA
+   RENDER SUB CATEGORY
 ========================================================== */
 
-function renderSubCategories(categoryId){
+function renderSubCategories(
+    categoryId
+) {
+
+    const area =
+        $("#subCategoryArea");
 
     const wrapper =
         $("#subCategoryButtons");
 
-    if(!wrapper) return;
-
+    if (
+        !area ||
+        !wrapper
+    ) {
+        return;
+    }
 
     wrapper.innerHTML = "";
 
+    area.classList.remove(
+        "show"
+    );
 
-    if(
+    if (
         !categoryId ||
         categoryId === "all"
-    ){
+    ) {
+
+        updateCategoryInfo(
+            "all",
+            "all"
+        );
 
         return;
 
     }
-
 
     const category =
         findCategory(
             categoryId
         );
 
-
-    if(
+    if (
         !category ||
         !Array.isArray(
             category.subCategories
         ) ||
         !category.subCategories.length
-    ){
+    ) {
+
+        updateCategoryInfo(
+            categoryId,
+            "all"
+        );
 
         return;
 
     }
 
 
+    area.classList.add(
+        "show"
+    );
+
+
     wrapper.innerHTML = `
 
 <div class="subcategory-title">
-
-    📦 ${category.name}-এর পণ্য
-
+    📦 ${escapeHTML(category.name)}-এর পণ্য
 </div>
 
 <div class="subcategory-buttons">
 
-<button
-    type="button"
-    class="sub-filter-btn active"
-    data-category="${category.id}"
-    data-subcategory="all"
->
+    <button
+        type="button"
+        class="sub-filter-btn active"
+        data-category="${escapeAttribute(category.id)}"
+        data-subcategory="all"
+    >
+        সব
+    </button>
 
-    সব
+    ${
+        category.subCategories
+            .map(
+                function (sub) {
 
-</button>
-
-${
-    category.subCategories
-        .map(
-            function(sub){
-
-                return `
+                    return `
 
 <button
     type="button"
     class="sub-filter-btn"
-    data-category="${category.id}"
-    data-subcategory="${sub.id}"
+    data-category="${escapeAttribute(category.id)}"
+    data-subcategory="${escapeAttribute(sub.id)}"
 >
 
     ${sub.icon || "📦"}
-    ${sub.name}
+    ${escapeHTML(sub.name)}
 
 </button>
 
 `;
 
-            }
-        )
-        .join("")
-}
+                }
+            )
+            .join("")
+    }
 
 </div>
 
 `;
 
 
-    $$(".sub-filter-btn")
+    wrapper
+        .querySelectorAll(
+            ".sub-filter-btn"
+        )
         .forEach(
-            function(btn){
+            function (button) {
 
-                btn.addEventListener(
+                button.addEventListener(
                     "click",
-                    function(){
+                    function () {
 
-                        $$(".sub-filter-btn")
+                        wrapper
+                            .querySelectorAll(
+                                ".sub-filter-btn"
+                            )
                             .forEach(
-                                b =>
-                                    b.classList.remove(
-                                        "active"
-                                    )
+                                btn =>
+                                    btn.classList
+                                        .remove(
+                                            "active"
+                                        )
                             );
 
-
-                        btn.classList.add(
+                        button.classList.add(
                             "active"
                         );
 
-
                         loadProducts(
-                            btn.dataset.category,
-                            btn.dataset.subcategory
+                            button.dataset.category,
+                            button.dataset.subcategory
                         );
 
                     }
@@ -708,6 +886,58 @@ ${
 
             }
         );
+
+
+    updateCategoryInfo(
+        categoryId,
+        "all"
+    );
+
+}
+
+
+/* ==========================================================
+   ESCAPE HTML
+========================================================== */
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* ==========================================================
+   ESCAPE ATTRIBUTE
+========================================================== */
+
+function escapeAttribute(value) {
+
+    return escapeHTML(
+        value
+    );
 
 }
 
@@ -719,15 +949,14 @@ ${
 async function loadProducts(
     category = "all",
     subCategory = "all"
-){
+) {
 
     const productList =
         $("#productList");
 
-    if(!productList) return;
+    if (!productList) return;
 
-
-    try{
+    try {
 
         await ensureProductsLoaded();
 
@@ -735,42 +964,37 @@ async function loadProducts(
         const searchInput =
             $("#searchProduct");
 
-
         const keyword =
             searchInput
-            ? searchInput.value
-                .trim()
-                .toLowerCase()
-            : "";
+                ? searchInput.value
+                    .trim()
+                    .toLowerCase()
+                : "";
 
 
         let filtered =
             products.filter(
-                function(product){
+                function (product) {
 
                     const name =
                         String(
                             product.name || ""
                         ).toLowerCase();
 
-
                     const type =
                         String(
                             product.type || ""
                         ).toLowerCase();
-
 
                     const description =
                         String(
                             product.description || ""
                         ).toLowerCase();
 
-
                     const categoryName =
                         String(
                             product.categoryName || ""
                         ).toLowerCase();
-
 
                     const subCategoryName =
                         String(
@@ -799,6 +1023,7 @@ async function loadProducts(
 
 
                     const matchSearch =
+                        !keyword ||
                         name.includes(keyword) ||
                         type.includes(keyword) ||
                         description.includes(keyword) ||
@@ -823,19 +1048,18 @@ async function loadProducts(
         const sortSelect =
             $("#sortProducts");
 
-
         const sort =
             sortSelect
-            ? sortSelect.value
-            : "default";
+                ? sortSelect.value
+                : "default";
 
 
-        switch(sort){
+        switch (sort) {
 
             case "low-high":
 
                 filtered.sort(
-                    (a,b) =>
+                    (a, b) =>
                         a.price - b.price
                 );
 
@@ -845,7 +1069,7 @@ async function loadProducts(
             case "high-low":
 
                 filtered.sort(
-                    (a,b) =>
+                    (a, b) =>
                         b.price - a.price
                 );
 
@@ -855,7 +1079,7 @@ async function loadProducts(
             case "new":
 
                 filtered.sort(
-                    (a,b) =>
+                    (a, b) =>
                         b.newArrival -
                         a.newArrival
                 );
@@ -866,7 +1090,7 @@ async function loadProducts(
             case "best":
 
                 filtered.sort(
-                    (a,b) =>
+                    (a, b) =>
                         b.bestSeller -
                         a.bestSeller
                 );
@@ -877,7 +1101,7 @@ async function loadProducts(
             default:
 
                 filtered.sort(
-                    (a,b) =>
+                    (a, b) =>
                         a.id - b.id
                 );
 
@@ -891,9 +1115,7 @@ async function loadProducts(
            NO PRODUCT
         ================================================== */
 
-        if(
-            filtered.length === 0
-        ){
+        if (!filtered.length) {
 
             productList.innerHTML = `
 
@@ -911,6 +1133,11 @@ async function loadProducts(
 
 `;
 
+            updateCategoryInfo(
+                category,
+                subCategory
+            );
+
             return;
 
         }
@@ -921,16 +1148,12 @@ async function loadProducts(
         ================================================== */
 
         filtered.forEach(
-            function(product){
+            function (product) {
 
                 const gallery =
-                    getGallery(product);
-
-
-                const firstImage =
-                    gallery.length
-                    ? gallery[0]
-                    : "";
+                    getGallery(
+                        product
+                    );
 
 
                 productList.innerHTML += `
@@ -942,12 +1165,12 @@ async function loadProducts(
 
 ${
     product.offer
-    ? `
+        ? `
 <span class="offer-badge">
     🔥 অফার
 </span>
 `
-    : ""
+        : ""
 }
 
 
@@ -967,43 +1190,37 @@ ${
 
 ${
     gallery.length
-    ?
-    gallery
-        .map(
-            function(img,index){
+        ? gallery
+            .map(
+                function (img, index) {
 
-                return `
+                    return `
 
 <img
-    src="${img}"
+    src="${escapeAttribute(img)}"
     class="product-img ${
         index === 0
-        ? "active"
-        : ""
+            ? "active"
+            : ""
     }"
-    alt="${product.name || ""}"
+    alt="${escapeAttribute(product.name || "পণ্য")}"
     loading="${
         index === 0
-        ? "eager"
-        : "lazy"
+            ? "eager"
+            : "lazy"
     }"
     onerror="this.style.display='none';"
 >
 
 `;
 
-            }
-        )
-        .join("")
-    :
-    `
+                }
+            )
+            .join("")
+        : `
 
-<div
-    class="no-product-image"
->
-
+<div class="no-product-image">
     🌱
-
 </div>
 
 `
@@ -1013,8 +1230,36 @@ ${
 
 
 <h3>
-    ${product.name || "পণ্য"}
+    ${escapeHTML(
+        product.name || "পণ্য"
+    )}
 </h3>
+
+
+${
+    product.categoryName
+        ? `
+<span class="product-category">
+    📂 ${escapeHTML(
+        product.categoryName
+    )}
+</span>
+`
+        : ""
+}
+
+
+${
+    product.subCategoryName
+        ? `
+<span class="product-category">
+    📁 ${escapeHTML(
+        product.subCategoryName
+    )}
+</span>
+`
+        : ""
+}
 
 
 <p class="rating">
@@ -1027,44 +1272,47 @@ ${
 
 ${
     product.oldPrice > product.price
-    ?
-    `
-
+        ? `
 <p class="old-price">
-
-    ${formatPrice(product.oldPrice)}
-
+    ${formatPrice(
+        product.oldPrice
+    )}
 </p>
-
 `
-    :
-    ""
+        : ""
 }
 
 
 <p class="price">
 
-    ${formatPrice(product.price)}
+    ${formatPrice(
+        product.price
+    )}
 
 </p>
 
 
 <span class="stock">
 
-    🟢 ${product.stock || "স্টকে আছে"}
+    🟢 ${escapeHTML(
+        product.stock ||
+        "স্টকে আছে"
+    )}
 
 </span>
 
 
 <p>
 
-    ${product.description || ""}
+    ${escapeHTML(
+        product.description || ""
+    )}
 
 </p>
 
 
 <a
-    href="product.html?id=${product.id}"
+    href="product.html?id=${encodeURIComponent(product.id)}"
     class="btn"
 >
 
@@ -1080,6 +1328,11 @@ ${
         );
 
 
+        updateCategoryInfo(
+            category,
+            subCategory
+        );
+
         initWishlist();
 
         startHomeSlider();
@@ -1087,7 +1340,7 @@ ${
         initImagePreview();
 
     }
-    catch(error){
+    catch (error) {
 
         console.error(
             "Product Load Error:",
@@ -1120,33 +1373,29 @@ ${
    SEARCH
 ========================================================== */
 
-function initSearch(){
+function initSearch() {
 
     const input =
         $("#searchProduct");
 
-    if(!input) return;
-
+    if (!input) return;
 
     input.addEventListener(
         "input",
-        function(){
+        function () {
 
             const active =
                 $(".filter-btn.active");
 
-
             const category =
                 active
-                ? active.dataset.category
-                : "all";
-
+                    ? active.dataset.category
+                    : "all";
 
             const sub =
                 $(".sub-filter-btn.active")
-                ?.dataset.subcategory ||
+                    ?.dataset.subcategory ||
                 "all";
-
 
             loadProducts(
                 category,
@@ -1163,31 +1412,31 @@ function initSearch(){
    CATEGORY FILTER
 ========================================================== */
 
-function initCategoryFilter(){
+function initCategoryFilter() {
 
     $$(".filter-btn")
         .forEach(
-            function(btn){
+            function (button) {
 
-                btn.onclick =
-                    function(){
+                button.onclick =
+                    function () {
 
                         $$(".filter-btn")
                             .forEach(
-                                b =>
-                                    b.classList.remove(
-                                        "active"
-                                    )
+                                btn =>
+                                    btn.classList
+                                        .remove(
+                                            "active"
+                                        )
                             );
 
-
-                        btn.classList.add(
+                        button.classList.add(
                             "active"
                         );
 
 
                         const category =
-                            btn.dataset.category;
+                            button.dataset.category;
 
 
                         renderSubCategories(
@@ -1212,33 +1461,29 @@ function initCategoryFilter(){
    SORT
 ========================================================== */
 
-function initSort(){
+function initSort() {
 
     const select =
         $("#sortProducts");
 
-    if(!select) return;
-
+    if (!select) return;
 
     select.addEventListener(
         "change",
-        function(){
+        function () {
 
             const active =
                 $(".filter-btn.active");
 
-
             const category =
                 active
-                ? active.dataset.category
-                : "all";
-
+                    ? active.dataset.category
+                    : "all";
 
             const sub =
                 $(".sub-filter-btn.active")
-                ?.dataset.subcategory ||
+                    ?.dataset.subcategory ||
                 "all";
-
 
             loadProducts(
                 category,
@@ -1255,22 +1500,19 @@ function initSort(){
    PRODUCT DETAILS
 ========================================================== */
 
-async function loadProductDetails(){
+async function loadProductDetails() {
 
     const slider =
         $("#productSlider");
 
-    if(!slider) return;
+    if (!slider) return;
 
-
-    try{
+    try {
 
         const id =
             getProductId();
 
-
         await ensureProductsLoaded();
-
 
         currentProduct =
             products.find(
@@ -1279,13 +1521,12 @@ async function loadProductDetails(){
             );
 
 
-        if(!currentProduct){
+        if (!currentProduct) {
 
             const gallery =
                 $(".product-gallery");
 
-
-            if(gallery){
+            if (gallery) {
 
                 gallery.innerHTML = `
 
@@ -1299,9 +1540,7 @@ async function loadProductDetails(){
         href="products.html"
         class="btn"
     >
-
         📦 সকল পণ্য দেখুন
-
     </a>
 
 </div>
@@ -1326,11 +1565,11 @@ async function loadProductDetails(){
 
             "#productBrand":
                 currentProduct.brand ||
-                "Maliha Agro Industry",
+                SITE_CONFIG.companyName,
 
             "#productBrandInfo":
                 currentProduct.brand ||
-                "Maliha Agro Industry",
+                SITE_CONFIG.companyName,
 
             "#productRating":
                 `(${currentProduct.rating || 0})`,
@@ -1365,13 +1604,12 @@ async function loadProductDetails(){
 
         Object.entries(fields)
             .forEach(
-                function([selector,value]){
+                function ([selector, value]) {
 
                     const element =
                         $(selector);
 
-
-                    if(element){
+                    if (element) {
 
                         element.textContent =
                             value;
@@ -1385,8 +1623,7 @@ async function loadProductDetails(){
         const stock =
             $("#productStock");
 
-
-        if(stock){
+        if (stock) {
 
             stock.textContent =
                 "🟢 " +
@@ -1405,28 +1642,23 @@ async function loadProductDetails(){
         const price =
             currentProduct.price;
 
-
         const oldPrice =
             currentProduct.oldPrice;
-
 
         const priceElement =
             $("#productPrice");
 
-
         const oldPriceElement =
             $("#productOldPrice");
 
-
         const discountElement =
             $("#productDiscount");
-
 
         const reviewElement =
             $("#productReview");
 
 
-        if(priceElement){
+        if (priceElement) {
 
             priceElement.textContent =
                 formatPrice(price);
@@ -1434,11 +1666,9 @@ async function loadProductDetails(){
         }
 
 
-        if(oldPriceElement){
+        if (oldPriceElement) {
 
-            if(
-                oldPrice > price
-            ){
+            if (oldPrice > price) {
 
                 oldPriceElement.textContent =
                     formatPrice(oldPrice);
@@ -1447,7 +1677,7 @@ async function loadProductDetails(){
                     "inline";
 
             }
-            else{
+            else {
 
                 oldPriceElement.style.display =
                     "none";
@@ -1457,21 +1687,23 @@ async function loadProductDetails(){
         }
 
 
-        if(discountElement){
+        if (discountElement) {
 
-            if(
+            if (
                 oldPrice > price &&
                 price > 0
-            ){
+            ) {
 
                 const discount =
                     Math.round(
                         (
-                            (oldPrice - price) /
+                            (
+                                oldPrice -
+                                price
+                            ) /
                             oldPrice
                         ) * 100
                     );
-
 
                 discountElement.textContent =
                     discount + "% OFF";
@@ -1480,7 +1712,7 @@ async function loadProductDetails(){
                     "inline-block";
 
             }
-            else{
+            else {
 
                 discountElement.style.display =
                     "none";
@@ -1490,7 +1722,7 @@ async function loadProductDetails(){
         }
 
 
-        if(reviewElement){
+        if (reviewElement) {
 
             reviewElement.textContent =
                 `(${currentProduct.rating || 0} Reviews)`;
@@ -1507,17 +1739,17 @@ async function loadProductDetails(){
                 currentProduct
             );
 
-
         slider.innerHTML = "";
 
 
-        if(!gallery.length){
+        if (!gallery.length) {
 
             slider.innerHTML = `
 
 <div class="no-image">
 
     🌱
+
     <p>
         এই পণ্যের ছবি পাওয়া যায়নি।
     </p>
@@ -1527,49 +1759,43 @@ async function loadProductDetails(){
 `;
 
         }
-        else{
+        else {
 
             gallery.forEach(
-                function(src,index){
+                function (src, index) {
 
                     const img =
                         document.createElement(
                             "img"
                         );
 
-
                     img.src =
                         src;
-
 
                     img.alt =
                         currentProduct.name ||
                         SITE_CONFIG.companyName;
 
-
                     img.className =
                         "product-img" +
                         (
                             index === 0
-                            ? " active"
-                            : ""
+                                ? " active"
+                                : ""
                         );
-
 
                     img.loading =
                         index === 0
-                        ? "eager"
-                        : "lazy";
-
+                            ? "eager"
+                            : "lazy";
 
                     img.onerror =
-                        function(){
+                        function () {
 
                             this.style.display =
                                 "none";
 
                         };
-
 
                     slider.appendChild(
                         img
@@ -1594,7 +1820,7 @@ async function loadProductDetails(){
         loadRelatedProducts();
 
     }
-    catch(error){
+    catch (error) {
 
         console.error(
             "Product Details Error:",
@@ -1610,12 +1836,12 @@ async function loadProductDetails(){
    DETAIL GALLERY
 ========================================================== */
 
-function initDetailGallery(){
+function initDetailGallery() {
 
     const slider =
         $("#productSlider");
 
-    if(!slider) return;
+    if (!slider) return;
 
 
     const images =
@@ -1623,22 +1849,19 @@ function initDetailGallery(){
             ".product-img"
         );
 
-
     const prev =
         $("#prevImage");
 
-
     const next =
         $("#nextImage");
-
 
     const counter =
         $("#sliderCounter");
 
 
-    if(!images.length){
+    if (!images.length) {
 
-        if(counter){
+        if (counter) {
 
             counter.textContent =
                 "0 / 0";
@@ -1650,19 +1873,19 @@ function initDetailGallery(){
     }
 
 
-    function showImage(index){
+    function showImage(index) {
 
-        if(index < 0){
+        if (index < 0) {
 
             index =
                 images.length - 1;
 
         }
 
-
-        if(
-            index >= images.length
-        ){
+        if (
+            index >=
+            images.length
+        ) {
 
             index = 0;
 
@@ -1671,14 +1894,16 @@ function initDetailGallery(){
 
         images.forEach(
             img =>
-                img.classList.remove(
-                    "active"
-                )
+                img.classList
+                    .remove(
+                        "active"
+                    )
         );
 
 
         images[index]
-            .classList.add(
+            .classList
+            .add(
                 "active"
             );
 
@@ -1687,7 +1912,7 @@ function initDetailGallery(){
             index;
 
 
-        if(counter){
+        if (counter) {
 
             counter.textContent =
                 `${index + 1} / ${images.length}`;
@@ -1700,7 +1925,7 @@ function initDetailGallery(){
     detailSliderIndex = 0;
 
 
-    if(prev){
+    if (prev) {
 
         prev.onclick =
             () =>
@@ -1711,7 +1936,7 @@ function initDetailGallery(){
     }
 
 
-    if(next){
+    if (next) {
 
         next.onclick =
             () =>
@@ -1723,23 +1948,21 @@ function initDetailGallery(){
 
 
     images.forEach(
-        function(img){
+        function (img) {
 
             img.onclick =
-                function(){
+                function () {
 
                     const modal =
                         $("#imageModal");
 
-
                     const modalImage =
                         $("#modalImage");
 
-
-                    if(
+                    if (
                         modal &&
                         modalImage
-                    ){
+                    ) {
 
                         modalImage.src =
                             img.src;
@@ -1764,31 +1987,28 @@ function initDetailGallery(){
    QUANTITY
 ========================================================== */
 
-function initQuantity(){
+function initQuantity() {
 
     const qtyInput =
         $("#qty");
 
-
     const total =
         $("#totalPrice");
 
-
     const plus =
         $("#plusQty");
-
 
     const minus =
         $("#minusQty");
 
 
-    if(
+    if (
         !qtyInput ||
         !total ||
         !plus ||
         !minus ||
         !currentProduct
-    ){
+    ) {
 
         return;
 
@@ -1796,28 +2016,28 @@ function initQuantity(){
 
 
     let qty =
-        Number(qtyInput.value) || 1;
+        Number(
+            qtyInput.value
+        ) || 1;
 
 
-    if(qty < 1){
+    if (qty < 1) {
 
         qty = 1;
 
     }
 
 
-    function update(){
+    function update() {
 
         qtyInput.value =
             qty;
-
 
         total.textContent =
             formatPrice(
                 currentProduct.price *
                 qty
             );
-
 
         updateOrderLink(
             qty
@@ -1827,7 +2047,7 @@ function initQuantity(){
 
 
     plus.onclick =
-        function(){
+        function () {
 
             qty++;
 
@@ -1837,9 +2057,9 @@ function initQuantity(){
 
 
     minus.onclick =
-        function(){
+        function () {
 
-            if(qty > 1){
+            if (qty > 1) {
 
                 qty--;
 
@@ -1851,20 +2071,18 @@ function initQuantity(){
 
 
     qtyInput.oninput =
-        function(){
+        function () {
 
             qty =
                 Number(
                     qtyInput.value
                 ) || 1;
 
-
-            if(qty < 1){
+            if (qty < 1) {
 
                 qty = 1;
 
             }
-
 
             update();
 
@@ -1880,17 +2098,14 @@ function initQuantity(){
    ORDER BUTTON
 ========================================================== */
 
-function initOrderButton(){
+function initOrderButton() {
 
-    if(!currentProduct) return;
-
+    if (!currentProduct) return;
 
     const button =
         $("#orderNow");
 
-
-    if(!button) return;
-
+    if (!button) return;
 
     updateOrderLink(1);
 
@@ -1898,19 +2113,18 @@ function initOrderButton(){
 
 
 /* ==========================================================
-   UPDATE ORDER
+   UPDATE WHATSAPP ORDER
 ========================================================== */
 
-function updateOrderLink(qty){
+function updateOrderLink(qty) {
 
     const button =
         $("#orderNow");
 
-
-    if(
+    if (
         !button ||
         !currentProduct
-    ){
+    ) {
 
         return;
 
@@ -1921,7 +2135,6 @@ function updateOrderLink(qty){
         Number(
             currentProduct.price || 0
         );
-
 
     const total =
         price * qty;
@@ -1948,6 +2161,9 @@ ${formatPrice(total)}
 📂 ক্যাটাগরি:
 ${currentProduct.categoryName || currentProduct.category || "-"}
 
+📁 সাব-ক্যাটাগরি:
+${currentProduct.subCategoryName || currentProduct.subCategory || "-"}
+
 🔗 পণ্যের লিংক:
 ${window.location.href}`;
 
@@ -1960,10 +2176,8 @@ ${window.location.href}`;
             message
         );
 
-
     button.target =
         "_blank";
-
 
     button.rel =
         "noopener noreferrer";
@@ -1975,98 +2189,93 @@ ${window.location.href}`;
    SHARE PRODUCT
 ========================================================== */
 
-function initShareProductButtons(){
+function initShareProductButtons() {
 
     [
-
         $("#shareProduct"),
         $("#shareProductBtn")
-
     ]
-    .forEach(
-        function(button){
+        .forEach(
+            function (button) {
 
-            if(!button) return;
+                if (!button) return;
 
+                button.onclick =
+                    async function () {
 
-            button.onclick =
-                async function(){
+                        if (!currentProduct)
+                            return;
 
-                    if(!currentProduct)
-                        return;
+                        const shareData = {
 
+                            title:
+                                currentProduct.name,
 
-                    const shareData = {
+                            text:
+                                currentProduct.description ||
+                                SITE_CONFIG.companyName,
 
-                        title:
-                            currentProduct.name,
+                            url:
+                                window.location.href
 
-                        text:
-                            currentProduct.description ||
-                            SITE_CONFIG.companyName,
-
-                        url:
-                            window.location.href
-
-                    };
+                        };
 
 
-                    if(
-                        navigator.share
-                    ){
+                        if (
+                            navigator.share
+                        ) {
 
-                        try{
+                            try {
 
-                            await navigator.share(
-                                shareData
-                            );
+                                await navigator.share(
+                                    shareData
+                                );
+
+                            }
+                            catch (error) {
+
+                                if (
+                                    error.name !==
+                                    "AbortError"
+                                ) {
+
+                                    console.error(
+                                        error
+                                    );
+
+                                }
+
+                            }
 
                         }
-                        catch(error){
+                        else {
 
-                            if(
-                                error.name !==
-                                "AbortError"
-                            ){
+                            try {
 
-                                console.error(
-                                    error
+                                await navigator.clipboard
+                                    .writeText(
+                                        window.location.href
+                                    );
+
+                                alert(
+                                    "✅ লিংক কপি হয়েছে"
+                                );
+
+                            }
+                            catch (error) {
+
+                                alert(
+                                    "❌ লিংক কপি করা যায়নি"
                                 );
 
                             }
 
                         }
 
-                    }
-                    else{
+                    };
 
-                        try{
-
-                            await navigator.clipboard
-                                .writeText(
-                                    window.location.href
-                                );
-
-
-                            alert(
-                                "✅ লিংক কপি হয়েছে"
-                            );
-
-                        }
-                        catch(error){
-
-                            alert(
-                                "❌ লিংক কপি করা যায়নি"
-                            );
-
-                        }
-
-                    }
-
-                };
-
-        }
-    );
+            }
+        );
 
 }
 
@@ -2075,14 +2284,12 @@ function initShareProductButtons(){
    WISHLIST COUNTER
 ========================================================== */
 
-function updateWishlistCounter(){
+function updateWishlistCounter() {
 
     const counter =
         $("#wishlistCounter");
 
-
-    if(!counter) return;
-
+    if (!counter) return;
 
     counter.textContent =
         `❤️ Wishlist (${wishlist.length})`;
@@ -2094,17 +2301,16 @@ function updateWishlistCounter(){
    INIT WISHLIST
 ========================================================== */
 
-function initWishlist(){
+function initWishlist() {
 
     $$(".wishlist-btn")
         .forEach(
-            function(button){
+            function (button) {
 
                 const id =
                     Number(
                         button.dataset.id
                     );
-
 
                 const active =
                     wishlist.includes(id);
@@ -2112,8 +2318,8 @@ function initWishlist(){
 
                 button.textContent =
                     active
-                    ? "❤️"
-                    : "🤍";
+                        ? "❤️"
+                        : "🤍";
 
 
                 button.classList.toggle(
@@ -2123,7 +2329,7 @@ function initWishlist(){
 
 
                 button.onclick =
-                    function(){
+                    function () {
 
                         toggleWishlist(
                             id
@@ -2144,15 +2350,15 @@ function initWishlist(){
    TOGGLE WISHLIST
 ========================================================== */
 
-function toggleWishlist(id){
+function toggleWishlist(id) {
 
     id =
         Number(id);
 
 
-    if(
+    if (
         wishlist.includes(id)
-    ){
+    ) {
 
         wishlist =
             wishlist.filter(
@@ -2161,7 +2367,7 @@ function toggleWishlist(id){
             );
 
     }
-    else{
+    else {
 
         wishlist.push(id);
 
@@ -2186,12 +2392,12 @@ function toggleWishlist(id){
 
 
 /* ==========================================================
-   PRODUCT DETAIL WISHLIST
+   DETAIL WISHLIST
 ========================================================== */
 
-function initProductWishlist(){
+function initProductWishlist() {
 
-    if(!currentProduct)
+    if (!currentProduct)
         return;
 
 
@@ -2202,44 +2408,42 @@ function initProductWishlist(){
 
 
     [
-
         $("#wishlistBtn"),
         $("#wishlistProduct")
-
     ]
-    .forEach(
-        function(button){
+        .forEach(
+            function (button) {
 
-            if(!button) return;
-
-
-            const active =
-                wishlist.includes(id);
+                if (!button) return;
 
 
-            button.textContent =
-                active
-                ? "❤️ Wishlist"
-                : "🤍 Wishlist";
+                const active =
+                    wishlist.includes(id);
 
 
-            button.classList.toggle(
-                "active",
-                active
-            );
+                button.textContent =
+                    active
+                        ? "❤️ Wishlist"
+                        : "🤍 Wishlist";
 
 
-            button.onclick =
-                function(){
+                button.classList.toggle(
+                    "active",
+                    active
+                );
 
-                    toggleWishlist(
-                        id
-                    );
 
-                };
+                button.onclick =
+                    function () {
 
-        }
-    );
+                        toggleWishlist(
+                            id
+                        );
+
+                    };
+
+            }
+        );
 
 }
 
@@ -2248,16 +2452,15 @@ function initProductWishlist(){
    WISHLIST PAGE
 ========================================================== */
 
-async function loadWishlistPage(){
+async function loadWishlistPage() {
 
     const container =
         $("#wishlistProducts");
 
+    if (!container) return;
 
-    if(!container) return;
 
-
-    try{
+    try {
 
         await ensureProductsLoaded();
 
@@ -2266,7 +2469,9 @@ async function loadWishlistPage(){
             products.filter(
                 product =>
                     wishlist.includes(
-                        Number(product.id)
+                        Number(
+                            product.id
+                        )
                     )
             );
 
@@ -2274,7 +2479,7 @@ async function loadWishlistPage(){
         container.innerHTML = "";
 
 
-        if(!items.length){
+        if (!items.length) {
 
             container.innerHTML = `
 
@@ -2292,9 +2497,7 @@ async function loadWishlistPage(){
         href="products.html"
         class="btn"
     >
-
         📦 পণ্য দেখুন
-
     </a>
 
 </div>
@@ -2307,11 +2510,12 @@ async function loadWishlistPage(){
 
 
         items.forEach(
-            function(product){
+            function (product) {
 
                 const gallery =
-                    getGallery(product);
-
+                    getGallery(
+                        product
+                    );
 
                 const image =
                     gallery[0] || "";
@@ -2327,43 +2531,56 @@ async function loadWishlistPage(){
 
         ${
             image
-            ?
-            `
-            <img
-                src="${image}"
-                class="product-img active"
-                alt="${product.name}"
-                loading="lazy"
-            >
-            `
-            :
-            `
-            <div class="no-product-image">
-                🌱
-            </div>
-            `
+                ? `
+<img
+    src="${escapeAttribute(image)}"
+    class="product-img active"
+    alt="${escapeAttribute(product.name)}"
+    loading="lazy"
+>
+`
+                : `
+<div class="no-product-image">
+    🌱
+</div>
+`
         }
 
     </div>
 
 
     <h3>
-        ${product.name}
+        ${escapeHTML(
+            product.name
+        )}
     </h3>
 
 
+    ${
+        product.categoryName
+            ? `
+<span class="product-category">
+    📂 ${escapeHTML(
+        product.categoryName
+    )}
+</span>
+`
+            : ""
+    }
+
+
     <p class="price">
-        ${formatPrice(product.price)}
+        ${formatPrice(
+            product.price
+        )}
     </p>
 
 
     <a
-        href="product.html?id=${product.id}"
+        href="product.html?id=${encodeURIComponent(product.id)}"
         class="btn"
     >
-
         📖 বিস্তারিত দেখুন
-
     </a>
 
 
@@ -2372,9 +2589,7 @@ async function loadWishlistPage(){
         class="btn removeWishlist"
         data-id="${product.id}"
     >
-
         🗑 Wishlist থেকে বাদ দিন
-
     </button>
 
 </div>
@@ -2387,17 +2602,16 @@ async function loadWishlistPage(){
 
         $$(".removeWishlist")
             .forEach(
-                function(button){
+                function (button) {
 
                     button.onclick =
-                        function(){
+                        function () {
 
                             toggleWishlist(
                                 Number(
                                     button.dataset.id
                                 )
                             );
-
 
                             loadWishlistPage();
 
@@ -2410,7 +2624,7 @@ async function loadWishlistPage(){
         updateWishlistCounter();
 
     }
-    catch(error){
+    catch (error) {
 
         console.error(
             "Wishlist Error:",
@@ -2426,64 +2640,85 @@ async function loadWishlistPage(){
    RELATED PRODUCTS
 ========================================================== */
 
-function loadRelatedProducts(){
+function loadRelatedProducts() {
 
     const container =
         $("#relatedProducts");
 
-
-    if(
+    if (
         !container ||
         !currentProduct
-    ){
+    ) {
 
         return;
 
     }
 
 
-    const related =
-        products
-            .filter(
-                product => {
+    let related =
+        products.filter(
+            function (product) {
 
-                    if(
-                        Number(product.id) ===
-                        Number(currentProduct.id)
-                    ){
-
-                        return false;
-
-                    }
-
-
-                    if(
-                        currentProduct.category &&
-                        product.category ===
-                        currentProduct.category
-                    ){
-
-                        return true;
-
-                    }
-
+                if (
+                    Number(product.id) ===
+                    Number(currentProduct.id)
+                ) {
 
                     return false;
 
                 }
-            )
-            .slice(0,4);
+
+                return (
+                    product.category ===
+                    currentProduct.category
+                );
+
+            }
+        );
+
+
+    /* If same category products
+       are not enough, use all products */
+
+    if (related.length < 4) {
+
+        const additional =
+            products.filter(
+                product =>
+                    Number(product.id) !==
+                    Number(currentProduct.id) &&
+                    !related.some(
+                        item =>
+                            Number(item.id) ===
+                            Number(product.id)
+                    )
+            );
+
+        related =
+            related.concat(
+                additional
+            );
+
+    }
+
+
+    related =
+        related.slice(
+            0,
+            4
+        );
 
 
     container.innerHTML = "";
 
 
     related.forEach(
-        function(product){
+        function (product) {
 
             const gallery =
-                getGallery(product);
-
+                getGallery(
+                    product
+                );
 
             const image =
                 gallery[0] || "";
@@ -2497,43 +2732,56 @@ function loadRelatedProducts(){
 
         ${
             image
-            ?
-            `
-            <img
-                src="${image}"
-                class="product-img active"
-                alt="${product.name}"
-                loading="lazy"
-            >
-            `
-            :
-            `
-            <div class="no-product-image">
-                🌱
-            </div>
-            `
+                ? `
+<img
+    src="${escapeAttribute(image)}"
+    class="product-img active"
+    alt="${escapeAttribute(product.name)}"
+    loading="lazy"
+>
+`
+                : `
+<div class="no-product-image">
+    🌱
+</div>
+`
         }
 
     </div>
 
 
     <h3>
-        ${product.name}
+        ${escapeHTML(
+            product.name
+        )}
     </h3>
 
 
+    ${
+        product.categoryName
+            ? `
+<span class="product-category">
+    📂 ${escapeHTML(
+        product.categoryName
+    )}
+</span>
+`
+            : ""
+    }
+
+
     <p class="price">
-        ${formatPrice(product.price)}
+        ${formatPrice(
+            product.price
+        )}
     </p>
 
 
     <a
-        href="product.html?id=${product.id}"
+        href="product.html?id=${encodeURIComponent(product.id)}"
         class="btn"
     >
-
         📖 বিস্তারিত দেখুন
-
     </a>
 
 </div>
@@ -2550,13 +2798,12 @@ function loadRelatedProducts(){
    HOME PRODUCT SLIDER
 ========================================================== */
 
-function startHomeSlider(){
+function startHomeSlider() {
 
     homeSliderTimers.forEach(
         timer =>
             clearInterval(timer)
     );
-
 
     homeSliderTimers = [];
 
@@ -2566,7 +2813,7 @@ function startHomeSlider(){
             ".product-card .slider"
         )
         .forEach(
-            function(slider){
+            function (slider) {
 
                 const images =
                     slider.querySelectorAll(
@@ -2574,9 +2821,9 @@ function startHomeSlider(){
                     );
 
 
-                if(
+                if (
                     images.length <= 1
-                ){
+                ) {
 
                     return;
 
@@ -2588,7 +2835,13 @@ function startHomeSlider(){
 
                 const timer =
                     setInterval(
-                        function(){
+                        function () {
+
+                            if (
+                                !images[current]
+                            ) {
+                                return;
+                            }
 
                             images[current]
                                 .classList
@@ -2600,21 +2853,27 @@ function startHomeSlider(){
                             current++;
 
 
-                            if(
+                            if (
                                 current >=
                                 images.length
-                            ){
+                            ) {
 
                                 current = 0;
 
                             }
 
 
-                            images[current]
-                                .classList
-                                .add(
-                                    "active"
-                                );
+                            if (
+                                images[current]
+                            ) {
+
+                                images[current]
+                                    .classList
+                                    .add(
+                                        "active"
+                                    );
+
+                            }
 
                         },
                         3000
@@ -2635,20 +2894,18 @@ function startHomeSlider(){
    IMAGE PREVIEW
 ========================================================== */
 
-function initImagePreview(){
+function initImagePreview() {
 
     const modal =
         $("#imageModal");
 
-
     const modalImage =
         $("#modalImage");
 
-
-    if(
+    if (
         !modal ||
         !modalImage
-    ){
+    ) {
 
         return;
 
@@ -2661,10 +2918,10 @@ function initImagePreview(){
         );
 
 
-    if(close){
+    if (close) {
 
         close.onclick =
-            function(){
+            function () {
 
                 modal.style.display =
                     "none";
@@ -2675,11 +2932,11 @@ function initImagePreview(){
 
 
     modal.onclick =
-        function(e){
+        function (e) {
 
-            if(
+            if (
                 e.target === modal
-            ){
+            ) {
 
                 modal.style.display =
                     "none";
@@ -2691,29 +2948,29 @@ function initImagePreview(){
 
     document.addEventListener(
         "click",
-        function(e){
+        function (e) {
 
             const image =
                 e.target;
 
 
-            if(
+            if (
                 !image.classList ||
                 !image.classList.contains(
                     "product-img"
                 )
-            ){
+            ) {
 
                 return;
 
             }
 
 
-            if(
+            if (
                 image.closest(
                     "#productSlider"
                 )
-            ){
+            ) {
 
                 return;
 
@@ -2737,17 +2994,16 @@ function initImagePreview(){
    SHARE BUSINESS CARD
 ========================================================== */
 
-function initShareCard(){
+function initShareCard() {
 
     const button =
         $("#shareCard");
 
-
-    if(!button) return;
+    if (!button) return;
 
 
     button.onclick =
-        async function(e){
+        async function (e) {
 
             e.preventDefault();
 
@@ -2767,23 +3023,23 @@ function initShareCard(){
             };
 
 
-            if(
+            if (
                 navigator.share
-            ){
+            ) {
 
-                try{
+                try {
 
                     await navigator.share(
                         data
                     );
 
                 }
-                catch(error){
+                catch (error) {
 
-                    if(
+                    if (
                         error.name !==
                         "AbortError"
-                    ){
+                    ) {
 
                         console.error(
                             error
@@ -2794,22 +3050,21 @@ function initShareCard(){
                 }
 
             }
-            else{
+            else {
 
-                try{
+                try {
 
                     await navigator.clipboard
                         .writeText(
                             window.location.href
                         );
 
-
                     alert(
                         "✅ লিংক কপি হয়েছে"
                     );
 
                 }
-                catch(error){
+                catch (error) {
 
                     alert(
                         "❌ লিংক কপি করা যায়নি"
@@ -2828,20 +3083,18 @@ function initShareCard(){
    SAVE CONTACT
 ========================================================== */
 
-function initSaveContact(){
+function initSaveContact() {
 
     const button =
         $("#saveContact");
 
-
-    if(!button) return;
+    if (!button) return;
 
 
     button.onclick =
-        function(e){
+        function (e) {
 
             e.preventDefault();
-
 
             window.location.href =
                 "contact.vcf";
@@ -2855,13 +3108,12 @@ function initSaveContact(){
    PWA
 ========================================================== */
 
-function initPWA(){
+function initPWA() {
 
     const installBtn =
         $("#installApp");
 
-
-    if(!installBtn) return;
+    if (!installBtn) return;
 
 
     installBtn.style.display =
@@ -2870,14 +3122,12 @@ function initPWA(){
 
     window.addEventListener(
         "beforeinstallprompt",
-        function(e){
+        function (e) {
 
             e.preventDefault();
 
-
             deferredPrompt =
                 e;
-
 
             installBtn.style.display =
                 "flex";
@@ -2887,11 +3137,11 @@ function initPWA(){
 
 
     installBtn.onclick =
-        async function(){
+        async function () {
 
-            if(
+            if (
                 !deferredPrompt
-            ){
+            ) {
 
                 return;
 
@@ -2901,13 +3151,13 @@ function initPWA(){
             deferredPrompt.prompt();
 
 
-            try{
+            try {
 
                 await deferredPrompt
                     .userChoice;
 
             }
-            catch(error){
+            catch (error) {
 
                 console.error(
                     error
@@ -2919,7 +3169,6 @@ function initPWA(){
             deferredPrompt =
                 null;
 
-
             installBtn.style.display =
                 "none";
 
@@ -2928,11 +3177,10 @@ function initPWA(){
 
     window.addEventListener(
         "appinstalled",
-        function(){
+        function () {
 
             deferredPrompt =
                 null;
-
 
             installBtn.style.display =
                 "none";
@@ -2947,7 +3195,7 @@ function initPWA(){
    BOTTOM NAVIGATION
 ========================================================== */
 
-function initBottomNavigation(){
+function initBottomNavigation() {
 
     const currentPage =
         window.location.pathname
@@ -2958,7 +3206,7 @@ function initBottomNavigation(){
 
     $$(".bottom-nav a")
         .forEach(
-            function(link){
+            function (link) {
 
                 link.classList.remove(
                     "active"
@@ -2971,7 +3219,7 @@ function initBottomNavigation(){
                     );
 
 
-                if(!href) return;
+                if (!href) return;
 
 
                 const cleanHref =
@@ -2980,10 +3228,10 @@ function initBottomNavigation(){
                         .split("#")[0];
 
 
-                if(
+                if (
                     cleanHref ===
                     currentPage
-                ){
+                ) {
 
                     link.classList.add(
                         "active"
@@ -3001,18 +3249,17 @@ function initBottomNavigation(){
    CONTACT FORM
 ========================================================== */
 
-function initContactForm(){
+function initContactForm() {
 
     const form =
         $("#contactForm");
 
-
-    if(!form) return;
+    if (!form) return;
 
 
     form.addEventListener(
         "submit",
-        function(e){
+        function (e) {
 
             e.preventDefault();
 
@@ -3047,7 +3294,7 @@ function initContactForm(){
                     .trim() || "";
 
 
-            if(!name){
+            if (!name) {
 
                 showContactStatus(
                     "❌ আপনার নাম লিখুন।",
@@ -3059,7 +3306,7 @@ function initContactForm(){
             }
 
 
-            if(!phone){
+            if (!phone) {
 
                 showContactStatus(
                     "❌ আপনার মোবাইল নম্বর লিখুন।",
@@ -3071,7 +3318,7 @@ function initContactForm(){
             }
 
 
-            if(!subject){
+            if (!subject) {
 
                 showContactStatus(
                     "❌ বিষয় নির্বাচন করুন।",
@@ -3083,7 +3330,7 @@ function initContactForm(){
             }
 
 
-            if(!message){
+            if (!message) {
 
                 showContactStatus(
                     "❌ আপনার মেসেজ লিখুন।",
@@ -3175,48 +3422,42 @@ ${message}`;
 function showContactStatus(
     message,
     type = "success"
-){
+) {
 
     const status =
         $("#contactFormStatus");
 
-
-    if(!status) return;
+    if (!status) return;
 
 
     status.textContent =
         message;
 
-
     status.style.marginTop =
         "12px";
 
-
     status.style.padding =
         "10px";
-
 
     status.style.borderRadius =
         "10px";
 
 
-    if(
+    if (
         type === "error"
-    ){
+    ) {
 
         status.style.color =
             "#b71c1c";
-
 
         status.style.background =
             "#ffebee";
 
     }
-    else{
+    else {
 
         status.style.color =
             "#166C39";
-
 
         status.style.background =
             "#e9f8ef";
@@ -3230,18 +3471,17 @@ function showContactStatus(
    BACK TO TOP
 ========================================================== */
 
-function initBackToTop(){
+function initBackToTop() {
 
     const button =
         $("#backToTop");
 
-
-    if(!button) return;
+    if (!button) return;
 
 
     window.addEventListener(
         "scroll",
-        function(){
+        function () {
 
             button.classList.toggle(
                 "show",
@@ -3253,7 +3493,7 @@ function initBackToTop(){
 
 
     button.onclick =
-        function(){
+        function () {
 
             window.scrollTo({
 
@@ -3274,10 +3514,10 @@ function initBackToTop(){
 
 document.addEventListener(
     "DOMContentLoaded",
-    async function(){
+    async function () {
 
         console.log(
-            "✅ Maliha Agro Industry — Complete Product System Loaded"
+            "✅ Maliha Agro Industry — Dynamic Product System Loaded"
         );
 
 
@@ -3306,9 +3546,9 @@ document.addEventListener(
            PRODUCTS PAGE
         ================================================== */
 
-        if(
+        if (
             $("#productList")
-        ){
+        ) {
 
             initSearch();
 
@@ -3316,21 +3556,24 @@ document.addEventListener(
 
 
             /*
-               প্রথমে Category Data Load
+                প্রথমে Product + Category
             */
+
+            await ensureProductsLoaded();
 
             await ensureCategoriesLoaded();
 
 
             /*
-               Dynamic Category Buttons
+                Dynamic Main Category
             */
 
             await renderCategoryButtons();
 
 
             /*
-               সব Product
+                Default:
+                সব পণ্য
             */
 
             await loadProducts(
@@ -3345,9 +3588,9 @@ document.addEventListener(
            PRODUCT DETAILS
         ================================================== */
 
-        if(
+        if (
             $("#productSlider")
-        ){
+        ) {
 
             await loadProductDetails();
 
@@ -3358,9 +3601,9 @@ document.addEventListener(
            WISHLIST
         ================================================== */
 
-        if(
+        if (
             $("#wishlistProducts")
-        ){
+        ) {
 
             await loadWishlistPage();
 
