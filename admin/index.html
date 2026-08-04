@@ -1,1 +1,2953 @@
+<!DOCTYPE html>
+<html lang="bn">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#1F8F4D"
+    >
+
+    <meta
+        name="description"
+        content="Maliha Agro Industry Admin Panel"
+    >
+
+    <title>
+        Admin Panel | Maliha Agro Industry
+    </title>
+
+
+    <!-- Google Font -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                "Poppins",
+                "Noto Sans Bengali",
+                Arial,
+                sans-serif;
+
+            background:
+                #f4f8f5;
+
+            color:
+                #222;
+
+        }
+
+
+        button,
+        input,
+        select {
+
+            font-family: inherit;
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .admin-header {
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            width: 100%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #166C39,
+                    #1F8F4D
+                );
+
+            color: #fff;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,.12);
+
+        }
+
+
+        .admin-header-inner {
+
+            max-width: 1500px;
+
+            margin: 0 auto;
+
+            min-height: 72px;
+
+            padding:
+                0 25px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+        }
+
+
+        .admin-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .admin-brand-icon {
+
+            width: 45px;
+
+            height: 45px;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(255,255,255,.16);
+
+            font-size: 23px;
+
+        }
+
+
+        .admin-brand h1 {
+
+            margin: 0;
+
+            font-size: 20px;
+
+            line-height: 1.3;
+
+        }
+
+
+        .admin-brand span {
+
+            display: block;
+
+            font-size: 11px;
+
+            opacity: .85;
+
+            margin-top: 2px;
+
+        }
+
+
+        .header-actions {
+
+            display: flex;
+
+            gap: 8px;
+
+            align-items: center;
+
+        }
+
+
+        .header-btn {
+
+            min-height: 40px;
+
+            padding:
+                0 14px;
+
+            border: 1px solid
+                rgba(255,255,255,.25);
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,255,255,.12);
+
+            color: #fff;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .header-btn:hover {
+
+            background:
+                rgba(255,255,255,.2);
+
+        }
+
+
+        /* =====================================================
+           LAYOUT
+        ===================================================== */
+
+        .admin-layout {
+
+            max-width: 1500px;
+
+            margin: 0 auto;
+
+            padding:
+                25px;
+
+            display: grid;
+
+            grid-template-columns:
+                245px
+                minmax(0,1fr);
+
+            gap: 25px;
+
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .admin-sidebar {
+
+            position: sticky;
+
+            top: 97px;
+
+            align-self: start;
+
+            background: #fff;
+
+            border:
+                1px solid #e3ebe5;
+
+            border-radius: 20px;
+
+            padding: 15px;
+
+            box-shadow:
+                0 7px 25px
+                rgba(0,0,0,.05);
+
+        }
+
+
+        .sidebar-title {
+
+            padding:
+                10px
+                12px
+                15px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: #888;
+
+        }
+
+
+        .sidebar-menu {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+        }
+
+
+        .sidebar-btn {
+
+            width: 100%;
+
+            min-height: 46px;
+
+            padding:
+                0 13px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            background: transparent;
+
+            color: #555;
+
+            text-align: left;
+
+            cursor: pointer;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+        }
+
+
+        .sidebar-btn:hover {
+
+            background:
+                #eef8f1;
+
+            color:
+                #166C39;
+
+        }
+
+
+        .sidebar-btn.active {
+
+            background:
+                #1F8F4D;
+
+            color: #fff;
+
+            box-shadow:
+                0 5px 15px
+                rgba(31,143,77,.18);
+
+        }
+
+
+        .sidebar-btn i {
+
+            width: 20px;
+
+            text-align: center;
+
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .admin-main {
+
+            min-width: 0;
+
+        }
+
+
+        .admin-page-title {
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .admin-page-title h2 {
+
+            margin:
+                0 0 5px;
+
+            color:
+                #174c2d;
+
+            font-size: 27px;
+
+        }
+
+
+        .admin-page-title p {
+
+            margin: 0;
+
+            color: #777;
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
+           STATS
+        ===================================================== */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4,minmax(0,1fr));
+
+            gap: 17px;
+
+            margin-bottom: 22px;
+
+        }
+
+
+        .stat-card {
+
+            background: #fff;
+
+            border:
+                1px solid #e3ebe5;
+
+            border-radius: 18px;
+
+            padding: 20px;
+
+            box-shadow:
+                0 7px 25px
+                rgba(0,0,0,.05);
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+        }
+
+
+        .stat-icon {
+
+            width: 50px;
+
+            height: 50px;
+
+            border-radius: 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                #e9f8ef;
+
+            color:
+                #1F8F4D;
+
+            font-size: 21px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .stat-card h3 {
+
+            margin: 0;
+
+            font-size: 24px;
+
+            color:
+                #174c2d;
+
+        }
+
+
+        .stat-card p {
+
+            margin:
+                2px 0 0;
+
+            color: #888;
+
+            font-size: 12px;
+
+        }
+
+
+        /* =====================================================
+           CONTENT CARD
+        ===================================================== */
+
+        .admin-card {
+
+            background: #fff;
+
+            border:
+                1px solid #e3ebe5;
+
+            border-radius: 20px;
+
+            padding: 22px;
+
+            margin-bottom: 22px;
+
+            box-shadow:
+                0 7px 25px
+                rgba(0,0,0,.05);
+
+        }
+
+
+        .admin-card-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .admin-card-header h3 {
+
+            margin: 0;
+
+            color:
+                #174c2d;
+
+            font-size: 18px;
+
+        }
+
+
+        .admin-card-header p {
+
+            margin: 4px 0 0;
+
+            color: #888;
+
+            font-size: 12px;
+
+        }
+
+
+        /* =====================================================
+           QUICK ACTIONS
+        ===================================================== */
+
+        .quick-actions {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3,minmax(0,1fr));
+
+            gap: 15px;
+
+        }
+
+
+        .quick-action {
+
+            min-height: 105px;
+
+            border:
+                1px solid #e3ebe5;
+
+            border-radius: 16px;
+
+            background:
+                #fbfdfb;
+
+            cursor: pointer;
+
+            padding: 18px;
+
+            text-align: left;
+
+            transition: .25s;
+
+        }
+
+
+        .quick-action:hover {
+
+            transform:
+                translateY(-3px);
+
+            border-color:
+                #b9ddc4;
+
+            box-shadow:
+                0 8px 22px
+                rgba(0,0,0,.06);
+
+        }
+
+
+        .quick-action i {
+
+            color:
+                #1F8F4D;
+
+            font-size: 23px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .quick-action strong {
+
+            display: block;
+
+            color:
+                #174c2d;
+
+            font-size: 14px;
+
+        }
+
+
+        .quick-action span {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: #888;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =====================================================
+           STATUS
+        ===================================================== */
+
+        .status-box {
+
+            padding:
+                13px
+                15px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+
+            margin-bottom: 15px;
+
+            display: none;
+
+        }
+
+
+        .status-box.show {
+
+            display: block;
+
+        }
+
+
+        .status-success {
+
+            color:
+                #166C39;
+
+            background:
+                #e9f8ef;
+
+            border:
+                1px solid #ccebd6;
+
+        }
+
+
+        .status-error {
+
+            color:
+                #b71c1c;
+
+            background:
+                #ffebee;
+
+            border:
+                1px solid #ffcdd2;
+
+        }
+
+
+        .status-info {
+
+            color:
+                #145a86;
+
+            background:
+                #eaf5fc;
+
+            border:
+                1px solid #cce5f5;
+
+        }
+
+
+        /* =====================================================
+           DATA PREVIEW
+        ===================================================== */
+
+        .data-preview {
+
+            overflow-x: auto;
+
+            border:
+                1px solid #e5ece7;
+
+            border-radius: 13px;
+
+        }
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 650px;
+
+        }
+
+
+        th,
+        td {
+
+            padding:
+                13px
+                12px;
+
+            text-align: left;
+
+            border-bottom:
+                1px solid #edf1ee;
+
+            font-size: 12px;
+
+        }
+
+
+        th {
+
+            background:
+                #f5faf6;
+
+            color:
+                #174c2d;
+
+            font-weight: 700;
+
+        }
+
+
+        tr:last-child td {
+
+            border-bottom: none;
+
+        }
+
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            padding:
+                4px
+                8px;
+
+            border-radius: 20px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+        }
+
+
+        .badge-green {
+
+            color:
+                #166C39;
+
+            background:
+                #e9f8ef;
+
+        }
+
+
+        .badge-gray {
+
+            color:
+                #666;
+
+            background:
+                #f0f2f1;
+
+        }
+
+
+        /* =====================================================
+           BUTTON
+        ===================================================== */
+
+        .btn {
+
+            min-height: 43px;
+
+            padding:
+                0 16px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            cursor: pointer;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            transition: .25s;
+
+        }
+
+
+        .btn-primary {
+
+            background:
+                #1F8F4D;
+
+            color: #fff;
+
+        }
+
+
+        .btn-primary:hover {
+
+            background:
+                #166C39;
+
+            transform:
+                translateY(-1px);
+
+        }
+
+
+        .btn-light {
+
+            background:
+                #eef8f1;
+
+            color:
+                #166C39;
+
+        }
+
+
+        .btn-danger {
+
+            background:
+                #fff0f0;
+
+            color:
+                #c62828;
+
+        }
+
+
+        .btn-warning {
+
+            background:
+                #fff8e6;
+
+            color:
+                #9a6900;
+
+        }
+
+
+        /* =====================================================
+           EMPTY
+        ===================================================== */
+
+        .empty-state {
+
+            text-align: center;
+
+            padding:
+                35px
+                15px;
+
+            color: #888;
+
+        }
+
+
+        .empty-state i {
+
+            font-size: 38px;
+
+            color:
+                #b8c9bd;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .empty-state h4 {
+
+            margin:
+                0 0 5px;
+
+            color: #555;
+
+        }
+
+
+        .empty-state p {
+
+            margin: 0;
+
+            font-size: 12px;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media(max-width:1100px){
+
+            .admin-layout {
+
+                grid-template-columns:
+                    210px
+                    minmax(0,1fr);
+
+            }
+
+
+            .stats-grid {
+
+                grid-template-columns:
+                    repeat(2,minmax(0,1fr));
+
+            }
+
+        }
+
+
+        @media(max-width:800px){
+
+            .admin-layout {
+
+                display: block;
+
+                padding:
+                    15px;
+
+            }
+
+
+            .admin-sidebar {
+
+                position: static;
+
+                margin-bottom: 15px;
+
+            }
+
+
+            .sidebar-menu {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(3,minmax(0,1fr));
+
+            }
+
+
+            .sidebar-btn {
+
+                justify-content: center;
+
+                flex-direction: column;
+
+                min-height: 65px;
+
+                padding: 8px;
+
+                text-align: center;
+
+                font-size: 10px;
+
+                gap: 5px;
+
+            }
+
+
+            .sidebar-btn i {
+
+                width: auto;
+
+                font-size: 17px;
+
+            }
+
+
+            .sidebar-title {
+
+                display: none;
+
+            }
+
+
+            .quick-actions {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+        }
+
+
+        @media(max-width:600px){
+
+            .admin-header-inner {
+
+                min-height: 64px;
+
+                padding:
+                    0 12px;
+
+            }
+
+
+            .admin-brand h1 {
+
+                font-size: 15px;
+
+            }
+
+
+            .admin-brand span {
+
+                font-size: 9px;
+
+            }
+
+
+            .admin-brand-icon {
+
+                width: 38px;
+
+                height: 38px;
+
+                font-size: 19px;
+
+            }
+
+
+            .header-btn span {
+
+                display: none;
+
+            }
+
+
+            .header-btn {
+
+                width: 38px;
+
+                padding: 0;
+
+            }
+
+
+            .admin-page-title h2 {
+
+                font-size: 22px;
+
+            }
+
+
+            .stats-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 10px;
+
+            }
+
+
+            .stat-card {
+
+                padding: 14px;
+
+                border-radius: 15px;
+
+                gap: 9px;
+
+            }
+
+
+            .stat-icon {
+
+                width: 39px;
+
+                height: 39px;
+
+                font-size: 17px;
+
+            }
+
+
+            .stat-card h3 {
+
+                font-size: 19px;
+
+            }
+
+
+            .stat-card p {
+
+                font-size: 9px;
+
+            }
+
+
+            .admin-card {
+
+                padding: 16px;
+
+                border-radius: 17px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="admin-header">
+
+    <div class="admin-header-inner">
+
+
+        <div class="admin-brand">
+
+            <div class="admin-brand-icon">
+
+                🌱
+
+            </div>
+
+
+            <div>
+
+                <h1>
+                    Maliha Agro Industry
+                </h1>
+
+                <span>
+                    Admin Panel
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="header-actions">
+
+            <a
+                href="../products.html"
+                class="header-btn"
+                title="Website দেখুন"
+            >
+
+                <i class="fa-solid fa-globe"></i>
+
+                <span>
+                    Website
+                </span>
+
+            </a>
+
+
+            <button
+                type="button"
+                class="header-btn"
+                id="refreshData"
+                title="Refresh"
+            >
+
+                <i class="fa-solid fa-rotate"></i>
+
+                <span>
+                    Refresh
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     LAYOUT
+===================================================== -->
+
+<div class="admin-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+    ================================================= -->
+
+    <aside class="admin-sidebar">
+
+        <div class="sidebar-title">
+
+            ADMIN MENU
+
+        </div>
+
+
+        <div class="sidebar-menu">
+
+
+            <button
+                type="button"
+                class="sidebar-btn active"
+                data-section="dashboard"
+            >
+
+                <i
+                    class="fa-solid fa-chart-pie"
+                ></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="sidebar-btn"
+                data-section="categories"
+            >
+
+                <i
+                    class="fa-solid fa-folder-tree"
+                ></i>
+
+                <span>
+                    Categories
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="sidebar-btn"
+                data-section="products"
+            >
+
+                <i
+                    class="fa-solid fa-box-open"
+                ></i>
+
+                <span>
+                    Products
+                </span>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="sidebar-btn"
+                data-section="settings"
+            >
+
+                <i
+                    class="fa-solid fa-gear"
+                ></i>
+
+                <span>
+                    Settings
+                </span>
+
+            </button>
+
+
+        </div>
+
+    </aside>
+
+
+    <!-- =================================================
+         MAIN
+    ================================================= -->
+
+    <main class="admin-main">
+
+
+        <!-- =================================================
+             PAGE TITLE
+        ================================================= -->
+
+        <div class="admin-page-title">
+
+            <h2>
+                Admin Dashboard
+            </h2>
+
+            <p>
+                Maliha Agro Industry-এর পণ্য ও ক্যাটাগরি পরিচালনা করুন।
+            </p>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div
+            id="statusBox"
+            class="status-box"
+        ></div>
+
+
+        <!-- =================================================
+             STATS
+        ================================================= -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i
+                        class="fa-solid fa-box-open"
+                    ></i>
+
+                </div>
+
+                <div>
+
+                    <h3 id="totalProducts">
+                        0
+                    </h3>
+
+                    <p>
+                        মোট পণ্য
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i
+                        class="fa-solid fa-folder-tree"
+                    ></i>
+
+                </div>
+
+                <div>
+
+                    <h3 id="totalCategories">
+                        0
+                    </h3>
+
+                    <p>
+                        প্রধান ক্যাটাগরি
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i
+                        class="fa-solid fa-layer-group"
+                    ></i>
+
+                </div>
+
+                <div>
+
+                    <h3 id="totalSubCategories">
+                        0
+                    </h3>
+
+                    <p>
+                        সাব-ক্যাটাগরি
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+
+                    <i
+                        class="fa-solid fa-heart"
+                    ></i>
+
+                </div>
+
+                <div>
+
+                    <h3 id="wishlistCount">
+                        0
+                    </h3>
+
+                    <p>
+                        Wishlist Items
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================= -->
+
+        <section class="admin-card">
+
+
+            <div class="admin-card-header">
+
+                <div>
+
+                    <h3>
+                        ⚡ Quick Actions
+                    </h3>
+
+                    <p>
+                        দ্রুত প্রয়োজনীয় কাজ শুরু করুন।
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="quick-actions">
+
+
+                <button
+                    type="button"
+                    class="quick-action"
+                    id="openCategories"
+                >
+
+                    <i
+                        class="fa-solid fa-folder-plus"
+                    ></i>
+
+                    <strong>
+                        নতুন Category
+                    </strong>
+
+                    <span>
+                        Category Management খুলুন
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="quick-action"
+                    id="openProducts"
+                >
+
+                    <i
+                        class="fa-solid fa-square-plus"
+                    ></i>
+
+                    <strong>
+                        নতুন Product
+                    </strong>
+
+                    <span>
+                        Product Management খুলুন
+                    </span>
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="quick-action"
+                    id="viewWebsite"
+                >
+
+                    <i
+                        class="fa-solid fa-globe"
+                    ></i>
+
+                    <strong>
+                        Website দেখুন
+                    </strong>
+
+                    <span>
+                        Public Products Page খুলুন
+                    </span>
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CATEGORY PREVIEW
+        ================================================= -->
+
+        <section class="admin-card">
+
+
+            <div class="admin-card-header">
+
+                <div>
+
+                    <h3>
+                        📂 Category Overview
+                    </h3>
+
+                    <p>
+                        বর্তমানে website-এ থাকা প্রধান ক্যাটাগরি।
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-light"
+                    id="manageCategories"
+                >
+
+                    <i
+                        class="fa-solid fa-folder-tree"
+                    ></i>
+
+                    Manage
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="categoryPreview"
+                class="data-preview"
+            >
+
+                <div class="empty-state">
+
+                    <i
+                        class="fa-solid fa-spinner fa-spin"
+                    ></i>
+
+                    <h4>
+                        Data লোড হচ্ছে...
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             PRODUCT PREVIEW
+        ================================================= -->
+
+        <section class="admin-card">
+
+
+            <div class="admin-card-header">
+
+                <div>
+
+                    <h3>
+                        📦 Recent Products
+                    </h3>
+
+                    <p>
+                        Product data-এর সংক্ষিপ্ত তালিকা।
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="btn btn-light"
+                    id="manageProducts"
+                >
+
+                    <i
+                        class="fa-solid fa-box-open"
+                    ></i>
+
+                    Manage
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="productPreview"
+                class="data-preview"
+            >
+
+                <div class="empty-state">
+
+                    <i
+                        class="fa-solid fa-spinner fa-spin"
+                    ></i>
+
+                    <h4>
+                        Data লোড হচ্ছে...
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- =================================================
+             SYSTEM INFO
+        ================================================= -->
+
+        <section class="admin-card">
+
+
+            <div class="admin-card-header">
+
+                <div>
+
+                    <h3>
+                        ⚙️ System Information
+                    </h3>
+
+                    <p>
+                        বর্তমান Product System-এর সংযোগ।
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="data-preview"
+            >
+
+                <table>
+
+                    <tbody>
+
+                        <tr>
+
+                            <th>
+                                Product Data
+                            </th>
+
+                            <td>
+                                <span
+                                    id="productApiStatus"
+                                    class="badge badge-gray"
+                                >
+                                    Checking...
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Category Data
+                            </th>
+
+                            <td>
+                                <span
+                                    id="categoryApiStatus"
+                                    class="badge badge-gray"
+                                >
+                                    Checking...
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Wishlist
+                            </th>
+
+                            <td>
+                                <span
+                                    id="wishlistApiStatus"
+                                    class="badge badge-green"
+                                >
+                                    LocalStorage
+                                </span>
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <th>
+                                Admin Panel Version
+                            </th>
+
+                            <td>
+                                <strong>
+                                    MAI Admin v1.0
+                                </strong>
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+"use strict";
+
+
+/* ==========================================================
+   CONFIG
+========================================================== */
+
+const ADMIN_CONFIG = {
+
+    productsAPI:
+        "../data/products.json",
+
+    categoriesAPI:
+        "../data/categories.json",
+
+    website:
+        "../products.html"
+
+};
+
+
+/* ==========================================================
+   SHORTCUT
+========================================================== */
+
+const $ =
+    selector =>
+        document.querySelector(selector);
+
+
+/* ==========================================================
+   STATUS
+========================================================== */
+
+function showStatus(
+    message,
+    type = "success"
+){
+
+    const box =
+        $("#statusBox");
+
+    if(!box) return;
+
+
+    box.textContent =
+        message;
+
+
+    box.className =
+        "status-box show";
+
+
+    if(type === "error"){
+
+        box.classList.add(
+            "status-error"
+        );
+
+    }
+    else if(type === "info"){
+
+        box.classList.add(
+            "status-info"
+        );
+
+    }
+    else{
+
+        box.classList.add(
+            "status-success"
+        );
+
+    }
+
+
+    setTimeout(
+        function(){
+
+            box.classList.remove(
+                "show"
+            );
+
+        },
+        3000
+    );
+
+}
+
+
+/* ==========================================================
+   LOAD PRODUCTS
+========================================================== */
+
+async function loadAdminProducts(){
+
+    try{
+
+        const response =
+            await fetch(
+                ADMIN_CONFIG.productsAPI,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Products JSON failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!Array.isArray(data)){
+
+            throw new Error(
+                "Products data invalid"
+            );
+
+        }
+
+
+        updateProductStats(
+            data
+        );
+
+
+        renderProductPreview(
+            data
+        );
+
+
+        setAPIStatus(
+            "#productApiStatus",
+            true,
+            `${data.length}টি পণ্য`
+        );
+
+
+        return data;
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        updateProductStats(
+            []
+        );
+
+
+        renderProductPreview(
+            []
+        );
+
+
+        setAPIStatus(
+            "#productApiStatus",
+            false,
+            "লোড হয়নি"
+        );
+
+
+        return [];
+
+    }
+
+}
+
+
+/* ==========================================================
+   LOAD CATEGORIES
+========================================================== */
+
+async function loadAdminCategories(){
+
+    try{
+
+        const response =
+            await fetch(
+                ADMIN_CONFIG.categoriesAPI,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Categories JSON failed"
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!Array.isArray(data)){
+
+            throw new Error(
+                "Categories data invalid"
+            );
+
+        }
+
+
+        updateCategoryStats(
+            data
+        );
+
+
+        renderCategoryPreview(
+            data
+        );
+
+
+        setAPIStatus(
+            "#categoryApiStatus",
+            true,
+            `${data.length}টি Category`
+        );
+
+
+        return data;
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+
+        updateCategoryStats(
+            []
+        );
+
+
+        renderCategoryPreview(
+            []
+        );
+
+
+        setAPIStatus(
+            "#categoryApiStatus",
+            false,
+            "লোড হয়নি"
+        );
+
+
+        return [];
+
+    }
+
+}
+
+
+/* ==========================================================
+   PRODUCT STATS
+========================================================== */
+
+function updateProductStats(
+    products
+){
+
+    const element =
+        $("#totalProducts");
+
+    if(element){
+
+        element.textContent =
+            products.length;
+
+    }
+
+}
+
+
+/* ==========================================================
+   CATEGORY STATS
+========================================================== */
+
+function updateCategoryStats(
+    categories
+){
+
+    const total =
+        $("#totalCategories");
+
+
+    const subTotal =
+        $("#totalSubCategories");
+
+
+    if(total){
+
+        total.textContent =
+            categories.length;
+
+    }
+
+
+    let subCount = 0;
+
+
+    categories.forEach(
+        function(category){
+
+            if(
+                Array.isArray(
+                    category.subCategories
+                )
+            ){
+
+                subCount +=
+                    category.subCategories.length;
+
+            }
+
+        }
+    );
+
+
+    if(subTotal){
+
+        subTotal.textContent =
+            subCount;
+
+    }
+
+}
+
+
+/* ==========================================================
+   WISHLIST
+========================================================== */
+
+function updateWishlistStats(){
+
+    let wishlist = [];
+
+
+    try{
+
+        wishlist =
+            JSON.parse(
+                localStorage.getItem(
+                    "wishlist"
+                ) || "[]"
+            );
+
+    }
+    catch(error){
+
+        wishlist = [];
+
+    }
+
+
+    const element =
+        $("#wishlistCount");
+
+
+    if(element){
+
+        element.textContent =
+            Array.isArray(wishlist)
+            ? wishlist.length
+            : 0;
+
+    }
+
+}
+
+
+/* ==========================================================
+   API STATUS
+========================================================== */
+
+function setAPIStatus(
+    selector,
+    success,
+    text
+){
+
+    const element =
+        $(selector);
+
+    if(!element) return;
+
+
+    element.textContent =
+        success
+        ? "✓ " + text
+        : "✕ " + text;
+
+
+    element.className =
+        "badge " +
+        (
+            success
+            ? "badge-green"
+            : "badge-gray"
+        );
+
+}
+
+
+/* ==========================================================
+   CATEGORY PREVIEW
+========================================================== */
+
+function renderCategoryPreview(
+    categories
+){
+
+    const container =
+        $("#categoryPreview");
+
+    if(!container) return;
+
+
+    if(!categories.length){
+
+        container.innerHTML = `
+
+<div class="empty-state">
+
+    <i class="fa-solid fa-folder-open"></i>
+
+    <h4>
+        কোনো Category পাওয়া যায়নি
+    </h4>
+
+    <p>
+        categories.json ফাইলে Category যোগ করুন।
+    </p>
+
+</div>
+
+`;
+
+        return;
+
+    }
+
+
+    container.innerHTML = `
+
+<table>
+
+<thead>
+
+<tr>
+
+    <th>
+        Icon
+    </th>
+
+    <th>
+        Category
+    </th>
+
+    <th>
+        ID
+    </th>
+
+    <th>
+        Sub Category
+    </th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+${
+    categories
+        .slice(0,8)
+        .map(
+            function(category){
+
+                const subs =
+                    Array.isArray(
+                        category.subCategories
+                    )
+                    ? category.subCategories.length
+                    : 0;
+
+
+                return `
+
+<tr>
+
+    <td>
+        ${category.icon || "📂"}
+    </td>
+
+    <td>
+
+        <strong>
+            ${escapeHTML(
+                category.name ||
+                category.id ||
+                "Category"
+            )}
+        </strong>
+
+    </td>
+
+    <td>
+
+        <span class="badge badge-gray">
+
+            ${escapeHTML(
+                category.id || "-"
+            )}
+
+        </span>
+
+    </td>
+
+    <td>
+
+        ${
+            subs
+            ? `<span class="badge badge-green">
+                ${subs}টি
+              </span>`
+            : `<span class="badge badge-gray">
+                নেই
+              </span>`
+        }
+
+    </td>
+
+</tr>
+
+`;
+
+            }
+        )
+        .join("")
+}
+
+</tbody>
+
+</table>
+
+`;
+
+}
+
+
+/* ==========================================================
+   PRODUCT PREVIEW
+========================================================== */
+
+function renderProductPreview(
+    products
+){
+
+    const container =
+        $("#productPreview");
+
+    if(!container) return;
+
+
+    if(!products.length){
+
+        container.innerHTML = `
+
+<div class="empty-state">
+
+    <i class="fa-solid fa-box-open"></i>
+
+    <h4>
+        কোনো Product পাওয়া যায়নি
+    </h4>
+
+    <p>
+        products.json ফাইলে Product যোগ করুন।
+    </p>
+
+</div>
+
+`;
+
+        return;
+
+    }
+
+
+    const recent =
+        [...products]
+            .reverse()
+            .slice(0,8);
+
+
+    container.innerHTML = `
+
+<table>
+
+<thead>
+
+<tr>
+
+    <th>
+        ID
+    </th>
+
+    <th>
+        Product
+    </th>
+
+    <th>
+        Category
+    </th>
+
+    <th>
+        Price
+    </th>
+
+    <th>
+        Status
+    </th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+${
+    recent
+        .map(
+            function(product){
+
+                const stock =
+                    product.stock ||
+                    "স্টকে আছে";
+
+
+                return `
+
+<tr>
+
+    <td>
+        #${Number(product.id) || "-"}
+    </td>
+
+    <td>
+
+        <strong>
+            ${escapeHTML(
+                product.name ||
+                "পণ্য"
+            )}
+        </strong>
+
+    </td>
+
+    <td>
+
+        ${escapeHTML(
+            product.categoryName ||
+            product.category ||
+            "-"
+        )}
+
+    </td>
+
+    <td>
+
+        ৳${Number(
+            product.price || 0
+        ).toLocaleString("en-BD")}
+
+    </td>
+
+    <td>
+
+        <span class="badge badge-green">
+
+            ${escapeHTML(
+                String(stock)
+            )}
+
+        </span>
+
+    </td>
+
+</tr>
+
+`;
+
+            }
+        )
+        .join("")
+}
+
+</tbody>
+
+</table>
+
+`;
+
+}
+
+
+/* ==========================================================
+   ESCAPE HTML
+========================================================== */
+
+function escapeHTML(
+    value
+){
+
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+
+}
+
+
+/* ==========================================================
+   NAVIGATION
+========================================================== */
+
+function goToSection(
+    section
+){
+
+    if(
+        section === "categories"
+    ){
+
+        showStatus(
+            "📂 Category Management পরবর্তী ধাপে তৈরি হবে।",
+            "info"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        section === "products"
+    ){
+
+        showStatus(
+            "📦 Product Management পরবর্তী ধাপে তৈরি হবে।",
+            "info"
+        );
+
+        return;
+
+    }
+
+
+    if(
+        section === "settings"
+    ){
+
+        showStatus(
+            "⚙️ Settings পরবর্তী ধাপে তৈরি হবে।",
+            "info"
+        );
+
+        return;
+
+    }
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* ==========================================================
+   SIDEBAR
+========================================================== */
+
+function initSidebar(){
+
+    document
+        .querySelectorAll(
+            ".sidebar-btn"
+        )
+        .forEach(
+            function(button){
+
+                button.addEventListener(
+                    "click",
+                    function(){
+
+                        document
+                            .querySelectorAll(
+                                ".sidebar-btn"
+                            )
+                            .forEach(
+                                btn =>
+                                    btn.classList.remove(
+                                        "active"
+                                    )
+                            );
+
+
+                        button.classList.add(
+                            "active"
+                        );
+
+
+                        goToSection(
+                            button.dataset.section
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* ==========================================================
+   QUICK ACTIONS
+========================================================== */
+
+function initQuickActions(){
+
+    const categories =
+        [
+            "#openCategories",
+            "#manageCategories"
+        ];
+
+
+    categories.forEach(
+        function(selector){
+
+            const button =
+                $(selector);
+
+            if(button){
+
+                button.onclick =
+                    function(){
+
+                        goToSection(
+                            "categories"
+                        );
+
+                    };
+
+            }
+
+        }
+    );
+
+
+    const products =
+        [
+            "#openProducts",
+            "#manageProducts"
+        ];
+
+
+    products.forEach(
+        function(selector){
+
+            const button =
+                $(selector);
+
+            if(button){
+
+                button.onclick =
+                    function(){
+
+                        goToSection(
+                            "products"
+                        );
+
+                    };
+
+            }
+
+        }
+    );
+
+
+    const websiteButtons =
+        [
+            "#viewWebsite"
+        ];
+
+
+    websiteButtons.forEach(
+        function(selector){
+
+            const button =
+                $(selector);
+
+            if(button){
+
+                button.onclick =
+                    function(){
+
+                        window.location.href =
+                            ADMIN_CONFIG.website;
+
+                    };
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   REFRESH
+========================================================== */
+
+function initRefresh(){
+
+    const button =
+        $("#refreshData");
+
+    if(!button) return;
+
+
+    button.addEventListener(
+        "click",
+        async function(){
+
+            button.disabled =
+                true;
+
+
+            button.innerHTML = `
+
+<i class="fa-solid fa-spinner fa-spin"></i>
+
+`;
+
+
+            await Promise.all([
+
+                loadAdminProducts(),
+
+                loadAdminCategories()
+
+            ]);
+
+
+            updateWishlistStats();
+
+
+            button.disabled =
+                false;
+
+
+            button.innerHTML = `
+
+<i class="fa-solid fa-rotate"></i>
+
+<span>
+    Refresh
+</span>
+
+`;
+
+
+            showStatus(
+                "✅ Data সফলভাবে Refresh হয়েছে।"
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   INITIALIZE
+========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function(){
+
+        console.log(
+            "✅ Maliha Agro Industry Admin Panel Loaded"
+        );
+
+
+        initSidebar();
+
+        initQuickActions();
+
+        initRefresh();
+
+        updateWishlistStats();
+
+
+        await Promise.all([
+
+            loadAdminProducts(),
+
+            loadAdminCategories()
+
+        ]);
+
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>
 
