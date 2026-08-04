@@ -4578,3 +4578,1122 @@ function initImagePreview() {
 
 }
 
+/* ==========================================================
+   PART 5
+   PRODUCT DETAILS + RELATED PRODUCTS
+   ========================================================== */
+
+
+/* ==========================================================
+   PRODUCT DETAILS PAGE
+   ========================================================== */
+
+async function loadProductDetails() {
+
+    const slider = $("#productSlider");
+
+    if (!slider) return;
+
+    try {
+
+        const id = getProductId();
+
+        await ensureProductsLoaded();
+
+        currentProduct = products.find(
+            product =>
+                Number(product.id) === Number(id)
+        );
+
+
+        /* --------------------------------------------------
+           PRODUCT NOT FOUND
+        -------------------------------------------------- */
+
+        if (!currentProduct) {
+
+            const gallery =
+                $(".product-gallery");
+
+            if (gallery) {
+
+                gallery.innerHTML = `
+
+                    <div class="card">
+
+                        <h2>
+                            ❌ পণ্য পাওয়া যায়নি
+                        </h2>
+
+                        <p>
+                            আপনি যে পণ্যটি খুঁজছেন
+                            সেটি বর্তমানে পাওয়া যাচ্ছে না।
+                        </p>
+
+                        <a
+                            href="products.html"
+                            class="btn"
+                        >
+                            📦 সকল পণ্য দেখুন
+                        </a>
+
+                    </div>
+
+                `;
+
+            }
+
+            return;
+
+        }
+
+
+        /* ==================================================
+           BASIC PRODUCT INFORMATION
+        ================================================== */
+
+        const productName =
+            $("#productName");
+
+        const productBrand =
+            $("#productBrand");
+
+        const productBrandInfo =
+            $("#productBrandInfo");
+
+        const productRating =
+            $("#productRating");
+
+        const productStockInfo =
+            $("#productStockInfo");
+
+        const productStock =
+            $("#productStock");
+
+        const productCategory =
+            $("#productCategory");
+
+        const productSubCategory =
+            $("#productSubCategory");
+
+        const productType =
+            $("#productType");
+
+        const productSku =
+            $("#productSku");
+
+        const productWeight =
+            $("#productWeight");
+
+        const productDescription =
+            $("#productDescription");
+
+
+        if (productName) {
+
+            productName.textContent =
+                currentProduct.name || "পণ্য";
+
+        }
+
+
+        if (productBrand) {
+
+            productBrand.textContent =
+                currentProduct.brand ||
+                SITE_CONFIG.companyName;
+
+        }
+
+
+        if (productBrandInfo) {
+
+            productBrandInfo.textContent =
+                currentProduct.brand ||
+                SITE_CONFIG.companyName;
+
+        }
+
+
+        if (productRating) {
+
+            productRating.textContent =
+                `(${currentProduct.rating || 0})`;
+
+        }
+
+
+        if (productStockInfo) {
+
+            productStockInfo.textContent =
+                currentProduct.stock ||
+                "স্টকে আছে";
+
+        }
+
+
+        if (productStock) {
+
+            productStock.textContent =
+                "🟢 " +
+                (
+                    currentProduct.stock ||
+                    "স্টকে আছে"
+                );
+
+        }
+
+
+        if (productCategory) {
+
+            productCategory.textContent =
+                currentProduct.categoryName ||
+                currentProduct.category ||
+                "-";
+
+        }
+
+
+        if (productSubCategory) {
+
+            productSubCategory.textContent =
+                currentProduct.subCategoryName ||
+                currentProduct.subCategory ||
+                "-";
+
+        }
+
+
+        if (productType) {
+
+            productType.textContent =
+                currentProduct.type ||
+                "-";
+
+        }
+
+
+        if (productSku) {
+
+            productSku.textContent =
+                currentProduct.sku ||
+                "-";
+
+        }
+
+
+        if (productWeight) {
+
+            productWeight.textContent =
+                currentProduct.weight ||
+                "-";
+
+        }
+
+
+        if (productDescription) {
+
+            productDescription.textContent =
+                currentProduct.description ||
+                "";
+
+        }
+
+
+        /* ==================================================
+           PRICE
+        ================================================== */
+
+        const price =
+            Number(currentProduct.price || 0);
+
+        const oldPrice =
+            Number(currentProduct.oldPrice || 0);
+
+
+        const priceElement =
+            $("#productPrice");
+
+        const oldPriceElement =
+            $("#productOldPrice");
+
+        const discountElement =
+            $("#productDiscount");
+
+        const reviewElement =
+            $("#productReview");
+
+
+        if (priceElement) {
+
+            priceElement.textContent =
+                formatPrice(price);
+
+        }
+
+
+        if (oldPriceElement) {
+
+            if (oldPrice > price) {
+
+                oldPriceElement.textContent =
+                    formatPrice(oldPrice);
+
+                oldPriceElement.style.display =
+                    "inline";
+
+            }
+            else {
+
+                oldPriceElement.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        if (discountElement) {
+
+            if (
+                oldPrice > price &&
+                price > 0
+            ) {
+
+                const discount =
+                    Math.round(
+                        (
+                            (oldPrice - price) /
+                            oldPrice
+                        ) * 100
+                    );
+
+
+                discountElement.textContent =
+                    discount + "% OFF";
+
+                discountElement.style.display =
+                    "inline-block";
+
+            }
+            else {
+
+                discountElement.style.display =
+                    "none";
+
+            }
+
+        }
+
+
+        if (reviewElement) {
+
+            reviewElement.textContent =
+                `(${currentProduct.rating || 0} Reviews)`;
+
+        }
+
+
+        /* ==================================================
+           PRODUCT GALLERY
+        ================================================== */
+
+        const gallery =
+            getGallery(currentProduct);
+
+
+        slider.innerHTML = "";
+
+
+        if (!gallery.length) {
+
+            slider.innerHTML = `
+
+                <div class="no-image">
+
+                    🌱
+
+                    <p>
+                        এই পণ্যের ছবি পাওয়া যায়নি।
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+        else {
+
+            gallery.forEach(
+                function (src, index) {
+
+                    const img =
+                        document.createElement("img");
+
+
+                    img.src = src;
+
+                    img.alt =
+                        currentProduct.name ||
+                        SITE_CONFIG.companyName;
+
+
+                    img.className =
+                        "product-img" +
+                        (
+                            index === 0
+                                ? " active"
+                                : ""
+                        );
+
+
+                    img.loading =
+                        index === 0
+                            ? "eager"
+                            : "lazy";
+
+
+                    img.onerror =
+                        function () {
+
+                            this.style.display =
+                                "none";
+
+                        };
+
+
+                    slider.appendChild(img);
+
+                }
+            );
+
+        }
+
+
+        /* ==================================================
+           INITIALIZE PRODUCT FEATURES
+        ================================================== */
+
+        initDetailGallery();
+
+        initQuantity();
+
+        initOrderButton();
+
+        initShareProductButtons();
+
+        initProductWishlist();
+
+        loadRelatedProducts();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Product Details Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   DETAIL GALLERY
+   ========================================================== */
+
+function initDetailGallery() {
+
+    const slider =
+        $("#productSlider");
+
+    if (!slider) return;
+
+
+    const images =
+        slider.querySelectorAll(
+            ".product-img"
+        );
+
+
+    const prev =
+        $("#prevImage");
+
+    const next =
+        $("#nextImage");
+
+    const counter =
+        $("#sliderCounter");
+
+
+    if (!images.length) {
+
+        if (counter) {
+
+            counter.textContent =
+                "0 / 0";
+
+        }
+
+        return;
+
+    }
+
+
+    function showImage(index) {
+
+        if (index < 0) {
+
+            index =
+                images.length - 1;
+
+        }
+
+
+        if (
+            index >= images.length
+        ) {
+
+            index = 0;
+
+        }
+
+
+        images.forEach(
+            img =>
+                img.classList.remove(
+                    "active"
+                )
+        );
+
+
+        images[index]
+            .classList.add(
+                "active"
+            );
+
+
+        detailSliderIndex =
+            index;
+
+
+        if (counter) {
+
+            counter.textContent =
+                `${index + 1} / ${images.length}`;
+
+        }
+
+    }
+
+
+    detailSliderIndex = 0;
+
+
+    if (prev) {
+
+        prev.onclick =
+            function () {
+
+                showImage(
+                    detailSliderIndex - 1
+                );
+
+            };
+
+    }
+
+
+    if (next) {
+
+        next.onclick =
+            function () {
+
+                showImage(
+                    detailSliderIndex + 1
+                );
+
+            };
+
+    }
+
+
+    images.forEach(
+        function (img) {
+
+            img.onclick =
+                function () {
+
+                    const modal =
+                        $("#imageModal");
+
+                    const modalImage =
+                        $("#modalImage");
+
+
+                    if (
+                        modal &&
+                        modalImage
+                    ) {
+
+                        modalImage.src =
+                            img.src;
+
+                        modal.style.display =
+                            "flex";
+
+                    }
+
+                };
+
+        }
+    );
+
+
+    showImage(0);
+
+}
+
+
+/* ==========================================================
+   QUANTITY SYSTEM
+   ========================================================== */
+
+function initQuantity() {
+
+    const qtyInput =
+        $("#qty");
+
+    const total =
+        $("#totalPrice");
+
+    const plus =
+        $("#plusQty");
+
+    const minus =
+        $("#minusQty");
+
+
+    if (
+        !qtyInput ||
+        !total ||
+        !plus ||
+        !minus ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    let qty =
+        Number(qtyInput.value) || 1;
+
+
+    if (qty < 1) {
+
+        qty = 1;
+
+    }
+
+
+    function updateQuantity() {
+
+        qtyInput.value =
+            qty;
+
+
+        total.textContent =
+            formatPrice(
+                Number(currentProduct.price || 0) *
+                qty
+            );
+
+
+        updateOrderLink(qty);
+
+    }
+
+
+    plus.onclick =
+        function () {
+
+            qty++;
+
+            updateQuantity();
+
+        };
+
+
+    minus.onclick =
+        function () {
+
+            if (qty > 1) {
+
+                qty--;
+
+                updateQuantity();
+
+            }
+
+        };
+
+
+    qtyInput.oninput =
+        function () {
+
+            qty =
+                Number(
+                    qtyInput.value
+                ) || 1;
+
+
+            if (qty < 1) {
+
+                qty = 1;
+
+            }
+
+
+            updateQuantity();
+
+        };
+
+
+    updateQuantity();
+
+}
+
+
+/* ==========================================================
+   ORDER BUTTON
+   ========================================================== */
+
+function initOrderButton() {
+
+    if (!currentProduct) return;
+
+
+    const button =
+        $("#orderNow");
+
+
+    if (!button) return;
+
+
+    updateOrderLink(1);
+
+}
+
+
+/* ==========================================================
+   WHATSAPP ORDER LINK
+   ========================================================== */
+
+function updateOrderLink(qty = 1) {
+
+    const button =
+        $("#orderNow");
+
+
+    if (
+        !button ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    const price =
+        Number(
+            currentProduct.price || 0
+        );
+
+
+    const total =
+        price * Number(qty || 1);
+
+
+    const category =
+        currentProduct.categoryName ||
+        currentProduct.category ||
+        "-";
+
+
+    const subCategory =
+        currentProduct.subCategoryName ||
+        currentProduct.subCategory ||
+        "-";
+
+
+    const message =
+
+`🌿 ${SITE_CONFIG.companyName}
+
+আমি নিচের পণ্যটি অর্ডার করতে চাই।
+
+📦 পণ্য:
+${currentProduct.name || "পণ্য"}
+
+💰 একক মূল্য:
+${formatPrice(price)}
+
+🔢 পরিমাণ:
+${qty}
+
+💵 মোট মূল্য:
+${formatPrice(total)}
+
+📂 প্রধান ক্যাটাগরি:
+${category}
+
+📁 সাব-ক্যাটাগরি:
+${subCategory}
+
+🔗 পণ্যের লিংক:
+${window.location.href}`;
+
+
+    button.href =
+        "https://wa.me/" +
+        SITE_CONFIG.whatsapp +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    button.target =
+        "_blank";
+
+
+    button.rel =
+        "noopener noreferrer";
+
+}
+
+
+/* ==========================================================
+   SHARE PRODUCT
+   ========================================================== */
+
+function initShareProductButtons() {
+
+    [
+
+        $("#shareProduct"),
+        $("#shareProductBtn")
+
+    ]
+    .forEach(
+        function (button) {
+
+            if (!button) return;
+
+
+            button.onclick =
+                async function () {
+
+                    if (!currentProduct) {
+
+                        return;
+
+                    }
+
+
+                    const shareData = {
+
+                        title:
+                            currentProduct.name ||
+                            SITE_CONFIG.companyName,
+
+                        text:
+                            currentProduct.description ||
+                            SITE_CONFIG.companyName,
+
+                        url:
+                            window.location.href
+
+                    };
+
+
+                    if (
+                        navigator.share
+                    ) {
+
+                        try {
+
+                            await navigator.share(
+                                shareData
+                            );
+
+                        }
+                        catch (error) {
+
+                            if (
+                                error.name !==
+                                "AbortError"
+                            ) {
+
+                                console.error(
+                                    error
+                                );
+
+                            }
+
+                        }
+
+                    }
+                    else {
+
+                        try {
+
+                            await navigator.clipboard
+                                .writeText(
+                                    window.location.href
+                                );
+
+
+                            alert(
+                                "✅ পণ্যের লিংক কপি হয়েছে"
+                            );
+
+                        }
+                        catch (error) {
+
+                            alert(
+                                "❌ লিংক কপি করা যায়নি"
+                            );
+
+                        }
+
+                    }
+
+                };
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   RELATED PRODUCTS
+   ========================================================== */
+
+function loadRelatedProducts() {
+
+    const container =
+        $("#relatedProducts");
+
+
+    if (
+        !container ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    /* ------------------------------------------------------
+       একই প্রধান ক্যাটাগরির পণ্য দেখাবে
+       বর্তমান পণ্য বাদ থাকবে
+    ------------------------------------------------------ */
+
+    let related =
+        products.filter(
+            function (product) {
+
+                if (
+                    Number(product.id) ===
+                    Number(currentProduct.id)
+                ) {
+
+                    return false;
+
+                }
+
+
+                return (
+                    normalizeCategory(
+                        product.category
+                    ) ===
+                    normalizeCategory(
+                        currentProduct.category
+                    )
+                );
+
+            }
+        );
+
+
+    /* ------------------------------------------------------
+       একই সাব-ক্যাটাগরির পণ্য থাকলে আগে দেখাবে
+    ------------------------------------------------------ */
+
+    const sameSubCategory =
+        related.filter(
+            function (product) {
+
+                return (
+                    normalizeCategory(
+                        product.subCategory
+                    ) ===
+                    normalizeCategory(
+                        currentProduct.subCategory
+                    )
+                );
+
+            }
+        );
+
+
+    const otherCategoryProducts =
+        related.filter(
+            function (product) {
+
+                return !sameSubCategory.includes(
+                    product
+                );
+
+            }
+        );
+
+
+    related =
+        [
+            ...sameSubCategory,
+            ...otherCategoryProducts
+        ]
+        .slice(0, 4);
+
+
+    container.innerHTML = "";
+
+
+    /* ------------------------------------------------------
+       RELATED PRODUCT NOT FOUND
+    ------------------------------------------------------ */
+
+    if (!related.length) {
+
+        container.innerHTML = `
+
+            <div class="card">
+
+                <p>
+                    এই ক্যাটাগরিতে বর্তমানে
+                    অন্য কোনো পণ্য নেই।
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    /* ------------------------------------------------------
+       RELATED PRODUCT CARD
+    ------------------------------------------------------ */
+
+    related.forEach(
+        function (product) {
+
+            const gallery =
+                getGallery(product);
+
+
+            const image =
+                gallery[0] || "";
+
+
+            container.innerHTML += `
+
+                <article
+                    class="product-card"
+                >
+
+                    <div class="slider">
+
+                        ${
+                            image
+                            ?
+                            `
+                            <img
+                                src="${image}"
+                                class="product-img active"
+                                alt="${product.name || "পণ্য"}"
+                                loading="lazy"
+                            >
+                            `
+                            :
+                            `
+                            <div
+                                class="no-product-image"
+                            >
+                                🌱
+                            </div>
+                            `
+                        }
+
+                    </div>
+
+
+                    <span
+                        class="product-category"
+                    >
+
+                        ${
+                            product.subCategoryName ||
+                            product.categoryName ||
+                            product.category ||
+                            "পণ্য"
+                        }
+
+                    </span>
+
+
+                    <h3>
+
+                        ${product.name || "পণ্য"}
+
+                    </h3>
+
+
+                    <p class="price">
+
+                        ${formatPrice(product.price)}
+
+                    </p>
+
+
+                    <a
+                        href="product.html?id=${product.id}"
+                        class="btn"
+                    >
+
+                        📖 বিস্তারিত দেখুন
+
+                    </a>
+
+                </article>
+
+            `;
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   PRODUCT DETAILS END
+   ========================================================== */
+
