@@ -1,72 +1,72 @@
 [
   {
-    "id": "agriculture-organic-fertilizer",
-    "name": "কৃষি ও জৈব সার",
+    "id": "agriculture",
+    "name": "কৃষি ও জৈব পণ্য",
     "icon": "🌱",
+    "status": "active",
+    "sortOrder": 1,
     "subCategories": [
       {
         "id": "vermicompost",
-        "name": "ভার্মি কম্পোস্ট কেঁচো সার",
-        "icon": "🌱"
-      },
-      {
-        "id": "tricho-compost",
-        "name": "ট্রাইকো কম্পোস্ট",
-        "icon": "🪴"
-      },
-      {
-        "id": "organic-fertilizer",
-        "name": "অন্যান্য জৈব সার",
-        "icon": "🌿"
+        "name": "ভার্মি কম্পোস্ট",
+        "icon": "🪱",
+        "status": "active",
+        "sortOrder": 1
       }
     ]
   },
+
   {
     "id": "spices",
     "name": "মসলা",
     "icon": "🌶️",
+    "status": "active",
+    "sortOrder": 2,
     "subCategories": [
       {
         "id": "chili-powder",
         "name": "মরিচের গুঁড়া",
-        "icon": "🌶️"
+        "icon": "🌶️",
+        "status": "active",
+        "sortOrder": 1
       },
       {
         "id": "coriander-powder",
         "name": "ধনিয়ার গুঁড়া",
-        "icon": "🌿"
-      },
-      {
-        "id": "turmeric-powder",
-        "name": "হলুদের গুঁড়া",
-        "icon": "🟡"
+        "icon": "🌿",
+        "status": "active",
+        "sortOrder": 2
       },
       {
         "id": "cumin-powder",
         "name": "জিরার গুঁড়া",
-        "icon": "🌿"
+        "icon": "🌿",
+        "status": "active",
+        "sortOrder": 3
       }
     ]
   },
+
   {
-    "id": "food-products",
+    "id": "food",
     "name": "খাদ্যপণ্য",
     "icon": "🍚",
+    "status": "active",
+    "sortOrder": 3,
     "subCategories": [
       {
         "id": "flour",
         "name": "আটা",
-        "icon": "🌾"
+        "icon": "🌾",
+        "status": "active",
+        "sortOrder": 1
       },
       {
-        "id": "noodles",
-        "name": "নুডলস",
-        "icon": "🍜"
-      },
-      {
-        "id": "other-food",
-        "name": "অন্যান্য খাদ্যপণ্য",
-        "icon": "🍱"
+        "id": "rice",
+        "name": "চাল",
+        "icon": "🍚",
+        "status": "active",
+        "sortOrder": 2
       }
     ]
   }
