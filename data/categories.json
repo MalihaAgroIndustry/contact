@@ -1,72 +1,116 @@
 [
   {
-    "id": "agriculture",
-    "name": "কৃষি ও জৈব পণ্য",
+    "id": "organic-fertilizer",
+    "name": "জৈব সার",
     "icon": "🌱",
-    "status": "active",
-    "sortOrder": 1,
     "subCategories": [
       {
         "id": "vermicompost",
-        "name": "ভার্মি কম্পোস্ট",
-        "icon": "🪱",
-        "status": "active",
-        "sortOrder": 1
+        "name": "ভার্মি কম্পোস্ট কেঁচো সার",
+        "icon": "🪱"
+      },
+      {
+        "id": "tricho-compost",
+        "name": "ট্রাইকো কম্পোস্ট",
+        "icon": "🌿"
+      },
+      {
+        "id": "organic-fertilizer",
+        "name": "অন্যান্য জৈব সার",
+        "icon": "🌱"
       }
     ]
   },
-
   {
     "id": "spices",
     "name": "মসলা",
     "icon": "🌶️",
-    "status": "active",
-    "sortOrder": 2,
     "subCategories": [
       {
         "id": "chili-powder",
         "name": "মরিচের গুঁড়া",
-        "icon": "🌶️",
-        "status": "active",
-        "sortOrder": 1
+        "icon": "🌶️"
+      },
+      {
+        "id": "turmeric-powder",
+        "name": "হলুদের গুঁড়া",
+        "icon": "🟡"
       },
       {
         "id": "coriander-powder",
         "name": "ধনিয়ার গুঁড়া",
-        "icon": "🌿",
-        "status": "active",
-        "sortOrder": 2
+        "icon": "🌿"
       },
       {
         "id": "cumin-powder",
         "name": "জিরার গুঁড়া",
-        "icon": "🌿",
-        "status": "active",
-        "sortOrder": 3
+        "icon": "🌿"
+      },
+      {
+        "id": "other-spices",
+        "name": "অন্যান্য মসলা",
+        "icon": "🧂"
       }
     ]
   },
-
   {
     "id": "food",
     "name": "খাদ্যপণ্য",
     "icon": "🍚",
-    "status": "active",
-    "sortOrder": 3,
     "subCategories": [
       {
         "id": "flour",
         "name": "আটা",
-        "icon": "🌾",
-        "status": "active",
-        "sortOrder": 1
+        "icon": "🌾"
       },
       {
         "id": "rice",
         "name": "চাল",
-        "icon": "🍚",
-        "status": "active",
-        "sortOrder": 2
+        "icon": "🍚"
+      },
+      {
+        "id": "other-food",
+        "name": "অন্যান্য খাদ্যপণ্য",
+        "icon": "🥣"
+      }
+    ]
+  },
+  {
+    "id": "agriculture",
+    "name": "কৃষি পণ্য",
+    "icon": "🚜",
+    "subCategories": [
+      {
+        "id": "seeds",
+        "name": "বীজ",
+        "icon": "🌱"
+      },
+      {
+        "id": "agricultural-equipment",
+        "name": "কৃষি যন্ত্রপাতি",
+        "icon": "🚜"
+      },
+      {
+        "id": "other-agriculture",
+        "name": "অন্যান্য কৃষি পণ্য",
+        "icon": "🌾"
+      }
+    ]
+  },
+  {
+    "id": "household",
+    "name": "গৃহস্থালি পণ্য",
+    "icon": "🏠",
+    "subCategories": [
+      {
+        "id": "household-items",
+        "name": "গৃহস্থালি সামগ্রী",
+        "icon": "🏠"
+      },
+      {
+        "id": "other-household",
+        "name": "অন্যান্য",
+        "icon": "📦"
       }
     ]
   }
