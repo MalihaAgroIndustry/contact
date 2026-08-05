@@ -1,476 +1,380 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Category Management | Maliha Agro Industry</title>
+    <title>Category Management | Maliha Agro Industry</title>
 
-<style>
-*{
-    box-sizing:border-box;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f4f7f5;
-    color:#222;
-}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #222;
+        }
 
-.header{
-    background:linear-gradient(135deg,#166c39,#1f8f4d);
-    color:#fff;
-    padding:20px;
-}
+        .header {
+            background: linear-gradient(135deg, #166c39, #1f8f4d);
+            color: white;
+            padding: 20px;
+        }
 
-.header-inner{
-    max-width:1200px;
-    margin:auto;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:15px;
-}
+        .header-inner {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
 
-.header h1{
-    margin:0;
-    font-size:23px;
-}
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
 
-.header p{
-    margin:6px 0 0;
-    opacity:.9;
-}
+        .header p {
+            margin: 6px 0 0;
+            opacity: .9;
+        }
 
-.back{
-    background:#fff;
-    color:#166c39;
-    text-decoration:none;
-    padding:10px 15px;
-    border-radius:10px;
-    font-weight:bold;
-}
+        .back-btn {
+            background: white;
+            color: #166c39;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
 
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:22px 15px 80px;
-}
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 25px 16px 80px;
+        }
 
-.card{
-    background:#fff;
-    border:1px solid #e2e9e4;
-    border-radius:16px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.05);
-}
+        .card {
+            background: white;
+            border: 1px solid #e1e9e3;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+        }
 
-.card h2{
-    margin-top:0;
-    color:#166c39;
-}
+        .card h2 {
+            margin-top: 0;
+            color: #166c39;
+        }
 
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:15px;
-}
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
 
-.full{
-    grid-column:1/-1;
-}
+        .full {
+            grid-column: 1 / -1;
+        }
 
-label{
-    font-weight:bold;
-    font-size:14px;
-    display:block;
-    margin-bottom:7px;
-}
+        label {
+            font-weight: bold;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 7px;
+        }
 
-input,select{
-    width:100%;
-    min-height:45px;
-    border:1px solid #d7e1da;
-    border-radius:9px;
-    padding:10px;
-    font-size:14px;
-}
+        input,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d7e2da;
+            border-radius: 10px;
+            font-size: 14px;
+            outline: none;
+        }
 
-input:focus,
-select:focus{
-    outline:none;
-    border-color:#1f8f4d;
-    box-shadow:0 0 0 3px rgba(31,143,77,.1);
-}
+        input:focus,
+        textarea:focus {
+            border-color: #1f8f4d;
+            box-shadow: 0 0 0 3px rgba(31,143,77,.1);
+        }
 
-.buttons{
-    display:flex;
-    gap:10px;
-    flex-wrap:wrap;
-    margin-top:15px;
-}
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
 
-button{
-    border:0;
-    border-radius:9px;
-    padding:11px 16px;
-    font-weight:bold;
-    cursor:pointer;
-}
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
 
-.primary{
-    background:#1f8f4d;
-    color:#fff;
-}
+        button {
+            border: none;
+            border-radius: 10px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
 
-.secondary{
-    background:#eef3ef;
-    color:#333;
-}
+        .primary {
+            background: #1f8f4d;
+            color: white;
+        }
 
-.danger{
-    background:#ffebee;
-    color:#c62828;
-}
+        .secondary {
+            background: #eef3ef;
+            color: #333;
+        }
 
-.warning{
-    background:#fff5d6;
-    color:#8a6500;
-}
+        .danger {
+            background: #ffebee;
+            color: #c62828;
+        }
 
-.blue{
-    background:#1565c0;
-    color:#fff;
-}
+        .warning {
+            background: #fff8e1;
+            color: #8d6500;
+        }
 
-.status{
-    display:none;
-    margin-top:15px;
-    padding:12px;
-    border-radius:9px;
-}
+        .sub-box {
+            margin-top: 18px;
+            padding: 15px;
+            background: #f7faf8;
+            border: 1px solid #e2ebe5;
+            border-radius: 12px;
+        }
 
-.status.show{
-    display:block;
-}
+        .sub-box h3 {
+            margin-top: 0;
+            color: #166c39;
+        }
 
-.success{
-    background:#e8f5e9;
-    color:#1b5e20;
-}
+        .sub-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 10px;
+        }
 
-.error{
-    background:#ffebee;
-    color:#b71c1c;
-}
+        .category-item {
+            border: 1px solid #e1e9e3;
+            border-radius: 14px;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: #fff;
+        }
 
-.category-box{
-    border:1px solid #dfe8e1;
-    border-radius:14px;
-    margin-bottom:15px;
-    overflow:hidden;
-}
+        .category-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
 
-.category-header{
-    background:#f3faf5;
-    padding:15px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-}
+        .category-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #166c39;
+        }
 
-.category-title{
-    font-size:18px;
-    font-weight:bold;
-    color:#166c39;
-}
+        .category-id {
+            color: #777;
+            font-size: 12px;
+        }
 
-.category-actions{
-    display:flex;
-    gap:7px;
-    flex-wrap:wrap;
-}
+        .sub-list {
+            margin-top: 12px;
+            padding-left: 0;
+            list-style: none;
+        }
 
-.sub-list{
-    padding:15px;
-}
+        .sub-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px;
+            margin-top: 7px;
+            background: #f5f8f6;
+            border-radius: 9px;
+        }
 
-.sub-item{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:10px;
-    padding:10px 12px;
-    margin-bottom:8px;
-    border:1px solid #edf1ee;
-    border-radius:9px;
-    background:#fff;
-}
+        .sub-name {
+            font-size: 14px;
+        }
 
-.sub-name{
-    font-weight:bold;
-}
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
 
-.sub-actions{
-    display:flex;
-    gap:6px;
-}
+        .status {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+        }
 
-.empty{
-    text-align:center;
-    padding:30px;
-    color:#777;
-}
+        .status.show {
+            display: block;
+        }
 
-.info{
-    background:#eef6ff;
-    border:1px solid #cfe2ff;
-    color:#24527a;
-    padding:13px;
-    border-radius:10px;
-    line-height:1.7;
-    margin-bottom:20px;
-}
+        .success {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
 
-.hidden{
-    display:none!important;
-}
+        .error {
+            background: #ffebee;
+            color: #b71c1c;
+        }
 
-@media(max-width:700px){
+        .info {
+            background: #eef6ff;
+            color: #24527a;
+            padding: 13px;
+            border-radius: 10px;
+            line-height: 1.7;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
 
-    .header-inner{
-        flex-direction:column;
-        align-items:flex-start;
-    }
+        @media(max-width:700px) {
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
-    .grid{
-        grid-template-columns:1fr;
-    }
+            .form-grid,
+            .sub-form {
+                grid-template-columns: 1fr;
+            }
 
-    .full{
-        grid-column:auto;
-    }
-
-    .category-header,
-    .sub-item{
-        align-items:flex-start;
-        flex-direction:column;
-    }
-
-    .card{
-        padding:16px;
-    }
-}
-</style>
+            .full {
+                grid-column: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header class="header">
+    <div class="header-inner">
 
-<div class="header-inner">
+        <div>
+            <h1>📂 Category Management</h1>
+            <p>Maliha Agro Industry — ক্যাটাগরি ব্যবস্থাপনা</p>
+        </div>
 
-<div>
-<h1>📂 Category Management</h1>
-<p>Maliha Agro Industry — ক্যাটাগরি ব্যবস্থাপনা</p>
-</div>
+        <a href="index.html" class="back-btn">
+            ← Admin Dashboard
+        </a>
 
-<a href="index.html" class="back">
-← Admin Dashboard
-</a>
-
-</div>
-
+    </div>
 </header>
 
 <main class="container">
 
-<div class="info">
+    <!-- মূল ক্যাটাগরি যোগ -->
+    <section class="card">
 
-<strong>📌 কাঠামো:</strong><br>
+        <h2>➕ মূল ক্যাটাগরি যোগ করুন</h2>
 
-মূল ক্যাটাগরি = বড় বিভাগ<br>
-সাব-ক্যাটাগরি = সেই বিভাগের ভেতরের ধরন<br>
-Product = আসল বিক্রির পণ্য
+        <div class="info">
+            <strong>উদাহরণ:</strong>
+            সার, বীজ, কৃষি সরঞ্জাম ইত্যাদি।<br>
+            একটি মূল ক্যাটাগরির অধীনে একাধিক সাব-ক্যাটাগরি থাকবে।
+        </div>
 
-<br><br>
+        <div class="form-grid">
 
-উদাহরণ:
-<strong>সার → জৈব সার → ভার্মি কম্পোস্ট</strong>
+            <div>
+                <label>ক্যাটাগরি ID *</label>
 
-</div>
+                <input
+                    type="text"
+                    id="categoryId"
+                    placeholder="যেমন: fertilizer"
+                >
+            </div>
 
+            <div>
+                <label>ক্যাটাগরি নাম *</label>
 
-<!-- ADD CATEGORY -->
+                <input
+                    type="text"
+                    id="categoryName"
+                    placeholder="যেমন: সার"
+                >
+            </div>
 
-<section class="card">
+            <div>
+                <label>আইকন</label>
 
-<h2 id="categoryFormTitle">
-➕ নতুন মূল ক্যাটাগরি
-</h2>
+                <input
+                    type="text"
+                    id="categoryIcon"
+                    placeholder="যেমন: 🌱"
+                >
+            </div>
 
-<div class="grid">
+        </div>
 
-<div>
-<label>ক্যাটাগরির নাম *</label>
+        <div class="btn-row">
 
-<input
-    type="text"
-    id="categoryName"
-    placeholder="যেমন: সার"
->
-</div>
+            <button
+                class="primary"
+                id="saveCategoryBtn"
+            >
+                💾 ক্যাটাগরি সংরক্ষণ
+            </button>
 
-<div>
-<label>Icon</label>
+            <button
+                class="secondary"
+                id="resetCategoryBtn"
+            >
+                ↩️ Reset
+            </button>
 
-<input
-    type="text"
-    id="categoryIcon"
-    placeholder="যেমন: 🌱"
->
-</div>
+        </div>
 
-</div>
+        <div id="categoryStatus" class="status"></div>
 
-<div class="buttons">
-
-<button
-    class="primary"
-    id="saveCategory"
->
-💾 ক্যাটাগরি সংরক্ষণ
-</button>
-
-<button
-    class="secondary hidden"
-    id="cancelCategory"
->
-✖ Edit বাতিল
-</button>
-
-</div>
-
-</section>
-
-
-<!-- ADD SUB CATEGORY -->
-
-<section class="card">
-
-<h2 id="subFormTitle">
-➕ নতুন সাব-ক্যাটাগরি
-</h2>
-
-<div class="grid">
-
-<div>
-<label>মূল ক্যাটাগরি *</label>
-
-<select id="subParent">
-<option value="">
-মূল ক্যাটাগরি নির্বাচন করুন
-</option>
-</select>
-</div>
-
-<div>
-<label>সাব-ক্যাটাগরির নাম *</label>
-
-<input
-    type="text"
-    id="subName"
-    placeholder="যেমন: জৈব সার"
->
-</div>
-
-<div>
-<label>Icon</label>
-
-<input
-    type="text"
-    id="subIcon"
-    placeholder="যেমন: 🪱"
->
-</div>
-
-</div>
-
-<div class="buttons">
-
-<button
-    class="primary"
-    id="saveSub"
->
-💾 সাব-ক্যাটাগরি সংরক্ষণ
-</button>
-
-<button
-    class="secondary hidden"
-    id="cancelSub"
->
-✖ Edit বাতিল
-</button>
-
-</div>
-
-</section>
+    </section>
 
 
-<!-- LIST -->
+    <!-- ক্যাটাগরি তালিকা -->
 
-<section class="card">
+    <section class="card">
 
-<div style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-flex-wrap:wrap;
-">
+        <h2>📋 মূল ক্যাটাগরি ও সাব-ক্যাটাগরি</h2>
 
-<h2 style="margin-bottom:0;">
-📋 ক্যাটাগরি তালিকা
-</h2>
+        <div class="info">
+            <strong>তোমার বর্তমান কাঠামো:</strong><br>
+            মূল ক্যাটাগরি → সার<br>
+            সাব-ক্যাটাগরি → জৈব সার, রাসায়নিক সার, কীটনাশক
+        </div>
 
-<div class="buttons" style="margin-top:0;">
+        <div id="categoryList">
 
-<button
-    class="blue"
-    id="exportBtn"
->
-⬇️ categories.json Export
-</button>
+            <div class="empty">
+                ⏳ ক্যাটাগরি লোড হচ্ছে...
+            </div>
 
-<button
-    class="secondary"
-    id="reloadBtn"
->
-🔄 Reload
-</button>
+        </div>
 
-</div>
-
-</div>
-
-
-<div
-    id="status"
-    class="status"
-></div>
-
-
-<div
-    id="categoryList"
-    style="margin-top:20px;"
->
-</div>
-
-</section>
+    </section>
 
 </main>
 
@@ -480,38 +384,48 @@ flex-wrap:wrap;
 "use strict";
 
 
+/* =====================================================
+   CONFIG
+===================================================== */
+
 const CATEGORY_FILE =
     "../data/categories.json";
-
 
 const STORAGE_KEY =
     "maliha_categories";
 
 
+/* =====================================================
+   DATA
+===================================================== */
+
 let categories = [];
 
 let editingCategoryId = null;
 
-let editingSubId = null;
 
-
-/* =========================
+/* =====================================================
    SHORTCUT
-========================= */
+===================================================== */
 
-const $ = id =>
-    document.getElementById(id);
+const $ = selector =>
+    document.querySelector(selector);
 
 
-/* =========================
+/* =====================================================
    STATUS
-========================= */
+===================================================== */
 
-function status(message,type="success"){
+function showStatus(
+    message,
+    type = "success"
+) {
 
-    const box = $("status");
+    const box =
+        $("#categoryStatus");
 
-    box.textContent = message;
+    box.textContent =
+        message;
 
     box.className =
         "status show " + type;
@@ -519,98 +433,95 @@ function status(message,type="success"){
 }
 
 
-/* =========================
-   LOAD DATA
-========================= */
+/* =====================================================
+   ESCAPE
+===================================================== */
 
-async function loadCategories(){
+function escapeHTML(value) {
 
-    try{
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   LOAD CATEGORY
+===================================================== */
+
+async function loadCategories() {
+
+    try {
 
         const response =
             await fetch(
                 CATEGORY_FILE,
                 {
-                    cache:"no-store"
+                    cache: "no-store"
                 }
             );
 
-        if(!response.ok)
-            throw new Error();
+        if (!response.ok) {
+            throw new Error("categories.json load failed");
+        }
 
         const data =
             await response.json();
 
-        if(Array.isArray(data)){
+        categories =
+            Array.isArray(data)
+                ? data
+                : [];
 
-            categories = data;
+        loadLocalCategories();
 
-        }else{
-
-            categories = [];
-
-        }
-
-
-        /*
-        LocalStorage থাকলে
-        সর্বশেষ Admin data ব্যবহার হবে।
-        */
-
-        const local =
-            localStorage.getItem(
-                STORAGE_KEY
-            );
-
-        if(local){
-
-            const parsed =
-                JSON.parse(local);
-
-            if(Array.isArray(parsed)){
-
-                categories = parsed;
-
-            }
-
-        }
-
-
-        render();
+        renderCategories();
 
     }
-    catch(error){
+
+    catch (error) {
 
         console.error(error);
 
-        const local =
-            localStorage.getItem(
-                STORAGE_KEY
-            );
+        loadLocalCategories();
 
-        if(local){
+        if (!categories.length) {
 
-            try{
-
-                categories =
-                    JSON.parse(local);
-
-            }catch{
-
-                categories = [];
-
-            }
-
-        }else{
-
-            categories = [];
+            categories = [
+                {
+                    id: "fertilizer",
+                    name: "সার",
+                    icon: "🌱",
+                    subCategories: [
+                        {
+                            id: "organic-fertilizer",
+                            name: "জৈব সার",
+                            icon: "🌿"
+                        },
+                        {
+                            id: "chemical-fertilizer",
+                            name: "রাসায়নিক সার",
+                            icon: "🧪"
+                        },
+                        {
+                            id: "pesticide",
+                            name: "কীটনাশক",
+                            icon: "🐛"
+                        }
+                    ]
+                }
+            ];
 
         }
 
-        render();
+        renderCategories();
 
-        status(
-            "⚠️ categories.json লোড করা যায়নি।",
+        showStatus(
+            "⚠️ categories.json পাওয়া যায়নি। বর্তমানে Browser Local Data ব্যবহার হচ্ছে।",
             "error"
         );
 
@@ -619,267 +530,289 @@ async function loadCategories(){
 }
 
 
-/* =========================
-   SAVE LOCAL
-========================= */
+/* =====================================================
+   LOCAL DATA
+===================================================== */
 
-function saveLocal(){
+function loadLocalCategories() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    STORAGE_KEY
+                ) || "null"
+            );
+
+        if (Array.isArray(saved)) {
+
+            categories =
+                saved;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =====================================================
+   SAVE LOCAL
+===================================================== */
+
+function saveCategories() {
 
     localStorage.setItem(
         STORAGE_KEY,
         JSON.stringify(
-            categories
+            categories,
+            null,
+            4
         )
     );
 
 }
 
 
-/* =========================
+/* =====================================================
    RENDER
-========================= */
+===================================================== */
 
-function render(){
+function renderCategories() {
 
     const list =
-        $("categoryList");
+        $("#categoryList");
 
-    const parent =
-        $("subParent");
-
-
-    if(!categories.length){
+    if (!categories.length) {
 
         list.innerHTML = `
-        <div class="empty">
-        📂 এখনো কোনো মূল ক্যাটাগরি নেই।
-        </div>
+            <div class="empty">
+                📂 কোনো ক্যাটাগরি নেই।
+            </div>
         `;
-
-    }else{
-
-        list.innerHTML =
-            categories.map(
-                category => `
-
-<div class="category-box">
-
-<div class="category-header">
-
-<div class="category-title">
-
-${escapeHTML(
-    category.icon || "📂"
-)}
-
-${escapeHTML(
-    category.name || ""
-)}
-
-</div>
-
-<div class="category-actions">
-
-<button
-    class="warning"
-    onclick="editCategory('${escapeAttr(category.id)}')"
->
-✏️ Edit
-</button>
-
-<button
-    class="danger"
-    onclick="deleteCategory('${escapeAttr(category.id)}')"
->
-🗑 Delete
-</button>
-
-</div>
-
-</div>
-
-
-<div class="sub-list">
-
-${
-    Array.isArray(
-        category.subCategories
-    )
-    &&
-    category.subCategories.length
-
-    ?
-
-    category.subCategories.map(
-        sub => `
-
-<div class="sub-item">
-
-<div class="sub-name">
-
-${escapeHTML(
-    sub.icon || "📦"
-)}
-
-${escapeHTML(
-    sub.name || ""
-)}
-
-</div>
-
-<div class="sub-actions">
-
-<button
-    class="warning"
-    onclick="
-    editSubCategory(
-        '${escapeAttr(category.id)}',
-        '${escapeAttr(sub.id)}'
-    )
-    "
->
-✏️ Edit
-</button>
-
-<button
-    class="danger"
-    onclick="
-    deleteSubCategory(
-        '${escapeAttr(category.id)}',
-        '${escapeAttr(sub.id)}'
-    )
-    "
->
-🗑 Delete
-</button>
-
-</div>
-
-</div>
-
-`
-    ).join("")
-
-    :
-
-    `
-    <div style="color:#888;">
-    এই ক্যাটাগরিতে এখনো কোনো সাব-ক্যাটাগরি নেই।
-    </div>
-    `
-
-}
-
-</div>
-
-</div>
-
-`
-            ).join("");
-
-    }
-
-
-    parent.innerHTML = `
-
-<option value="">
-মূল ক্যাটাগরি নির্বাচন করুন
-</option>
-
-${
-    categories.map(
-        category => `
-
-<option value="${escapeAttr(category.id)}">
-
-${escapeHTML(
-    category.icon || "📂"
-)}
-
-${escapeHTML(
-    category.name || ""
-)}
-
-</option>
-
-`
-    ).join("")
-}
-
-`;
-
-}
-
-
-/* =========================
-   ADD CATEGORY
-========================= */
-
-$("saveCategory")
-.addEventListener(
-"click",
-function(){
-
-    const name =
-        $("categoryName")
-        .value
-        .trim();
-
-    const icon =
-        $("categoryIcon")
-        .value
-        .trim();
-
-
-    if(!name){
-
-        status(
-            "❌ ক্যাটাগরির নাম দিন।",
-            "error"
-        );
 
         return;
 
     }
 
 
-    if(editingCategoryId){
+    list.innerHTML =
+        categories.map(
+            category => {
 
-        const category =
-            categories.find(
-                item =>
-                    String(item.id) ===
-                    String(editingCategoryId)
-            );
+                const subs =
+                    Array.isArray(
+                        category.subCategories
+                    )
+                    ? category.subCategories
+                    : [];
 
-        if(category){
 
-            category.name = name;
+                return `
 
-            category.icon =
-                icon || "📂";
+<div
+    class="category-item"
+    data-category="${escapeHTML(category.id)}"
+>
 
-        }
+    <div class="category-title">
 
-        status(
-            "✅ ক্যাটাগরি পরিবর্তন করা হয়েছে।"
-        );
+        <div>
 
-    }else{
+            <div class="category-name">
+
+                ${escapeHTML(
+                    category.icon || "📂"
+                )}
+
+                ${escapeHTML(
+                    category.name
+                )}
+
+            </div>
+
+            <div class="category-id">
+
+                ID:
+                ${escapeHTML(
+                    category.id
+                )}
+
+            </div>
+
+        </div>
+
+
+        <div class="btn-row"
+             style="margin-top:0;"
+        >
+
+            <button
+                class="warning"
+                onclick="editCategory('${escapeHTML(category.id)}')"
+            >
+                ✏️ Edit
+            </button>
+
+            <button
+                class="danger"
+                onclick="deleteCategory('${escapeHTML(category.id)}')"
+            >
+                🗑️ Delete
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="sub-box">
+
+        <h3>
+            সাব-ক্যাটাগরি
+        </h3>
+
+
+        <div class="sub-form">
+
+            <input
+                type="text"
+                class="new-sub-id"
+                placeholder="ID যেমন: vermicompost"
+            >
+
+            <input
+                type="text"
+                class="new-sub-name"
+                placeholder="নাম যেমন: জৈব সার"
+            >
+
+            <button
+                class="primary"
+                onclick="addSubCategory('${escapeHTML(category.id)}', this)"
+            >
+                ➕ যোগ
+            </button>
+
+        </div>
+
+
+        <ul class="sub-list">
+
+            ${
+                subs.length
+                ?
+                subs.map(
+                    sub => `
+
+<li
+    class="sub-item"
+>
+
+    <div class="sub-name">
+
+        ${escapeHTML(
+            sub.icon || "📦"
+        )}
+
+        <strong>
+            ${escapeHTML(
+                sub.name
+            )}
+        </strong>
+
+        <small>
+            (${escapeHTML(
+                sub.id
+            )})
+        </small>
+
+    </div>
+
+
+    <div class="btn-row"
+         style="margin-top:0;"
+    >
+
+        <button
+            class="warning"
+            onclick="editSubCategory('${escapeHTML(category.id)}','${escapeHTML(sub.id)}')"
+        >
+            ✏️
+        </button>
+
+        <button
+            class="danger"
+            onclick="deleteSubCategory('${escapeHTML(category.id)}','${escapeHTML(sub.id)}')"
+        >
+            🗑️
+        </button>
+
+    </div>
+
+</li>
+
+`
+                ).join("")
+                :
+                `
+                <li class="empty">
+                    কোনো সাব-ক্যাটাগরি নেই।
+                </li>
+                `
+            }
+
+        </ul>
+
+    </div>
+
+</div>
+
+`;
+
+            }
+        ).join("");
+
+}
+
+
+/* =====================================================
+   SAVE MAIN CATEGORY
+===================================================== */
+
+$("#saveCategoryBtn")
+.addEventListener(
+    "click",
+    function() {
 
         const id =
-            slugify(name);
+            $("#categoryId")
+                .value
+                .trim()
+                .toLowerCase();
 
-        if(
-            categories.some(
-                item =>
-                    String(item.id) ===
-                    String(id)
-            )
-        ){
+        const name =
+            $("#categoryName")
+                .value
+                .trim();
 
-            status(
-                "❌ এই ক্যাটাগরি আগে থেকেই আছে।",
+        const icon =
+            $("#categoryIcon")
+                .value
+                .trim() || "📂";
+
+
+        if (!id || !name) {
+
+            showStatus(
+                "❌ Category ID এবং নাম দিন।",
                 "error"
             );
 
@@ -888,42 +821,95 @@ function(){
         }
 
 
-        categories.push({
+        if (editingCategoryId) {
 
-            id,
+            const category =
+                categories.find(
+                    item =>
+                        item.id ===
+                        editingCategoryId
+                );
 
-            name,
+            if (category) {
 
-            icon:
-                icon || "📂",
+                category.id =
+                    id;
 
-            subCategories:[]
+                category.name =
+                    name;
 
-        });
+                category.icon =
+                    icon;
+
+            }
+
+            editingCategoryId =
+                null;
+
+            showStatus(
+                "✅ ক্যাটাগরি Edit করা হয়েছে।"
+            );
+
+        }
+
+        else {
+
+            const exists =
+                categories.some(
+                    item =>
+                        String(item.id)
+                        .toLowerCase() ===
+                        id
+                );
 
 
-        status(
-            "✅ নতুন মূল ক্যাটাগরি যোগ হয়েছে।"
-        );
+            if (exists) {
+
+                showStatus(
+                    "❌ এই Category ID আগে থেকেই আছে।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            categories.push({
+
+                id,
+
+                name,
+
+                icon,
+
+                subCategories: []
+
+            });
+
+
+            showStatus(
+                "✅ নতুন মূল ক্যাটাগরি যোগ হয়েছে।"
+            );
+
+        }
+
+
+        saveCategories();
+
+        renderCategories();
+
+        resetCategoryForm();
 
     }
-
-
-    saveLocal();
-
-    resetCategoryForm();
-
-    render();
-
-}
 );
 
 
-/* =========================
-   EDIT CATEGORY
-========================= */
+/* =====================================================
+   EDIT MAIN CATEGORY
+===================================================== */
 
-function editCategory(id){
+function editCategory(id) {
 
     const category =
         categories.find(
@@ -932,7 +918,8 @@ function editCategory(id){
                 String(id)
         );
 
-    if(!category)
+
+    if (!category)
         return;
 
 
@@ -940,42 +927,36 @@ function editCategory(id){
         category.id;
 
 
-    $("categoryName").value =
-        category.name || "";
+    $("#categoryId").value =
+        category.id;
 
 
-    $("categoryIcon").value =
-        category.icon || "";
+    $("#categoryName").value =
+        category.name;
 
 
-    $("categoryFormTitle")
-        .textContent =
-        "✏️ মূল ক্যাটাগরি Edit করুন";
+    $("#categoryIcon").value =
+        category.icon || "📂";
 
 
-    $("saveCategory")
+    $("#saveCategoryBtn")
         .textContent =
         "💾 পরিবর্তন সংরক্ষণ";
 
 
-    $("cancelCategory")
-        .classList
-        .remove("hidden");
-
-
     window.scrollTo({
-        top:0,
-        behavior:"smooth"
+        top: 0,
+        behavior: "smooth"
     });
 
 }
 
 
-/* =========================
-   DELETE CATEGORY
-========================= */
+/* =====================================================
+   DELETE MAIN CATEGORY
+===================================================== */
 
-function deleteCategory(id){
+function deleteCategory(id) {
 
     const category =
         categories.find(
@@ -984,34 +965,18 @@ function deleteCategory(id){
                 String(id)
         );
 
-    if(!category)
+
+    if (!category)
         return;
 
 
-    const count =
-        Array.isArray(
-            category.subCategories
-        )
-        ?
-        category.subCategories.length
-        :
-        0;
+    const confirmed =
+        confirm(
+            `“${category.name}” ক্যাটাগরি মুছে ফেলবেন?\n\nএর সব সাব-ক্যাটাগরিও মুছে যাবে।`
+        );
 
 
-    const message =
-        count
-        ?
-
-`"${category.name}" মুছে ফেলতে চান?
-
-এই ক্যাটাগরির ${count}টি সাব-ক্যাটাগরিও মুছে যাবে।`
-
-        :
-
-`"${category.name}" মুছে ফেলতে চান?`;
-
-
-    if(!confirm(message))
+    if (!confirmed)
         return;
 
 
@@ -1023,58 +988,59 @@ function deleteCategory(id){
         );
 
 
-    saveLocal();
+    saveCategories();
 
-    render();
+    renderCategories();
 
-
-    status(
-        "🗑 ক্যাটাগরি মুছে ফেলা হয়েছে।"
+    showStatus(
+        "🗑️ ক্যাটাগরি মুছে ফেলা হয়েছে।"
     );
 
 }
 
 
-/* =========================
+/* =====================================================
    ADD SUB CATEGORY
-========================= */
+===================================================== */
 
-$("saveSub")
-.addEventListener(
-"click",
-function(){
+function addSubCategory(
+    categoryId,
+    button
+) {
 
-    const parentId =
-        $("subParent").value;
-
-    const name =
-        $("subName")
-        .value
-        .trim();
-
-    const icon =
-        $("subIcon")
-        .value
-        .trim();
-
-
-    if(!parentId){
-
-        status(
-            "❌ মূল ক্যাটাগরি নির্বাচন করুন।",
-            "error"
+    const box =
+        button.closest(
+            ".category-item"
         );
 
-        return;
 
-    }
+    const idInput =
+        box.querySelector(
+            ".new-sub-id"
+        );
 
 
-    if(!name){
+    const nameInput =
+        box.querySelector(
+            ".new-sub-name"
+        );
 
-        status(
-            "❌ সাব-ক্যাটাগরির নাম দিন।",
-            "error"
+
+    const id =
+        idInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const name =
+        nameInput.value
+            .trim();
+
+
+    if (!id || !name) {
+
+        alert(
+            "Sub-category ID এবং নাম দিন।"
         );
 
         return;
@@ -1086,108 +1052,73 @@ function(){
         categories.find(
             item =>
                 String(item.id) ===
-                String(parentId)
+                String(categoryId)
         );
 
 
-    if(!category)
+    if (!category)
         return;
 
 
-    if(!Array.isArray(
+    if (!Array.isArray(
         category.subCategories
-    )){
+    )) {
 
         category.subCategories = [];
 
     }
 
 
-    if(editingSubId){
-
-        const sub =
-            category.subCategories.find(
-                item =>
-                    String(item.id) ===
-                    String(editingSubId)
-            );
-
-
-        if(sub){
-
-            sub.name = name;
-
-            sub.icon =
-                icon || "📦";
-
-        }
-
-
-        status(
-            "✅ সাব-ক্যাটাগরি পরিবর্তন করা হয়েছে।"
+    const exists =
+        category.subCategories.some(
+            item =>
+                String(item.id)
+                .toLowerCase() ===
+                id
         );
 
-    }else{
 
-        const id =
-            slugify(name);
+    if (exists) {
 
-
-        if(
-            category.subCategories.some(
-                item =>
-                    String(item.id) ===
-                    String(id)
-            )
-        ){
-
-            status(
-                "❌ এই সাব-ক্যাটাগরি আগে থেকেই আছে।",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        category.subCategories.push({
-
-            id,
-
-            name,
-
-            icon:
-                icon || "📦"
-
-        });
-
-
-        status(
-            "✅ নতুন সাব-ক্যাটাগরি যোগ হয়েছে।"
+        alert(
+            "এই Sub-category ID আগে থেকেই আছে।"
         );
+
+        return;
 
     }
 
 
-    saveLocal();
+    category.subCategories.push({
 
-    resetSubForm();
+        id,
 
-    render();
+        name,
+
+        icon: "📦"
+
+    });
+
+
+    saveCategories();
+
+    renderCategories();
+
+    showStatus(
+        "✅ নতুন সাব-ক্যাটাগরি যোগ হয়েছে।"
+    );
 
 }
-);
 
 
-/* =========================
-   EDIT SUB
-========================= */
+/* =====================================================
+   EDIT SUB CATEGORY
+===================================================== */
 
 function editSubCategory(
     categoryId,
     subId
-){
+) {
 
     const category =
         categories.find(
@@ -1197,7 +1128,7 @@ function editSubCategory(
         );
 
 
-    if(!category)
+    if (!category)
         return;
 
 
@@ -1209,57 +1140,47 @@ function editSubCategory(
         );
 
 
-    if(!sub)
+    if (!sub)
         return;
 
 
-    editingSubId =
-        sub.id;
+    const newName =
+        prompt(
+            "সাব-ক্যাটাগরির নতুন নাম:",
+            sub.name
+        );
 
 
-    $("subParent").value =
-        category.id;
+    if (
+        newName === null ||
+        !newName.trim()
+    )
+        return;
 
 
-    $("subName").value =
-        sub.name || "";
+    sub.name =
+        newName.trim();
 
 
-    $("subIcon").value =
-        sub.icon || "";
+    saveCategories();
 
+    renderCategories();
 
-    $("subFormTitle")
-        .textContent =
-        "✏️ সাব-ক্যাটাগরি Edit করুন";
-
-
-    $("saveSub")
-        .textContent =
-        "💾 পরিবর্তন সংরক্ষণ";
-
-
-    $("cancelSub")
-        .classList
-        .remove("hidden");
-
-
-    window.scrollTo({
-        top:0,
-        behavior:"smooth"
-    });
+    showStatus(
+        "✅ সাব-ক্যাটাগরি Edit হয়েছে।"
+    );
 
 }
 
 
-/* =========================
-   DELETE SUB
-========================= */
+/* =====================================================
+   DELETE SUB CATEGORY
+===================================================== */
 
 function deleteSubCategory(
     categoryId,
     subId
-){
+) {
 
     const category =
         categories.find(
@@ -1269,7 +1190,7 @@ function deleteSubCategory(
         );
 
 
-    if(!category)
+    if (!category)
         return;
 
 
@@ -1281,15 +1202,17 @@ function deleteSubCategory(
         );
 
 
-    if(!sub)
+    if (!sub)
         return;
 
 
-    if(
-        !confirm(
-            `"${sub.name}" সাব-ক্যাটাগরি মুছে ফেলতে চান?`
-        )
-    )
+    const confirmed =
+        confirm(
+            `“${sub.name}” সাব-ক্যাটাগরি মুছে ফেলবেন?`
+        );
+
+
+    if (!confirmed)
         return;
 
 
@@ -1301,227 +1224,63 @@ function deleteSubCategory(
         );
 
 
-    saveLocal();
+    saveCategories();
 
-    render();
+    renderCategories();
 
-
-    status(
-        "🗑 সাব-ক্যাটাগরি মুছে ফেলা হয়েছে।"
+    showStatus(
+        "🗑️ সাব-ক্যাটাগরি মুছে ফেলা হয়েছে।"
     );
 
 }
 
 
-/* =========================
-   RESET CATEGORY
-========================= */
+/* =====================================================
+   RESET
+===================================================== */
 
-function resetCategoryForm(){
+$("#resetCategoryBtn")
+.addEventListener(
+    "click",
+    resetCategoryForm
+);
 
-    editingCategoryId = null;
 
-    $("categoryName").value = "";
+function resetCategoryForm() {
 
-    $("categoryIcon").value = "";
+    editingCategoryId =
+        null;
 
-    $("categoryFormTitle")
-        .textContent =
-        "➕ নতুন মূল ক্যাটাগরি";
 
-    $("saveCategory")
+    $("#categoryId").value =
+        "";
+
+    $("#categoryName").value =
+        "";
+
+    $("#categoryIcon").value =
+        "";
+
+
+    $("#saveCategoryBtn")
         .textContent =
         "💾 ক্যাটাগরি সংরক্ষণ";
 
-    $("cancelCategory")
-        .classList
-        .add("hidden");
-
 }
 
 
-$("cancelCategory")
-.addEventListener(
-"click",
-resetCategoryForm
-);
-
-
-/* =========================
-   RESET SUB
-========================= */
-
-function resetSubForm(){
-
-    editingSubId = null;
-
-    $("subParent").value = "";
-
-    $("subName").value = "";
-
-    $("subIcon").value = "";
-
-    $("subFormTitle")
-        .textContent =
-        "➕ নতুন সাব-ক্যাটাগরি";
-
-    $("saveSub")
-        .textContent =
-        "💾 সাব-ক্যাটাগরি সংরক্ষণ";
-
-    $("cancelSub")
-        .classList
-        .add("hidden");
-
-}
-
-
-$("cancelSub")
-.addEventListener(
-"click",
-resetSubForm
-);
-
-
-/* =========================
-   EXPORT JSON
-========================= */
-
-$("exportBtn")
-.addEventListener(
-"click",
-function(){
-
-    const json =
-        JSON.stringify(
-            categories,
-            null,
-            4
-        );
-
-
-    const blob =
-        new Blob(
-            [json],
-            {
-                type:
-                "application/json;charset=utf-8"
-            }
-        );
-
-
-    const url =
-        URL.createObjectURL(blob);
-
-
-    const a =
-        document.createElement("a");
-
-
-    a.href = url;
-
-    a.download =
-        "categories.json";
-
-
-    document.body.appendChild(a);
-
-    a.click();
-
-    a.remove();
-
-
-    URL.revokeObjectURL(url);
-
-
-    status(
-        "⬇️ categories.json তৈরি হয়েছে। এখন data/categories.json-এ বসাতে পারবেন।"
-    );
-
-}
-);
-
-
-/* =========================
-   RELOAD
-========================= */
-
-$("reloadBtn")
-.addEventListener(
-"click",
-async function(){
-
-    localStorage.removeItem(
-        STORAGE_KEY
-    );
-
-    await loadCategories();
-
-    status(
-        "🔄 categories.json থেকে ডাটা Reload হয়েছে।"
-    );
-
-}
-);
-
-
-/* =========================
-   SLUG
-========================= */
-
-function slugify(text){
-
-    return String(text)
-        .toLowerCase()
-        .trim()
-        .replace(
-            /\s+/g,
-            "-"
-        )
-        .replace(
-            /[^a-z0-9\u0980-\u09ff-]/g,
-            ""
-        );
-
-}
-
-
-/* =========================
-   ESCAPE
-========================= */
-
-function escapeHTML(value){
-
-    return String(
-        value ?? ""
-    )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-function escapeAttr(value){
-
-    return escapeHTML(value);
-
-}
-
-
-/* =========================
-   START
-========================= */
+/* =====================================================
+   INITIAL DATA
+===================================================== */
 
 document.addEventListener(
-"DOMContentLoaded",
-function(){
+    "DOMContentLoaded",
+    function() {
 
-    loadCategories();
+        loadCategories();
 
-});
+    }
+);
 
 </script>
 
