@@ -1,1 +1,1980 @@
+<!DOCTYPE html>
+<html lang="bn">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="Maliha Agro Industry - Product Management">
+
+    <title>Product Management | Maliha Agro Industry</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7f5;
+            color: #222;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #166c39, #1f8f4d);
+            color: #fff;
+            padding: 20px;
+        }
+
+        .admin-header-inner {
+            max-width: 1400px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .admin-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .admin-header p {
+            margin: 5px 0 0;
+            opacity: .9;
+        }
+
+        .back-btn {
+            color: #166c39;
+            background: #fff;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 25px 18px 100px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 22px;
+            border: 1px solid #e4ebe6;
+            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #166c39;
+            font-size: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            min-height: 46px;
+            border: 1px solid #d9e3dc;
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #1f8f4d;
+            box-shadow: 0 0 0 3px rgba(31,143,77,.1);
+        }
+
+        .image-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .image-row {
+            display: flex;
+            gap: 8px;
+        }
+
+        .image-row input {
+            flex: 1;
+        }
+
+        .remove-image {
+            width: 45px;
+            border: none;
+            border-radius: 10px;
+            background: #ffebee;
+            color: #c62828;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .btn {
+            min-height: 45px;
+            border: none;
+            border-radius: 10px;
+            padding: 0 18px;
+            cursor: pointer;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        .btn-primary {
+            background: #1f8f4d;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #166c39;
+        }
+
+        .btn-secondary {
+            background: #eef3ef;
+            color: #333;
+        }
+
+        .btn-danger {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .btn-warning {
+            background: #fff8e1;
+            color: #8d6500;
+        }
+
+        .btn-export {
+            background: #1565c0;
+            color: #fff;
+        }
+
+        .btn-export:hover {
+            background: #0d47a1;
+        }
+
+        .btn-small {
+            min-height: 36px;
+            padding: 0 12px;
+            font-size: 12px;
+        }
+
+        .status {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #1b5e20;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #b71c1c;
+        }
+
+        .export-info {
+            margin-top: 15px;
+            padding: 13px;
+            border-radius: 10px;
+            background: #eef6ff;
+            border: 1px solid #cfe2ff;
+            color: #24527a;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .products-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 950px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #edf1ee;
+            text-align: left;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+
+        th {
+            background: #f4faf6;
+            color: #166c39;
+        }
+
+        .product-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 9px;
+            background: #f3f6f3;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 5px 8px;
+            border-radius: 20px;
+            background: #e9f8ef;
+            color: #166c39;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 35px;
+            color: #777;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media(max-width:700px) {
+            .admin-header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .card {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="admin-header">
+
+    <div class="admin-header-inner">
+
+        <div>
+            <h1>
+                <i class="fa-solid fa-box-open"></i>
+                Product Management
+            </h1>
+
+            <p>
+                Maliha Agro Industry — পণ্য ব্যবস্থাপনা
+            </p>
+        </div>
+
+        <a href="index.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i>
+            Admin Dashboard
+        </a>
+
+    </div>
+
+</header>
+
+<main class="container">
+
+<section class="card">
+
+    <h2 id="formTitle">
+        <i class="fa-solid fa-plus"></i>
+        নতুন পণ্য যোগ করুন
+    </h2>
+
+    <form id="productForm">
+
+        <input type="hidden" id="productId">
+
+        <div class="form-grid">
+
+            <div class="form-group">
+                <label for="productName">
+                    পণ্যের নাম *
+                </label>
+
+                <input
+                    type="text"
+                    id="productName"
+                    placeholder="যেমন: মালিহা জৈব সার"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="productBrand">
+                    ব্র্যান্ড
+                </label>
+
+                <input
+                    type="text"
+                    id="productBrand"
+                    value="Maliha Agro Industry"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="productCategory">
+                    প্রধান ক্যাটাগরি *
+                </label>
+
+                <select id="productCategory" required>
+                    <option value="">
+                        ক্যাটাগরি নির্বাচন করুন
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="productSubCategory">
+                    সাব-ক্যাটাগরি
+                </label>
+
+                <select id="productSubCategory">
+                    <option value="">
+                        সাব-ক্যাটাগরি নির্বাচন করুন
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="productPrice">
+                    বর্তমান মূল্য *
+                </label>
+
+                <input
+                    type="number"
+                    id="productPrice"
+                    min="0"
+                    step="0.01"
+                    placeholder="যেমন: 350"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="productOldPrice">
+                    পুরাতন মূল্য
+                </label>
+
+                <input
+                    type="number"
+                    id="productOldPrice"
+                    min="0"
+                    step="0.01"
+                    placeholder="অফার থাকলে দিন"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="productStock">
+                    স্টক
+                </label>
+
+                <input
+                    type="text"
+                    id="productStock"
+                    value="স্টকে আছে"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="productWeight">
+                    ওজন / পরিমাণ
+                </label>
+
+                <input
+                    type="text"
+                    id="productWeight"
+                    placeholder="যেমন: ১ কেজি"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="productSku">
+                    SKU
+                </label>
+
+                <input
+                    type="text"
+                    id="productSku"
+                    placeholder="যেমন: MAI-VC-001"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="productRating">
+                    Rating
+                </label>
+
+                <input
+                    type="number"
+                    id="productRating"
+                    min="0"
+                    max="5"
+                    step="0.1"
+                    value="5"
+                >
+            </div>
+
+            <div class="form-group full">
+                <label for="productDescription">
+                    পণ্যের বিবরণ
+                </label>
+
+                <textarea
+                    id="productDescription"
+                    placeholder="পণ্যের বিস্তারিত লিখুন..."
+                ></textarea>
+            </div>
+
+            <div class="form-group full">
+
+                <label>
+                    পণ্যের ছবি
+                </label>
+
+                <div id="imageList" class="image-list"></div>
+
+                <div class="btn-row">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="addImageBtn"
+                    >
+                        <i class="fa-solid fa-plus"></i>
+                        আরও ছবি
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="productOffer">
+                    🔥 অফার পণ্য
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="productNew">
+                    🆕 নতুন পণ্য
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="productBest">
+                    ⭐ বেস্ট সেলার
+                </label>
+            </div>
+
+        </div>
+
+        <div class="btn-row">
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                <span id="saveButtonText">
+                    পণ্য সংরক্ষণ করুন
+                </span>
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-secondary hidden"
+                id="cancelEditBtn"
+            >
+                <i class="fa-solid fa-xmark"></i>
+                Edit বাতিল
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="resetFormBtn"
+            >
+                <i class="fa-solid fa-rotate-left"></i>
+                Reset
+            </button>
+
+        </div>
+
+        <div id="status" class="status"></div>
+
+    </form>
+
+</section>
+
+
+<section class="card">
+
+    <div style="
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        flex-wrap:wrap;
+    ">
+
+        <h2 style="margin-bottom:0;">
+            <i class="fa-solid fa-list"></i>
+            সকল পণ্য
+        </h2>
+
+        <div class="btn-row" style="margin-top:0;">
+
+            <button
+                type="button"
+                class="btn btn-export"
+                id="exportProductsBtn"
+            >
+                <i class="fa-solid fa-file-export"></i>
+                products.json Export
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="reloadProductsBtn"
+            >
+                <i class="fa-solid fa-rotate"></i>
+                Reload
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="export-info">
+
+        <strong>📌 JSON Export:</strong>
+
+        <br>
+
+        Admin Panel-এ Product Add/Edit/Delete করার পর
+        <strong>products.json Export</strong> চাপুন।
+
+        ডাউনলোড হওয়া
+        <strong>products.json</strong>
+        ফাইলটি আপনার
+        <strong>data/products.json</strong>
+        ফাইলের জায়গায় বসিয়ে দিন।
+
+    </div>
+
+    <div
+        class="products-table-wrapper"
+        style="margin-top:20px;"
+    >
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ছবি</th>
+                    <th>পণ্য</th>
+                    <th>Category</th>
+                    <th>Sub-category</th>
+                    <th>মূল্য</th>
+                    <th>Stock</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody id="productsTableBody">
+
+                <tr>
+                    <td colspan="7" class="empty">
+                        ⏳ পণ্য লোড হচ্ছে...
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<script>
+
+"use strict";
+
+
+const PRODUCT_API =
+    "../data/products.json";
+
+const CATEGORY_API =
+    "../data/categories.json";
+
+const LOCAL_STORAGE_KEY =
+    "maliha_admin_products";
+
+
+let products = [];
+let categories = [];
+
+
+const $ =
+    selector =>
+        document.querySelector(selector);
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+function showStatus(
+    message,
+    type = "success"
+){
+
+    const status = $("#status");
+
+    if(!status) return;
+
+    status.textContent = message;
+
+    status.className =
+        "status show " + type;
+
+}
+
+
+/* =====================================================
+   ESCAPE
+===================================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   CATEGORIES
+===================================================== */
+
+async function loadCategories(){
+
+    try{
+
+        const response =
+            await fetch(
+                CATEGORY_API,
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Category load failed"
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        categories =
+            Array.isArray(data)
+                ? data
+                : [];
+
+        renderCategorySelect();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        categories = [];
+
+        showStatus(
+            "❌ categories.json লোড করা যায়নি।",
+            "error"
+        );
+
+    }
+
+}
+
+
+function renderCategorySelect(){
+
+    const select =
+        $("#productCategory");
+
+    if(!select) return;
+
+    select.innerHTML = `
+        <option value="">
+            ক্যাটাগরি নির্বাচন করুন
+        </option>
+    `;
+
+    categories.forEach(
+        category => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                category.id;
+
+            option.textContent =
+                `${category.icon || "📂"} ${
+                    category.name || ""
+                }`;
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+function loadSubCategories(
+    categoryId,
+    selected = ""
+){
+
+    const select =
+        $("#productSubCategory");
+
+    if(!select) return;
+
+    select.innerHTML = `
+        <option value="">
+            সাব-ক্যাটাগরি নির্বাচন করুন
+        </option>
+    `;
+
+    const category =
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(categoryId)
+        );
+
+    if(
+        !category ||
+        !Array.isArray(
+            category.subCategories
+        )
+    ){
+
+        return;
+
+    }
+
+    category.subCategories.forEach(
+        sub => {
+
+            const option =
+                document.createElement(
+                    "option"
+                );
+
+            option.value =
+                sub.id;
+
+            option.textContent =
+                `${sub.icon || "📦"} ${
+                    sub.name || ""
+                }`;
+
+            if(
+                String(sub.id) ===
+                String(selected)
+            ){
+
+                option.selected =
+                    true;
+
+            }
+
+            select.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+$("#productCategory")
+    .addEventListener(
+        "change",
+        function(){
+
+            loadSubCategories(
+                this.value
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+function addImageRow(
+    value = ""
+){
+
+    const list =
+        $("#imageList");
+
+    if(!list) return;
+
+    const row =
+        document.createElement(
+            "div"
+        );
+
+    row.className =
+        "image-row";
+
+    row.innerHTML = `
+        <input
+            type="text"
+            class="product-image"
+            placeholder="images/product.jpg"
+            value="${escapeHTML(value)}"
+        >
+
+        <button
+            type="button"
+            class="remove-image"
+            title="Remove"
+        >
+            ×
+        </button>
+    `;
+
+    list.appendChild(row);
+
+    row.querySelector(
+        ".remove-image"
+    )
+    .addEventListener(
+        "click",
+        function(){
+
+            const rows =
+                list.querySelectorAll(
+                    ".image-row"
+                );
+
+            if(rows.length <= 1){
+
+                row.querySelector(
+                    "input"
+                ).value = "";
+
+                return;
+
+            }
+
+            row.remove();
+
+        }
+    );
+
+}
+
+
+$("#addImageBtn")
+    .addEventListener(
+        "click",
+        function(){
+
+            addImageRow();
+
+        }
+    );
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+async function loadProducts(){
+
+    try{
+
+        const response =
+            await fetch(
+                PRODUCT_API,
+                {
+                    cache: "no-store"
+                }
+            );
+
+        if(!response.ok){
+
+            throw new Error(
+                "Product load failed"
+            );
+
+        }
+
+        const data =
+            await response.json();
+
+        products =
+            Array.isArray(data)
+                ? data
+                : [];
+
+        loadLocalProducts();
+
+        renderProducts();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        products = [];
+
+        loadLocalProducts();
+
+        renderProducts();
+
+        showStatus(
+            "⚠️ products.json লোড করা যায়নি। Local data থাকলে সেটি ব্যবহার করা হয়েছে।",
+            "error"
+        );
+
+    }
+
+}
+
+
+function loadLocalProducts(){
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    LOCAL_STORAGE_KEY
+                ) || "null"
+            );
+
+        if(
+            Array.isArray(saved)
+        ){
+
+            products =
+                saved;
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Local product data error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   CATEGORY NAME
+===================================================== */
+
+function getCategoryName(
+    categoryId
+){
+
+    const category =
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(categoryId)
+        );
+
+    return category
+        ? `${category.icon || "📂"} ${
+            category.name || ""
+        }`
+        : categoryId || "-";
+
+}
+
+
+function getSubCategoryName(
+    categoryId,
+    subId
+){
+
+    const category =
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(categoryId)
+        );
+
+    if(!category)
+        return subId || "-";
+
+    const sub =
+        Array.isArray(
+            category.subCategories
+        )
+        ?
+        category.subCategories.find(
+            item =>
+                String(item.id) ===
+                String(subId)
+        )
+        :
+        null;
+
+    return sub
+        ? `${sub.icon || "📦"} ${
+            sub.name || ""
+        }`
+        : subId || "-";
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function renderProducts(){
+
+    const tbody =
+        $("#productsTableBody");
+
+    if(!tbody) return;
+
+    if(!products.length){
+
+        tbody.innerHTML = `
+            <tr>
+                <td
+                    colspan="7"
+                    class="empty"
+                >
+                    📦 এখনো কোনো পণ্য নেই।
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    tbody.innerHTML =
+        products
+            .map(
+                product => {
+
+                    const firstImage =
+                        Array.isArray(
+                            product.gallery
+                        ) &&
+                        product.gallery.length
+                            ? product.gallery[0]
+                            : "";
+
+                    return `
+                        <tr>
+
+                            <td>
+                                ${
+                                    firstImage
+                                    ?
+                                    `
+                                    <img
+                                        src="../${escapeHTML(firstImage)}"
+                                        class="product-thumb"
+                                        alt="${escapeHTML(product.name || "")}"
+                                        onerror="this.style.display='none'"
+                                    >
+                                    `
+                                    :
+                                    "🌱"
+                                }
+                            </td>
+
+                            <td>
+
+                                <strong>
+                                    ${escapeHTML(
+                                        product.name || "-"
+                                    )}
+                                </strong>
+
+                                <br>
+
+                                <small>
+                                    ${escapeHTML(
+                                        product.sku || ""
+                                    )}
+                                </small>
+
+                            </td>
+
+                            <td>
+
+                                <span class="category-badge">
+                                    ${escapeHTML(
+                                        getCategoryName(
+                                            product.category
+                                        )
+                                    )}
+                                </span>
+
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    getSubCategoryName(
+                                        product.category,
+                                        product.subCategory
+                                    )
+                                )}
+                            </td>
+
+                            <td>
+
+                                <strong>
+                                    ৳${Number(
+                                        product.price || 0
+                                    ).toLocaleString("en-BD")}
+                                </strong>
+
+                            </td>
+
+                            <td>
+                                ${escapeHTML(
+                                    product.stock ||
+                                    "স্টকে আছে"
+                                )}
+                            </td>
+
+                            <td>
+
+                                <div class="actions">
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-warning btn-small edit-product"
+                                        data-id="${escapeHTML(product.id)}"
+                                    >
+                                        ✏️ Edit
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-danger btn-small delete-product"
+                                        data-id="${escapeHTML(product.id)}"
+                                    >
+                                        🗑 Delete
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    `;
+
+                }
+            )
+            .join("");
+
+
+    document
+        .querySelectorAll(
+            ".edit-product"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function(){
+
+                        editProduct(
+                            Number(
+                                this.dataset.id
+                            )
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".delete-product"
+        )
+        .forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    function(){
+
+                        deleteProduct(
+                            Number(
+                                this.dataset.id
+                            )
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+function editProduct(id){
+
+    const product =
+        products.find(
+            item =>
+                Number(item.id) ===
+                Number(id)
+        );
+
+    if(!product){
+
+        showStatus(
+            "❌ পণ্য পাওয়া যায়নি।",
+            "error"
+        );
+
+        return;
+
+    }
+
+    $("#productId").value =
+        product.id;
+
+    $("#productName").value =
+        product.name || "";
+
+    $("#productBrand").value =
+        product.brand ||
+        "Maliha Agro Industry";
+
+    $("#productPrice").value =
+        product.price || "";
+
+    $("#productOldPrice").value =
+        product.oldPrice || "";
+
+    $("#productStock").value =
+        product.stock || "";
+
+    $("#productWeight").value =
+        product.weight || "";
+
+    $("#productSku").value =
+        product.sku || "";
+
+    $("#productRating").value =
+        product.rating ?? 5;
+
+    $("#productDescription").value =
+        product.description || "";
+
+    $("#productOffer").checked =
+        Boolean(product.offer);
+
+    $("#productNew").checked =
+        Boolean(product.newArrival);
+
+    $("#productBest").checked =
+        Boolean(product.bestSeller);
+
+    $("#productCategory").value =
+        product.category || "";
+
+    loadSubCategories(
+        product.category,
+        product.subCategory
+    );
+
+    $("#imageList").innerHTML =
+        "";
+
+    const gallery =
+        Array.isArray(
+            product.gallery
+        )
+        ? product.gallery
+        : [];
+
+    if(gallery.length){
+
+        gallery.forEach(
+            image =>
+                addImageRow(image)
+        );
+
+    }
+    else{
+
+        addImageRow();
+
+    }
+
+    $("#formTitle").innerHTML = `
+        <i class="fa-solid fa-pen"></i>
+        পণ্য Edit করুন
+    `;
+
+    $("#saveButtonText").textContent =
+        "পরিবর্তন সংরক্ষণ করুন";
+
+    $("#cancelEditBtn")
+        .classList
+        .remove("hidden");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+function resetForm(){
+
+    $("#productForm").reset();
+
+    $("#productId").value =
+        "";
+
+    $("#productBrand").value =
+        "Maliha Agro Industry";
+
+    $("#productRating").value =
+        "5";
+
+    $("#imageList").innerHTML =
+        "";
+
+    addImageRow();
+
+    $("#productSubCategory").innerHTML = `
+        <option value="">
+            সাব-ক্যাটাগরি নির্বাচন করুন
+        </option>
+    `;
+
+    $("#formTitle").innerHTML = `
+        <i class="fa-solid fa-plus"></i>
+        নতুন পণ্য যোগ করুন
+    `;
+
+    $("#saveButtonText").textContent =
+        "পণ্য সংরক্ষণ করুন";
+
+    $("#cancelEditBtn")
+        .classList
+        .add("hidden");
+
+}
+
+
+$("#cancelEditBtn")
+    .addEventListener(
+        "click",
+        resetForm
+    );
+
+
+$("#resetFormBtn")
+    .addEventListener(
+        "click",
+        resetForm
+    );
+
+
+/* =====================================================
+   GET FORM PRODUCT
+===================================================== */
+
+function getFormProduct(){
+
+    const categoryId =
+        $("#productCategory").value;
+
+    const subCategoryId =
+        $("#productSubCategory").value;
+
+    const category =
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(categoryId)
+        );
+
+    const subCategory =
+        category &&
+        Array.isArray(
+            category.subCategories
+        )
+        ?
+        category.subCategories.find(
+            item =>
+                String(item.id) ===
+                String(subCategoryId)
+        )
+        :
+        null;
+
+    const gallery =
+        Array.from(
+            document.querySelectorAll(
+                ".product-image"
+            )
+        )
+        .map(
+            input =>
+                input.value.trim()
+        )
+        .filter(Boolean);
+
+    const oldId =
+        $("#productId").value;
+
+    const id =
+        oldId
+        ?
+        Number(oldId)
+        :
+        (
+            products.length
+            ?
+            Math.max(
+                ...products.map(
+                    p =>
+                        Number(p.id) || 0
+                )
+            ) + 1
+            :
+            1
+        );
+
+    return {
+
+        id,
+
+        name:
+            $("#productName")
+                .value
+                .trim(),
+
+        brand:
+            $("#productBrand")
+                .value
+                .trim() ||
+            "Maliha Agro Industry",
+
+        category:
+            categoryId,
+
+        categoryName:
+            category?.name || "",
+
+        categoryIcon:
+            category?.icon || "📂",
+
+        subCategory:
+            subCategoryId,
+
+        subCategoryName:
+            subCategory?.name || "",
+
+        subCategoryIcon:
+            subCategory?.icon || "📦",
+
+        price:
+            Number(
+                $("#productPrice").value
+            ) || 0,
+
+        oldPrice:
+            Number(
+                $("#productOldPrice").value
+            ) || 0,
+
+        stock:
+            $("#productStock")
+                .value
+                .trim() ||
+            "স্টকে আছে",
+
+        weight:
+            $("#productWeight")
+                .value
+                .trim(),
+
+        sku:
+            $("#productSku")
+                .value
+                .trim(),
+
+        rating:
+            Number(
+                $("#productRating").value
+            ) || 5,
+
+        description:
+            $("#productDescription")
+                .value
+                .trim(),
+
+        gallery,
+
+        offer:
+            $("#productOffer").checked,
+
+        newArrival:
+            $("#productNew").checked
+                ? 1
+                : 0,
+
+        bestSeller:
+            $("#productBest").checked
+                ? 1
+                : 0
+
+    };
+
+}
+
+
+/* =====================================================
+   SAVE
+===================================================== */
+
+$("#productForm")
+    .addEventListener(
+        "submit",
+        function(e){
+
+            e.preventDefault();
+
+            const product =
+                getFormProduct();
+
+            if(!product.name){
+
+                showStatus(
+                    "❌ পণ্যের নাম দিন।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+            if(!product.category){
+
+                showStatus(
+                    "❌ প্রধান ক্যাটাগরি নির্বাচন করুন।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+            if(
+                !Number.isFinite(
+                    product.price
+                ) ||
+                product.price < 0
+            ){
+
+                showStatus(
+                    "❌ সঠিক মূল্য দিন।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+            const existingIndex =
+                products.findIndex(
+                    item =>
+                        Number(item.id) ===
+                        Number(product.id)
+                );
+
+            if(existingIndex >= 0){
+
+                products[existingIndex] =
+                    product;
+
+            }
+            else{
+
+                products.push(
+                    product
+                );
+
+            }
+
+            saveLocalProducts();
+
+            renderProducts();
+
+            showStatus(
+                existingIndex >= 0
+                ?
+                "✅ পণ্যের পরিবর্তন সংরক্ষণ হয়েছে।"
+                :
+                "✅ নতুন পণ্য সংরক্ষণ হয়েছে।"
+            );
+
+            resetForm();
+
+        }
+    );
+
+
+/* =====================================================
+   SAVE LOCAL STORAGE
+===================================================== */
+
+function saveLocalProducts(){
+
+    try{
+
+        localStorage.setItem(
+            LOCAL_STORAGE_KEY,
+            JSON.stringify(
+                products
+            )
+        );
+
+        return true;
+
+    }
+    catch(error){
+
+        console.error(error);
+
+        showStatus(
+            "❌ Browser storage-এ Product save করা যায়নি।",
+            "error"
+        );
+
+        return false;
+
+    }
+
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+function deleteProduct(id){
+
+    const product =
+        products.find(
+            item =>
+                Number(item.id) ===
+                Number(id)
+        );
+
+    if(!product)
+        return;
+
+    const confirmed =
+        confirm(
+            `“${product.name}” পণ্যটি মুছে ফেলতে চান?`
+        );
+
+    if(!confirmed)
+        return;
+
+    products =
+        products.filter(
+            item =>
+                Number(item.id) !==
+                Number(id)
+        );
+
+    saveLocalProducts();
+
+    renderProducts();
+
+    showStatus(
+        "🗑 পণ্য মুছে ফেলা হয়েছে।"
+    );
+
+}
+
+
+/* =====================================================
+   EXPORT JSON
+===================================================== */
+
+function exportProductsJSON(){
+
+    const json =
+        JSON.stringify(
+            products,
+            null,
+            4
+        );
+
+    const blob =
+        new Blob(
+            [json],
+            {
+                type:
+                    "application/json;charset=utf-8"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+    const link =
+        document.createElement(
+            "a"
+        );
+
+    link.href =
+        url;
+
+    link.download =
+        "products.json";
+
+    document.body.appendChild(
+        link
+    );
+
+    link.click();
+
+    document.body.removeChild(
+        link
+    );
+
+    setTimeout(
+        function(){
+
+            URL.revokeObjectURL(
+                url
+            );
+
+        },
+        1000
+    );
+
+    showStatus(
+        `⬇️ products.json Export হয়েছে। মোট ${products.length}টি Product আছে।`
+    );
+
+}
+
+
+$("#exportProductsBtn")
+    .addEventListener(
+        "click",
+        exportProductsJSON
+    );
+
+
+/* =====================================================
+   RELOAD
+===================================================== */
+
+$("#reloadProductsBtn")
+    .addEventListener(
+        "click",
+        async function(){
+
+            localStorage.removeItem(
+                LOCAL_STORAGE_KEY
+            );
+
+            await loadCategories();
+
+            await loadProducts();
+
+            showStatus(
+                "🔄 JSON থেকে Product data reload হয়েছে।"
+            );
+
+        }
+    );
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    async function(){
+
+        await loadCategories();
+
+        await loadProducts();
+
+        if(
+            !document.querySelector(
+                ".image-row"
+            )
+        ){
+
+            addImageRow();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
