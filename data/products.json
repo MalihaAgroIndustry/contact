@@ -5,13 +5,13 @@
     "brand": "Maliha Agro Industry",
 
     "category": "sar",
-  "categoryName": "সার",
-  "categoryIcon": "🌱",
-    
+    "categoryName": "সার",
+    "categoryIcon": "🌱",
+
     "subCategory": "organic-fertilizer",
-  "subCategoryName": "জৈব সার",
-  "subCategoryIcon": "🌿",
-    
+    "subCategoryName": "জৈব সার",
+    "subCategoryIcon": "🌿",
+
     "type": "ভার্মি কম্পোস্ট",
 
     "sku": "MAI-VC-001",
@@ -19,7 +19,7 @@
     "weight": "১ কেজি",
 
     "price": 15,
-    "oldPrice": 2,
+    "oldPrice": 20,
 
     "rating": 5,
     "reviewCount": 0,
@@ -27,18 +27,18 @@
     "stock": "স্টকে আছে",
 
     "offer": true,
-    "newArrival": 1,
-    "bestSeller": 1,
+    "newArrival": true,
+    "bestSeller": true,
 
     "description": "মালিহা এগ্রো ইন্ডাস্ট্রির প্রাকৃতিক ভার্মি কম্পোস্ট কেঁচো সার। মাটির উর্বরতা ও জৈব গুণাগুণ বৃদ্ধিতে সহায়ক। সবজি, ফলজ, ফুল ও বিভিন্ন কৃষি কাজে ব্যবহারযোগ্য।",
 
     "shortDescription": "১০০% প্রাকৃতিক ভার্মি কম্পোস্ট কেঁচো সার।",
 
     "gallery": [
-  "images/product1.jpg",
-  "images/product1-2.jpg",
-  "images/product1-3.jpg"
-],
+      "images/product1.jpg",
+      "images/product1-2.jpg",
+      "images/product1-3.jpg"
+    ],
 
     "features": [
       "১০০% প্রাকৃতিক জৈব সার",
