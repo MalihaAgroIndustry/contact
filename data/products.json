@@ -4,22 +4,22 @@
     "name": "মালিহা জৈব সার — ভার্মি কম্পোস্ট কেঁচো সার",
     "brand": "Maliha Agro Industry",
 
-    "category": "organic-fertilizer",
-    "categoryName": "জৈব সার",
-    "categoryIcon": "🌱",
-
-    "subCategory": "vermicompost",
-    "subCategoryName": "ভার্মি কম্পোস্ট কেঁচো সার",
-    "subCategoryIcon": "🪱",
-
+    "category": "sar",
+  "categoryName": "সার",
+  "categoryIcon": "🌱",
+    
+    "subCategory": "organic-fertilizer",
+  "subCategoryName": "জৈব সার",
+  "subCategoryIcon": "🌿",
+    
     "type": "ভার্মি কম্পোস্ট",
 
     "sku": "MAI-VC-001",
 
     "weight": "১ কেজি",
 
-    "price": 50,
-    "oldPrice": 60,
+    "price": 15,
+    "oldPrice": 2,
 
     "rating": 5,
     "reviewCount": 0,
