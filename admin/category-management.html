@@ -4,379 +4,685 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Category Management | Maliha Agro Industry</title>
+    <title>Category Management — Maliha Agro Industry</title>
 
     <style>
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            font-family: Arial, sans-serif;
+            font-family:
+                Arial,
+                "Noto Sans Bengali",
+                sans-serif;
             background: #f4f7f5;
             color: #222;
         }
 
-        .header {
-            background: linear-gradient(135deg, #166c39, #1f8f4d);
+        header {
+            background: #168044;
             color: white;
-            padding: 20px;
+            padding: 18px 20px;
         }
 
-        .header-inner {
-            max-width: 1200px;
-            margin: auto;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
+        header h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-
-        .header p {
-            margin: 6px 0 0;
+        header p {
+            font-size: 13px;
             opacity: .9;
         }
 
-        .back-btn {
-            background: white;
-            color: #166c39;
-            text-decoration: none;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-weight: bold;
+        .container {
+            width: min(1200px, 94%);
+            margin: 25px auto;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            padding: 25px 16px 80px;
+        .top-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button,
+        a {
+            font-family: inherit;
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: #168044;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #e7eee9;
+            color: #174b2e;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #f0ad4e;
+            color: white;
+        }
+
+        .btn-small {
+            padding: 7px 10px;
+            font-size: 12px;
         }
 
         .card {
             background: white;
-            border: 1px solid #e1e9e3;
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+            box-shadow: 0 3px 15px rgba(0,0,0,.06);
         }
 
         .card h2 {
-            margin-top: 0;
-            color: #166c39;
+            font-size: 18px;
+            color: #168044;
+            margin-bottom: 15px;
         }
 
-        .form-grid {
+        .category-list {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
         }
 
-        .full {
-            grid-column: 1 / -1;
+        .category-card {
+            border: 1px solid #e2e8e4;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
         }
 
-        label {
-            font-weight: bold;
-            font-size: 14px;
-            display: block;
-            margin-bottom: 7px;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d7e2da;
-            border-radius: 10px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        input:focus,
-        textarea:focus {
-            border-color: #1f8f4d;
-            box-shadow: 0 0 0 3px rgba(31,143,77,.1);
-        }
-
-        textarea {
-            min-height: 90px;
-            resize: vertical;
-        }
-
-        .btn-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-
-        button {
-            border: none;
-            border-radius: 10px;
-            padding: 11px 16px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .primary {
-            background: #1f8f4d;
-            color: white;
-        }
-
-        .secondary {
-            background: #eef3ef;
-            color: #333;
-        }
-
-        .danger {
-            background: #ffebee;
-            color: #c62828;
-        }
-
-        .warning {
-            background: #fff8e1;
-            color: #8d6500;
-        }
-
-        .sub-box {
-            margin-top: 18px;
+        .category-header {
             padding: 15px;
             background: #f7faf8;
-            border: 1px solid #e2ebe5;
-            border-radius: 12px;
-        }
-
-        .sub-box h3 {
-            margin-top: 0;
-            color: #166c39;
-        }
-
-        .sub-form {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 10px;
-        }
-
-        .category-item {
-            border: 1px solid #e1e9e3;
-            border-radius: 14px;
-            padding: 15px;
-            margin-bottom: 12px;
-            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .category-title {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             gap: 10px;
-            flex-wrap: wrap;
         }
 
-        .category-name {
-            font-size: 18px;
-            font-weight: bold;
-            color: #166c39;
-        }
-
-        .category-id {
-            color: #777;
-            font-size: 12px;
-        }
-
-        .sub-list {
-            margin-top: 12px;
-            padding-left: 0;
-            list-style: none;
-        }
-
-        .sub-item {
+        .category-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #e4f4e9;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 10px;
-            margin-top: 7px;
-            background: #f5f8f6;
-            border-radius: 9px;
+            justify-content: center;
+            font-size: 22px;
         }
 
-        .sub-name {
-            font-size: 14px;
+        .category-title h3 {
+            font-size: 17px;
+            margin-bottom: 4px;
         }
 
-        .empty {
-            text-align: center;
-            padding: 30px;
+        .category-title small {
             color: #777;
         }
 
         .status {
-            display: none;
-            margin-top: 15px;
-            padding: 12px;
-            border-radius: 10px;
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 11px;
         }
 
-        .status.show {
+        .status.active {
+            background: #d9f5e1;
+            color: #16733b;
+        }
+
+        .status.inactive {
+            background: #fce0e3;
+            color: #a5202d;
+        }
+
+        .category-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .subcategory-area {
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .subcategory-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .subcategory-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .subcategory-item {
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .subcategory-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subcategory-actions {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px 20px;
+            color: #777;
+        }
+
+        /* Modal */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 9999;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-box {
+            background: white;
+            width: min(520px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            border-radius: 15px;
+            padding: 22px;
+        }
+
+        .modal-box h2 {
+            color: #168044;
+            margin-bottom: 18px;
+            font-size: 19px;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccd6d0;
+            border-radius: 8px;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #168044;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .notice {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .notice.show {
             display: block;
         }
 
-        .success {
-            background: #e8f5e9;
-            color: #1b5e20;
+        .notice.success {
+            background: #dff5e5;
+            color: #176b36;
         }
 
-        .error {
-            background: #ffebee;
-            color: #b71c1c;
+        .notice.error {
+            background: #fde2e5;
+            color: #9d2633;
         }
 
-        .info {
-            background: #eef6ff;
-            color: #24527a;
-            padding: 13px;
-            border-radius: 10px;
-            line-height: 1.7;
-            font-size: 13px;
-            margin-bottom: 18px;
-        }
+        @media (max-width: 600px) {
 
-        @media(max-width:700px) {
-            .header-inner {
-                flex-direction: column;
+            header h1 {
+                font-size: 19px;
+            }
+
+            .category-header {
                 align-items: flex-start;
             }
 
-            .form-grid,
-            .sub-form {
-                grid-template-columns: 1fr;
+            .category-actions {
+                width: 100%;
             }
 
-            .full {
-                grid-column: auto;
+            .category-actions .btn {
+                flex: 1;
             }
+
+            .subcategory-actions .btn {
+                padding: 6px 8px;
+                font-size: 11px;
+            }
+
         }
     </style>
 </head>
 
 <body>
 
-<header class="header">
-    <div class="header-inner">
-
-        <div>
-            <h1>📂 Category Management</h1>
-            <p>Maliha Agro Industry — ক্যাটাগরি ব্যবস্থাপনা</p>
-        </div>
-
-        <a href="index.html" class="back-btn">
-            ← Admin Dashboard
-        </a>
-
-    </div>
+<header>
+    <h1>🌱 Maliha Agro Industry</h1>
+    <p>Category & Sub Category Management</p>
 </header>
 
-<main class="container">
+<div class="container">
 
-    <!-- মূল ক্যাটাগরি যোগ -->
-    <section class="card">
+    <div class="top-actions">
 
-        <h2>➕ মূল ক্যাটাগরি যোগ করুন</h2>
+        <a
+            href="index.html"
+            class="btn btn-secondary"
+        >
+            🏠 Admin Dashboard
+        </a>
 
-        <div class="info">
-            <strong>উদাহরণ:</strong>
-            সার, বীজ, কৃষি সরঞ্জাম ইত্যাদি।<br>
-            একটি মূল ক্যাটাগরির অধীনে একাধিক সাব-ক্যাটাগরি থাকবে।
-        </div>
+        <a
+            href="../categories.html"
+            class="btn btn-secondary"
+            target="_blank"
+        >
+            👁️ Website Categories
+        </a>
 
-        <div class="form-grid">
+        <button
+            type="button"
+            class="btn btn-primary"
+            id="addCategoryBtn"
+        >
+            ➕ নতুন Category
+        </button>
 
-            <div>
-                <label>ক্যাটাগরি ID *</label>
+    </div>
+
+
+    <div
+        id="notice"
+        class="notice"
+    ></div>
+
+
+    <div class="card">
+
+        <h2>
+            📂 Main Categories
+        </h2>
+
+        <div
+            id="categoryList"
+            class="category-list"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     CATEGORY MODAL
+====================================================== -->
+
+<div
+    id="categoryModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <h2 id="categoryModalTitle">
+            ➕ নতুন Category
+        </h2>
+
+        <form id="categoryForm">
+
+            <input
+                type="hidden"
+                id="categoryEditId"
+            >
+
+            <div class="form-group">
+
+                <label>
+                    Category ID
+                </label>
 
                 <input
                     type="text"
                     id="categoryId"
-                    placeholder="যেমন: fertilizer"
+                    placeholder="যেমন: agriculture"
+                    required
                 >
+
             </div>
 
-            <div>
-                <label>ক্যাটাগরি নাম *</label>
+
+            <div class="form-group">
+
+                <label>
+                    Category Name
+                </label>
 
                 <input
                     type="text"
                     id="categoryName"
-                    placeholder="যেমন: সার"
+                    placeholder="যেমন: কৃষি"
+                    required
                 >
+
             </div>
 
-            <div>
-                <label>আইকন</label>
+
+            <div class="form-group">
+
+                <label>
+                    Icon / Emoji
+                </label>
 
                 <input
                     type="text"
                     id="categoryIcon"
-                    placeholder="যেমন: 🌱"
+                    placeholder="🌱"
+                    value="📂"
                 >
+
             </div>
 
-        </div>
 
-        <div class="btn-row">
+            <div class="form-group">
 
-            <button
-                class="primary"
-                id="saveCategoryBtn"
-            >
-                💾 ক্যাটাগরি সংরক্ষণ
-            </button>
+                <label>
+                    Sort Order
+                </label>
 
-            <button
-                class="secondary"
-                id="resetCategoryBtn"
-            >
-                ↩️ Reset
-            </button>
+                <input
+                    type="number"
+                    id="categorySortOrder"
+                    value="1"
+                    min="0"
+                >
 
-        </div>
-
-        <div id="categoryStatus" class="status"></div>
-
-    </section>
-
-
-    <!-- ক্যাটাগরি তালিকা -->
-
-    <section class="card">
-
-        <h2>📋 মূল ক্যাটাগরি ও সাব-ক্যাটাগরি</h2>
-
-        <div class="info">
-            <strong>তোমার বর্তমান কাঠামো:</strong><br>
-            মূল ক্যাটাগরি → সার<br>
-            সাব-ক্যাটাগরি → জৈব সার, রাসায়নিক সার, কীটনাশক
-        </div>
-
-        <div id="categoryList">
-
-            <div class="empty">
-                ⏳ ক্যাটাগরি লোড হচ্ছে...
             </div>
 
-        </div>
 
-    </section>
+            <div class="form-group">
 
-</main>
+                <label>
+                    Status
+                </label>
+
+                <select id="categoryStatus">
+
+                    <option value="active">
+                        Active
+                    </option>
+
+                    <option value="inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelCategoryBtn"
+                >
+                    বাতিল
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 Save Category
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ======================================================
+     SUB CATEGORY MODAL
+====================================================== -->
+
+<div
+    id="subCategoryModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <h2 id="subCategoryModalTitle">
+            ➕ নতুন Sub Category
+        </h2>
+
+        <form id="subCategoryForm">
+
+            <input
+                type="hidden"
+                id="subCategoryEditId"
+            >
+
+            <input
+                type="hidden"
+                id="subCategoryParentId"
+            >
+
+
+            <div class="form-group">
+
+                <label>
+                    Main Category
+                </label>
+
+                <input
+                    type="text"
+                    id="subCategoryParentName"
+                    readonly
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Sub Category ID
+                </label>
+
+                <input
+                    type="text"
+                    id="subCategoryId"
+                    placeholder="যেমন: organic-fertilizer"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Sub Category Name
+                </label>
+
+                <input
+                    type="text"
+                    id="subCategoryName"
+                    placeholder="যেমন: জৈব সার"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Icon / Emoji
+                </label>
+
+                <input
+                    type="text"
+                    id="subCategoryIcon"
+                    placeholder="🌱"
+                    value="📦"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Sort Order
+                </label>
+
+                <input
+                    type="number"
+                    id="subCategorySortOrder"
+                    value="1"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Status
+                </label>
+
+                <select id="subCategoryStatus">
+
+                    <option value="active">
+                        Active
+                    </option>
+
+                    <option value="inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelSubCategoryBtn"
+                >
+                    বাতিল
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    💾 Save Sub Category
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
 
 
 <script>
@@ -384,218 +690,228 @@
 "use strict";
 
 
-/* =====================================================
+/* ==========================================================
    CONFIG
-===================================================== */
+========================================================== */
 
-const CATEGORY_FILE =
+const CATEGORY_API =
     "../data/categories.json";
 
-const STORAGE_KEY =
-    "maliha_categories";
-
-
-/* =====================================================
-   DATA
-===================================================== */
 
 let categories = [];
 
-let editingCategoryId = null;
 
-
-/* =====================================================
+/* ==========================================================
    SHORTCUT
-===================================================== */
+========================================================== */
 
-const $ = selector =>
-    document.querySelector(selector);
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-function showStatus(
-    message,
-    type = "success"
-) {
-
-    const box =
-        $("#categoryStatus");
-
-    box.textContent =
-        message;
-
-    box.className =
-        "status show " + type;
-
-}
+const $ =
+    selector =>
+        document.querySelector(selector);
 
 
-/* =====================================================
-   ESCAPE
-===================================================== */
-
-function escapeHTML(value) {
-
-    return String(value ?? "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* =====================================================
-   LOAD CATEGORY
-===================================================== */
+/* ==========================================================
+   LOAD CATEGORIES
+========================================================== */
 
 async function loadCategories() {
+
+    const list =
+        $("#categoryList");
+
 
     try {
 
         const response =
             await fetch(
-                CATEGORY_FILE,
+                CATEGORY_API,
                 {
                     cache: "no-store"
                 }
             );
 
+
         if (!response.ok) {
-            throw new Error("categories.json load failed");
+
+            throw new Error(
+                "categories.json load failed"
+            );
+
         }
+
 
         const data =
             await response.json();
 
-        categories =
-            Array.isArray(data)
-                ? data
-                : [];
 
-        loadLocalCategories();
+        if (
+            !Array.isArray(data)
+        ) {
 
-        renderCategories();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        loadLocalCategories();
-
-        if (!categories.length) {
-
-            categories = [
-                {
-                    id: "fertilizer",
-                    name: "সার",
-                    icon: "🌱",
-                    subCategories: [
-                        {
-                            id: "organic-fertilizer",
-                            name: "জৈব সার",
-                            icon: "🌿"
-                        },
-                        {
-                            id: "chemical-fertilizer",
-                            name: "রাসায়নিক সার",
-                            icon: "🧪"
-                        },
-                        {
-                            id: "pesticide",
-                            name: "কীটনাশক",
-                            icon: "🐛"
-                        }
-                    ]
-                }
-            ];
-
-        }
-
-        renderCategories();
-
-        showStatus(
-            "⚠️ categories.json পাওয়া যায়নি। বর্তমানে Browser Local Data ব্যবহার হচ্ছে।",
-            "error"
-        );
-
-    }
-
-}
-
-
-/* =====================================================
-   LOCAL DATA
-===================================================== */
-
-function loadLocalCategories() {
-
-    try {
-
-        const saved =
-            JSON.parse(
-                localStorage.getItem(
-                    STORAGE_KEY
-                ) || "null"
+            throw new Error(
+                "categories.json must be an array"
             );
 
-        if (Array.isArray(saved)) {
+        }
 
-            categories =
-                saved;
+
+        categories =
+            data
+                .map(
+                    category => {
+
+                        return {
+
+                            ...category,
+
+                            id:
+                                String(
+                                    category.id || ""
+                                )
+                                .trim(),
+
+                            name:
+                                String(
+                                    category.name || ""
+                                )
+                                .trim(),
+
+                            icon:
+                                category.icon ||
+                                "📂",
+
+                            status:
+                                category.status ||
+                                "active",
+
+                            sortOrder:
+                                Number(
+                                    category.sortOrder || 0
+                                ),
+
+                            subCategories:
+                                Array.isArray(
+                                    category.subCategories
+                                )
+                                ?
+                                category.subCategories.map(
+                                    sub => ({
+
+                                        ...sub,
+
+                                        id:
+                                            String(
+                                                sub.id || ""
+                                            )
+                                            .trim(),
+
+                                        name:
+                                            String(
+                                                sub.name || ""
+                                            )
+                                            .trim(),
+
+                                        icon:
+                                            sub.icon ||
+                                            "📦",
+
+                                        status:
+                                            sub.status ||
+                                            "active",
+
+                                        sortOrder:
+                                            Number(
+                                                sub.sortOrder || 0
+                                            )
+
+                                    })
+                                )
+                                :
+                                []
+
+                        };
+
+                    }
+                )
+                .sort(
+                    (a, b) =>
+                        a.sortOrder -
+                        b.sortOrder
+                );
+
+
+        renderCategories();
+
+    }
+    catch(error) {
+
+        console.error(error);
+
+
+        if (list) {
+
+            list.innerHTML = `
+
+                <div class="empty">
+
+                    ❌ categories.json
+                    লোড করা যায়নি।
+
+                    <br><br>
+
+                    নিশ্চিত করুন:
+
+                    <br>
+
+                    <strong>
+                        data/categories.json
+                    </strong>
+
+                    ফাইলটি আছে।
+
+                </div>
+
+            `;
 
         }
 
     }
 
-    catch (error) {
-
-        console.error(error);
-
-    }
-
 }
 
 
-/* =====================================================
-   SAVE LOCAL
-===================================================== */
-
-function saveCategories() {
-
-    localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(
-            categories,
-            null,
-            4
-        )
-    );
-
-}
-
-
-/* =====================================================
-   RENDER
-===================================================== */
+/* ==========================================================
+   RENDER CATEGORIES
+========================================================== */
 
 function renderCategories() {
 
     const list =
         $("#categoryList");
 
+
+    if (!list) return;
+
+
+    list.innerHTML = "";
+
+
     if (!categories.length) {
 
         list.innerHTML = `
+
             <div class="empty">
-                📂 কোনো ক্যাটাগরি নেই।
+
+                📂 এখনো কোনো Category নেই।
+
+                <br><br>
+
+                উপরের
+                <strong>➕ নতুন Category</strong>
+                বাটনে ক্লিক করে যোগ করুন।
+
             </div>
+
         `;
 
         return;
@@ -603,234 +919,643 @@ function renderCategories() {
     }
 
 
-    list.innerHTML =
-        categories.map(
-            category => {
+    categories.forEach(
+        category => {
 
-                const subs =
-                    Array.isArray(
-                        category.subCategories
-                    )
-                    ? category.subCategories
-                    : [];
+            const card =
+                document.createElement(
+                    "div"
+                );
 
 
-                return `
-
-<div
-    class="category-item"
-    data-category="${escapeHTML(category.id)}"
->
-
-    <div class="category-title">
-
-        <div>
-
-            <div class="category-name">
-
-                ${escapeHTML(
-                    category.icon || "📂"
-                )}
-
-                ${escapeHTML(
-                    category.name
-                )}
-
-            </div>
-
-            <div class="category-id">
-
-                ID:
-                ${escapeHTML(
-                    category.id
-                )}
-
-            </div>
-
-        </div>
+            card.className =
+                "category-card";
 
 
-        <div class="btn-row"
-             style="margin-top:0;"
-        >
-
-            <button
-                class="warning"
-                onclick="editCategory('${escapeHTML(category.id)}')"
-            >
-                ✏️ Edit
-            </button>
-
-            <button
-                class="danger"
-                onclick="deleteCategory('${escapeHTML(category.id)}')"
-            >
-                🗑️ Delete
-            </button>
-
-        </div>
-
-    </div>
+            const active =
+                category.status !==
+                "inactive";
 
 
-    <div class="sub-box">
-
-        <h3>
-            সাব-ক্যাটাগরি
-        </h3>
-
-
-        <div class="sub-form">
-
-            <input
-                type="text"
-                class="new-sub-id"
-                placeholder="ID যেমন: vermicompost"
-            >
-
-            <input
-                type="text"
-                class="new-sub-name"
-                placeholder="নাম যেমন: জৈব সার"
-            >
-
-            <button
-                class="primary"
-                onclick="addSubCategory('${escapeHTML(category.id)}', this)"
-            >
-                ➕ যোগ
-            </button>
-
-        </div>
-
-
-        <ul class="sub-list">
-
-            ${
-                subs.length
+            const subCategories =
+                Array.isArray(
+                    category.subCategories
+                )
                 ?
-                subs.map(
-                    sub => `
-
-<li
-    class="sub-item"
->
-
-    <div class="sub-name">
-
-        ${escapeHTML(
-            sub.icon || "📦"
-        )}
-
-        <strong>
-            ${escapeHTML(
-                sub.name
-            )}
-        </strong>
-
-        <small>
-            (${escapeHTML(
-                sub.id
-            )})
-        </small>
-
-    </div>
-
-
-    <div class="btn-row"
-         style="margin-top:0;"
-    >
-
-        <button
-            class="warning"
-            onclick="editSubCategory('${escapeHTML(category.id)}','${escapeHTML(sub.id)}')"
-        >
-            ✏️
-        </button>
-
-        <button
-            class="danger"
-            onclick="deleteSubCategory('${escapeHTML(category.id)}','${escapeHTML(sub.id)}')"
-        >
-            🗑️
-        </button>
-
-    </div>
-
-</li>
-
-`
-                ).join("")
+                [
+                    ...category.subCategories
+                ]
+                    .sort(
+                        (a,b) =>
+                            Number(
+                                a.sortOrder || 0
+                            ) -
+                            Number(
+                                b.sortOrder || 0
+                            )
+                    )
                 :
-                `
-                <li class="empty">
-                    কোনো সাব-ক্যাটাগরি নেই।
-                </li>
-                `
-            }
+                [];
 
-        </ul>
 
-    </div>
+            card.innerHTML = `
 
-</div>
+                <div
+                    class="category-header"
+                >
 
-`;
+                    <div
+                        class="category-title"
+                    >
 
-            }
-        ).join("");
+                        <div
+                            class="category-icon"
+                        >
+                            ${
+                                category.icon ||
+                                "📂"
+                            }
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                ${
+                                    escapeHTML(
+                                        category.name ||
+                                        "Category"
+                                    )
+                                }
+                            </h3>
+
+                            <small>
+                                ID:
+                                ${
+                                    escapeHTML(
+                                        category.id
+                                    )
+                                }
+
+                                &nbsp; • &nbsp;
+
+                                Sort:
+                                ${
+                                    category.sortOrder
+                                }
+
+                                &nbsp; • &nbsp;
+
+                                ${
+                                    subCategories.length
+                                }
+                                Sub Category
+                            </small>
+
+                            <br>
+
+                            <span
+                                class="
+                                    status
+                                    ${
+                                        active
+                                        ? "active"
+                                        : "inactive"
+                                    }
+                                "
+                            >
+                                ${
+                                    active
+                                    ? "● Active"
+                                    : "● Inactive"
+                                }
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="category-actions"
+                    >
+
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-small"
+                            data-action="add-sub"
+                            data-id="${escapeAttribute(category.id)}"
+                        >
+                            ➕ Sub Category
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-warning btn-small"
+                            data-action="edit-category"
+                            data-id="${escapeAttribute(category.id)}"
+                        >
+                            ✏️ Edit
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-small"
+                            data-action="toggle-category"
+                            data-id="${escapeAttribute(category.id)}"
+                        >
+                            ${
+                                active
+                                ? "⏸️ Inactive"
+                                : "▶️ Active"
+                            }
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-danger btn-small"
+                            data-action="delete-category"
+                            data-id="${escapeAttribute(category.id)}"
+                        >
+                            🗑️ Delete
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="subcategory-area"
+                >
+
+                    <div
+                        class="subcategory-title"
+                    >
+                        📁 Sub Categories
+                    </div>
+
+                    <div
+                        class="subcategory-list"
+                    >
+
+                        ${
+                            subCategories.length
+                            ?
+                            subCategories
+                                .map(
+                                    sub =>
+                                        renderSubCategory(
+                                            category,
+                                            sub
+                                        )
+                                )
+                                .join("")
+                            :
+                            `
+                            <div
+                                style="
+                                    color:#888;
+                                    font-size:13px;
+                                    padding:10px 0;
+                                "
+                            >
+                                এই Category-তে এখনো
+                                কোনো Sub Category নেই।
+                            </div>
+                            `
+                        }
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    initCategoryActions();
 
 }
 
 
-/* =====================================================
-   SAVE MAIN CATEGORY
-===================================================== */
+/* ==========================================================
+   RENDER SUB CATEGORY
+========================================================== */
 
-$("#saveCategoryBtn")
-.addEventListener(
-    "click",
-    function() {
+function renderSubCategory(
+    category,
+    sub
+) {
 
-        const id =
-            $("#categoryId")
-                .value
-                .trim()
-                .toLowerCase();
+    const active =
+        sub.status !==
+        "inactive";
 
-        const name =
-            $("#categoryName")
-                .value
+
+    return `
+
+        <div
+            class="subcategory-item"
+        >
+
+            <div
+                class="subcategory-info"
+            >
+
+                <span>
+                    ${
+                        sub.icon ||
+                        "📦"
+                    }
+                </span>
+
+                <strong>
+                    ${
+                        escapeHTML(
+                            sub.name ||
+                            "Sub Category"
+                        )
+                    }
+                </strong>
+
+                <small
+                    style="color:#888;"
+                >
+                    ID:
+                    ${
+                        escapeHTML(
+                            sub.id
+                        )
+                    }
+
+                    | Sort:
+                    ${
+                        sub.sortOrder
+                    }
+                </small>
+
+                <span
+                    class="
+                        status
+                        ${
+                            active
+                            ? "active"
+                            : "inactive"
+                        }
+                    "
+                >
+                    ${
+                        active
+                        ? "Active"
+                        : "Inactive"
+                    }
+                </span>
+
+            </div>
+
+
+            <div
+                class="subcategory-actions"
+            >
+
+                <button
+                    type="button"
+                    class="btn btn-warning btn-small"
+                    data-action="edit-sub"
+                    data-category="${escapeAttribute(category.id)}"
+                    data-sub="${escapeAttribute(sub.id)}"
+                >
+                    ✏️ Edit
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-secondary btn-small"
+                    data-action="toggle-sub"
+                    data-category="${escapeAttribute(category.id)}"
+                    data-sub="${escapeAttribute(sub.id)}"
+                >
+                    ${
+                        active
+                        ? "⏸️ Inactive"
+                        : "▶️ Active"
+                    }
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-danger btn-small"
+                    data-action="delete-sub"
+                    data-category="${escapeAttribute(category.id)}"
+                    data-sub="${escapeAttribute(sub.id)}"
+                >
+                    🗑️ Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ==========================================================
+   CATEGORY ACTIONS
+========================================================== */
+
+function initCategoryActions() {
+
+    document
+        .querySelectorAll(
+            "[data-action]"
+        )
+        .forEach(
+            button => {
+
+                button.onclick =
+                    function() {
+
+                        const action =
+                            this.dataset.action;
+
+
+                        const categoryId =
+                            this.dataset.id ||
+                            this.dataset.category;
+
+
+                        const subId =
+                            this.dataset.sub;
+
+
+                        switch(action) {
+
+                            case "add-sub":
+
+                                openSubCategoryModal(
+                                    categoryId
+                                );
+
+                                break;
+
+
+                            case "edit-category":
+
+                                openCategoryModal(
+                                    categoryId
+                                );
+
+                                break;
+
+
+                            case "toggle-category":
+
+                                toggleCategory(
+                                    categoryId
+                                );
+
+                                break;
+
+
+                            case "delete-category":
+
+                                deleteCategory(
+                                    categoryId
+                                );
+
+                                break;
+
+
+                            case "edit-sub":
+
+                                openSubCategoryModal(
+                                    categoryId,
+                                    subId
+                                );
+
+                                break;
+
+
+                            case "toggle-sub":
+
+                                toggleSubCategory(
+                                    categoryId,
+                                    subId
+                                );
+
+                                break;
+
+
+                            case "delete-sub":
+
+                                deleteSubCategory(
+                                    categoryId,
+                                    subId
+                                );
+
+                                break;
+
+                        }
+
+                    };
+
+            }
+        );
+
+}
+
+
+/* ==========================================================
+   OPEN CATEGORY MODAL
+========================================================== */
+
+function openCategoryModal(
+    id = ""
+) {
+
+    const modal =
+        $("#categoryModal");
+
+
+    const title =
+        $("#categoryModalTitle");
+
+
+    const category =
+        categories.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if (category) {
+
+        title.textContent =
+            "✏️ Category Edit";
+
+
+        $("#categoryEditId").value =
+            category.id;
+
+
+        $("#categoryId").value =
+            category.id;
+
+
+        $("#categoryName").value =
+            category.name;
+
+
+        $("#categoryIcon").value =
+            category.icon || "📂";
+
+
+        $("#categorySortOrder").value =
+            category.sortOrder || 0;
+
+
+        $("#categoryStatus").value =
+            category.status || "active";
+
+    }
+    else {
+
+        title.textContent =
+            "➕ নতুন Category";
+
+
+        $("#categoryEditId").value =
+            "";
+
+
+        $("#categoryForm").reset();
+
+
+        $("#categoryIcon").value =
+            "📂";
+
+
+        $("#categoryStatus").value =
+            "active";
+
+    }
+
+
+    modal.classList.add(
+        "show"
+    );
+
+}
+
+
+/* ==========================================================
+   SAVE CATEGORY
+========================================================== */
+
+$("#categoryForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const editId =
+                $("#categoryEditId").value
                 .trim();
 
-        const icon =
-            $("#categoryIcon")
-                .value
-                .trim() || "📂";
 
-
-        if (!id || !name) {
-
-            showStatus(
-                "❌ Category ID এবং নাম দিন।",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (editingCategoryId) {
-
-            const category =
-                categories.find(
-                    item =>
-                        item.id ===
-                        editingCategoryId
+            const id =
+                slugify(
+                    $("#categoryId").value
                 );
 
-            if (category) {
+
+            const name =
+                $("#categoryName").value
+                .trim();
+
+
+            const icon =
+                $("#categoryIcon").value
+                .trim() ||
+                "📂";
+
+
+            const sortOrder =
+                Number(
+                    $("#categorySortOrder").value
+                ) || 0;
+
+
+            const status =
+                $("#categoryStatus").value;
+
+
+            if (!id || !name) {
+
+                showNotice(
+                    "Category ID এবং Name অবশ্যই দিতে হবে।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* EDIT */
+
+            if (editId) {
+
+                const category =
+                    categories.find(
+                        item =>
+                            String(item.id) ===
+                            String(editId)
+                    );
+
+
+                if (!category) {
+
+                    showNotice(
+                        "Category পাওয়া যায়নি।",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    id !== editId &&
+                    categories.some(
+                        item =>
+                            String(item.id) ===
+                            String(id)
+                    )
+                ) {
+
+                    showNotice(
+                        "এই Category ID আগে থেকেই আছে।",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
 
                 category.id =
                     id;
@@ -841,75 +1566,90 @@ $("#saveCategoryBtn")
                 category.icon =
                     icon;
 
-            }
+                category.sortOrder =
+                    sortOrder;
 
-            editingCategoryId =
-                null;
-
-            showStatus(
-                "✅ ক্যাটাগরি Edit করা হয়েছে।"
-            );
-
-        }
-
-        else {
-
-            const exists =
-                categories.some(
-                    item =>
-                        String(item.id)
-                        .toLowerCase() ===
-                        id
-                );
-
-
-            if (exists) {
-
-                showStatus(
-                    "❌ এই Category ID আগে থেকেই আছে।",
-                    "error"
-                );
-
-                return;
+                category.status =
+                    status;
 
             }
 
+            /* ADD */
 
-            categories.push({
+            else {
 
-                id,
+                if (
+                    categories.some(
+                        item =>
+                            String(item.id) ===
+                            String(id)
+                    )
+                ) {
 
-                name,
+                    showNotice(
+                        "এই Category ID আগে থেকেই আছে।",
+                        "error"
+                    );
 
-                icon,
+                    return;
 
-                subCategories: []
-
-            });
+                }
 
 
-            showStatus(
-                "✅ নতুন মূল ক্যাটাগরি যোগ হয়েছে।"
+                categories.push({
+
+                    id:
+                        id,
+
+                    name:
+                        name,
+
+                    icon:
+                        icon,
+
+                    sortOrder:
+                        sortOrder,
+
+                    status:
+                        status,
+
+                    subCategories:
+                        []
+
+                });
+
+            }
+
+
+            categories.sort(
+                (a,b) =>
+                    Number(a.sortOrder || 0) -
+                    Number(b.sortOrder || 0)
             );
 
+
+            closeCategoryModal();
+
+            renderCategories();
+
+
+            showNotice(
+                "Category পরিবর্তন করা হয়েছে।",
+                "success"
+            );
+
+
+            showJSON();
+
         }
+    );
 
 
-        saveCategories();
+/* ==========================================================
+   TOGGLE CATEGORY
+========================================================== */
 
-        renderCategories();
-
-        resetCategoryForm();
-
-    }
-);
-
-
-/* =====================================================
-   EDIT MAIN CATEGORY
-===================================================== */
-
-function editCategory(id) {
+function toggleCategory(id) {
 
     const category =
         categories.find(
@@ -919,42 +1659,30 @@ function editCategory(id) {
         );
 
 
-    if (!category)
-        return;
+    if (!category) return;
 
 
-    editingCategoryId =
-        category.id;
+    category.status =
+        category.status === "inactive"
+        ? "active"
+        : "inactive";
 
 
-    $("#categoryId").value =
-        category.id;
+    renderCategories();
 
+    showNotice(
+        "Category status পরিবর্তন হয়েছে।",
+        "success"
+    );
 
-    $("#categoryName").value =
-        category.name;
-
-
-    $("#categoryIcon").value =
-        category.icon || "📂";
-
-
-    $("#saveCategoryBtn")
-        .textContent =
-        "💾 পরিবর্তন সংরক্ষণ";
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    showJSON();
 
 }
 
 
-/* =====================================================
-   DELETE MAIN CATEGORY
-===================================================== */
+/* ==========================================================
+   DELETE CATEGORY
+========================================================== */
 
 function deleteCategory(id) {
 
@@ -966,18 +1694,34 @@ function deleteCategory(id) {
         );
 
 
-    if (!category)
+    if (!category) return;
+
+
+    const subCount =
+        Array.isArray(
+            category.subCategories
+        )
+        ?
+        category.subCategories.length
+        :
+        0;
+
+
+    const message =
+        subCount
+        ?
+        `"${category.name}" Category-এর মধ্যে ${subCount}টি Sub Category আছে।
+
+আপনি কি পুরো Category এবং এর সব Sub Category মুছে ফেলতে চান?`
+        :
+        `"${category.name}" Category মুছে ফেলতে চান?`;
+
+
+    if (!confirm(message)) {
+
         return;
 
-
-    const confirmed =
-        confirm(
-            `“${category.name}” ক্যাটাগরি মুছে ফেলবেন?\n\nএর সব সাব-ক্যাটাগরিও মুছে যাবে।`
-        );
-
-
-    if (!confirmed)
-        return;
+    }
 
 
     categories =
@@ -988,64 +1732,29 @@ function deleteCategory(id) {
         );
 
 
-    saveCategories();
-
     renderCategories();
 
-    showStatus(
-        "🗑️ ক্যাটাগরি মুছে ফেলা হয়েছে।"
+    showNotice(
+        "Category মুছে ফেলা হয়েছে।",
+        "success"
     );
+
+    showJSON();
 
 }
 
 
-/* =====================================================
-   ADD SUB CATEGORY
-===================================================== */
+/* ==========================================================
+   OPEN SUB CATEGORY MODAL
+========================================================== */
 
-function addSubCategory(
+function openSubCategoryModal(
     categoryId,
-    button
+    subId = ""
 ) {
 
-    const box =
-        button.closest(
-            ".category-item"
-        );
-
-
-    const idInput =
-        box.querySelector(
-            ".new-sub-id"
-        );
-
-
-    const nameInput =
-        box.querySelector(
-            ".new-sub-name"
-        );
-
-
-    const id =
-        idInput.value
-            .trim()
-            .toLowerCase();
-
-
-    const name =
-        nameInput.value
-            .trim();
-
-
-    if (!id || !name) {
-
-        alert(
-            "Sub-category ID এবং নাম দিন।"
-        );
-
-        return;
-
-    }
+    const modal =
+        $("#subCategoryModal");
 
 
     const category =
@@ -1056,66 +1765,339 @@ function addSubCategory(
         );
 
 
-    if (!category)
+    if (!category) {
+
+        showNotice(
+            "Main Category পাওয়া যায়নি।",
+            "error"
+        );
+
         return;
-
-
-    if (!Array.isArray(
-        category.subCategories
-    )) {
-
-        category.subCategories = [];
 
     }
 
 
-    const exists =
-        category.subCategories.some(
+    $("#subCategoryParentId").value =
+        category.id;
+
+
+    $("#subCategoryParentName").value =
+        category.name;
+
+
+    const sub =
+        Array.isArray(
+            category.subCategories
+        )
+        ?
+        category.subCategories.find(
             item =>
-                String(item.id)
-                .toLowerCase() ===
-                id
-        );
+                String(item.id) ===
+                String(subId)
+        )
+        :
+        null;
 
 
-    if (exists) {
+    if (sub) {
 
-        alert(
-            "এই Sub-category ID আগে থেকেই আছে।"
-        );
+        $("#subCategoryModalTitle").textContent =
+            "✏️ Sub Category Edit";
 
-        return;
+
+        $("#subCategoryEditId").value =
+            sub.id;
+
+
+        $("#subCategoryId").value =
+            sub.id;
+
+
+        $("#subCategoryName").value =
+            sub.name;
+
+
+        $("#subCategoryIcon").value =
+            sub.icon || "📦";
+
+
+        $("#subCategorySortOrder").value =
+            sub.sortOrder || 0;
+
+
+        $("#subCategoryStatus").value =
+            sub.status || "active";
+
+    }
+    else {
+
+        $("#subCategoryModalTitle").textContent =
+            "➕ নতুন Sub Category";
+
+
+        $("#subCategoryEditId").value =
+            "";
+
+
+        $("#subCategoryId").value =
+            "";
+
+
+        $("#subCategoryName").value =
+            "";
+
+
+        $("#subCategoryIcon").value =
+            "📦";
+
+
+        $("#subCategorySortOrder").value =
+            "1";
+
+
+        $("#subCategoryStatus").value =
+            "active";
 
     }
 
 
-    category.subCategories.push({
-
-        id,
-
-        name,
-
-        icon: "📦"
-
-    });
-
-
-    saveCategories();
-
-    renderCategories();
-
-    showStatus(
-        "✅ নতুন সাব-ক্যাটাগরি যোগ হয়েছে।"
+    modal.classList.add(
+        "show"
     );
 
 }
 
 
-/* =====================================================
-   EDIT SUB CATEGORY
-===================================================== */
+/* ==========================================================
+   SAVE SUB CATEGORY
+========================================================== */
 
-function editSubCategory(
+$("#subCategoryForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const parentId =
+                $("#subCategoryParentId")
+                .value
+                .trim();
+
+
+            const editId =
+                $("#subCategoryEditId")
+                .value
+                .trim();
+
+
+            const id =
+                slugify(
+                    $("#subCategoryId").value
+                );
+
+
+            const name =
+                $("#subCategoryName")
+                .value
+                .trim();
+
+
+            const icon =
+                $("#subCategoryIcon")
+                .value
+                .trim() ||
+                "📦";
+
+
+            const sortOrder =
+                Number(
+                    $("#subCategorySortOrder")
+                    .value
+                ) || 0;
+
+
+            const status =
+                $("#subCategoryStatus")
+                .value;
+
+
+            const category =
+                categories.find(
+                    item =>
+                        String(item.id) ===
+                        String(parentId)
+                );
+
+
+            if (!category) {
+
+                showNotice(
+                    "Main Category পাওয়া যায়নি।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (!Array.isArray(
+                category.subCategories
+            )) {
+
+                category.subCategories =
+                    [];
+
+            }
+
+
+            if (!id || !name) {
+
+                showNotice(
+                    "Sub Category ID এবং Name অবশ্যই দিতে হবে।",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* EDIT */
+
+            if (editId) {
+
+                const sub =
+                    category.subCategories.find(
+                        item =>
+                            String(item.id) ===
+                            String(editId)
+                    );
+
+
+                if (!sub) {
+
+                    showNotice(
+                        "Sub Category পাওয়া যায়নি।",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    id !== editId &&
+                    category.subCategories.some(
+                        item =>
+                            String(item.id) ===
+                            String(id)
+                    )
+                ) {
+
+                    showNotice(
+                        "এই Sub Category ID আগে থেকেই আছে।",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                sub.id =
+                    id;
+
+                sub.name =
+                    name;
+
+                sub.icon =
+                    icon;
+
+                sub.sortOrder =
+                    sortOrder;
+
+                sub.status =
+                    status;
+
+            }
+
+            /* ADD */
+
+            else {
+
+                if (
+                    category.subCategories.some(
+                        item =>
+                            String(item.id) ===
+                            String(id)
+                    )
+                ) {
+
+                    showNotice(
+                        "এই Sub Category ID আগে থেকেই আছে।",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                category.subCategories.push({
+
+                    id:
+                        id,
+
+                    name:
+                        name,
+
+                    icon:
+                        icon,
+
+                    sortOrder:
+                        sortOrder,
+
+                    status:
+                        status
+
+                });
+
+            }
+
+
+            category.subCategories.sort(
+                (a,b) =>
+                    Number(a.sortOrder || 0) -
+                    Number(b.sortOrder || 0)
+            );
+
+
+            closeSubCategoryModal();
+
+            renderCategories();
+
+
+            showNotice(
+                "Sub Category সংরক্ষণ করা হয়েছে।",
+                "success"
+            );
+
+
+            showJSON();
+
+        }
+    );
+
+
+/* ==========================================================
+   TOGGLE SUB CATEGORY
+========================================================== */
+
+function toggleSubCategory(
     categoryId,
     subId
 ) {
@@ -1128,54 +2110,47 @@ function editSubCategory(
         );
 
 
-    if (!category)
-        return;
+    if (!category) return;
 
 
     const sub =
+        Array.isArray(
+            category.subCategories
+        )
+        ?
         category.subCategories.find(
             item =>
                 String(item.id) ===
                 String(subId)
-        );
+        )
+        :
+        null;
 
 
-    if (!sub)
-        return;
+    if (!sub) return;
 
 
-    const newName =
-        prompt(
-            "সাব-ক্যাটাগরির নতুন নাম:",
-            sub.name
-        );
+    sub.status =
+        sub.status === "inactive"
+        ? "active"
+        : "inactive";
 
-
-    if (
-        newName === null ||
-        !newName.trim()
-    )
-        return;
-
-
-    sub.name =
-        newName.trim();
-
-
-    saveCategories();
 
     renderCategories();
 
-    showStatus(
-        "✅ সাব-ক্যাটাগরি Edit হয়েছে।"
+    showNotice(
+        "Sub Category status পরিবর্তন হয়েছে।",
+        "success"
     );
+
+    showJSON();
 
 }
 
 
-/* =====================================================
+/* ==========================================================
    DELETE SUB CATEGORY
-===================================================== */
+========================================================== */
 
 function deleteSubCategory(
     categoryId,
@@ -1190,8 +2165,7 @@ function deleteSubCategory(
         );
 
 
-    if (!category)
-        return;
+    if (!category) return;
 
 
     const sub =
@@ -1202,18 +2176,18 @@ function deleteSubCategory(
         );
 
 
-    if (!sub)
+    if (!sub) return;
+
+
+    if (
+        !confirm(
+            `"${sub.name}" Sub Category মুছে ফেলতে চান?`
+        )
+    ) {
+
         return;
 
-
-    const confirmed =
-        confirm(
-            `“${sub.name}” সাব-ক্যাটাগরি মুছে ফেলবেন?`
-        );
-
-
-    if (!confirmed)
-        return;
+    }
 
 
     category.subCategories =
@@ -1224,54 +2198,262 @@ function deleteSubCategory(
         );
 
 
-    saveCategories();
-
     renderCategories();
 
-    showStatus(
-        "🗑️ সাব-ক্যাটাগরি মুছে ফেলা হয়েছে।"
+    showNotice(
+        "Sub Category মুছে ফেলা হয়েছে।",
+        "success"
+    );
+
+    showJSON();
+
+}
+
+
+/* ==========================================================
+   MODAL CLOSE
+========================================================== */
+
+function closeCategoryModal() {
+
+    $("#categoryModal")
+        .classList
+        .remove("show");
+
+}
+
+
+function closeSubCategoryModal() {
+
+    $("#subCategoryModal")
+        .classList
+        .remove("show");
+
+}
+
+
+/* ==========================================================
+   MODAL BUTTONS
+========================================================== */
+
+$("#addCategoryBtn")
+    .onclick =
+        () =>
+            openCategoryModal();
+
+
+$("#cancelCategoryBtn")
+    .onclick =
+        closeCategoryModal;
+
+
+$("#cancelSubCategoryBtn")
+    .onclick =
+        closeSubCategoryModal;
+
+
+/* ==========================================================
+   CLICK MODAL OUTSIDE
+========================================================== */
+
+$("#categoryModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeCategoryModal();
+
+            }
+
+        }
+    );
+
+
+$("#subCategoryModal")
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                closeSubCategoryModal();
+
+            }
+
+        }
+    );
+
+
+/* ==========================================================
+   ESC CLOSE
+========================================================== */
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeCategoryModal();
+
+            closeSubCategoryModal();
+
+        }
+
+    }
+);
+
+
+/* ==========================================================
+   NOTICE
+========================================================== */
+
+function showNotice(
+    message,
+    type = "success"
+) {
+
+    const notice =
+        $("#notice");
+
+
+    if (!notice) return;
+
+
+    notice.textContent =
+        message;
+
+
+    notice.className =
+        "notice show " +
+        type;
+
+
+    clearTimeout(
+        showNotice.timer
+    );
+
+
+    showNotice.timer =
+        setTimeout(
+            function() {
+
+                notice.classList.remove(
+                    "show"
+                );
+
+            },
+            3500
+        );
+
+}
+
+
+/* ==========================================================
+   SLUGIFY
+========================================================== */
+
+function slugify(value) {
+
+    return String(value || "")
+        .trim()
+        .toLowerCase()
+        .replace(
+            /[^a-z0-9\u0980-\u09ff]+/g,
+            "-"
+        )
+        .replace(
+            /^-+|-+$/g,
+            ""
+        );
+
+}
+
+
+/* ==========================================================
+   ESCAPE HTML
+========================================================== */
+
+function escapeHTML(value) {
+
+    return String(value || "")
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHTML(value);
+
+}
+
+
+/* ==========================================================
+   JSON PREVIEW
+========================================================== */
+
+function showJSON() {
+
+    /*
+       Browser থেকে সরাসরি GitHub-এর
+       categories.json পরিবর্তন করা যাবে না।
+
+       এই function console-এ updated JSON দেখাবে।
+       Console থেকে copy করে
+       data/categories.json-এ বসানো যাবে।
+    */
+
+    console.clear();
+
+    console.log(
+        "========== UPDATED categories.json =========="
+    );
+
+    console.log(
+        JSON.stringify(
+            categories,
+            null,
+            4
+        )
     );
 
 }
 
 
-/* =====================================================
-   RESET
-===================================================== */
-
-$("#resetCategoryBtn")
-.addEventListener(
-    "click",
-    resetCategoryForm
-);
-
-
-function resetCategoryForm() {
-
-    editingCategoryId =
-        null;
-
-
-    $("#categoryId").value =
-        "";
-
-    $("#categoryName").value =
-        "";
-
-    $("#categoryIcon").value =
-        "";
-
-
-    $("#saveCategoryBtn")
-        .textContent =
-        "💾 ক্যাটাগরি সংরক্ষণ";
-
-}
-
-
-/* =====================================================
-   INITIAL DATA
-===================================================== */
+/* ==========================================================
+   INITIALIZE
+========================================================== */
 
 document.addEventListener(
     "DOMContentLoaded",
