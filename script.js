@@ -2,9 +2,9 @@
 
 /* ==========================================================
    MALIHA AGRO INDUSTRY
-   MAIN SCRIPT.JS
+   MAIN SCRIPT.JS — COMPLETE FIXED VERSION
    Products + Categories + Search + Wishlist +
-   Product Details + WhatsApp Order + Share
+   Product Details + Gallery + WhatsApp Order + Share
 ========================================================== */
 
 
@@ -20,32 +20,6 @@ let currentProduct = null;
 let detailSliderIndex = 0;
 
 let homeSliderTimers = [];
-
-
-/* ==========================================================
-   LOAD WISHLIST
-========================================================== */
-
-try {
-
-    wishlist =
-        JSON.parse(
-            localStorage.getItem("wishlist") || "[]"
-        )
-        .map(Number)
-        .filter(Number.isFinite);
-
-}
-catch (error) {
-
-    console.error(
-        "Wishlist Load Error:",
-        error
-    );
-
-    wishlist = [];
-
-}
 
 
 /* ==========================================================
@@ -81,6 +55,67 @@ const SITE_CONFIG = {
 
 
 /* ==========================================================
+   LOAD WISHLIST
+========================================================== */
+
+function loadWishlistStorage() {
+
+    try {
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem("wishlist") || "[]"
+            );
+
+        wishlist =
+            Array.isArray(saved)
+                ? saved
+                    .map(Number)
+                    .filter(Number.isFinite)
+                : [];
+
+    }
+    catch (error) {
+
+        console.error(
+            "Wishlist Load Error:",
+            error
+        );
+
+        wishlist = [];
+
+    }
+
+}
+
+
+/* ==========================================================
+   SAVE WISHLIST
+========================================================== */
+
+function saveWishlistStorage() {
+
+    try {
+
+        localStorage.setItem(
+            "wishlist",
+            JSON.stringify(wishlist)
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Wishlist Save Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
    PRICE FORMAT
 ========================================================== */
 
@@ -109,7 +144,6 @@ function imagePath(path) {
 
     }
 
-
     let src =
         String(path)
             .trim()
@@ -128,7 +162,7 @@ function imagePath(path) {
     }
 
 
-    /* Normalize images path */
+    /* Normalize image paths */
 
     src =
         src.replace(
@@ -183,8 +217,7 @@ function imagePath(path) {
 function getGallery(product) {
 
     if (
-        !product ||
-        !Array.isArray(product.gallery)
+        !product
     ) {
 
         return [];
@@ -192,9 +225,70 @@ function getGallery(product) {
     }
 
 
-    return product.gallery
-        .map(imagePath)
-        .filter(Boolean);
+    let gallery = [];
+
+
+    /* Main image */
+
+    if (
+        product.image
+    ) {
+
+        gallery.push(
+            product.image
+        );
+
+    }
+
+
+    /* imageUrl */
+
+    if (
+        product.imageUrl
+    ) {
+
+        gallery.push(
+            product.imageUrl
+        );
+
+    }
+
+
+    /* images array */
+
+    if (
+        Array.isArray(product.images)
+    ) {
+
+        gallery.push(
+            ...product.images
+        );
+
+    }
+
+
+    /* gallery array */
+
+    if (
+        Array.isArray(product.gallery)
+    ) {
+
+        gallery.push(
+            ...product.gallery
+        );
+
+    }
+
+
+    /* Remove duplicates */
+
+    return [
+        ...new Set(
+            gallery
+                .map(imagePath)
+                .filter(Boolean)
+        )
+    ];
 
 }
 
@@ -298,7 +392,8 @@ async function fetchProducts() {
     if (!response.ok) {
 
         throw new Error(
-            "Products API failed"
+            "Products API failed: " +
+            response.status
         );
 
     }
@@ -320,9 +415,14 @@ async function fetchProducts() {
 
 
     products =
-        data.map(
-            normalizeProduct
-        );
+        data
+            .map(normalizeProduct)
+            .filter(
+                product =>
+                    Number.isFinite(
+                        product.id
+                    )
+            );
 
 
     return products;
@@ -348,7 +448,8 @@ async function fetchCategories() {
     if (!response.ok) {
 
         throw new Error(
-            "Categories API failed"
+            "Categories API failed: " +
+            response.status
         );
 
     }
@@ -389,12 +490,13 @@ async function fetchCategories() {
 
 
 /* ==========================================================
-   ENSURE PRODUCTS
+   ENSURE PRODUCTS LOADED
 ========================================================== */
 
 async function ensureProductsLoaded() {
 
     if (
+        Array.isArray(products) &&
         products.length
     ) {
 
@@ -409,12 +511,13 @@ async function ensureProductsLoaded() {
 
 
 /* ==========================================================
-   ENSURE CATEGORIES
+   ENSURE CATEGORIES LOADED
 ========================================================== */
 
 async function ensureCategoriesLoaded() {
 
     if (
+        Array.isArray(categories) &&
         categories.length
     ) {
 
@@ -440,9 +543,13 @@ function getProductId() {
         );
 
 
-    return Number(
-        params.get("id")
-    );
+    const id =
+        Number(
+            params.get("id")
+        );
+
+
+    return id;
 
 }
 
@@ -674,6 +781,12 @@ function getSubCategoryProductCount(
 
 
 /* ==========================================================
+   INITIAL WISHLIST
+========================================================== */
+
+loadWishlistStorage();
+
+/* ==========================================================
    RENDER MAIN CATEGORIES
 ========================================================== */
 
@@ -698,7 +811,7 @@ async function renderCategoryButtons() {
         wrapper.innerHTML = "";
 
 
-        /* ALL */
+        /* ALL PRODUCTS */
 
         const allButton =
             document.createElement(
@@ -824,10 +937,12 @@ function renderSubCategories(
             "show"
         );
 
+
         updateCategoryInfo(
             "all",
             "all"
         );
+
 
         return;
 
@@ -846,10 +961,12 @@ function renderSubCategories(
             "show"
         );
 
+
         updateCategoryInfo(
             categoryId,
             "all"
         );
+
 
         return;
 
@@ -888,10 +1005,12 @@ function renderSubCategories(
             "show"
         );
 
+
         updateCategoryInfo(
             categoryId,
             "all"
         );
+
 
         return;
 
@@ -939,6 +1058,8 @@ function renderSubCategories(
         "subcategory-buttons";
 
 
+    /* ALL SUB CATEGORY */
+
     const allSub =
         document.createElement(
             "button"
@@ -967,6 +1088,8 @@ function renderSubCategories(
         allSub
     );
 
+
+    /* SUB CATEGORIES */
 
     subCategories.forEach(
         sub => {
@@ -1029,6 +1152,8 @@ function renderSubCategories(
     );
 
 
+    /* SUB CATEGORY CLICK */
+
     buttons
         .querySelectorAll(
             ".sub-filter-btn"
@@ -1057,25 +1182,25 @@ function renderSubCategories(
                         );
 
 
-                        const category =
+                        const selectedCategory =
                             button.dataset.category ||
                             "all";
 
 
-                        const subCategory =
+                        const selectedSubCategory =
                             button.dataset.subcategory ||
                             "all";
 
 
                         updateCategoryInfo(
-                            category,
-                            subCategory
+                            selectedCategory,
+                            selectedSubCategory
                         );
 
 
                         loadProducts(
-                            category,
-                            subCategory
+                            selectedCategory,
+                            selectedSubCategory
                         );
 
                     }
@@ -1139,6 +1264,7 @@ function updateCategoryInfo(
         info.classList.add(
             "show"
         );
+
 
         return;
 
@@ -1320,7 +1446,7 @@ function getActiveSubCategory() {
 
 
 /* ==========================================================
-   RESET FILTERS
+   RESET CATEGORY FILTERS
 ========================================================== */
 
 function resetCategoryFilters() {
@@ -1363,17 +1489,144 @@ function resetCategoryFilters() {
 
 
 /* ==========================================================
+   WISHLIST BUTTON UI
+========================================================== */
+
+function updateWishlistButton(
+    button,
+    id
+) {
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    const active =
+        wishlist.includes(
+            Number(id)
+        );
+
+
+    button.textContent =
+        active
+        ? "❤️"
+        : "🤍";
+
+
+    button.classList.toggle(
+        "active",
+        active
+    );
+
+}
+
+
+/* ==========================================================
+   TOGGLE WISHLIST
+========================================================== */
+
+function toggleWishlist(id) {
+
+    id =
+        Number(id);
+
+
+    if (
+        !Number.isFinite(id)
+    ) {
+
+        return;
+
+    }
+
+
+    const index =
+        wishlist.indexOf(
+            id
+        );
+
+
+    if (
+        index === -1
+    ) {
+
+        wishlist.push(
+            id
+        );
+
+    }
+    else {
+
+        wishlist.splice(
+            index,
+            1
+        );
+
+    }
+
+
+    saveWishlistStorage();
+
+
+    updateAllWishlistButtons();
+
+
+    renderWishlistPage();
+
+}
+
+
+/* ==========================================================
+   UPDATE ALL WISHLIST BUTTONS
+========================================================== */
+
+function updateAllWishlistButtons() {
+
+    $$(".wishlist-btn")
+        .forEach(
+            button => {
+
+                updateWishlistButton(
+                    button,
+                    button.dataset.id
+                );
+
+            }
+        );
+
+
+    if (
+        currentProduct
+    ) {
+
+        initProductWishlist();
+
+    }
+
+}
+
+
+/* ==========================================================
+   INIT WISHLIST
+========================================================== */
+
+function initWishlist() {
+
+    updateAllWishlistButtons();
+
+}
+
+/* ==========================================================
    CREATE PRODUCT CARD
 ========================================================== */
 
-function createProductCard(
-    product
-) {
+function createProductCard(product) {
 
     const card =
-        document.createElement(
-            "article"
-        );
+        document.createElement("article");
 
 
     card.className =
@@ -1384,16 +1637,14 @@ function createProductCard(
         product.id;
 
 
-    /* OFFER */
+    /* ======================================================
+       OFFER BADGE
+    ====================================================== */
 
-    if (
-        product.offer
-    ) {
+    if (product.offer) {
 
         const offer =
-            document.createElement(
-                "span"
-            );
+            document.createElement("span");
 
 
         offer.className =
@@ -1411,16 +1662,17 @@ function createProductCard(
     }
 
 
-    /* WISHLIST */
+    /* ======================================================
+       WISHLIST BUTTON
+    ====================================================== */
 
     const wishlistButton =
-        document.createElement(
-            "button"
-        );
+        document.createElement("button");
 
 
     wishlistButton.type =
         "button";
+
 
     wishlistButton.className =
         "wishlist-btn";
@@ -1445,7 +1697,10 @@ function createProductCard(
     wishlistButton.onclick =
         function(event) {
 
+            event.preventDefault();
+
             event.stopPropagation();
+
 
             toggleWishlist(
                 Number(product.id)
@@ -1459,12 +1714,12 @@ function createProductCard(
     );
 
 
-    /* IMAGE */
+    /* ======================================================
+       PRODUCT IMAGE SLIDER
+    ====================================================== */
 
     const slider =
-        document.createElement(
-            "div"
-        );
+        document.createElement("div");
 
 
     slider.className =
@@ -1472,22 +1727,16 @@ function createProductCard(
 
 
     const gallery =
-        getGallery(
-            product
-        );
+        getGallery(product);
 
 
-    if (
-        gallery.length
-    ) {
+    if (gallery.length) {
 
         gallery.forEach(
             (src, index) => {
 
                 const img =
-                    document.createElement(
-                        "img"
-                    );
+                    document.createElement("img");
 
 
                 img.src =
@@ -1498,9 +1747,7 @@ function createProductCard(
                     "product-img";
 
 
-                if (
-                    index === 0
-                ) {
+                if (index === 0) {
 
                     img.classList.add(
                         "active"
@@ -1546,6 +1793,7 @@ function createProductCard(
                 style="
                     width:100%;
                     height:100%;
+                    min-height:220px;
                     display:flex;
                     align-items:center;
                     justify-content:center;
@@ -1567,12 +1815,12 @@ function createProductCard(
     );
 
 
-    /* CATEGORY */
+    /* ======================================================
+       CATEGORY
+    ====================================================== */
 
     const categoryBadge =
-        document.createElement(
-            "span"
-        );
+        document.createElement("span");
 
 
     categoryBadge.className =
@@ -1595,12 +1843,12 @@ function createProductCard(
     );
 
 
-    /* NAME */
+    /* ======================================================
+       PRODUCT NAME
+    ====================================================== */
 
     const title =
-        document.createElement(
-            "h3"
-        );
+        document.createElement("h3");
 
 
     title.textContent =
@@ -1613,7 +1861,9 @@ function createProductCard(
     );
 
 
-    /* SUB CATEGORY */
+    /* ======================================================
+       SUB CATEGORY
+    ====================================================== */
 
     const subName =
 
@@ -1631,9 +1881,7 @@ function createProductCard(
     ) {
 
         const sub =
-            document.createElement(
-                "small"
-            );
+            document.createElement("small");
 
 
         sub.style.cssText = `
@@ -1658,12 +1906,12 @@ function createProductCard(
     }
 
 
-    /* RATING */
+    /* ======================================================
+       RATING
+    ====================================================== */
 
     const rating =
-        document.createElement(
-            "p"
-        );
+        document.createElement("p");
 
 
     rating.className =
@@ -1706,7 +1954,9 @@ function createProductCard(
     );
 
 
-    /* PRICE */
+    /* ======================================================
+       PRICE
+    ====================================================== */
 
     const oldPrice =
         Number(
@@ -1726,9 +1976,7 @@ function createProductCard(
     ) {
 
         const oldPriceElement =
-            document.createElement(
-                "p"
-            );
+            document.createElement("p");
 
 
         oldPriceElement.className =
@@ -1749,9 +1997,7 @@ function createProductCard(
 
 
     const priceElement =
-        document.createElement(
-            "p"
-        );
+        document.createElement("p");
 
 
     priceElement.className =
@@ -1769,12 +2015,12 @@ function createProductCard(
     );
 
 
-    /* STOCK */
+    /* ======================================================
+       STOCK
+    ====================================================== */
 
     const stock =
-        document.createElement(
-            "span"
-        );
+        document.createElement("span");
 
 
     stock.className =
@@ -1796,12 +2042,12 @@ function createProductCard(
     );
 
 
-    /* DESCRIPTION */
+    /* ======================================================
+       DESCRIPTION
+    ====================================================== */
 
     const description =
-        document.createElement(
-            "p"
-        );
+        document.createElement("p");
 
 
     description.textContent =
@@ -1814,16 +2060,16 @@ function createProductCard(
     );
 
 
-    /* BUTTON */
+    /* ======================================================
+       DETAILS BUTTON
+    ====================================================== */
 
     const button =
-        document.createElement(
-            "a"
-        );
+        document.createElement("a");
 
 
     button.href =
-        `product.html?id=${product.id}`;
+        `product.html?id=${encodeURIComponent(product.id)}`;
 
 
     button.className =
@@ -1896,6 +2142,10 @@ async function loadProducts(
                 subCategory || "all"
             );
 
+
+        /* ==================================================
+           FILTER PRODUCTS
+        ================================================== */
 
         let filtered =
             products.filter(
@@ -2004,7 +2254,9 @@ async function loadProducts(
             );
 
 
-        /* SORT */
+        /* ==================================================
+           SORT PRODUCTS
+        ================================================== */
 
         const sortSelect =
             $("#sortProducts");
@@ -2067,14 +2319,18 @@ async function loadProducts(
         }
 
 
+        /* ==================================================
+           CLEAR PRODUCT LIST
+        ================================================== */
+
         productList.innerHTML = "";
 
 
-        /* NO PRODUCT */
+        /* ==================================================
+           NO PRODUCT
+        ================================================== */
 
-        if (
-            !filtered.length
-        ) {
+        if (!filtered.length) {
 
             productList.innerHTML = `
 
@@ -2174,12 +2430,12 @@ async function loadProducts(
         }
 
 
-        /* COUNT */
+        /* ==================================================
+           RESULT COUNT
+        ================================================== */
 
         const count =
-            document.createElement(
-                "div"
-            );
+            document.createElement("div");
 
 
         count.className =
@@ -2215,7 +2471,9 @@ async function loadProducts(
         );
 
 
-        /* CARDS */
+        /* ==================================================
+           CREATE CARDS
+        ================================================== */
 
         filtered.forEach(
             product => {
@@ -2237,6 +2495,7 @@ async function loadProducts(
 
 
         initImagePreview();
+
 
         startHomeSlider();
 
@@ -2317,6 +2576,19 @@ function initSearch() {
     }
 
 
+    if (
+        input.dataset.searchBound
+    ) {
+
+        return;
+
+    }
+
+
+    input.dataset.searchBound =
+        "true";
+
+
     input.addEventListener(
         "input",
         function() {
@@ -2349,6 +2621,19 @@ function initSort() {
     }
 
 
+    if (
+        select.dataset.sortBound
+    ) {
+
+        return;
+
+    }
+
+
+    select.dataset.sortBound =
+        "true";
+
+
     select.addEventListener(
         "change",
         function() {
@@ -2362,144 +2647,6 @@ function initSort() {
     );
 
 }
-
-
-/* ==========================================================
-   WISHLIST BUTTON UI
-========================================================== */
-
-function updateWishlistButton(
-    button,
-    id
-) {
-
-    if (!button) {
-
-        return;
-
-    }
-
-
-    const active =
-        wishlist.includes(
-            Number(id)
-        );
-
-
-    button.textContent =
-        active
-        ? "❤️"
-        : "🤍";
-
-
-    button.classList.toggle(
-        "active",
-        active
-    );
-
-}
-
-
-/* ==========================================================
-   TOGGLE WISHLIST
-========================================================== */
-
-function toggleWishlist(id) {
-
-    id =
-        Number(id);
-
-
-    if (
-        !Number.isFinite(id)
-    ) {
-
-        return;
-
-    }
-
-
-    const index =
-        wishlist.indexOf(
-            id
-        );
-
-
-    if (
-        index === -1
-    ) {
-
-        wishlist.push(
-            id
-        );
-
-    }
-    else {
-
-        wishlist.splice(
-            index,
-            1
-        );
-
-    }
-
-
-    localStorage.setItem(
-        "wishlist",
-        JSON.stringify(
-            wishlist
-        )
-    );
-
-
-    updateAllWishlistButtons();
-
-
-    renderWishlistPage();
-
-}
-
-
-/* ==========================================================
-   UPDATE ALL WISHLIST BUTTONS
-========================================================== */
-
-function updateAllWishlistButtons() {
-
-    $$(".wishlist-btn")
-        .forEach(
-            button => {
-
-                updateWishlistButton(
-                    button,
-                    button.dataset.id
-                );
-
-            }
-        );
-
-
-    if (
-        currentProduct
-    ) {
-
-        initProductWishlist();
-
-    }
-
-}
-
-
-/* ==========================================================
-   INIT WISHLIST
-========================================================== */
-
-function initWishlist() {
-
-    updateAllWishlistButtons();
-
-}
-
 
 /* ==========================================================
    PRODUCT DETAILS
@@ -2520,13 +2667,13 @@ async function loadProductDetails() {
 
     try {
 
-        const id =
+        const productId =
             getProductId();
 
 
         if (
-            !Number.isFinite(id) ||
-            id <= 0
+            !Number.isFinite(productId) ||
+            productId <= 0
         ) {
 
             showProductNotFound();
@@ -2536,13 +2683,22 @@ async function loadProductDetails() {
         }
 
 
+        /* ==================================================
+           LOAD PRODUCTS
+        ================================================== */
+
         await ensureProductsLoaded();
 
+
+        /* ==================================================
+           FIND PRODUCT
+        ================================================== */
 
         currentProduct =
             products.find(
                 product =>
-                    Number(product.id) === id
+                    Number(product.id) ===
+                    Number(productId)
             );
 
 
@@ -2555,7 +2711,9 @@ async function loadProductDetails() {
         }
 
 
-        /* BASIC INFO */
+        /* ==================================================
+           BASIC INFORMATION
+        ================================================== */
 
         const productName =
             $("#productName");
@@ -2660,6 +2818,8 @@ async function loadProductDetails() {
                     currentProduct.category
                 ) ||
 
+                currentProduct.category ||
+
                 "-";
 
         }
@@ -2675,6 +2835,8 @@ async function loadProductDetails() {
                     currentProduct.category,
                     currentProduct.subCategory
                 ) ||
+
+                currentProduct.subCategory ||
 
                 "-";
 
@@ -2717,7 +2879,9 @@ async function loadProductDetails() {
         }
 
 
-        /* PRICE */
+        /* ==================================================
+           PRICE
+        ================================================== */
 
         const price =
             Number(
@@ -2747,9 +2911,7 @@ async function loadProductDetails() {
         if (priceElement) {
 
             priceElement.textContent =
-                formatPrice(
-                    price
-                );
+                formatPrice(price);
 
         }
 
@@ -2762,9 +2924,7 @@ async function loadProductDetails() {
             ) {
 
                 oldPriceElement.textContent =
-                    formatPrice(
-                        oldPrice
-                    );
+                    formatPrice(oldPrice);
 
 
                 oldPriceElement.style.display =
@@ -2801,8 +2961,7 @@ async function loadProductDetails() {
 
 
                 discountElement.textContent =
-                    discount +
-                    "% OFF";
+                    `${discount}% OFF`;
 
 
                 discountElement.style.display =
@@ -2827,7 +2986,16 @@ async function loadProductDetails() {
         }
 
 
+        /* ==================================================
+           PRODUCT GALLERY
+        ================================================== */
+
         renderProductGallery();
+
+
+        /* ==================================================
+           INITIALIZE DETAIL FEATURES
+        ================================================== */
 
         initDetailGallery();
 
@@ -2841,16 +3009,92 @@ async function loadProductDetails() {
 
         loadRelatedProducts();
 
+
+        /* ==================================================
+           REMOVE LOADING MESSAGE
+        ================================================== */
+
+        const loading =
+            $("#productLoading");
+
+
+        if (loading) {
+
+            loading.style.display =
+                "none";
+
+        }
+
+
+        console.log(
+            "✅ Product Details Loaded:",
+            currentProduct
+        );
+
     }
     catch (error) {
 
         console.error(
-            "Product Details Error:",
+            "❌ Product Details Error:",
             error
         );
 
 
-        showProductNotFound();
+        const loading =
+            $("#productLoading");
+
+
+        if (loading) {
+
+            loading.innerHTML = `
+
+                <div
+                    style="
+                        text-align:center;
+                        padding:35px 15px;
+                    "
+                >
+
+                    <div
+                        style="
+                            font-size:45px;
+                            margin-bottom:10px;
+                        "
+                    >
+                        ❌
+                    </div>
+
+                    <h3>
+                        পণ্যের তথ্য লোড করা যায়নি
+                    </h3>
+
+                    <p>
+                        products.json অথবা
+                        script.js সঠিকভাবে
+                        লোড হচ্ছে কিনা দেখুন।
+                    </p>
+
+                    <button
+                        type="button"
+                        class="btn"
+                        onclick="location.reload()"
+                        style="
+                            border:none;
+                            cursor:pointer;
+                            margin-top:10px;
+                        "
+                    >
+                        🔄 আবার চেষ্টা করুন
+                    </button>
+
+                </div>
+
+            `;
+
+            loading.style.display =
+                "block";
+
+        }
 
     }
 
@@ -2865,6 +3109,18 @@ function showProductNotFound() {
 
     const gallery =
         $(".product-gallery");
+
+
+    const loading =
+        $("#productLoading");
+
+
+    if (loading) {
+
+        loading.style.display =
+            "none";
+
+    }
 
 
     if (!gallery) {
@@ -2950,9 +3206,7 @@ function renderProductGallery() {
     slider.innerHTML = "";
 
 
-    if (
-        !gallery.length
-    ) {
+    if (!gallery.length) {
 
         slider.innerHTML = `
 
@@ -2999,9 +3253,7 @@ function renderProductGallery() {
         (src, index) => {
 
             const image =
-                document.createElement(
-                    "img"
-                );
+                document.createElement("img");
 
 
             image.src =
@@ -3017,9 +3269,7 @@ function renderProductGallery() {
                 "product-img";
 
 
-            if (
-                index === 0
-            ) {
+            if (index === 0) {
 
                 image.classList.add(
                     "active"
@@ -3054,7 +3304,7 @@ function renderProductGallery() {
 
 
 /* ==========================================================
-   DETAIL GALLERY
+   DETAIL GALLERY CONTROLS
 ========================================================== */
 
 function initDetailGallery() {
@@ -3102,9 +3352,7 @@ function initDetailGallery() {
 
     function showImage(index) {
 
-        if (
-            index < 0
-        ) {
+        if (index < 0) {
 
             index =
                 images.length - 1;
@@ -3129,10 +3377,9 @@ function initDetailGallery() {
         );
 
 
-        images[index]
-            .classList.add(
-                "active"
-            );
+        images[index].classList.add(
+            "active"
+        );
 
 
         detailSliderIndex =
@@ -3155,7 +3402,9 @@ function initDetailGallery() {
     if (previous) {
 
         previous.onclick =
-            function() {
+            function(event) {
+
+                event.preventDefault();
 
                 showImage(
                     detailSliderIndex - 1
@@ -3169,7 +3418,9 @@ function initDetailGallery() {
     if (next) {
 
         next.onclick =
-            function() {
+            function(event) {
+
+                event.preventDefault();
 
                 showImage(
                     detailSliderIndex + 1
@@ -3271,7 +3522,9 @@ function initQuantity() {
     if (plus) {
 
         plus.onclick =
-            function() {
+            function(event) {
+
+                event.preventDefault();
 
                 quantity++;
 
@@ -3285,11 +3538,11 @@ function initQuantity() {
     if (minus) {
 
         minus.onclick =
-            function() {
+            function(event) {
 
-                if (
-                    quantity > 1
-                ) {
+                event.preventDefault();
+
+                if (quantity > 1) {
 
                     quantity--;
 
@@ -3349,15 +3602,13 @@ function initOrderButton() {
     }
 
 
-    updateOrderLink(
-        1
-    );
+    updateOrderLink(1);
 
 }
 
 
 /* ==========================================================
-   WHATSAPP ORDER
+   WHATSAPP ORDER LINK
 ========================================================== */
 
 function updateOrderLink(
@@ -3471,190 +3722,49 @@ ${window.location.href}
 
 }
 
-
-/* ==========================================================
-   SHARE PRODUCT
-========================================================== */
-
-function initShareProductButtons() {
-
-    const buttons = [
-
-        $("#shareProduct"),
-
-        $("#shareProductBtn")
-
-    ];
-
-
-    buttons.forEach(
-        button => {
-
-            if (!button) {
-
-                return;
-
-            }
-
-
-            button.onclick =
-                async function(event) {
-
-                    event.preventDefault();
-
-
-                    if (
-                        !currentProduct
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    const shareData = {
-
-                        title:
-                            currentProduct.name ||
-                            SITE_CONFIG.companyName,
-
-                        text:
-                            currentProduct.description ||
-                            `${currentProduct.name} — ${SITE_CONFIG.companyName}`,
-
-                        url:
-                            window.location.href
-
-                    };
-
-
-                    if (
-                        navigator.share
-                    ) {
-
-                        try {
-
-                            await navigator.share(
-                                shareData
-                            );
-
-                            return;
-
-                        }
-                        catch(error) {
-
-                            if (
-                                error.name ===
-                                "AbortError"
-                            ) {
-
-                                return;
-
-                            }
-
-                        }
-
-                    }
-
-
-                    try {
-
-                        await navigator.clipboard
-                            .writeText(
-                                window.location.href
-                            );
-
-
-                        alert(
-                            "✅ পণ্যের লিংক কপি হয়েছে।"
-                        );
-
-                    }
-                    catch(error) {
-
-                        alert(
-                            "❌ পণ্যের লিংক কপি করা যায়নি।"
-                        );
-
-                    }
-
-                };
-
-        }
-    );
-
-}
-
-
 /* ==========================================================
    PRODUCT WISHLIST DETAILS
 ========================================================== */
 
 function initProductWishlist() {
 
-    if (
-        !currentProduct
-    ) {
-
+    if (!currentProduct) {
         return;
-
     }
 
-
-    const id =
-        Number(
-            currentProduct.id
-        );
-
+    const id = Number(currentProduct.id);
 
     const buttons = [
-
         $("#wishlistBtn"),
-
         $("#wishlistProduct")
-
     ];
 
+    buttons.forEach(button => {
 
-    buttons.forEach(
-        button => {
+        if (!button) {
+            return;
+        }
 
-            if (!button) {
+        const active =
+            wishlist.includes(id);
 
-                return;
-
-            }
-
-
-            const active =
-                wishlist.includes(
-                    id
-                );
-
-
-            button.textContent =
-                active
+        button.textContent =
+            active
                 ? "❤️ Wishlist"
                 : "🤍 Wishlist";
 
+        button.classList.toggle(
+            "active",
+            active
+        );
 
-            button.classList.toggle(
-                "active",
-                active
-            );
+        button.onclick = function () {
 
+            toggleWishlist(id);
 
-            button.onclick =
-                function() {
+        };
 
-                    toggleWishlist(
-                        id
-                    );
-
-                };
-
-        }
-    );
+    });
 
 }
 
@@ -3668,73 +3778,77 @@ function loadRelatedProducts() {
     const container =
         $("#relatedProducts");
 
-
     if (
         !container ||
         !currentProduct
     ) {
-
         return;
-
     }
 
-
     let related =
-        products.filter(
-            product =>
+        products.filter(product =>
 
-                Number(product.id) !==
-                Number(currentProduct.id)
+            Number(product.id) !==
+            Number(currentProduct.id)
 
-                &&
+            &&
 
-                normalizeCategory(
-                    product.category
-                ) ===
-                normalizeCategory(
-                    currentProduct.category
-                )
+            normalizeCategory(
+                product.category
+            ) ===
+            normalizeCategory(
+                currentProduct.category
+            )
+
         );
 
+
+    /* ------------------------------------------------------
+       Same Sub Category First
+    ------------------------------------------------------ */
 
     const sameSub =
-        related.filter(
-            product =>
-                normalizeCategory(
-                    product.subCategory
-                ) ===
-                normalizeCategory(
-                    currentProduct.subCategory
-                )
+        related.filter(product =>
+
+            normalizeCategory(
+                product.subCategory
+            ) ===
+            normalizeCategory(
+                currentProduct.subCategory
+            )
+
         );
 
+
+    /* ------------------------------------------------------
+       Other Products
+    ------------------------------------------------------ */
 
     const other =
-        related.filter(
-            product =>
-                !sameSub.includes(
-                    product
-                )
+        related.filter(product =>
+
+            !sameSub.includes(product)
+
         );
 
 
-    related =
-        [
-            ...sameSub,
-            ...other
-        ]
-        .slice(
-            0,
-            4
-        );
+    related = [
+
+        ...sameSub,
+
+        ...other
+
+    ].slice(0, 4);
 
 
     container.innerHTML = "";
 
 
-    if (
-        !related.length
-    ) {
+    /* ------------------------------------------------------
+       No Related Product
+    ------------------------------------------------------ */
+
+    if (!related.length) {
 
         container.innerHTML = `
 
@@ -3756,27 +3870,30 @@ function loadRelatedProducts() {
 
         `;
 
-
         return;
 
     }
 
 
-    related.forEach(
-        product => {
+    /* ------------------------------------------------------
+       Render Related Products
+    ------------------------------------------------------ */
 
-            const card =
-                createProductCard(
-                    product
-                );
+    related.forEach(product => {
+
+        const card =
+            createProductCard(product);
+
+        container.appendChild(card);
+
+    });
 
 
-            container.appendChild(
-                card
-            );
+    /* ------------------------------------------------------
+       Related Product Slider
+    ------------------------------------------------------ */
 
-        }
-    );
+    startHomeSlider();
 
 }
 
@@ -3785,9 +3902,7 @@ function loadRelatedProducts() {
    IMAGE MODAL
 ========================================================== */
 
-function openImageModal(
-    src
-) {
+function openImageModal(src) {
 
     const modal =
         $("#imageModal");
@@ -3801,18 +3916,13 @@ function openImageModal(
         !modalImage ||
         !src
     ) {
-
         return;
-
     }
 
 
-    modalImage.src =
-        src;
+    modalImage.src = src;
 
-
-    modal.style.display =
-        "flex";
+    modal.style.display = "flex";
 
 }
 
@@ -3826,7 +3936,6 @@ function initImagePreview() {
     const modal =
         $("#imageModal");
 
-
     const modalImage =
         $("#modalImage");
 
@@ -3835,9 +3944,7 @@ function initImagePreview() {
         !modal ||
         !modalImage
     ) {
-
         return;
-
     }
 
 
@@ -3847,52 +3954,53 @@ function initImagePreview() {
         );
 
 
+    /* ------------------------------------------------------
+       Close Button
+    ------------------------------------------------------ */
+
     if (
         close &&
         !close.dataset.bound
     ) {
 
-        close.dataset.bound =
-            "true";
+        close.dataset.bound = "true";
 
 
         close.onclick =
-            function() {
+            function () {
 
                 modal.style.display =
                     "none";
 
-
-                modalImage.src =
-                    "";
+                modalImage.src = "";
 
             };
 
     }
 
 
+    /* ------------------------------------------------------
+       Click Outside
+    ------------------------------------------------------ */
+
     if (
         !modal.dataset.bound
     ) {
 
-        modal.dataset.bound =
-            "true";
+        modal.dataset.bound = "true";
 
 
         modal.onclick =
-            function(event) {
+            function (event) {
 
                 if (
-                    event.target ===
-                    modal
+                    event.target === modal
                 ) {
 
                     modal.style.display =
                         "none";
 
-
-                    modalImage.src =
-                        "";
+                    modalImage.src = "";
 
                 }
 
@@ -3914,9 +4022,7 @@ async function renderWishlistPage() {
 
 
     if (!container) {
-
         return;
-
     }
 
 
@@ -3926,18 +4032,21 @@ async function renderWishlistPage() {
 
 
         const wishlistProducts =
-            products.filter(
-                product =>
-                    wishlist.includes(
-                        Number(
-                            product.id
-                        )
-                    )
+            products.filter(product =>
+
+                wishlist.includes(
+                    Number(product.id)
+                )
+
             );
 
 
         container.innerHTML = "";
 
+
+        /* --------------------------------------------------
+           Empty Wishlist
+        -------------------------------------------------- */
 
         if (
             !wishlistProducts.length
@@ -3987,31 +4096,74 @@ async function renderWishlistPage() {
 
             `;
 
-
             return;
 
         }
 
 
-        wishlistProducts.forEach(
-            product => {
+        /* --------------------------------------------------
+           Render Wishlist Products
+        -------------------------------------------------- */
 
-                container.appendChild(
-                    createProductCard(
-                        product
-                    )
-                );
+        wishlistProducts.forEach(product => {
 
-            }
-        );
+            container.appendChild(
+                createProductCard(product)
+            );
+
+        });
+
+
+        startHomeSlider();
 
     }
-    catch(error) {
+    catch (error) {
 
         console.error(
             "Wishlist Error:",
             error
         );
+
+
+        container.innerHTML = `
+
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:40px 20px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:45px;
+                    "
+                >
+                    ❌
+                </div>
+
+                <h3>
+                    Wishlist লোড করা যায়নি
+                </h3>
+
+                <button
+                    type="button"
+                    class="btn"
+                    onclick="location.reload()"
+                    style="
+                        border:none;
+                        cursor:pointer;
+                        margin-top:15px;
+                    "
+                >
+                    🔄 আবার চেষ্টা করুন
+                </button>
+
+            </div>
+
+        `;
 
     }
 
@@ -4019,16 +4171,17 @@ async function renderWishlistPage() {
 
 
 /* ==========================================================
-   HOME SLIDER
+   HOME / PRODUCT CARD SLIDER
 ========================================================== */
 
 function stopHomeSlider() {
 
     homeSliderTimers.forEach(
-        timer =>
-            clearInterval(
-                timer
-            )
+        timer => {
+
+            clearInterval(timer);
+
+        }
     );
 
 
@@ -4046,61 +4199,120 @@ function startHomeSlider() {
     stopHomeSlider();
 
 
-    $$(".slider")
-        .forEach(
-            slider => {
+    $$(".slider").forEach(slider => {
 
-                const images =
-                    slider.querySelectorAll(
-                        ".product-img"
-                    );
+        const images =
+            slider.querySelectorAll(
+                ".product-img"
+            );
 
 
-                if (
-                    images.length <= 1
-                ) {
-
-                    return;
-
-                }
+        if (
+            images.length <= 1
+        ) {
+            return;
+        }
 
 
-                let index = 0;
+        let index = 0;
 
 
-                const timer =
-                    setInterval(
-                        function() {
+        const timer =
+            setInterval(
+                function () {
 
-                            images[index]
-                                .classList.remove(
-                                    "active"
-                                );
-
-
-                            index =
-                                (
-                                    index + 1
-                                ) %
-                                images.length;
+                    images[index]
+                        .classList.remove(
+                            "active"
+                        );
 
 
-                            images[index]
-                                .classList.add(
-                                    "active"
-                                );
-
-                        },
-                        3000
-                    );
+                    index =
+                        (
+                            index + 1
+                        ) %
+                        images.length;
 
 
-                homeSliderTimers.push(
-                    timer
-                );
+                    images[index]
+                        .classList.add(
+                            "active"
+                        );
 
-            }
-        );
+                },
+                3000
+            );
+
+
+        homeSliderTimers.push(timer);
+
+    });
+
+}
+
+
+/* ==========================================================
+   GLOBAL PRODUCT DETAIL FALLBACK
+========================================================== */
+
+function productDetailError(message) {
+
+    const loading =
+        $("#productLoading");
+
+
+    if (!loading) {
+        return;
+    }
+
+
+    loading.style.display = "block";
+
+
+    loading.innerHTML = `
+
+        <div
+            style="
+                text-align:center;
+                padding:35px 15px;
+            "
+        >
+
+            <div
+                style="
+                    font-size:50px;
+                    margin-bottom:10px;
+                "
+            >
+                ❌
+            </div>
+
+            <h3>
+                ${message ||
+                "পণ্যের তথ্য লোড করা যায়নি।"}
+            </h3>
+
+            <p>
+                অনুগ্রহ করে কিছুক্ষণ পরে
+                আবার চেষ্টা করুন।
+            </p>
+
+            <button
+                type="button"
+                class="btn"
+                onclick="location.reload()"
+                style="
+                    border:none;
+                    cursor:pointer;
+                    margin-top:12px;
+                "
+            >
+                🔄 আবার চেষ্টা করুন
+            </button>
+
+        </div>
+
+    `;
 
 }
 
@@ -4113,9 +4325,9 @@ async function initializeApp() {
 
     try {
 
-        /*
-         * Load data first
-         */
+        /* --------------------------------------------------
+           Load Products + Categories
+        -------------------------------------------------- */
 
         await Promise.allSettled([
 
@@ -4126,31 +4338,36 @@ async function initializeApp() {
         ]);
 
 
-        /*
-         * Categories
-         */
+        /* --------------------------------------------------
+           Category Buttons
+        -------------------------------------------------- */
 
         await renderCategoryButtons();
 
 
-        /*
-         * Search + Sort
-         */
+        /* --------------------------------------------------
+           Search
+        -------------------------------------------------- */
 
         initSearch();
+
+
+        /* --------------------------------------------------
+           Sort
+        -------------------------------------------------- */
 
         initSort();
 
 
-        /*
-         * Product page
-         */
+        /* --------------------------------------------------
+           Product Listing Page
+        -------------------------------------------------- */
 
         if (
             $("#productList")
         ) {
 
-            loadProducts(
+            await loadProducts(
                 getActiveCategory(),
                 getActiveSubCategory()
             );
@@ -4158,35 +4375,256 @@ async function initializeApp() {
         }
 
 
-        /*
-         * Product details
-         */
+        /* --------------------------------------------------
+           Product Details Page
+        -------------------------------------------------- */
 
         if (
             $("#productSlider")
         ) {
 
-            loadProductDetails();
+            await loadProductDetails();
 
         }
 
 
-        /*
-         * Wishlist page
-         */
+        /* --------------------------------------------------
+           Wishlist Page
+        -------------------------------------------------- */
 
         if (
             $("#wishlistProducts")
         ) {
 
-            renderWishlistPage();
+            await renderWishlistPage();
 
         }
 
 
-        /*
-         * Modal
-         */
+        /* --------------------------------------------------
+           Image Modal
+        -------------------------------------------------- */
+
+        initImagePreview();
+
+
+        /* --------------------------------------------------
+           Wishlist UI
+        -------------------------------------------------- */
+
+        initWishlist();
+
+
+        console.log(
+            "✅ Maliha Agro Industry system initialized successfully."
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ App Initialization Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   DOM READY
+========================================================== */
+
+if (
+    document.readyState === "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeApp
+    );
+
+}
+else {
+
+    initializeApp();
+
+}
+
+
+/* ==========================================================
+   HOME SLIDER
+========================================================== */
+
+function stopHomeSlider() {
+
+    homeSliderTimers.forEach(
+        timer =>
+            clearInterval(timer)
+    );
+
+    homeSliderTimers = [];
+
+}
+
+
+/* ==========================================================
+   START HOME SLIDER
+========================================================== */
+
+function startHomeSlider() {
+
+    stopHomeSlider();
+
+    $$(".slider").forEach(
+        slider => {
+
+            const images =
+                slider.querySelectorAll(
+                    ".product-img"
+                );
+
+            if (
+                images.length <= 1
+            ) {
+
+                return;
+
+            }
+
+            let index = 0;
+
+            const timer =
+                setInterval(
+                    function() {
+
+                        if (
+                            !images[index]
+                        ) {
+
+                            return;
+
+                        }
+
+                        images[index]
+                            .classList.remove(
+                                "active"
+                            );
+
+                        index =
+                            (
+                                index + 1
+                            ) %
+                            images.length;
+
+                        if (
+                            images[index]
+                        ) {
+
+                            images[index]
+                                .classList.add(
+                                    "active"
+                                );
+
+                        }
+
+                    },
+                    3000
+                );
+
+            homeSliderTimers.push(
+                timer
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   INITIALIZE APP
+========================================================== */
+
+async function initializeApp() {
+
+    try {
+
+        /* ------------------------------------------
+           PRODUCTS + CATEGORIES LOAD
+        ------------------------------------------ */
+
+        await Promise.allSettled([
+
+            ensureProductsLoaded(),
+
+            ensureCategoriesLoaded()
+
+        ]);
+
+
+        /* ------------------------------------------
+           CATEGORY BUTTONS
+        ------------------------------------------ */
+
+        await renderCategoryButtons();
+
+
+        /* ------------------------------------------
+           SEARCH + SORT
+        ------------------------------------------ */
+
+        initSearch();
+
+        initSort();
+
+
+        /* ------------------------------------------
+           PRODUCTS PAGE
+        ------------------------------------------ */
+
+        if (
+            $("#productList")
+        ) {
+
+            await loadProducts(
+                getActiveCategory(),
+                getActiveSubCategory()
+            );
+
+        }
+
+
+        /* ------------------------------------------
+           PRODUCT DETAILS PAGE
+        ------------------------------------------ */
+
+        if (
+            $("#productSlider")
+        ) {
+
+            await loadProductDetails();
+
+        }
+
+
+        /* ------------------------------------------
+           WISHLIST PAGE
+        ------------------------------------------ */
+
+        if (
+            $("#wishlistProducts")
+        ) {
+
+            await renderWishlistPage();
+
+        }
+
+
+        /* ------------------------------------------
+           IMAGE MODAL
+        ------------------------------------------ */
 
         initImagePreview();
 
@@ -4196,10 +4634,10 @@ async function initializeApp() {
         );
 
     }
-    catch(error) {
+    catch (error) {
 
         console.error(
-            "App Initialization Error:",
+            "❌ App Initialization Error:",
             error
         );
 
@@ -4228,3 +4666,4 @@ else {
     initializeApp();
 
 }
+
