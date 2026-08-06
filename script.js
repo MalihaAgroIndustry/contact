@@ -388,32 +388,45 @@ function normalizeProduct(product) {
 
 async function fetchProducts() {
 
+    const url =
+        new URL(
+            "data/products.json",
+            window.location.href
+        ).href;
+
+    console.log("📦 Products URL:", url);
+
     const response =
         await fetch(
-            SITE_CONFIG.productAPI,
+            url,
             {
                 cache: "no-store"
             }
         );
 
+    console.log(
+        "📦 Products Status:",
+        response.status,
+        response.statusText
+    );
 
     if (!response.ok) {
 
         throw new Error(
-            "Products API failed: " +
-            response.status
+            `Products Load Failed: ${response.status} ${response.statusText}`
         );
 
     }
 
-
     const data =
         await response.json();
 
+    console.log(
+        "📦 Products Data:",
+        data
+    );
 
-    if (
-        !Array.isArray(data)
-    ) {
+    if (!Array.isArray(data)) {
 
         throw new Error(
             "products.json must contain an array"
@@ -421,21 +434,21 @@ async function fetchProducts() {
 
     }
 
-
     products =
         data
             .map(normalizeProduct)
             .filter(
                 product =>
                     product &&
-                    Number.isFinite(
-                        product.id
-                    )
+                    Number.isFinite(product.id)
             );
 
+    console.log(
+        "✅ Products Loaded:",
+        products.length
+    );
 
     return products;
-
 }
 
 
