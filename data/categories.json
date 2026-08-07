@@ -1,63 +1,63 @@
 [
-    {
-        "id": "fertilizer",
-        "name": "সার",
-        "icon": "🌱",
-        "subCategories": [
-            {
-                "id": "organic-fertilizer",
-                "name": "জৈব সার",
-                "icon": "🌿"
-            },
-            {
-                "id": "chemical-fertilizer",
-                "name": "রাসায়নিক সার",
-                "icon": "🧪"
-            },
-            {
-                "id": "pesticide",
-                "name": "কীটনাশক",
-                "icon": "🛡️"
-            }
-        ]
-    },
-    {
-        "id": "seeds",
-        "name": "বীজ",
-        "icon": "🌾",
-        "subCategories": [
-            {
-                "id": "vegetable-seeds",
-                "name": "সবজি বীজ",
-                "icon": "🥬"
-            },
-            {
-                "id": "fruit-seeds",
-                "name": "ফলজ বীজ",
-                "icon": "🍉"
-            },
-            {
-                "id": "flower-seeds",
-                "name": "ফুলের বীজ",
-                "icon": "🌸"
-            }
-        ]
-    },
-    {
-        "id": "agriculture-equipment",
+  {
+    "id": "sar",
+    "name": "সার",
+    "icon": "🌱",
+    "status": "active",
+    "sortOrder": 1,
+
+    "subCategories": [
+      {
+        "id": "organic-fertilizer",
+        "name": "জৈব সার",
+        "icon": "🌿",
+        "status": "active",
+        "sortOrder": 1
+      }
+    ]
+  },
+
+  {
+    "id": "bij",
+    "name": "বীজ",
+    "icon": "🌾",
+    "status": "active",
+    "sortOrder": 2,
+
+    "subCategories": [
+      {
+        "id": "vegetable-seeds",
+        "name": "সবজির বীজ",
+        "icon": "🥬",
+        "status": "active",
+        "sortOrder": 1
+      },
+
+      {
+        "id": "fruit-seeds",
+        "name": "ফল ও অন্যান্য বীজ",
+        "icon": "🍅",
+        "status": "active",
+        "sortOrder": 2
+      }
+    ]
+  },
+
+  {
+    "id": "agriculture",
+    "name": "কৃষি সামগ্রী",
+    "icon": "🚜",
+    "status": "active",
+    "sortOrder": 3,
+
+    "subCategories": [
+      {
+        "id": "agricultural-equipment",
         "name": "কৃষি সরঞ্জাম",
-        "icon": "🧰",
-        "subCategories": [
-            {
-                "id": "farming-tools",
-                "name": "কৃষি যন্ত্রপাতি",
-                "icon": "🔧"
-            },
-            {
-                "id": "garden-tools",
-                "name": "বাগান সরঞ্জাম",
-                "icon": "🌳"
-            }
-        ]
-    }
+        "icon": "🛠️",
+        "status": "active",
+        "sortOrder": 1
+      }
+    ]
+  }
 ]
