@@ -2671,25 +2671,6 @@ function initDetailWishlist() {
 
 }
 
-
-/* ==========================================================
-   PRODUCT DETAIL INITIALIZATION
-========================================================== */
-
-function initProductDetailControls() {
-
-    initDetailGallery();
-
-    initQuantity();
-
-    initOrderButton();
-
-    initShareProduct();
-
-    initDetailWishlist();
-
-}
-
 /* ==========================================================
    RELATED PRODUCTS
 ========================================================== */
