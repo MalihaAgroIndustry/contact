@@ -3104,3 +3104,1428 @@ console.log(
     "📦 Part 2/8 — Product Listing System Loaded."
 );
 
+"use strict";
+
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — FINAL A-Z VERSION
+   PART 3/8
+
+   PRODUCT DETAIL CONTROLS
+   GALLERY
+   QUANTITY
+   WHATSAPP ORDER
+   SHARE
+   DETAIL WISHLIST
+========================================================== */
+
+
+/* ==========================================================
+   PRODUCT DETAIL CONTROLS
+========================================================== */
+
+function initProductDetailControls() {
+
+    if (!currentProduct) {
+        return;
+    }
+
+
+    /* ==========================================
+       RESET DETAIL SLIDER
+    ========================================== */
+
+    detailSliderIndex = 0;
+
+
+    /* ==========================================
+       GALLERY
+    ========================================== */
+
+    initDetailGallery();
+
+
+    /* ==========================================
+       QUANTITY
+    ========================================== */
+
+    initQuantity();
+
+
+    /* ==========================================
+       ORDER BUTTON
+    ========================================== */
+
+    initOrderButton();
+
+
+    /* ==========================================
+       SHARE
+    ========================================== */
+
+    initShareProduct();
+
+
+    /* ==========================================
+       WISHLIST
+    ========================================== */
+
+    initDetailWishlist();
+
+
+    /* ==========================================
+       IMAGE PREVIEW
+    ========================================== */
+
+    initImagePreview();
+
+
+    console.log(
+        "✅ Product detail controls initialized."
+    );
+
+}
+
+
+/* ==========================================================
+   DETAIL GALLERY
+========================================================== */
+
+function initDetailGallery() {
+
+    const slider =
+        $("#productSlider");
+
+
+    if (!slider) {
+        return;
+    }
+
+
+    const images =
+        slider.querySelectorAll(
+            ".product-img"
+        );
+
+
+    if (!images.length) {
+        return;
+    }
+
+
+    const previous =
+        $("#prevImage");
+
+
+    const next =
+        $("#nextImage");
+
+
+    const counter =
+        $("#sliderCounter");
+
+
+    /* ==========================================
+       SHOW IMAGE
+    ========================================== */
+
+    function showImage(index) {
+
+        if (!images.length) {
+            return;
+        }
+
+
+        if (index < 0) {
+
+            index =
+                images.length - 1;
+
+        }
+
+
+        if (
+            index >=
+            images.length
+        ) {
+
+            index = 0;
+
+        }
+
+
+        images.forEach(
+            image => {
+
+                image.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        images[index]
+            ?.classList.add(
+                "active"
+            );
+
+
+        detailSliderIndex =
+            index;
+
+
+        if (counter) {
+
+            counter.textContent =
+                `${index + 1} / ${images.length}`;
+
+        }
+
+    }
+
+
+    /* ==========================================
+       PREVIOUS
+    ========================================== */
+
+    if (
+        previous &&
+        !previous.dataset.bound
+    ) {
+
+        previous.dataset.bound =
+            "true";
+
+
+        previous.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                showImage(
+                    detailSliderIndex - 1
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       NEXT
+    ========================================== */
+
+    if (
+        next &&
+        !next.dataset.bound
+    ) {
+
+        next.dataset.bound =
+            "true";
+
+
+        next.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                showImage(
+                    detailSliderIndex + 1
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       IMAGE CLICK
+    ========================================== */
+
+    images.forEach(
+        image => {
+
+            if (
+                !image.dataset.modalBound
+            ) {
+
+                image.dataset.modalBound =
+                    "true";
+
+
+                image.addEventListener(
+                    "click",
+                    () => {
+
+                        if (
+                            image.src
+                        ) {
+
+                            openImageModal(
+                                image.src
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* ==================================
+               IMAGE ERROR
+            ================================== */
+
+            if (
+                !image.dataset.errorBound
+            ) {
+
+                image.dataset.errorBound =
+                    "true";
+
+
+                image.addEventListener(
+                    "error",
+                    () => {
+
+                        image.style.display =
+                            "none";
+
+                    }
+                );
+
+            }
+
+        }
+    );
+
+
+    /* ==========================================
+       INITIAL IMAGE
+    ========================================== */
+
+    showImage(0);
+
+}
+
+
+/* ==========================================================
+   QUANTITY SYSTEM
+========================================================== */
+
+function initQuantity() {
+
+    const input =
+        $("#qty");
+
+
+    const plus =
+        $("#plusQty");
+
+
+    const minus =
+        $("#minusQty");
+
+
+    const total =
+        $("#totalPrice");
+
+
+    if (
+        !input ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    /* ==========================================
+       UPDATE QUANTITY
+    ========================================== */
+
+    function updateQuantity() {
+
+        let quantity =
+            parseInt(
+                input.value,
+                10
+            );
+
+
+        if (
+            !Number.isFinite(
+                quantity
+            ) ||
+            quantity < 1
+        ) {
+
+            quantity = 1;
+
+        }
+
+
+        input.value =
+            quantity;
+
+
+        const price =
+            Number(
+                currentProduct.price ||
+                0
+            );
+
+
+        const totalPrice =
+            price *
+            quantity;
+
+
+        if (total) {
+
+            total.textContent =
+                formatPrice(
+                    totalPrice
+                );
+
+        }
+
+
+        updateOrderLink(
+            quantity
+        );
+
+    }
+
+
+    /* ==========================================
+       PLUS
+    ========================================== */
+
+    if (
+        plus &&
+        !plus.dataset.bound
+    ) {
+
+        plus.dataset.bound =
+            "true";
+
+
+        plus.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                const current =
+                    Number(
+                        input.value
+                    ) || 1;
+
+
+                input.value =
+                    current + 1;
+
+
+                updateQuantity();
+
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       MINUS
+    ========================================== */
+
+    if (
+        minus &&
+        !minus.dataset.bound
+    ) {
+
+        minus.dataset.bound =
+            "true";
+
+
+        minus.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                let current =
+                    Number(
+                        input.value
+                    ) || 1;
+
+
+                if (
+                    current > 1
+                ) {
+
+                    current -= 1;
+
+                }
+
+
+                input.value =
+                    current;
+
+
+                updateQuantity();
+
+            }
+        );
+
+    }
+
+
+    /* ==========================================
+       MANUAL INPUT
+    ========================================== */
+
+    if (
+        !input.dataset.bound
+    ) {
+
+        input.dataset.bound =
+            "true";
+
+
+        input.addEventListener(
+            "input",
+            updateQuantity
+        );
+
+
+        input.addEventListener(
+            "change",
+            updateQuantity
+        );
+
+    }
+
+
+    /* ==========================================
+       INITIAL VALUE
+    ========================================== */
+
+    updateQuantity();
+
+}
+
+
+/* ==========================================================
+   WHATSAPP ORDER LINK
+========================================================== */
+
+function updateOrderLink(
+    quantity = 1
+) {
+
+    const button =
+        $("#orderNow");
+
+
+    if (
+        !button ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    quantity =
+        Math.max(
+            1,
+            parseInt(
+                quantity,
+                10
+            ) || 1
+        );
+
+
+    const price =
+        Number(
+            currentProduct.price ||
+            0
+        );
+
+
+    const total =
+        price *
+        quantity;
+
+
+    /* ==========================================
+       CATEGORY
+    ========================================== */
+
+    const categoryName =
+        currentProduct.categoryName ||
+        getCategoryName(
+            currentProduct.category
+        );
+
+
+    /* ==========================================
+       SUB CATEGORY
+    ========================================== */
+
+    const subCategoryName =
+        currentProduct.subCategoryName ||
+        getSubCategoryName(
+            currentProduct.category,
+            currentProduct.subCategory
+        );
+
+
+    /* ==========================================
+       PRODUCT DATA
+    ========================================== */
+
+    const productName =
+        currentProduct.name ||
+        "পণ্য";
+
+
+    const sku =
+        currentProduct.sku ||
+        "-";
+
+
+    const weight =
+        currentProduct.weight ||
+        "-";
+
+
+    /* ==========================================
+       WHATSAPP MESSAGE
+    ========================================== */
+
+    const message =
+
+`🌿 ${SITE_CONFIG.companyName}
+
+আসসালামু আলাইকুম।
+আমি নিচের পণ্যটি অর্ডার করতে চাই।
+
+━━━━━━━━━━━━━━━━━━
+
+📦 পণ্যের নাম:
+${productName}
+
+📂 ক্যাটাগরি:
+${categoryName || "-"}
+
+📁 সাব-ক্যাটাগরি:
+${subCategoryName || "-"}
+
+🔖 SKU:
+${sku}
+
+⚖️ ওজন:
+${weight}
+
+💰 একক মূল্য:
+${formatPrice(price)}
+
+🔢 পরিমাণ:
+${quantity}
+
+💵 মোট মূল্য:
+${formatPrice(total)}
+
+━━━━━━━━━━━━━━━━━━
+
+🔗 পণ্যের লিংক:
+${window.location.href}
+
+দয়া করে অর্ডারটি গ্রহণ করার জন্য আমার সাথে যোগাযোগ করুন।
+
+ধন্যবাদ।
+🌱 ${SITE_CONFIG.companyName}`;
+
+
+    /* ==========================================
+       CREATE LINK
+    ========================================== */
+
+    const whatsappURL =
+        "https://wa.me/" +
+        SITE_CONFIG.whatsapp +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    button.href =
+        whatsappURL;
+
+
+    button.target =
+        "_blank";
+
+
+    button.rel =
+        "noopener noreferrer";
+
+
+    /* ==========================================
+       STORE MESSAGE
+    ========================================== */
+
+    button.dataset.orderMessage =
+        message;
+
+}
+
+
+/* ==========================================================
+   ORDER BUTTON INITIALIZATION
+========================================================== */
+
+function initOrderButton() {
+
+    const button =
+        $("#orderNow");
+
+
+    const input =
+        $("#qty");
+
+
+    if (
+        !button ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    updateOrderLink(
+        Number(
+            input?.value ||
+            1
+        )
+    );
+
+
+    /* ==========================================
+       PREVENT EMPTY LINK
+    ========================================== */
+
+    if (
+        !button.dataset.clickBound
+    ) {
+
+        button.dataset.clickBound =
+            "true";
+
+
+        button.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    !currentProduct
+                ) {
+
+                    event.preventDefault();
+
+                    return;
+
+                }
+
+
+                const quantity =
+                    Number(
+                        input?.value ||
+                        1
+                    );
+
+
+                updateOrderLink(
+                    quantity
+                );
+
+            }
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   SHARE PRODUCT
+========================================================== */
+
+function initShareProduct() {
+
+    const button =
+        $("#shareProduct");
+
+
+    if (
+        !button ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        button.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.bound =
+        "true";
+
+
+    button.addEventListener(
+        "click",
+        async () => {
+
+            const productName =
+                currentProduct.name ||
+                "পণ্য";
+
+
+            const shareData = {
+
+                title:
+                    productName +
+                    " | " +
+                    SITE_CONFIG.companyName,
+
+
+                text:
+                    currentProduct.shortDescription ||
+                    currentProduct.description ||
+                    (
+                        "🌱 " +
+                        SITE_CONFIG.companyName +
+                        " — " +
+                        productName
+                    ),
+
+
+                url:
+                    window.location.href
+
+            };
+
+
+            try {
+
+                /* ==================================
+                   NATIVE SHARE
+                ================================== */
+
+                if (
+                    typeof navigator.share ===
+                    "function"
+                ) {
+
+                    await navigator.share(
+                        shareData
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* ==================================
+                   CLIPBOARD
+                ================================== */
+
+                if (
+                    navigator.clipboard &&
+                    typeof navigator.clipboard.writeText ===
+                    "function"
+                ) {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+
+                    showTemporaryMessage(
+                        "✅ পণ্যের লিংক কপি হয়েছে।"
+                    );
+
+
+                    return;
+
+                }
+
+
+                /* ==================================
+                   FALLBACK
+                ================================== */
+
+                window.prompt(
+                    "🔗 পণ্যের লিংক কপি করুন:",
+                    window.location.href
+                );
+
+            }
+            catch (error) {
+
+                console.log(
+                    "Share cancelled:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   TEMPORARY MESSAGE
+========================================================== */
+
+function showTemporaryMessage(
+    message,
+    duration = 2500
+) {
+
+    const existing =
+        $("#temporaryMessage");
+
+
+    if (existing) {
+
+        existing.remove();
+
+    }
+
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+
+    element.id =
+        "temporaryMessage";
+
+
+    element.textContent =
+        message;
+
+
+    element.style.cssText = `
+
+        position:fixed;
+
+        left:50%;
+
+        bottom:25px;
+
+        transform:translateX(-50%);
+
+        z-index:99999;
+
+        background:#1F8F4D;
+
+        color:#fff;
+
+        padding:10px 18px;
+
+        border-radius:30px;
+
+        box-shadow:
+            0 5px 20px
+            rgba(0,0,0,.20);
+
+        font-size:14px;
+
+        font-weight:600;
+
+        max-width:90%;
+
+        text-align:center;
+
+    `;
+
+
+    document.body.appendChild(
+        element
+    );
+
+
+    setTimeout(
+        () => {
+
+            element.remove();
+
+        },
+        duration
+    );
+
+}
+
+
+/* ==========================================================
+   DETAIL WISHLIST
+========================================================== */
+
+function initDetailWishlist() {
+
+    const button =
+        $("#detailWishlist");
+
+
+    if (
+        !button ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        button.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.bound =
+        "true";
+
+
+    /* ==========================================
+       UPDATE BUTTON
+    ========================================== */
+
+    function updateButton() {
+
+        const active =
+            wishlist.includes(
+                Number(
+                    currentProduct.id
+                )
+            );
+
+
+        button.textContent =
+            active
+                ? "❤️ Wishlist থেকে বাদ দিন"
+                : "🤍 Wishlist-এ রাখুন";
+
+
+        button.classList.toggle(
+            "active",
+            active
+        );
+
+
+        button.setAttribute(
+            "aria-pressed",
+            active
+                ? "true"
+                : "false"
+        );
+
+    }
+
+
+    /* ==========================================
+       CLICK
+    ========================================== */
+
+    button.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+
+
+            toggleWishlist(
+                currentProduct.id
+            );
+
+
+            updateButton();
+
+        }
+    );
+
+
+    updateButton();
+
+}
+
+
+/* ==========================================================
+   IMAGE MODAL
+========================================================== */
+
+function openImageModal(
+    src
+) {
+
+    const modal =
+        $("#imageModal");
+
+
+    const image =
+        $("#modalImage");
+
+
+    if (
+        !modal ||
+        !image ||
+        !src
+    ) {
+
+        return;
+
+    }
+
+
+    image.src =
+        src;
+
+
+    image.alt =
+        currentProduct?.name ||
+        "Product Image";
+
+
+    modal.style.display =
+        "flex";
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+/* ==========================================================
+   CLOSE IMAGE MODAL
+========================================================== */
+
+function closeImageModal() {
+
+    const modal =
+        $("#imageModal");
+
+
+    const image =
+        $("#modalImage");
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+
+    if (image) {
+
+        image.src =
+            "";
+
+    }
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+/* ==========================================================
+   IMAGE PREVIEW INITIALIZATION
+========================================================== */
+
+function initImagePreview() {
+
+    const modal =
+        $("#imageModal");
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+    const close =
+        modal.querySelector(
+            ".close-modal"
+        );
+
+
+    if (
+        close &&
+        !close.dataset.bound
+    ) {
+
+        close.dataset.bound =
+            "true";
+
+
+        close.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                closeImageModal();
+
+            }
+        );
+
+    }
+
+
+    if (
+        !modal.dataset.bound
+    ) {
+
+        modal.dataset.bound =
+            "true";
+
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    modal
+                ) {
+
+                    closeImageModal();
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   ESCAPE KEY
+========================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeImageModal();
+
+        }
+
+    }
+);
+
+
+/* ==========================================================
+   TOUCH / SWIPE SUPPORT
+========================================================== */
+
+function initDetailGallerySwipe() {
+
+    const slider =
+        $("#productSlider");
+
+
+    if (
+        !slider ||
+        slider.dataset.swipeBound
+    ) {
+
+        return;
+
+    }
+
+
+    const images =
+        slider.querySelectorAll(
+            ".product-img"
+        );
+
+
+    if (
+        images.length <= 1
+    ) {
+
+        return;
+
+    }
+
+
+    slider.dataset.swipeBound =
+        "true";
+
+
+    let startX = 0;
+
+    let endX = 0;
+
+
+    slider.addEventListener(
+        "touchstart",
+        event => {
+
+            startX =
+                event.touches[0]?.clientX ||
+                0;
+
+        },
+        {
+            passive:true
+        }
+    );
+
+
+    slider.addEventListener(
+        "touchend",
+        event => {
+
+            endX =
+                event.changedTouches[0]?.clientX ||
+                0;
+
+
+            const distance =
+                endX - startX;
+
+
+            if (
+                Math.abs(distance) <
+                50
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                distance < 0
+            ) {
+
+                $("#nextImage")
+                    ?.click();
+
+            }
+            else {
+
+                $("#prevImage")
+                    ?.click();
+
+            }
+
+        },
+        {
+            passive:true
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   DETAIL CONTROL PATCH
+========================================================== */
+
+function initProductDetailFinalPatch() {
+
+    if (!currentProduct) {
+
+        return;
+
+    }
+
+
+    initDetailGallerySwipe();
+
+
+    updateOrderLink(
+        Number(
+            $("#qty")?.value ||
+            1
+        )
+    );
+
+
+    updateWishlistCounter();
+
+}
+
+
+/* ==========================================================
+   PART 3 COMPLETE
+========================================================== */
+
+console.log(
+    "🛍️ Part 3/8 — Product Detail Controls Loaded."
+);
+
