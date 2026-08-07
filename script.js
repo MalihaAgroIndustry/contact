@@ -993,7 +993,7 @@ function showProductError(
 
 
 /* ==========================================================
-   LOAD PRODUCT DETAILS
+   PRODUCT DETAILS — FINAL FIXED VERSION
 ========================================================== */
 
 async function loadProductDetails() {
@@ -1006,13 +1006,150 @@ async function loadProductDetails() {
 
 
     if (!details) {
-
         return;
-
     }
 
 
     try {
+
+        /* ==========================================
+           GET PRODUCT ID
+        ========================================== */
+
+        const productId =
+            getProductId();
+
+
+        if (
+            !Number.isFinite(productId) ||
+            productId <= 0
+        ) {
+
+            showProductNotFound(
+                details,
+                "সঠিক Product ID পাওয়া যায়নি।"
+            );
+
+            if (loading) {
+                loading.style.display =
+                    "none";
+            }
+
+            return;
+
+        }
+
+
+        /* ==========================================
+           LOAD PRODUCTS
+        ========================================== */
+
+        await ensureProductsLoaded();
+
+
+        /* ==========================================
+           FIND PRODUCT
+        ========================================== */
+
+        currentProduct =
+            products.find(
+                product =>
+                    Number(product.id) ===
+                    Number(productId)
+            );
+
+
+        if (!currentProduct) {
+
+            showProductNotFound(
+                details,
+                "এই পণ্যটি পাওয়া যায়নি।"
+            );
+
+            if (loading) {
+                loading.style.display =
+                    "none";
+            }
+
+            return;
+
+        }
+
+
+        /* ==========================================
+           RENDER PRODUCT
+        ========================================== */
+
+        renderCompleteProductDetails(
+            details,
+            currentProduct
+        );
+
+
+        /* ==========================================
+           LOADING HIDE
+        ========================================== */
+
+        if (loading) {
+
+            loading.style.display =
+                "none";
+
+        }
+
+
+        /* ==========================================
+           DETAILS SHOW
+        ========================================== */
+
+        details.style.display =
+            "block";
+
+
+        /* ==========================================
+           PRODUCT CONTROLS
+        ========================================== */
+
+        initProductDetailControls();
+
+
+        /* ==========================================
+           RELATED PRODUCTS
+        ========================================== */
+
+        loadRelatedProducts();
+
+
+        console.log(
+            "✅ Product Details Loaded:",
+            currentProduct
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Product Details Error:",
+            error
+        );
+
+
+        if (loading) {
+
+            loading.style.display =
+                "none";
+
+        }
+
+
+        showProductError(
+            details,
+            error
+        );
+
+    }
+
+}
 
         /* ------------------------------------------
            PRODUCT ID
