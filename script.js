@@ -2690,3 +2690,515 @@ function initProductDetailControls() {
 
 }
 
+/* ==========================================================
+   RELATED PRODUCTS
+========================================================== */
+
+function loadRelatedProducts() {
+
+    const container =
+        $("#relatedProducts");
+
+    if (
+        !container ||
+        !currentProduct
+    ) {
+        return;
+    }
+
+    const currentCategory =
+        normalizeCategory(
+            currentProduct.category
+        );
+
+    let related =
+        products.filter(
+            product =>
+                Number(product.id) !==
+                    Number(currentProduct.id) &&
+                normalizeCategory(
+                    product.category
+                ) === currentCategory
+        );
+
+    related =
+        related.slice(0, 4);
+
+    container.innerHTML = "";
+
+    if (!related.length) {
+
+        container.innerHTML = `
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:25px;
+                "
+            >
+                এই ক্যাটাগরিতে বর্তমানে
+                অন্য কোনো পণ্য নেই।
+            </div>
+        `;
+
+        return;
+    }
+
+    related.forEach(product => {
+
+        container.appendChild(
+            createProductCard(product)
+        );
+
+    });
+
+    startSliders();
+
+}
+
+
+/* ==========================================================
+   WISHLIST PAGE
+========================================================== */
+
+async function renderWishlistPage() {
+
+    const container =
+        $("#wishlistProducts");
+
+    if (!container) {
+        return;
+    }
+
+    try {
+
+        await ensureProductsLoaded();
+
+        const items =
+            products.filter(
+                product =>
+                    wishlist.includes(
+                        Number(product.id)
+                    )
+            );
+
+        const summary =
+            $("#wishlistSummary");
+
+        if (summary) {
+
+            summary.textContent =
+                `❤️ আপনার Wishlist-এ ${items.length} টি পণ্য আছে।`;
+
+        }
+
+        container.innerHTML = "";
+
+        if (!items.length) {
+
+            container.innerHTML = `
+                <div
+                    class="card"
+                    style="
+                        grid-column:1/-1;
+                        text-align:center;
+                        padding:45px 20px;
+                    "
+                >
+
+                    <div
+                        style="
+                            font-size:50px;
+                        "
+                    >
+                        🤍
+                    </div>
+
+                    <h2>
+                        আপনার Wishlist খালি
+                    </h2>
+
+                    <p>
+                        পছন্দের পণ্যের ❤️ বাটনে ক্লিক করলে
+                        এখানে দেখা যাবে।
+                    </p>
+
+                    <a
+                        href="products.html"
+                        class="btn"
+                        style="
+                            max-width:200px;
+                            margin:15px auto 0;
+                        "
+                    >
+                        🛍️ পণ্য দেখুন
+                    </a>
+
+                </div>
+            `;
+
+            return;
+        }
+
+        items.forEach(product => {
+
+            container.appendChild(
+                createProductCard(product)
+            );
+
+        });
+
+        startSliders();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Wishlist Error:",
+            error
+        );
+
+        container.innerHTML = `
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:30px;
+                "
+            >
+                ❌ Wishlist লোড করা যায়নি।
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* ==========================================================
+   IMAGE MODAL
+========================================================== */
+
+function openImageModal(src) {
+
+    const modal =
+        $("#imageModal");
+
+    const image =
+        $("#modalImage");
+
+    if (
+        !modal ||
+        !image ||
+        !src
+    ) {
+        return;
+    }
+
+    image.src = src;
+
+    modal.style.display = "flex";
+
+}
+
+
+function closeImageModal() {
+
+    const modal =
+        $("#imageModal");
+
+    const image =
+        $("#modalImage");
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+    }
+
+    if (image) {
+
+        image.src = "";
+
+    }
+
+}
+
+
+function initImagePreview() {
+
+    const modal =
+        $("#imageModal");
+
+    if (!modal) {
+        return;
+    }
+
+    const close =
+        modal.querySelector(
+            ".close-modal"
+        );
+
+    if (
+        close &&
+        !close.dataset.bound
+    ) {
+
+        close.dataset.bound =
+            "true";
+
+        close.addEventListener(
+            "click",
+            closeImageModal
+        );
+
+    }
+
+    if (
+        !modal.dataset.bound
+    ) {
+
+        modal.dataset.bound =
+            "true";
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    modal
+                ) {
+
+                    closeImageModal();
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   PRODUCT CARD SLIDER
+========================================================== */
+
+function stopSliders() {
+
+    sliderTimers.forEach(
+        timer =>
+            clearInterval(timer)
+    );
+
+    sliderTimers = [];
+
+}
+
+
+function startSliders() {
+
+    stopSliders();
+
+    $$(".slider").forEach(
+        slider => {
+
+            const images =
+                slider.querySelectorAll(
+                    ".product-img"
+                );
+
+            if (
+                images.length <= 1
+            ) {
+                return;
+            }
+
+            let index = 0;
+
+            const timer =
+                setInterval(
+                    () => {
+
+                        images[index]
+                            ?.classList.remove(
+                                "active"
+                            );
+
+                        index =
+                            (
+                                index + 1
+                            ) %
+                            images.length;
+
+                        images[index]
+                            ?.classList.add(
+                                "active"
+                            );
+
+                    },
+                    3000
+                );
+
+            sliderTimers.push(timer);
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   GLOBAL CLICK HELPERS
+========================================================== */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const image =
+            event.target.closest(
+                ".product-card .product-img"
+            );
+
+        if (
+            image &&
+            image.src
+        ) {
+
+            openImageModal(
+                image.src
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================================
+   INITIALIZE APP
+========================================================== */
+
+async function initializeApp() {
+
+    try {
+
+        loadWishlistStorage();
+
+        updateWishlistCounter();
+
+
+        /* ==============================================
+           LOAD ALL DATA
+        ============================================== */
+
+        await Promise.allSettled([
+
+            ensureProductsLoaded(),
+
+            ensureCategoriesLoaded()
+
+        ]);
+
+
+        /* ==============================================
+           PRODUCT DETAIL PAGE
+        ============================================== */
+
+        if (
+            $("#productDetails")
+        ) {
+
+            await loadProductDetails();
+
+        }
+
+
+        /* ==============================================
+           PRODUCTS PAGE
+        ============================================== */
+
+        if (
+            $("#productList")
+        ) {
+
+            renderCategoryButtons();
+
+            initSearch();
+
+            initSort();
+
+            await loadProducts(
+                getActiveCategory(),
+                getActiveSubCategory()
+            );
+
+        }
+
+
+        /* ==============================================
+           WISHLIST PAGE
+        ============================================== */
+
+        if (
+            $("#wishlistProducts")
+        ) {
+
+            await renderWishlistPage();
+
+        }
+
+
+        /* ==============================================
+           IMAGE PREVIEW
+        ============================================== */
+
+        initImagePreview();
+
+        updateWishlistCounter();
+
+
+        console.log(
+            "✅ Maliha Agro Industry — App Initialized Successfully"
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ App Initialization Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   DOM READY
+========================================================== */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        initializeApp
+    );
+
+}
+else {
+
+    initializeApp();
+
+}
+
