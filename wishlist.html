@@ -3,516 +3,307 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<meta
-name="description"
-content="Wishlist - Maliha Agro Industry">
+    <meta
+        name="description"
+        content="Maliha Agro Industry - আপনার পছন্দের পণ্য"
+    >
 
-<title>
+    <meta
+        name="theme-color"
+        content="#1F8F4D"
+    >
 
-Wishlist |
-Maliha Agro Industry
+    <title>
+        Wishlist | Maliha Agro Industry
+    </title>
 
-</title>
 
-<!-- Font Awesome -->
+    <!-- Google Font -->
 
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-<!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
 
-<link
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
-<!-- CSS -->
 
-<link
-rel="stylesheet"
-href="style.css?v=4">
+    <!-- Font Awesome -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    >
+
+
+    <!-- Main CSS -->
+
+    <link
+        rel="stylesheet"
+        href="style.css?v=11"
+    >
 
 </head>
 
+
 <body>
 
-<div class="container">
 
-<div class="card">
+<!-- ======================================================
+     MAIN CONTAINER
+====================================================== -->
 
-<!-- ==========================================================
-SECTION 02
-PAGE HEADER
-========================================================== -->
+<main class="container">
 
-<section class="page-header fade-up">
 
-    <div class="header-top">
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
 
-        <a
-        href="index.html"
-        class="back-btn">
+    <section
+        class="page-header fade-up"
+        style="
+            text-align:center;
+            padding:25px 10px 15px;
+        "
+    >
 
-            <i class="fa-solid fa-arrow-left"></i>
+        <h1>
+            ❤️ আমার Wishlist
+        </h1>
 
-            <span>
+        <p>
+            আপনার পছন্দের পণ্যগুলো এখানে সংরক্ষিত থাকবে।
+        </p>
 
-                হোমে ফিরে যান
+    </section>
 
-            </span>
 
-        </a>
+    <!-- ==================================================
+         WISHLIST SUMMARY
+    ================================================== -->
 
-        <div class="page-title">
+    <section
+        class="card"
+        style="
+            margin:15px 0;
+            padding:15px;
+            text-align:center;
+        "
+    >
 
-            <h1>
+        <div
+            id="wishlistSummary"
+            style="
+                color:#555;
+                font-size:14px;
+            "
+        >
+            ❤️ Wishlist লোড হচ্ছে...
+        </div>
 
-                ❤️ Wishlist
+    </section>
 
-            </h1>
 
-            <p>
+    <!-- ==================================================
+         WISHLIST PRODUCTS
+    ================================================== -->
 
-                আপনার পছন্দের প্রোডাক্ট
+    <section
+        class="products-section"
+    >
 
-            </p>
+        <div
+            id="wishlistProducts"
+            class="product-grid"
+        >
+
+            <!-- ==================================================
+                 INITIAL LOADING
+            ================================================== -->
+
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:45px 20px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:45px;
+                        margin-bottom:12px;
+                    "
+                >
+                    ⏳
+                </div>
+
+                <h2>
+                    Wishlist লোড হচ্ছে...
+                </h2>
+
+                <p>
+                    অনুগ্রহ করে একটু অপেক্ষা করুন।
+                </p>
+
+            </div>
 
         </div>
 
-    </div>
+    </section>
 
-</section>
 
-<div class="wishlist-summary">
+</main>
 
-    <h3>
 
-        মোট Wishlist :
+<!-- ======================================================
+     IMAGE PREVIEW MODAL
+====================================================== -->
 
-        <span id="wishlistTotal">
+<div
+    id="imageModal"
+    class="image-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-label="পণ্যের ছবি"
+>
 
-            0
+    <button
+        type="button"
+        class="close-modal"
+        aria-label="বন্ধ করুন"
+    >
+        &times;
+    </button>
 
-        </span>
 
-        টি
-
-    </h3>
+    <img
+        id="modalImage"
+        src=""
+        alt="Product Preview"
+    >
 
 </div>
 
-<!-- ==========================================================
-SECTION 03
-WISHLIST PRODUCTS
-========================================================== -->
 
-<section class="wishlist-section fade-up">
-
-    <!-- Wishlist Product Grid -->
-
-    <div
-        id="wishlistProducts"
-        class="products-grid">
-
-    </div>
-
-    <!-- Empty Wishlist -->
-
-    <div
-        id="emptyWishlist"
-        class="empty-products"
-        style="display:none;">
-
-        <img
-            src="images/empty-wishlist.png"
-            alt="Wishlist Empty">
-
-        <h2>
-
-            ❤️ আপনার Wishlist খালি
-
-        </h2>
-
-        <p>
-
-            এখনো কোনো প্রোডাক্ট Wishlist-এ যোগ করা হয়নি।
-
-        </p>
-
-        <a
-            href="products.html"
-            class="btn">
-
-            🛍️ প্রোডাক্ট দেখুন
-
-        </a>
-
-    </div>
-
-</section>
-
-<!-- ==========================================================
-WISHLIST ACTIONS
-========================================================== -->
-
-<section class="wishlist-actions fade-up">
-
-    <button
-        id="clearWishlist"
-        class="btn danger-btn">
-
-        🗑️ সব Wishlist মুছে ফেলুন
-
-    </button>
-
-    <a
-        href="products.html"
-        class="btn">
-
-        ➕ আরও প্রোডাক্ট দেখুন
-
-    </a>
-
-</section>
-
-<!-- ==========================================================
-SECTION 04
-RECOMMENDED PRODUCTS
-========================================================== -->
-
-<section class="recommended-section fade-up">
-
-    <div class="section-title">
-
-        <h2>
-
-            🌟 আপনার জন্য সাজেস্টেড প্রোডাক্ট
-
-        </h2>
-
-        <p>
-
-            জনপ্রিয় ও সেরা বিক্রিত প্রোডাক্ট
-
-        </p>
-
-    </div>
-
-    <div
-        id="recommendedProducts"
-        class="products-grid">
-
-    </div>
-
-</section>
-
-<!-- ==========================================================
-RECENTLY VIEWED
-========================================================== -->
-
-<section class="recent-section fade-up">
-
-    <div class="section-title">
-
-        <h2>
-
-            🕒 সম্প্রতি দেখা প্রোডাক্ট
-
-        </h2>
-
-        <p>
-
-            আপনি সম্প্রতি যেগুলো দেখেছেন
-
-        </p>
-
-    </div>
-
-    <div
-        id="recentProducts"
-        class="products-grid">
-
-    </div>
-
-</section>
-
-<!-- ==========================================================
-SHOPPING SHORTCUT
-========================================================== -->
-
-<section class="shopping-shortcut fade-up">
-
-    <div class="glass">
-
-        <h2>
-
-            🛍️ আরও কেনাকাটা করুন
-
-        </h2>
-
-        <p>
-
-            Maliha Agro Industry-এর সকল জৈব সার, ভার্মি কম্পোস্ট,
-            ট্রাইকো কম্পোস্ট ও অন্যান্য কৃষি পণ্য দেখতে নিচের বাটনে ক্লিক করুন।
-
-        </p>
-
-        <a
-            href="products.html"
-            class="btn">
-
-            📦 সকল প্রোডাক্ট দেখুন
-
-        </a>
-
-    </div>
-
-</section>
-
-<!-- ==========================================================
-SECTION 05
-QUICK ACTIONS
-========================================================== -->
-
-<section class="quick-action-section fade-up">
-
-    <div class="quick-action-grid">
-
-        <a
-        href="products.html"
-        class="quick-action-card">
-
-            <div class="quick-icon">
-
-                🛍️
-
-            </div>
-
-            <h3>
-
-                Shopping
-
-            </h3>
-
-            <p>
-
-                নতুন প্রোডাক্ট দেখুন
-
-            </p>
-
-        </a>
-
-        <a
-        href="contact.html"
-        class="quick-action-card">
-
-            <div class="quick-icon">
-
-                📞
-
-            </div>
-
-            <h3>
-
-                যোগাযোগ
-
-            </h3>
-
-            <p>
-
-                অর্ডার বা তথ্য জানতে
-
-            </p>
-
-        </a>
-
-        <a
-        href="about.html"
-        class="quick-action-card">
-
-            <div class="quick-icon">
-
-                🌿
-
-            </div>
-
-            <h3>
-
-                আমাদের সম্পর্কে
-
-            </h3>
-
-            <p>
-
-                প্রতিষ্ঠান পরিচিতি
-
-            </p>
-
-        </a>
-
-    </div>
-
-</section>
-
-<!-- ==========================================================
-FLOATING BUTTONS
-========================================================== -->
+<!-- ======================================================
+     FLOATING WHATSAPP
+====================================================== -->
 
 <a
-href="https://wa.me/8801303679189"
-target="_blank"
-class="whatsapp-float">
+    href="https://wa.me/8801303679189"
+    class="whatsapp-float"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="WhatsApp"
+>
 
-💬
+    <i class="fa-brands fa-whatsapp"></i>
 
 </a>
 
+
+<!-- ======================================================
+     BACK TO TOP
+====================================================== -->
+
 <button
-id="backToTop"
-class="back-to-top">
-
-⬆
-
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="উপরে যান"
+>
+    ⬆
 </button>
 
-<!-- ==========================================================
-SECTION 06
-BOTTOM NAVIGATION
-========================================================== -->
 
-<nav class="bottom-nav">
+<!-- ======================================================
+     BOTTOM NAVIGATION
+====================================================== -->
+
+<nav
+    class="bottom-nav"
+    aria-label="প্রধান নেভিগেশন"
+>
+
 
     <a href="index.html">
 
         <i class="fa-solid fa-house"></i>
 
         <span>
-
             হোম
-
         </span>
 
     </a>
+
 
     <a href="products.html">
 
         <i class="fa-solid fa-box-open"></i>
 
         <span>
-
-            প্রোডাক্ট
-
+            পণ্য
         </span>
 
     </a>
 
+
     <a
-    href="wishlist.html"
-    class="active">
+        href="wishlist.html"
+        class="active"
+    >
 
         <i class="fa-solid fa-heart"></i>
 
         <span id="wishlistCounter">
-
             Wishlist
-
         </span>
 
     </a>
 
-    <a href="about.html">
-
-        <i class="fa-solid fa-building"></i>
-
-        <span>
-
-            আমাদের সম্পর্কে
-
-        </span>
-
-    </a>
 
     <a href="contact.html">
 
         <i class="fa-solid fa-phone"></i>
 
         <span>
-
             যোগাযোগ
-
         </span>
 
     </a>
 
 </nav>
 
-<!-- ==========================================================
-SECTION 07
-FOOTER
-========================================================== -->
 
-<footer class="footer fade-up">
+<!-- ======================================================
+     JAVASCRIPT
+====================================================== -->
 
-    <h3>
+<script
+    src="script.js?v=11"
+    defer
+></script>
 
-        🌿 Maliha Agro Industry
-
-    </h3>
-
-    <p>
-
-        ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক
-
-    </p>
-
-    <p>
-
-        ইসলামপুর, কানসাট,
-        শিবগঞ্জ,
-        চাঁপাইনবাবগঞ্জ
-
-    </p>
-
-    <p>
-
-        📞 +880 1303-679189
-
-    </p>
-
-    <p>
-
-        ✉ info@malihaagroindustry.com
-
-    </p>
-
-    <hr>
-
-    <p>
-
-        © 2026 Maliha Agro Industry
-
-        <br>
-
-        All Rights Reserved.
-
-    </p>
-
-</footer>
-
-<!-- ==========================================================
-JAVASCRIPT
-========================================================== -->
-
-<script src="script.js?v=4"></script>
-
-</div>
-</div>
 
 </body>
+
 </html>
