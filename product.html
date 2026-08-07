@@ -22,9 +22,6 @@
 
     <title>পণ্যের বিস্তারিত | Maliha Agro Industry</title>
 
-
-    <!-- Google Font -->
-
     <link
         rel="preconnect"
         href="https://fonts.googleapis.com"
@@ -37,20 +34,14 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet"
     >
-
-
-    <!-- Font Awesome -->
 
     <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     >
-
-
-    <!-- Main CSS -->
 
     <link
         rel="stylesheet"
@@ -63,118 +54,64 @@
 <body>
 
 
-<!-- ======================================================
-     MAIN
-====================================================== -->
-
 <main class="container">
 
-
     <!-- ==================================================
-         BREADCRUMB
+         LOADING
     ================================================== -->
 
-    <div
-        class="breadcrumb"
+    <section
+        id="productLoading"
+        class="card"
         style="
-            margin:15px 0;
-            font-size:13px;
+            text-align:center;
+            padding:45px 20px;
+            margin-top:25px;
         "
     >
 
-        <a href="index.html">
-            হোম
-        </a>
+        <div style="font-size:45px;">
+            ⏳
+        </div>
 
-        <span> / </span>
+        <h2>
+            পণ্যের তথ্য লোড হচ্ছে...
+        </h2>
 
-        <a href="products.html">
-            পণ্য
-        </a>
+        <p>
+            অনুগ্রহ করে একটু অপেক্ষা করুন।
+        </p>
 
-        <span> / </span>
-
-        <span>
-            বিস্তারিত
-        </span>
-
-    </div>
+    </section>
 
 
     <!-- ==================================================
          PRODUCT DETAILS
-================================================== -->
+    ================================================== -->
 
     <section
         id="productDetails"
-        class="product-details-page fade-up"
+        style="display:none;"
     >
 
-
-        <!-- ==================================================
-             LOADING
-        ================================================== -->
-
-        <div
-            id="productLoading"
-            class="card"
-            style="
-                text-align:center;
-                padding:45px 20px;
-            "
-        >
-
-            <div
-                style="
-                    font-size:45px;
-                    margin-bottom:12px;
-                "
-            >
-                ⏳
-            </div>
-
-            <h2>
-                পণ্যের তথ্য লোড হচ্ছে...
-            </h2>
-
-            <p>
-                অনুগ্রহ করে একটু অপেক্ষা করুন।
-            </p>
-
-        </div>
-
-
-        <!-- ==================================================
-             PRODUCT CONTENT
-        ================================================== -->
-
-        <div
-            class="product-detail-layout"
-            id="productContent"
-            style="display:none;"
-        >
+        <div class="product-detail-page">
 
 
             <!-- ==================================================
-                 LEFT — GALLERY
+                 GALLERY
             ================================================== -->
 
             <div class="product-gallery">
 
-
                 <div
                     id="productSlider"
-                    class="product-slider slider"
-                >
-                    <!-- JavaScript images বসাবে -->
-                </div>
+                    class="detail-slider"
+                ></div>
 
-
-                <!-- PREVIOUS -->
 
                 <button
-                    type="button"
                     id="prevImage"
+                    type="button"
                     class="slider-control prev"
                     aria-label="আগের ছবি"
                 >
@@ -182,11 +119,9 @@
                 </button>
 
 
-                <!-- NEXT -->
-
                 <button
-                    type="button"
                     id="nextImage"
+                    type="button"
                     class="slider-control next"
                     aria-label="পরের ছবি"
                 >
@@ -194,260 +129,269 @@
                 </button>
 
 
-                <!-- COUNTER -->
-
                 <div
                     id="sliderCounter"
                     class="slider-counter"
                 >
-                    0 / 0
+                    1 / 1
                 </div>
 
             </div>
 
 
             <!-- ==================================================
-                 RIGHT — INFORMATION
+                 PRODUCT INFORMATION
             ================================================== -->
 
             <div class="product-detail-info">
 
 
-                <!-- BRAND -->
+                <div class="product-category-row">
 
-                <div
-                    id="productBrandInfo"
-                    class="product-brand"
-                >
-                    Maliha Agro Industry
+                    <span id="productCategory">
+                        সার
+                    </span>
+
+                    <span id="productSubCategory">
+                        জৈব সার
+                    </span>
+
                 </div>
 
 
-                <!-- PRODUCT NAME -->
-
                 <h1 id="productName">
-                    পণ্যের নাম
+                    পণ্য
                 </h1>
 
 
-                <!-- RATING -->
-
-                <div
-                    class="product-rating"
-                    style="margin:8px 0;"
+                <p
+                    id="productBrand"
+                    class="product-brand"
                 >
+                    Maliha Agro Industry
+                </p>
+
+
+                <!-- Rating -->
+
+                <div class="product-rating">
 
                     <span>
                         ⭐⭐⭐⭐⭐
                     </span>
 
                     <span id="productRating">
-                        (0)
+                        (5)
                     </span>
 
                 </div>
 
 
-                <!-- STOCK -->
+                <!-- Price -->
+
+                <div class="product-price-area">
+
+                    <span
+                        id="productPrice"
+                        class="product-price"
+                    >
+                        ৳0
+                    </span>
+
+                    <del
+                        id="productOldPrice"
+                        class="product-old-price"
+                    >
+                    </del>
+
+                    <span
+                        id="productDiscount"
+                        class="product-discount"
+                        style="display:none;"
+                    >
+                    </span>
+
+                </div>
+
+
+                <!-- Stock -->
 
                 <div
                     id="productStock"
-                    class="stock"
-                    style="margin:8px 0;"
+                    class="product-stock"
                 >
                     🟢 স্টকে আছে
                 </div>
 
 
-                <!-- PRICE -->
+                <!-- Description -->
 
-                <div
-                    class="product-price-box"
-                    style="margin:15px 0;"
-                >
-
-                    <span
-                        id="productPrice"
-                        class="price"
-                    >
-                        ৳0
-                    </span>
-
-
-                    <del
-                        id="productOldPrice"
-                        class="old-price"
-                        style="display:none;"
-                    >
-                        ৳0
-                    </del>
-
-
-                    <span
-                        id="productDiscount"
-                        class="discount-badge"
-                        style="display:none;"
-                    >
-                    </span>
-
-                </div>
-
-
-                <!-- SHORT DETAILS -->
-
-                <div
-                    class="product-meta"
-                    style="
-                        margin:15px 0;
-                    "
-                >
-
-                    <p>
-                        <strong>
-                            📂 ক্যাটাগরি:
-                        </strong>
-
-                        <span id="productCategory">
-                            -
-                        </span>
-                    </p>
-
-
-                    <p>
-                        <strong>
-                            📁 সাব-ক্যাটাগরি:
-                        </strong>
-
-                        <span id="productSubCategory">
-                            -
-                        </span>
-                    </p>
-
-
-                    <p>
-                        <strong>
-                            🏷️ ধরন:
-                        </strong>
-
-                        <span id="productType">
-                            -
-                        </span>
-                    </p>
-
-
-                    <p>
-                        <strong>
-                            🔖 SKU:
-                        </strong>
-
-                        <span id="productSku">
-                            -
-                        </span>
-                    </p>
-
-
-                    <p>
-                        <strong>
-                            ⚖️ ওজন:
-                        </strong>
-
-                        <span id="productWeight">
-                            -
-                        </span>
-                    </p>
-
-                </div>
-
-
-                <!-- DESCRIPTION -->
-
-                <div
-                    class="product-description"
-                    style="margin:18px 0;"
-                >
+                <div class="product-description">
 
                     <h3>
                         📝 পণ্যের বিবরণ
                     </h3>
 
                     <p id="productDescription">
-                        পণ্যের বিবরণ লোড হচ্ছে...
+                        -
                     </p>
 
                 </div>
 
 
-                <!-- ==================================================
-                     QUANTITY
-                ================================================== -->
+                <!-- Information -->
+
+                <div class="product-meta">
+
+                    <div>
+
+                        <strong>
+                            ক্যাটাগরি:
+                        </strong>
+
+                        <span id="productCategoryInfo">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            সাব-ক্যাটাগরি:
+                        </strong>
+
+                        <span id="productSubCategoryInfo">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            ধরন:
+                        </strong>
+
+                        <span id="productType">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            SKU:
+                        </strong>
+
+                        <span id="productSku">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            ওজন:
+                        </strong>
+
+                        <span id="productWeight">
+                            -
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            ব্র্যান্ড:
+                        </strong>
+
+                        <span id="productBrandInfo">
+                            Maliha Agro Industry
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Features -->
 
                 <div
-                    class="quantity-box"
-                    style="
-                        display:flex;
-                        align-items:center;
-                        gap:8px;
-                        margin:18px 0;
-                    "
+                    id="productFeatures"
+                    class="product-features"
                 >
+
+                </div>
+
+
+                <!-- Quantity -->
+
+                <div class="quantity-area">
 
                     <strong>
                         পরিমাণ:
                     </strong>
 
 
-                    <button
-                        type="button"
-                        id="minusQty"
-                    >
-                        −
-                    </button>
+                    <div class="quantity-control">
+
+                        <button
+                            id="minusQty"
+                            type="button"
+                        >
+                            −
+                        </button>
 
 
-                    <input
-                        type="number"
-                        id="qty"
-                        value="1"
-                        min="1"
-                        inputmode="numeric"
-                        aria-label="পরিমাণ"
-                    >
+                        <input
+                            id="qty"
+                            type="number"
+                            value="1"
+                            min="1"
+                            inputmode="numeric"
+                        >
 
 
-                    <button
-                        type="button"
-                        id="plusQty"
-                    >
-                        +
-                    </button>
+                        <button
+                            id="plusQty"
+                            type="button"
+                        >
+                            +
+                        </button>
+
+                    </div>
 
                 </div>
 
 
-                <!-- TOTAL -->
+                <!-- Total -->
 
-                <div
-                    class="total-price"
-                    style="margin:12px 0;"
-                >
+                <div class="total-price-area">
 
-                    মোট:
+                    মোট মূল্য:
 
                     <strong id="totalPrice">
-                        ৳0
+                        ৳15
                     </strong>
 
                 </div>
 
 
-                <!-- ==================================================
-                     ORDER BUTTON
-                ================================================== -->
+                <!-- Order -->
 
                 <a
-                    href="#"
                     id="orderNow"
-                    class="btn whatsapp-order-btn"
+                    href="#"
+                    class="btn order-btn"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
@@ -459,44 +403,32 @@
                 </a>
 
 
-                <!-- ==================================================
-                     WISHLIST + SHARE
-                ================================================== -->
+                <!-- Share -->
 
-                <div
-                    class="product-action-buttons"
-                    style="
-                        display:flex;
-                        gap:10px;
-                        flex-wrap:wrap;
-                        margin-top:12px;
-                    "
+                <button
+                    id="shareProduct"
+                    type="button"
+                    class="btn share-btn"
                 >
 
-                    <button
-                        type="button"
-                        id="productWishlistBtn"
-                        class="wishlist-btn"
-                        data-id=""
-                        aria-label="Wishlist"
-                    >
-                        🤍
-                    </button>
+                    <i class="fa-solid fa-share-nodes"></i>
+
+                    শেয়ার করুন
+
+                </button>
 
 
-                    <button
-                        type="button"
-                        id="shareProduct"
-                        class="btn"
-                    >
+                <!-- Wishlist -->
 
-                        <i class="fa-solid fa-share-nodes"></i>
+                <button
+                    id="productWishlist"
+                    type="button"
+                    class="wishlist-detail-btn"
+                >
 
-                        শেয়ার
+                    🤍 Wishlist
 
-                    </button>
-
-                </div>
+                </button>
 
 
             </div>
@@ -505,65 +437,29 @@
 
 
         <!-- ==================================================
-             FEATURES
-        ================================================== -->
-
-        <section
-            id="productFeaturesSection"
-            class="product-features card"
-            style="
-                margin-top:25px;
-                display:none;
-            "
-        >
-
-            <h2>
-                🌿 পণ্যের বৈশিষ্ট্য
-            </h2>
-
-
-            <ul id="productFeatures">
-                <!-- JavaScript -->
-            </ul>
-
-        </section>
-
-
-        <!-- ==================================================
              RELATED PRODUCTS
         ================================================== -->
 
         <section
-            class="related-products"
-            style="margin-top:30px;"
+            class="related-section"
         >
 
-            <div
-                class="section-heading"
-                style="margin-bottom:15px;"
-            >
-
-                <h2>
-                    🛍️ আরও পণ্য
-                </h2>
-
-            </div>
-
+            <h2>
+                🛍️ সম্পর্কিত পণ্য
+            </h2>
 
             <div
                 id="relatedProducts"
                 class="product-grid"
-            >
-                <!-- JavaScript -->
-            </div>
+            ></div>
 
         </section>
 
 
     </section>
 
-
 </main>
+
 
 
 <!-- ======================================================
@@ -575,7 +471,6 @@
     class="image-modal"
     role="dialog"
     aria-modal="true"
-    aria-label="পণ্যের ছবি"
 >
 
     <button
@@ -596,6 +491,7 @@
 </div>
 
 
+
 <!-- ======================================================
      WHATSAPP
 ====================================================== -->
@@ -613,6 +509,7 @@
 </a>
 
 
+
 <!-- ======================================================
      BACK TO TOP
 ====================================================== -->
@@ -627,15 +524,15 @@
 </button>
 
 
+
 <!-- ======================================================
-     BOTTOM NAVIGATION
+     BOTTOM NAV
 ====================================================== -->
 
 <nav
     class="bottom-nav"
     aria-label="প্রধান নেভিগেশন"
 >
-
 
     <a href="index.html">
 
@@ -663,7 +560,7 @@
 
         <i class="fa-solid fa-heart"></i>
 
-        <span id="wishlistCounter">
+        <span>
             Wishlist
         </span>
 
@@ -683,9 +580,6 @@
 </nav>
 
 
-<!-- ======================================================
-     SCRIPT
-====================================================== -->
 
 <script
     src="script.js?v=10"
