@@ -1227,68 +1227,6 @@ async function loadProductDetails() {
         }
 
 
-        /* ------------------------------------------
-           RENDER PRODUCT
-        ------------------------------------------ */
-
-        renderCompleteProductDetails(
-            details,
-            currentProduct
-        );
-
-
-        /* ------------------------------------------
-           LOADING HIDE
-        ------------------------------------------ */
-
-        if (loading) {
-
-            loading.style.display =
-                "none";
-
-        }
-
-
-        /* ------------------------------------------
-           DETAILS SHOW
-        ------------------------------------------ */
-
-        details.style.display =
-            "block";
-
-
-        console.log(
-            "✅ Product Details Loaded:",
-            currentProduct
-        );
-
-    }
-    catch (error) {
-
-        console.error(
-            "❌ Product Details Error:",
-            error
-        );
-
-
-        if (loading) {
-
-            loading.style.display =
-                "none";
-
-        }
-
-
-        showProductError(
-            details,
-            error
-        );
-
-    }
-
-}
-
-
 /* ==========================================================
    PRODUCT DETAILS RENDER
 ========================================================== */
