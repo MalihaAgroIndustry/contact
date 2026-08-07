@@ -684,33 +684,45 @@ function getProductId() {
 
 async function loadProductDetails() {
 
-    const container =
-        $("#productDetails");
+    const loading = $("#productLoading");
+    const details = $("#productDetails");
 
-    if (!container) {
+    if (!details) {
         return;
     }
 
     try {
 
-        const productId =
-            getProductId();
+        /* ==========================================
+           PRODUCT ID FROM URL
+        ========================================== */
+
+        const productId = getProductId();
 
         if (
-            !productId ||
+            !Number.isFinite(productId) ||
             productId <= 0
         ) {
 
             showProductNotFound(
-                container,
+                details,
                 "সঠিক Product ID পাওয়া যায়নি।"
             );
 
             return;
-
         }
 
+
+        /* ==========================================
+           LOAD PRODUCTS
+        ========================================== */
+
         await ensureProductsLoaded();
+
+
+        /* ==========================================
+           FIND PRODUCT
+        ========================================== */
 
         currentProduct =
             products.find(
@@ -719,21 +731,92 @@ async function loadProductDetails() {
                     Number(productId)
             );
 
+
         if (!currentProduct) {
 
             showProductNotFound(
-                container,
+                details,
                 "এই পণ্যটি পাওয়া যায়নি।"
             );
 
             return;
+        }
+
+
+        /* ==========================================
+           RENDER COMPLETE PRODUCT
+        ========================================== */
+
+        renderCompleteProductDetails(
+            details,
+            currentProduct
+        );
+
+
+        /* ==========================================
+           HIDE LOADING
+        ========================================== */
+
+        if (loading) {
+
+            loading.style.display =
+                "none";
 
         }
 
-        renderCompleteProductDetails(
-            container,
-            currentProduct
-        );
+
+        /* ==========================================
+           SHOW DETAILS
+        ========================================== */
+
+        details.style.display =
+            "block";
+
+
+        /* ==========================================
+           GALLERY
+        ========================================== */
+
+        renderProductGallery();
+
+
+        initDetailGallery();
+
+
+        /* ==========================================
+           QUANTITY
+        ========================================== */
+
+        initQuantity();
+
+
+        /* ==========================================
+           WHATSAPP ORDER
+        ========================================== */
+
+        initOrderButton();
+
+
+        /* ==========================================
+           SHARE
+        ========================================== */
+
+        initShareProductButtons();
+
+
+        /* ==========================================
+           WISHLIST
+        ========================================== */
+
+        initProductWishlist();
+
+
+        /* ==========================================
+           RELATED PRODUCTS
+        ========================================== */
+
+        loadRelatedProducts();
+
 
         console.log(
             "✅ Product Details Loaded:",
@@ -744,12 +827,21 @@ async function loadProductDetails() {
     catch (error) {
 
         console.error(
-            "Product Details Error:",
+            "❌ Product Details Error:",
             error
         );
 
+
+        if (loading) {
+
+            loading.style.display =
+                "block";
+
+        }
+
+
         showProductError(
-            container,
+            details,
             error
         );
 
