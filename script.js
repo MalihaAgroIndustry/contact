@@ -5952,3 +5952,1150 @@ function initSort() {
    END OF PART 4
 ========================================================== */
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — FINAL A-Z VERSION
+   PART 5/8
+
+   CATEGORY SYSTEM
+   SUB-CATEGORY SYSTEM
+   CATEGORY BUTTONS
+   URL FILTER
+   PRODUCT SLIDER
+========================================================== */
+
+
+/* ==========================================================
+   CATEGORY BUTTON CONTAINER
+========================================================== */
+
+function getCategoryButtonContainer() {
+
+    return (
+        $("#categoryButtons") ||
+        $("#categories") ||
+        $(".category-buttons")
+    );
+
+}
+
+
+/* ==========================================================
+   CREATE CATEGORY BUTTON
+========================================================== */
+
+function createCategoryButton(
+    category,
+    activeCategory = "",
+    activeSubCategory = ""
+) {
+
+    if (!category) {
+
+        return null;
+
+    }
+
+
+    const categoryId =
+        normalizeCategory(
+            category.id ||
+            category.slug ||
+            category.name
+        );
+
+
+    if (!categoryId) {
+
+        return null;
+
+    }
+
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.type =
+        "button";
+
+
+    button.className =
+        "category-btn";
+
+
+    button.dataset.category =
+        categoryId;
+
+
+    const isActive =
+        normalizeCategory(
+            activeCategory
+        ) === categoryId &&
+        !activeSubCategory;
+
+
+    if (isActive) {
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    button.textContent =
+        category.name ||
+        "অন্যান্য";
+
+
+    return button;
+
+}
+
+
+/* ==========================================================
+   CREATE SUB-CATEGORY BUTTON
+========================================================== */
+
+function createSubCategoryButton(
+    category,
+    subCategory,
+    activeCategory = "",
+    activeSubCategory = ""
+) {
+
+    if (
+        !category ||
+        !subCategory
+    ) {
+
+        return null;
+
+    }
+
+
+    const categoryId =
+        normalizeCategory(
+            category.id ||
+            category.slug ||
+            category.name
+        );
+
+
+    const subCategoryId =
+        normalizeCategory(
+            subCategory.id ||
+            subCategory.slug ||
+            subCategory.name
+        );
+
+
+    if (
+        !categoryId ||
+        !subCategoryId
+    ) {
+
+        return null;
+
+    }
+
+
+    const button =
+        document.createElement(
+            "button"
+        );
+
+
+    button.type =
+        "button";
+
+
+    button.className =
+        "subcategory-btn";
+
+
+    button.dataset.category =
+        categoryId;
+
+
+    button.dataset.subcategory =
+        subCategoryId;
+
+
+    if (
+        normalizeCategory(
+            activeCategory
+        ) === categoryId &&
+        normalizeCategory(
+            activeSubCategory
+        ) === subCategoryId
+    ) {
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+
+    button.textContent =
+        subCategory.name ||
+        "অন্যান্য";
+
+
+    return button;
+
+}
+
+
+/* ==========================================================
+   CATEGORY URL
+========================================================== */
+
+function updateCategoryURL(
+    category = "",
+    subCategory = ""
+) {
+
+    const url =
+        new URL(
+            window.location.href
+        );
+
+
+    if (category) {
+
+        url.searchParams.set(
+            "category",
+            normalizeCategory(
+                category
+            )
+        );
+
+    }
+    else {
+
+        url.searchParams.delete(
+            "category"
+        );
+
+    }
+
+
+    if (subCategory) {
+
+        url.searchParams.set(
+            "subcategory",
+            normalizeCategory(
+                subCategory
+            )
+        );
+
+    }
+    else {
+
+        url.searchParams.delete(
+            "subcategory"
+        );
+
+    }
+
+
+    /*
+       Product ID থাকলে সেটি পরিবর্তন
+       করা হবে না।
+    */
+
+    window.history.replaceState(
+        {},
+        "",
+        url.toString()
+    );
+
+}
+
+
+/* ==========================================================
+   SET ACTIVE CATEGORY BUTTON
+========================================================== */
+
+function setActiveCategoryButton(
+    category = "",
+    subCategory = ""
+) {
+
+    const normalizedCategory =
+        normalizeCategory(
+            category
+        );
+
+
+    const normalizedSubCategory =
+        normalizeCategory(
+            subCategory
+        );
+
+
+    $$(".category-btn")
+        .forEach(
+            button => {
+
+                const buttonCategory =
+                    normalizeCategory(
+                        button.dataset.category
+                    );
+
+
+                button.classList.toggle(
+                    "active",
+                    Boolean(
+                        normalizedCategory &&
+                        buttonCategory ===
+                        normalizedCategory &&
+                        !normalizedSubCategory
+                    )
+                );
+
+            }
+        );
+
+
+    $$(".subcategory-btn")
+        .forEach(
+            button => {
+
+                const buttonCategory =
+                    normalizeCategory(
+                        button.dataset.category
+                    );
+
+
+                const buttonSubCategory =
+                    normalizeCategory(
+                        button.dataset.subcategory
+                    );
+
+
+                button.classList.toggle(
+                    "active",
+                    Boolean(
+                        normalizedCategory &&
+                        normalizedSubCategory &&
+                        buttonCategory ===
+                        normalizedCategory &&
+                        buttonSubCategory ===
+                        normalizedSubCategory
+                    )
+                );
+
+            }
+        );
+
+}
+
+
+/* ==========================================================
+   SHOW SUB-CATEGORIES
+========================================================== */
+
+function renderSubCategories(
+    categoryId,
+    activeSubCategory = ""
+) {
+
+    const container =
+        $("#subCategoryButtons") ||
+        $("#subcategoryButtons");
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    const category =
+        findCategory(
+            categoryId
+        );
+
+
+    if (
+        !category ||
+        !Array.isArray(
+            category.subCategories
+        ) ||
+        !category.subCategories.length
+    ) {
+
+        container.style.display =
+            "none";
+
+
+        return;
+
+    }
+
+
+    container.style.display =
+        "flex";
+
+
+    category.subCategories
+        .forEach(
+            subCategory => {
+
+                const button =
+                    createSubCategoryButton(
+                        category,
+                        subCategory,
+                        categoryId,
+                        activeSubCategory
+                    );
+
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                button.addEventListener(
+                    "click",
+                    event => {
+
+                        event.preventDefault();
+
+
+                        const subId =
+                            normalizeCategory(
+                                button.dataset.subcategory
+                            );
+
+
+                        setActiveCategoryButton(
+                            categoryId,
+                            subId
+                        );
+
+
+                        updateCategoryURL(
+                            categoryId,
+                            subId
+                        );
+
+
+                        renderSubCategories(
+                            categoryId,
+                            subId
+                        );
+
+
+                        loadProducts(
+                            categoryId,
+                            subId
+                        );
+
+                    }
+                );
+
+
+                container.appendChild(
+                    button
+                );
+
+            }
+        );
+
+}
+
+
+/* ==========================================================
+   RENDER CATEGORY BUTTONS
+========================================================== */
+
+async function renderCategoryButtons() {
+
+    const container =
+        getCategoryButtonContainer();
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    try {
+
+        await ensureCategoriesLoaded();
+
+
+        const activeCategory =
+            getActiveCategory();
+
+
+        const activeSubCategory =
+            getActiveSubCategory();
+
+
+        container.innerHTML =
+            "";
+
+
+        /* ==========================================
+           ALL PRODUCTS BUTTON
+        ========================================== */
+
+        const allButton =
+            document.createElement(
+                "button"
+            );
+
+
+        allButton.type =
+            "button";
+
+
+        allButton.className =
+            "category-btn";
+
+
+        allButton.dataset.category =
+            "";
+
+
+        allButton.textContent =
+            "🛍️ সকল পণ্য";
+
+
+        if (
+            !activeCategory
+        ) {
+
+            allButton.classList.add(
+                "active"
+            );
+
+        }
+
+
+        allButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                setActiveCategoryButton(
+                    "",
+                    ""
+                );
+
+
+                updateCategoryURL(
+                    "",
+                    ""
+                );
+
+
+                renderSubCategories(
+                    ""
+                );
+
+
+                loadProducts(
+                    "",
+                    ""
+                );
+
+            }
+        );
+
+
+        container.appendChild(
+            allButton
+        );
+
+
+        /* ==========================================
+           CATEGORY LIST
+        ========================================== */
+
+        categories.forEach(
+            category => {
+
+                const button =
+                    createCategoryButton(
+                        category,
+                        activeCategory,
+                        activeSubCategory
+                    );
+
+
+                if (!button) {
+
+                    return;
+
+                }
+
+
+                button.addEventListener(
+                    "click",
+                    event => {
+
+                        event.preventDefault();
+
+
+                        const categoryId =
+                            normalizeCategory(
+                                button.dataset.category
+                            );
+
+
+                        setActiveCategoryButton(
+                            categoryId,
+                            ""
+                        );
+
+
+                        updateCategoryURL(
+                            categoryId,
+                            ""
+                        );
+
+
+                        renderSubCategories(
+                            categoryId,
+                            ""
+                        );
+
+
+                        loadProducts(
+                            categoryId,
+                            ""
+                        );
+
+                    }
+                );
+
+
+                container.appendChild(
+                    button
+                );
+
+            }
+        );
+
+
+        /* ==========================================
+           SUB CATEGORY
+        ========================================== */
+
+        if (
+            activeCategory
+        ) {
+
+            renderSubCategories(
+                activeCategory,
+                activeSubCategory
+            );
+
+        }
+        else {
+
+            renderSubCategories(
+                ""
+            );
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Category Render Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   CATEGORY FROM PRODUCT DATA
+========================================================== */
+
+function buildCategoriesFromProducts() {
+
+    if (
+        categories.length ||
+        !products.length
+    ) {
+
+        return;
+
+    }
+
+
+    const map =
+        new Map();
+
+
+    products.forEach(
+        product => {
+
+            const id =
+                normalizeCategory(
+                    product.category
+                );
+
+
+            if (!id) {
+
+                return;
+
+            }
+
+
+            if (
+                !map.has(id)
+            ) {
+
+                map.set(
+                    id,
+                    {
+                        id,
+                        name:
+                            product.categoryName ||
+                            product.category ||
+                            "অন্যান্য",
+                        subCategories:[]
+                    }
+                );
+
+            }
+
+
+            const category =
+                map.get(id);
+
+
+            const subId =
+                normalizeCategory(
+                    product.subCategory
+                );
+
+
+            if (
+                subId &&
+                !category.subCategories.some(
+                    item =>
+                        normalizeCategory(
+                            item.id
+                        ) === subId
+                )
+            ) {
+
+                category.subCategories.push({
+
+                    id:
+                        subId,
+
+                    name:
+                        product.subCategoryName ||
+                        product.subCategory ||
+                        "অন্যান্য"
+
+                });
+
+            }
+
+        }
+    );
+
+
+    categories =
+        Array.from(
+            map.values()
+        );
+
+}
+
+
+/* ==========================================================
+   CATEGORY FALLBACK
+========================================================== */
+
+async function ensureCategorySystem() {
+
+    await ensureProductsLoaded();
+
+
+    await ensureCategoriesLoaded();
+
+
+    /*
+       categories.json না থাকলেও
+       products.json থেকে category তৈরি হবে।
+    */
+
+    if (
+        !categories.length
+    ) {
+
+        buildCategoriesFromProducts();
+
+    }
+
+}
+
+
+/* ==========================================================
+   CATEGORY INITIALIZATION
+========================================================== */
+
+async function initCategorySystem() {
+
+    try {
+
+        await ensureCategorySystem();
+
+
+        renderCategoryButtons();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Category System Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   PRODUCT CARD SLIDER — STOP
+========================================================== */
+
+function stopSliders() {
+
+    sliderTimers.forEach(
+        timer => {
+
+            clearInterval(
+                timer
+            );
+
+        }
+    );
+
+
+    sliderTimers =
+        [];
+
+}
+
+
+/* ==========================================================
+   PRODUCT CARD SLIDER — START
+========================================================== */
+
+function startSliders() {
+
+    stopSliders();
+
+
+    const sliders =
+        $$(".slider");
+
+
+    sliders.forEach(
+        slider => {
+
+            const images =
+                slider.querySelectorAll(
+                    ".product-img"
+                );
+
+
+            if (
+                images.length <= 1
+            ) {
+
+                return;
+
+            }
+
+
+            let index = 0;
+
+
+            const showNext =
+                () => {
+
+                    images[index]
+                        ?.classList.remove(
+                            "active"
+                        );
+
+
+                    index =
+                        (
+                            index + 1
+                        ) %
+                        images.length;
+
+
+                    images[index]
+                        ?.classList.add(
+                            "active"
+                        );
+
+                };
+
+
+            const timer =
+                setInterval(
+                    showNext,
+                    3000
+                );
+
+
+            sliderTimers.push(
+                timer
+            );
+
+
+            /* ==================================
+               PAUSE ON HOVER
+            ================================== */
+
+            slider.addEventListener(
+                "mouseenter",
+                () => {
+
+                    slider.dataset.paused =
+                        "true";
+
+                }
+            );
+
+
+            slider.addEventListener(
+                "mouseleave",
+                () => {
+
+                    slider.dataset.paused =
+                        "false";
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   SLIDER VISIBILITY PATCH
+========================================================== */
+
+function refreshSliders() {
+
+    stopSliders();
+
+
+    requestAnimationFrame(
+        () => {
+
+            startSliders();
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   PRODUCT IMAGE MODAL CLICK
+========================================================== */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const image =
+            event.target.closest(
+                ".product-card .product-img"
+            );
+
+
+        if (
+            !image ||
+            !image.src
+        ) {
+
+            return;
+
+        }
+
+
+        event.preventDefault();
+
+
+        openImageModal(
+            image.src
+        );
+
+    }
+);
+
+
+/* ==========================================================
+   PRODUCT CARD LINK PROTECTION
+========================================================== */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const link =
+            event.target.closest(
+                ".product-card a"
+            );
+
+
+        if (!link) {
+
+            return;
+
+        }
+
+
+        /*
+           Wishlist / WhatsApp / image click
+           যেন product page-এ redirect না করে।
+        */
+
+        if (
+            event.target.closest(
+                ".wishlist-btn"
+            ) ||
+            event.target.closest(
+                ".product-whatsapp-btn"
+            )
+        ) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+/* ==========================================================
+   BROWSER BACK / FORWARD
+========================================================== */
+
+window.addEventListener(
+    "popstate",
+    async () => {
+
+        const category =
+            getActiveCategory();
+
+
+        const subCategory =
+            getActiveSubCategory();
+
+
+        setActiveCategoryButton(
+            category,
+            subCategory
+        );
+
+
+        if (
+            category
+        ) {
+
+            renderSubCategories(
+                category,
+                subCategory
+            );
+
+        }
+        else {
+
+            renderSubCategories(
+                ""
+            );
+
+        }
+
+
+        if (
+            $("#productList")
+        ) {
+
+            await loadProducts(
+                category,
+                subCategory
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================================
+   CATEGORY SYSTEM AUTO PATCH
+========================================================== */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        () => {
+
+            initCategorySystem();
+
+        }
+    );
+
+}
+else {
+
+    initCategorySystem();
+
+}
+
+
+/* ==========================================================
+   PART 5 COMPLETE
+========================================================== */
+
+console.log(
+    "📂 Part 5/8 — Category & Product Slider System Loaded."
+);
