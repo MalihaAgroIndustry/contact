@@ -3202,3 +3202,169 @@ else {
 
 }
 
+/* ==========================================================
+   FINAL SAFETY & GLOBAL UTILITIES
+========================================================== */
+
+/*
+   Product ID দিয়ে সরাসরি Product Details page খুলতে
+   চাইলে এই function ব্যবহার করা যাবে।
+*/
+function openProduct(productId) {
+
+    const id =
+        Number(productId);
+
+    if (
+        !Number.isFinite(id) ||
+        id <= 0
+    ) {
+        return;
+    }
+
+    window.location.href =
+        "product.html?id=" +
+        encodeURIComponent(id);
+
+}
+
+
+/* ==========================================================
+   PRODUCT SEARCH RESET
+========================================================== */
+
+function resetProductSearch() {
+
+    const search =
+        $("#searchProduct");
+
+    if (search) {
+
+        search.value = "";
+
+    }
+
+    const sort =
+        $("#sortProducts");
+
+    if (sort) {
+
+        sort.value = "default";
+
+    }
+
+    loadProducts(
+        getActiveCategory(),
+        getActiveSubCategory()
+    );
+
+}
+
+
+/* ==========================================================
+   ESC KEY — CLOSE IMAGE MODAL
+========================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeImageModal();
+
+        }
+
+    }
+);
+
+
+/* ==========================================================
+   PREVENT BROKEN IMAGE ICON
+========================================================== */
+
+document.addEventListener(
+    "error",
+    event => {
+
+        const target =
+            event.target;
+
+        if (
+            target &&
+            target.tagName ===
+            "IMG"
+        ) {
+
+            target.classList.add(
+                "image-load-error"
+            );
+
+        }
+
+    },
+    true
+);
+
+
+/* ==========================================================
+   FINAL GLOBAL STATE CHECK
+========================================================== */
+
+window.MalihaAgro =
+    {
+
+        config:
+            SITE_CONFIG,
+
+        getProducts:
+            () =>
+                products,
+
+        getCategories:
+            () =>
+                categories,
+
+        getWishlist:
+            () =>
+                wishlist,
+
+        openProduct:
+
+            productId =>
+                openProduct(
+                    productId
+                ),
+
+        resetSearch:
+            () =>
+                resetProductSearch()
+
+    };
+
+
+/* ==========================================================
+   FINAL MESSAGE
+========================================================== */
+
+console.log(
+    "🌱 Maliha Agro Industry"
+);
+
+console.log(
+    "✅ script.js loaded successfully."
+);
+
+console.log(
+    "📦 Products:",
+    products.length
+);
+
+console.log(
+    "📂 Categories:",
+    categories.length
+);
+
