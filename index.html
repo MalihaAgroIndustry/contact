@@ -10,19 +10,13 @@
 
     <meta
         name="description"
-        content="মালিহা এগ্রো ইন্ডাস্ট্রি — উন্নত মানের ভার্মি কম্পোস্ট, ট্রাইকো কম্পোস্ট, এগ শেল পাউডার ও জৈব সার।">
+        content="Maliha Agro Market - কৃষি পণ্য, জৈব সার, রাসায়নিক সার, কীটনাশক, বীজ ও কৃষি উপকরণের অনলাইন মার্কেটপ্লেস">
 
     <meta
-        name="keywords"
-        content="মালিহা এগ্রো ইন্ডাস্ট্রি, মালিহা জৈব সার, ভার্মি কম্পোস্ট, কেঁচো সার, ট্রাইকো কম্পোস্ট, এগ শেল পাউডার">
+        name="theme-color"
+        content="#16834a">
 
-    <meta name="theme-color" content="#198754">
-
-    <meta name="author" content="Maliha Agro Industry">
-
-    <title>
-        মালিহা এগ্রো ইন্ডাস্ট্রি | মালিহা জৈব সার
-    </title>
+    <title>Maliha Agro Market</title>
 
     <link
         rel="icon"
@@ -34,7 +28,7 @@
 
     <link
         rel="stylesheet"
-        href="style.css?v=6.0">
+        href="style.css?v=7.0">
 
     <!-- Google Font -->
     <link
@@ -67,25 +61,27 @@
 
 <header class="site-header">
 
-    <div class="container header-inner">
+    <div class="header-inner">
+
+
+        <!-- LOGO -->
 
         <a
             href="index.html"
-            class="brand"
-            aria-label="Maliha Agro Industry Home">
+            class="brand">
 
             <img
                 src="images/logo.png"
-                alt="Maliha Agro Industry Logo">
+                alt="Maliha Agro Market Logo">
 
             <div class="brand-text">
 
                 <strong>
-                    মালিহা এগ্রো ইন্ডাস্ট্রি
+                    Maliha Agro Market
                 </strong>
 
                 <span>
-                    মালিহা জৈব সার
+                    কৃষকের বাজার, এক জায়গায়
                 </span>
 
             </div>
@@ -93,129 +89,475 @@
         </a>
 
 
-        <nav
-            class="desktop-nav"
-            aria-label="প্রধান নেভিগেশন">
+        <!-- DESKTOP SEARCH -->
+
+        <div class="header-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="search"
+                id="searchProduct"
+                placeholder="পণ্য খুঁজুন...">
+
+        </div>
+
+
+        <!-- HEADER ACTIONS -->
+
+        <div class="header-actions">
+
+            <a
+                href="wishlist.html"
+                class="header-action">
+
+                <i class="fa-regular fa-heart"></i>
+
+                <span>
+                    Wishlist
+                </span>
+
+                <b
+                    id="wishlistCounter"
+                    class="action-badge">
+
+                    0
+
+                </b>
+
+            </a>
+
+
+            <a
+                href="cart.html"
+                class="header-action">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span>
+                    Cart
+                </span>
+
+                <b
+                    id="cartCounter"
+                    class="action-badge">
+
+                    0
+
+                </b>
+
+            </a>
+
+        </div>
+
+
+        <!-- MOBILE MENU -->
+
+        <button
+            type="button"
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Menu">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN NAVIGATION
+    ====================================================== -->
+
+    <nav
+        class="main-nav"
+        id="mainNav">
+
+        <div class="nav-inner">
+
 
             <a
                 href="index.html"
-                class="active">
+                class="nav-link active">
 
                 <i class="fa-solid fa-house"></i>
+
                 হোম
 
             </a>
 
-            <a href="products.html">
+
+            <!-- CATEGORY MENU -->
+
+            <div class="nav-category">
+
+                <button
+                    type="button"
+                    class="nav-link category-menu-btn"
+                    id="categoryMenuBtn">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    ক্যাটাগরি
+
+                    <i class="fa-solid fa-chevron-down nav-arrow"></i>
+
+                </button>
+
+
+                <!-- CATEGORY DROPDOWN -->
+
+                <div
+                    class="category-dropdown"
+                    id="categoryDropdown">
+
+
+                    <!-- MAIN CATEGORY -->
+
+                    <div class="category-main-item">
+
+
+                        <button
+                            type="button"
+                            class="category-main-btn"
+                            data-main-category="fertilizer">
+
+                            <span>
+
+                                <i class="fa-solid fa-seedling"></i>
+
+                                সার, ইত্যাদি
+
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <!-- SUB CATEGORY -->
+
+                        <div class="subcategory-panel">
+
+                            <div class="subcategory-title">
+
+                                সার, ইত্যাদি
+
+                            </div>
+
+
+                            <a
+                                href="products.html?category=fertilizer&subcategory=organic">
+
+                                <i class="fa-solid fa-leaf"></i>
+
+                                জৈব সার
+
+                            </a>
+
+
+                            <a
+                                href="products.html?category=fertilizer&subcategory=chemical">
+
+                                <i class="fa-solid fa-flask"></i>
+
+                                রাসায়নিক সার
+
+                            </a>
+
+
+                            <a
+                                href="products.html?category=fertilizer&subcategory=pesticide">
+
+                                <i class="fa-solid fa-bug"></i>
+
+                                কীটনাশক
+
+                            </a>
+
+
+                            <a
+                                href="products.html?category=fertilizer&subcategory=seed">
+
+                                <i class="fa-solid fa-wheat-awn"></i>
+
+                                বীজ
+
+                            </a>
+
+
+                            <a
+                                href="products.html?category=fertilizer&subcategory=other">
+
+                                <i class="fa-solid fa-ellipsis"></i>
+
+                                অন্যান্য কৃষি উপকরণ
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ভবিষ্যতের Main Category -->
+
+                    <div class="category-main-item">
+
+                        <button
+                            type="button"
+                            class="category-main-btn"
+                            data-main-category="tools">
+
+                            <span>
+
+                                <i class="fa-solid fa-screwdriver-wrench"></i>
+
+                                কৃষি সরঞ্জাম
+
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <div class="subcategory-panel">
+
+                            <div class="subcategory-title">
+
+                                কৃষি সরঞ্জাম
+
+                            </div>
+
+
+                            <a
+                                href="products.html?category=tools&subcategory=hand-tools">
+
+                                হাতিয়ার
+
+                            </a>
+
+
+                            <a
+                                href="products.html?category=tools&subcategory=equipment">
+
+                                কৃষি যন্ত্রপাতি
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="category-main-item">
+
+                        <button
+                            type="button"
+                            class="category-main-btn"
+                            data-main-category="nursery">
+
+                            <span>
+
+                                <i class="fa-solid fa-tree"></i>
+
+                                নার্সারি ও গাছ
+
+                            </span>
+
+                            <i class="fa-solid fa-chevron-right"></i>
+
+                        </button>
+
+
+                        <div class="subcategory-panel">
+
+                            <div class="subcategory-title">
+
+                                নার্সারি ও গাছ
+
+                            </div>
+
+
+                            <a
+                                href="products.html?category=nursery&subcategory=plants">
+
+                                গাছের চারা
+
+                            </a>
+
+
+                            <a
+                                href="products.html?category=nursery&subcategory=seeds">
+
+                                বাগানের বীজ
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="products.html"
+                class="nav-link">
 
                 <i class="fa-solid fa-box-open"></i>
-                প্রোডাক্ট
+
+                সকল পণ্য
 
             </a>
 
-            <a href="about.html">
+
+            <a
+                href="vendors.html"
+                class="nav-link">
+
+                <i class="fa-solid fa-store"></i>
+
+                বিক্রেতা
+
+            </a>
+
+
+            <a
+                href="about.html"
+                class="nav-link">
 
                 <i class="fa-solid fa-building"></i>
+
                 আমাদের সম্পর্কে
 
             </a>
 
-            <a href="contact.html">
+
+            <a
+                href="contact.html"
+                class="nav-link">
 
                 <i class="fa-solid fa-phone"></i>
+
                 যোগাযোগ
 
             </a>
 
-        </nav>
+
+            <a
+                href="vendor-register.html"
+                class="vendor-nav-btn">
+
+                <i class="fa-solid fa-store"></i>
+
+                বিক্রেতা হোন
+
+            </a>
 
 
-        <a
-            href="tel:+8801303679189"
-            class="header-call">
+        </div>
 
-            <i class="fa-solid fa-phone"></i>
-
-            <span>
-                কল করুন
-            </span>
-
-        </a>
-
-    </div>
+    </nav>
 
 </header>
 
 
 
 <!-- =========================================================
-     HERO
+     MOBILE SEARCH
+========================================================= -->
+
+<div class="mobile-search-wrap">
+
+    <div class="mobile-search">
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+        <input
+            type="search"
+            id="mobileSearchProduct"
+            placeholder="পণ্য খুঁজুন...">
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     MAIN
 ========================================================= -->
 
 <main>
 
 
-<section class="hero-section">
+<!-- =========================================================
+     HERO
+========================================================= -->
 
-    <div class="container hero-grid">
+<section class="market-hero">
+
+    <div class="hero-inner">
 
 
         <div class="hero-content">
 
 
-            <span class="hero-badge">
+            <span class="hero-kicker">
 
-                <i class="fa-solid fa-leaf"></i>
-
-                ১০০% খাঁটি ও নিরাপদ জৈব সার
+                🌱 বাংলাদেশের কৃষি পণ্যের মার্কেটপ্লেস
 
             </span>
 
 
             <h1>
 
-                কৃষকের আস্থা,
-                <span>
-                    মাটির শক্তি।
-                </span>
+                কৃষির প্রয়োজনীয়
+                <strong>
+                    সবকিছু
+                </strong>
+                এক জায়গায়
 
             </h1>
 
 
-            <p class="hero-description">
+            <p>
 
-                উন্নত মানের জৈব সার ও কৃষি উপকরণের
-                বিশ্বস্ত ঠিকানা—
-                <strong>
-                    মালিহা এগ্রো ইন্ডাস্ট্রি।
-                </strong>
+                জৈব সার, রাসায়নিক সার, কীটনাশক,
+                বীজ ও কৃষি উপকরণ—বিশ্বস্ত বিক্রেতার
+                কাছ থেকে সহজেই কিনুন।
 
             </p>
 
 
-            <div class="hero-actions">
+            <div class="hero-buttons">
 
 
                 <a
                     href="products.html"
-                    class="btn btn-primary">
+                    class="primary-btn">
 
                     <i class="fa-solid fa-bag-shopping"></i>
 
-                    প্রোডাক্ট দেখুন
+                    পণ্য দেখুন
 
                 </a>
 
 
                 <a
-                    href="https://wa.me/8801303679189"
-                    target="_blank"
-                    rel="noopener"
-                    class="btn btn-whatsapp">
+                    href="vendor-register.html"
+                    class="secondary-btn">
 
-                    <i class="fa-brands fa-whatsapp"></i>
+                    <i class="fa-solid fa-store"></i>
 
-                    WhatsApp করুন
+                    বিক্রেতা হোন
 
                 </a>
 
@@ -226,34 +568,34 @@
             <div class="hero-trust">
 
 
-                <div class="trust-item">
+                <div>
 
-                    <i class="fa-solid fa-circle-check"></i>
+                    <i class="fa-solid fa-shield-halved"></i>
 
                     <span>
-                        মানসম্মত পণ্য
+                        বিশ্বস্ত পণ্য
                     </span>
 
                 </div>
 
 
-                <div class="trust-item">
+                <div>
 
                     <i class="fa-solid fa-truck-fast"></i>
 
                     <span>
-                        সারা দেশে ডেলিভারি
+                        দ্রুত ডেলিভারি
                     </span>
 
                 </div>
 
 
-                <div class="trust-item">
+                <div>
 
                     <i class="fa-solid fa-headset"></i>
 
                     <span>
-                        সরাসরি যোগাযোগ
+                        সাপোর্ট
                     </span>
 
                 </div>
@@ -265,31 +607,30 @@
         </div>
 
 
-
         <div class="hero-visual">
 
 
             <div class="hero-image-card">
 
                 <img
-                    src="images/welcome.jpg"
-                    alt="Maliha Agro Industry Organic Fertilizer">
+                    src="images/hero.jpg"
+                    alt="Maliha Agro Market">
 
             </div>
 
 
-            <div class="hero-floating-card hero-floating-one">
+            <div class="hero-floating-card floating-one">
 
                 <i class="fa-solid fa-seedling"></i>
 
                 <div>
 
                     <strong>
-                        প্রাকৃতিক পুষ্টি
+                        কৃষি পণ্য
                     </strong>
 
                     <span>
-                        মাটির জন্য নিরাপদ
+                        এক জায়গায়
                     </span>
 
                 </div>
@@ -297,18 +638,18 @@
             </div>
 
 
-            <div class="hero-floating-card hero-floating-two">
+            <div class="hero-floating-card floating-two">
 
-                <i class="fa-solid fa-award"></i>
+                <i class="fa-solid fa-leaf"></i>
 
                 <div>
 
                     <strong>
-                        উন্নত মান
+                        জৈব সার
                     </strong>
 
                     <span>
-                        মান নিয়ন্ত্রণে প্রস্তুত
+                        নিরাপদ কৃষি
                     </span>
 
                 </div>
@@ -326,109 +667,345 @@
 
 
 <!-- =========================================================
-     QUICK STATS
+     MAIN CATEGORY
 ========================================================= -->
 
-<section class="quick-stats-section">
-
-    <div class="container">
-
-        <div class="quick-stats">
+<section class="category-section">
 
 
-            <div class="stat-card">
+    <div class="section-heading">
 
-                <div class="stat-icon">
+        <div>
 
-                    <i class="fa-solid fa-leaf"></i>
+            <span class="section-label">
+                CATEGORY
+            </span>
 
-                </div>
+            <h2>
+                প্রধান ক্যাটাগরি
+            </h2>
 
-                <div>
-
-                    <strong>
-                        ১০০%
-                    </strong>
-
-                    <span>
-                        জৈব পণ্য
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-
-                    <i class="fa-solid fa-box-open"></i>
-
-                </div>
-
-                <div>
-
-                    <strong>
-                        মানসম্মত
-                    </strong>
-
-                    <span>
-                        কৃষি পণ্য
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-
-                    <i class="fa-solid fa-truck-fast"></i>
-
-                </div>
-
-                <div>
-
-                    <strong>
-                        সারা দেশ
-                    </strong>
-
-                    <span>
-                        ডেলিভারি সুবিধা
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <div class="stat-icon">
-
-                    <i class="fa-solid fa-headset"></i>
-
-                </div>
-
-                <div>
-
-                    <strong>
-                        সরাসরি
-                    </strong>
-
-                    <span>
-                        কাস্টমার সাপোর্ট
-                    </span>
-
-                </div>
-
-            </div>
-
+            <p>
+                আপনার প্রয়োজনীয় কৃষি পণ্য খুঁজে নিন।
+            </p>
 
         </div>
+
+
+        <a
+            href="products.html"
+            class="view-all-link">
+
+            সব দেখুন
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+
+    <div class="main-category-grid">
+
+
+        <!-- সার -->
+
+        <a
+            href="products.html?category=fertilizer"
+            class="main-category-card">
+
+            <div class="category-icon">
+
+                <i class="fa-solid fa-seedling"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    সার, ইত্যাদি
+                </h3>
+
+                <p>
+                    জৈব সার, রাসায়নিক সার ও আরও অনেক কিছু
+                </p>
+
+            </div>
+
+            <i class="fa-solid fa-arrow-right category-arrow"></i>
+
+        </a>
+
+
+        <!-- কৃষি সরঞ্জাম -->
+
+        <a
+            href="products.html?category=tools"
+            class="main-category-card">
+
+            <div class="category-icon">
+
+                <i class="fa-solid fa-screwdriver-wrench"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    কৃষি সরঞ্জাম
+                </h3>
+
+                <p>
+                    প্রয়োজনীয় কৃষি যন্ত্রপাতি ও সরঞ্জাম
+                </p>
+
+            </div>
+
+            <i class="fa-solid fa-arrow-right category-arrow"></i>
+
+        </a>
+
+
+        <!-- নার্সারি -->
+
+        <a
+            href="products.html?category=nursery"
+            class="main-category-card">
+
+            <div class="category-icon">
+
+                <i class="fa-solid fa-tree"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    নার্সারি ও গাছ
+                </h3>
+
+                <p>
+                    চারা, বীজ ও বাগানের পণ্য
+                </p>
+
+            </div>
+
+            <i class="fa-solid fa-arrow-right category-arrow"></i>
+
+        </a>
+
+
+        <!-- অন্যান্য -->
+
+        <a
+            href="products.html?category=other"
+            class="main-category-card">
+
+            <div class="category-icon">
+
+                <i class="fa-solid fa-ellipsis"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    অন্যান্য
+                </h3>
+
+                <p>
+                    অন্যান্য কৃষি প্রয়োজনীয় পণ্য
+                </p>
+
+            </div>
+
+            <i class="fa-solid fa-arrow-right category-arrow"></i>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SUB CATEGORY — SAR
+========================================================= -->
+
+<section class="subcategory-section">
+
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                SAR, ETC.
+            </span>
+
+            <h2>
+                সার, ইত্যাদি
+            </h2>
+
+            <p>
+                সার ও কৃষি সুরক্ষার প্রয়োজনীয় পণ্য
+            </p>
+
+        </div>
+
+
+        <a
+            href="products.html?category=fertilizer"
+            class="view-all-link">
+
+            সব দেখুন
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+
+    <div class="subcategory-grid">
+
+
+        <a
+            href="products.html?category=fertilizer&subcategory=organic"
+            class="subcategory-card">
+
+            <div class="subcategory-icon organic">
+
+                <i class="fa-solid fa-leaf"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    জৈব সার
+                </h3>
+
+                <span>
+                    প্রাকৃতিক ও পরিবেশবান্ধব
+                </span>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </a>
+
+
+        <a
+            href="products.html?category=fertilizer&subcategory=chemical"
+            class="subcategory-card">
+
+            <div class="subcategory-icon chemical">
+
+                <i class="fa-solid fa-flask"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    রাসায়নিক সার
+                </h3>
+
+                <span>
+                    প্রয়োজনীয় পুষ্টি উপাদান
+                </span>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </a>
+
+
+        <a
+            href="products.html?category=fertilizer&subcategory=pesticide"
+            class="subcategory-card">
+
+            <div class="subcategory-icon pesticide">
+
+                <i class="fa-solid fa-bug"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    কীটনাশক
+                </h3>
+
+                <span>
+                    ফসল সুরক্ষার পণ্য
+                </span>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </a>
+
+
+        <a
+            href="products.html?category=fertilizer&subcategory=seed"
+            class="subcategory-card">
+
+            <div class="subcategory-icon seed">
+
+                <i class="fa-solid fa-wheat-awn"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    বীজ
+                </h3>
+
+                <span>
+                    বিভিন্ন কৃষি বীজ
+                </span>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </a>
+
+
+        <a
+            href="products.html?category=fertilizer&subcategory=other"
+            class="subcategory-card">
+
+            <div class="subcategory-icon other">
+
+                <i class="fa-solid fa-boxes-stacked"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    অন্যান্য কৃষি উপকরণ
+                </h3>
+
+                <span>
+                    কৃষির প্রয়োজনীয় অন্যান্য পণ্য
+                </span>
+
+            </div>
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+        </a>
+
 
     </div>
 
@@ -440,159 +1017,284 @@
      PRODUCTS
 ========================================================= -->
 
-<section
-    class="products-section section-padding"
-    id="products">
-
-    <div class="container">
+<section class="products-section">
 
 
-        <div class="section-heading">
+    <div class="section-heading">
 
-            <span class="section-kicker">
-                OUR PRODUCTS
+        <div>
+
+            <span class="section-label">
+                PRODUCTS
             </span>
 
             <h2>
-                আমাদের জনপ্রিয় প্রোডাক্ট
+                জনপ্রিয় পণ্য
             </h2>
 
             <p>
-                কৃষির প্রয়োজন অনুযায়ী মানসম্মত জৈব সার ও
-                কৃষি উপকরণ।
+                কৃষকদের পছন্দের পণ্যগুলো দেখুন।
             </p>
 
         </div>
 
 
+        <a
+            href="products.html"
+            class="view-all-link">
 
-        <!-- Product Search -->
+            সকল পণ্য
 
-        <div class="product-toolbar">
+            <i class="fa-solid fa-arrow-right"></i>
+
+        </a>
+
+    </div>
 
 
-            <div class="product-search">
+    <!-- PRODUCT TOOLBAR -->
 
-                <i class="fa-solid fa-magnifying-glass"></i>
+    <div class="product-toolbar">
 
-                <input
-                    type="search"
-                    id="searchProduct"
-                    placeholder="প্রোডাক্ট খুঁজুন..."
-                    aria-label="প্রোডাক্ট খুঁজুন">
+
+        <div class="product-search">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="search"
+                id="productSearch"
+                placeholder="এই ক্যাটাগরিতে পণ্য খুঁজুন...">
+
+        </div>
+
+
+        <select
+            id="sortProducts"
+            aria-label="পণ্য সাজান">
+
+            <option value="default">
+                সাজান
+            </option>
+
+            <option value="low-high">
+                মূল্য: কম থেকে বেশি
+            </option>
+
+            <option value="high-low">
+                মূল্য: বেশি থেকে কম
+            </option>
+
+            <option value="new">
+                নতুন পণ্য
+            </option>
+
+            <option value="best">
+                জনপ্রিয় পণ্য
+            </option>
+
+        </select>
+
+
+    </div>
+
+
+    <!-- PRODUCT CATEGORY FILTER -->
+
+    <div class="product-category-tabs">
+
+
+        <button
+            type="button"
+            class="product-filter-btn active"
+            data-category="all">
+
+            সব
+
+        </button>
+
+
+        <button
+            type="button"
+            class="product-filter-btn"
+            data-category="fertilizer"
+            data-subcategory="organic">
+
+            জৈব সার
+
+        </button>
+
+
+        <button
+            type="button"
+            class="product-filter-btn"
+            data-category="fertilizer"
+            data-subcategory="chemical">
+
+            রাসায়নিক সার
+
+        </button>
+
+
+        <button
+            type="button"
+            class="product-filter-btn"
+            data-category="fertilizer"
+            data-subcategory="pesticide">
+
+            কীটনাশক
+
+        </button>
+
+
+        <button
+            type="button"
+            class="product-filter-btn"
+            data-category="fertilizer"
+            data-subcategory="seed">
+
+            বীজ
+
+        </button>
+
+
+    </div>
+
+
+    <!-- PRODUCTS WILL LOAD HERE -->
+
+    <div
+        id="productList"
+        class="products-grid">
+
+        <!-- script.js will insert products here -->
+
+    </div>
+
+
+    <!-- NO RESULT -->
+
+    <div
+        id="noProducts"
+        class="no-products"
+        hidden>
+
+        <i class="fa-solid fa-box-open"></i>
+
+        <h3>
+            কোনো পণ্য পাওয়া যায়নি
+        </h3>
+
+        <p>
+            অন্য কোনো পণ্য বা ক্যাটাগরি দিয়ে চেষ্টা করুন।
+        </p>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- =========================================================
+     WHY MALIHA AGRO MARKET
+========================================================= -->
+
+<section class="why-market-section">
+
+
+    <div class="section-heading centered">
+
+        <span class="section-label">
+            WHY US
+        </span>
+
+        <h2>
+            কেন Maliha Agro Market?
+        </h2>
+
+        <p>
+            কৃষকের প্রয়োজনকে সামনে রেখে আমাদের সেবা।
+        </p>
+
+    </div>
+
+
+    <div class="benefit-grid">
+
+
+        <div class="benefit-card">
+
+            <div class="benefit-icon">
+
+                <i class="fa-solid fa-store"></i>
 
             </div>
 
+            <h3>
+                একাধিক বিক্রেতা
+            </h3>
 
-            <select
-                id="sortProducts"
-                aria-label="প্রোডাক্ট সাজান">
-
-                <option value="default">
-                    সাজান
-                </option>
-
-                <option value="low-high">
-                    মূল্য: কম → বেশি
-                </option>
-
-                <option value="high-low">
-                    মূল্য: বেশি → কম
-                </option>
-
-                <option value="new">
-                    নতুন প্রোডাক্ট
-                </option>
-
-                <option value="best">
-                    জনপ্রিয়
-                </option>
-
-            </select>
-
+            <p>
+                বিভিন্ন বিক্রেতার কৃষি পণ্য এক জায়গায়।
+            </p>
 
         </div>
 
 
+        <div class="benefit-card">
 
-        <!-- Categories -->
+            <div class="benefit-icon">
 
-        <div class="category-filter">
+                <i class="fa-solid fa-shield-halved"></i>
 
+            </div>
 
-            <button
-                type="button"
-                class="filter-btn active"
-                data-category="all">
+            <h3>
+                বিশ্বস্ত কেনাকাটা
+            </h3>
 
-                <i class="fa-solid fa-layer-group"></i>
-
-                সব
-
-            </button>
-
-
-            <button
-                type="button"
-                class="filter-btn"
-                data-category="vermi">
-
-                <i class="fa-solid fa-bug"></i>
-
-                ভার্মি কম্পোস্ট
-
-            </button>
-
-
-            <button
-                type="button"
-                class="filter-btn"
-                data-category="tricho">
-
-                <i class="fa-solid fa-seedling"></i>
-
-                ট্রাইকো কম্পোস্ট
-
-            </button>
-
-
-            <button
-                type="button"
-                class="filter-btn"
-                data-category="egg">
-
-                <i class="fa-solid fa-egg"></i>
-
-                এগ শেল পাউডার
-
-            </button>
-
+            <p>
+                পণ্য ও বিক্রেতা সম্পর্কে প্রয়োজনীয় তথ্যসহ কেনাকাটা।
+            </p>
 
         </div>
 
 
+        <div class="benefit-card">
 
-        <!-- Dynamic Product List -->
+            <div class="benefit-icon">
 
-        <div
-            id="productList"
-            class="products-grid">
+                <i class="fa-solid fa-truck-fast"></i>
+
+            </div>
+
+            <h3>
+                ডেলিভারি সুবিধা
+            </h3>
+
+            <p>
+                আপনার প্রয়োজন অনুযায়ী পণ্য পৌঁছে দেওয়ার ব্যবস্থা।
+            </p>
 
         </div>
 
 
+        <div class="benefit-card">
 
-        <div class="section-action">
+            <div class="benefit-icon">
 
-            <a
-                href="products.html"
-                class="btn btn-outline">
+                <i class="fa-solid fa-headset"></i>
 
-                সকল প্রোডাক্ট দেখুন
+            </div>
 
-                <i class="fa-solid fa-arrow-right"></i>
+            <h3>
+                কাস্টমার সাপোর্ট
+            </h3>
 
-            </a>
+            <p>
+                প্রয়োজন হলে আমাদের সাপোর্ট টিমের সঙ্গে যোগাযোগ করুন।
+            </p>
 
         </div>
 
@@ -604,436 +1306,51 @@
 
 
 <!-- =========================================================
-     ABOUT / WELCOME
+     VENDOR CTA
 ========================================================= -->
 
-<section class="about-preview section-padding">
-
-    <div class="container about-preview-grid">
+<section class="vendor-cta">
 
 
-        <div class="about-preview-image">
-
-            <img
-                src="images/welcome.jpg"
-                alt="Maliha Agro Industry">
-
-            <div class="experience-badge">
-
-                <strong>
-                    MAI
-                </strong>
-
-                <span>
-                    কৃষির পাশে
-                </span>
-
-            </div>
-
-        </div>
+    <div class="vendor-cta-content">
 
 
-
-        <div class="about-preview-content">
-
-
-            <span class="section-kicker">
-                ABOUT MALIHA AGRO INDUSTRY
-            </span>
+        <span class="section-label">
+            SELL WITH US
+        </span>
 
 
-            <h2>
-                নিরাপদ কৃষি,
-                সমৃদ্ধ ভবিষ্যৎ।
-            </h2>
+        <h2>
+            আপনার কৃষি পণ্য অনলাইনে বিক্রি করুন
+        </h2>
 
 
-            <p>
-
-                মালিহা এগ্রো ইন্ডাস্ট্রি কৃষকদের জন্য
-                উন্নত মানের ভার্মি কম্পোস্ট,
-                ট্রাইকো কম্পোস্ট, এগ শেল পাউডার
-                এবং অন্যান্য জৈব সার সরবরাহ করে।
-
-            </p>
+        <p>
+            Maliha Agro Market-এ বিক্রেতা হিসেবে যুক্ত হয়ে
+            আপনার পণ্য আরও বেশি ক্রেতার কাছে পৌঁছে দিন।
+        </p>
 
 
-            <p>
+        <a
+            href="vendor-register.html"
+            class="primary-btn">
 
-                আমাদের লক্ষ্য হলো কৃষকের হাতে
-                মানসম্মত ও নিরাপদ কৃষি উপকরণ পৌঁছে দেওয়া
-                এবং মাটির স্বাস্থ্য ও উর্বরতা রক্ষায়
-                ভূমিকা রাখা।
+            <i class="fa-solid fa-store"></i>
 
-            </p>
+            বিক্রেতা হিসেবে নিবন্ধন করুন
 
-
-            <div class="about-points">
-
-
-                <div>
-
-                    <i class="fa-solid fa-circle-check"></i>
-
-                    <span>
-                        মানসম্মত উৎপাদন
-                    </span>
-
-                </div>
-
-
-                <div>
-
-                    <i class="fa-solid fa-circle-check"></i>
-
-                    <span>
-                        কৃষকবান্ধব সেবা
-                    </span>
-
-                </div>
-
-
-                <div>
-
-                    <i class="fa-solid fa-circle-check"></i>
-
-                    <span>
-                        নিরাপদ কৃষির অঙ্গীকার
-                    </span>
-
-                </div>
-
-
-            </div>
-
-
-            <a
-                href="about.html"
-                class="btn btn-primary">
-
-                আমাদের সম্পর্কে
-
-                <i class="fa-solid fa-arrow-right"></i>
-
-            </a>
-
-
-        </div>
+        </a>
 
 
     </div>
 
-</section>
 
+    <div class="vendor-cta-icon">
 
-
-<!-- =========================================================
-     WHY CHOOSE US
-========================================================= -->
-
-<section class="why-section section-padding">
-
-    <div class="container">
-
-
-        <div class="section-heading">
-
-            <span class="section-kicker">
-                WHY CHOOSE US
-            </span>
-
-            <h2>
-                কেন মালিহা এগ্রো ইন্ডাস্ট্রি?
-            </h2>
-
-            <p>
-                কৃষকের প্রয়োজন ও আস্থাকে সর্বোচ্চ গুরুত্ব দিয়ে
-                আমাদের সেবা পরিচালিত হয়।
-            </p>
-
-        </div>
-
-
-
-        <div class="why-grid">
-
-
-            <article class="why-card">
-
-                <div class="why-icon">
-
-                    <i class="fa-solid fa-seedling"></i>
-
-                </div>
-
-                <h3>
-                    জৈব ও নিরাপদ
-                </h3>
-
-                <p>
-                    কৃষি ও মাটির জন্য নিরাপদ
-                    জৈব সার ও কৃষি উপকরণ।
-                </p>
-
-            </article>
-
-
-            <article class="why-card">
-
-                <div class="why-icon">
-
-                    <i class="fa-solid fa-award"></i>
-
-                </div>
-
-                <h3>
-                    মানের প্রতি গুরুত্ব
-                </h3>
-
-                <p>
-                    পণ্যের মান ও উৎপাদন প্রক্রিয়ায়
-                    সর্বোচ্চ গুরুত্ব দেওয়া হয়।
-                </p>
-
-            </article>
-
-
-            <article class="why-card">
-
-                <div class="why-icon">
-
-                    <i class="fa-solid fa-truck-fast"></i>
-
-                </div>
-
-                <h3>
-                    ডেলিভারি সুবিধা
-                </h3>
-
-                <p>
-                    দেশের বিভিন্ন স্থানে পণ্য পৌঁছে দেওয়ার
-                    সুবিধা রয়েছে।
-                </p>
-
-            </article>
-
-
-            <article class="why-card">
-
-                <div class="why-icon">
-
-                    <i class="fa-solid fa-headset"></i>
-
-                </div>
-
-                <h3>
-                    সরাসরি সাপোর্ট
-                </h3>
-
-                <p>
-                    পণ্য ও অর্ডার সংক্রান্ত বিষয়ে
-                    সরাসরি যোগাযোগের সুযোগ।
-                </p>
-
-            </article>
-
-
-        </div>
-
+        <i class="fa-solid fa-shop"></i>
 
     </div>
 
-</section>
-
-
-
-<!-- =========================================================
-     FOUNDER
-========================================================= -->
-
-<section class="founder-section section-padding">
-
-    <div class="container">
-
-
-        <div class="section-heading">
-
-            <span class="section-kicker">
-                OUR FOUNDER
-            </span>
-
-            <h2>
-                প্রতিষ্ঠাতা
-            </h2>
-
-            <p>
-                কৃষির জন্য একটি স্বপ্ন থেকে যাত্রা।
-            </p>
-
-        </div>
-
-
-
-        <div class="founder-card">
-
-
-            <div class="founder-photo">
-
-                <img
-                    id="founder-photo"
-                    src="images/founder.jpg"
-                    alt="মোঃ মাইনুর রেজা">
-
-            </div>
-
-
-
-            <div class="founder-info">
-
-
-                <span class="founder-label">
-                    Founder & Managing Director
-                </span>
-
-
-                <h2>
-                    মোঃ মাইনুর রেজা
-                </h2>
-
-
-                <p>
-
-                    কৃষকদের জন্য নিরাপদ ও মানসম্মত
-                    জৈব সার পৌঁছে দেওয়ার লক্ষ্য নিয়ে
-                    মালিহা এগ্রো ইন্ডাস্ট্রির যাত্রা।
-
-                </p>
-
-
-                <p>
-
-                    মানসম্মত উৎপাদন, কৃষকের আস্থা এবং
-                    পরিবেশবান্ধব কৃষি—এই মূলনীতিকে সামনে
-                    রেখে প্রতিষ্ঠানটি এগিয়ে যাচ্ছে।
-
-                </p>
-
-
-                <a
-                    href="about.html"
-                    class="text-link">
-
-                    আরও জানুন
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
-
-            </div>
-
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     MISSION / VISION
-========================================================= -->
-
-<section class="mission-section section-padding">
-
-    <div class="container">
-
-
-        <div class="section-heading">
-
-            <span class="section-kicker">
-                OUR VALUES
-            </span>
-
-            <h2>
-                আমাদের লক্ষ্য ও অঙ্গীকার
-            </h2>
-
-        </div>
-
-
-
-        <div class="mission-grid">
-
-
-            <article class="mission-card">
-
-                <div class="mission-icon">
-
-                    <i class="fa-solid fa-bullseye"></i>
-
-                </div>
-
-                <h3>
-                    আমাদের লক্ষ্য
-                </h3>
-
-                <p>
-                    কৃষকদের জন্য উন্নত মানের জৈব সার
-                    ও কৃষি উপকরণ সরবরাহ করা।
-                </p>
-
-            </article>
-
-
-            <article class="mission-card">
-
-                <div class="mission-icon">
-
-                    <i class="fa-solid fa-eye"></i>
-
-                </div>
-
-                <h3>
-                    আমাদের ভিশন
-                </h3>
-
-                <p>
-                    বাংলাদেশে একটি বিশ্বস্ত ও
-                    মানসম্মত জৈব সার ব্র্যান্ড হিসেবে
-                    প্রতিষ্ঠিত হওয়া।
-                </p>
-
-            </article>
-
-
-            <article class="mission-card">
-
-                <div class="mission-icon">
-
-                    <i class="fa-solid fa-handshake"></i>
-
-                </div>
-
-                <h3>
-                    আমাদের প্রতিশ্রুতি
-                </h3>
-
-                <p>
-                    খাঁটি পণ্য, সঠিক তথ্য,
-                    কৃষকবান্ধব সেবা ও
-                    দায়িত্বশীল ব্যবসা।
-                </p>
-
-            </article>
-
-
-        </div>
-
-
-    </div>
 
 </section>
 
@@ -1043,210 +1360,55 @@
      CONTACT CTA
 ========================================================= -->
 
-<section class="contact-cta-section">
-
-    <div class="container">
+<section class="contact-cta">
 
 
-        <div class="contact-cta">
+    <div>
+
+        <span class="section-label">
+            NEED HELP?
+        </span>
+
+        <h2>
+            পণ্য সম্পর্কে জানতে যোগাযোগ করুন
+        </h2>
+
+        <p>
+            পণ্য, অর্ডার বা ডেলিভারি সংক্রান্ত যেকোনো বিষয়ে আমাদের সঙ্গে যোগাযোগ করুন।
+        </p>
+
+    </div>
 
 
-            <div class="contact-cta-content">
+    <div class="contact-cta-buttons">
 
 
-                <span>
-                    MALIHA AGRO INDUSTRY
-                </span>
+        <a
+            href="tel:+8801303679189"
+            class="primary-btn">
+
+            <i class="fa-solid fa-phone"></i>
+
+            কল করুন
+
+        </a>
 
 
-                <h2>
-                    আপনার কৃষির জন্য
-                    সঠিক পণ্য বেছে নিন।
-                </h2>
+        <a
+            href="https://wa.me/8801303679189"
+            target="_blank"
+            rel="noopener"
+            class="whatsapp-btn">
 
+            <i class="fa-brands fa-whatsapp"></i>
 
-                <p>
-                    পণ্য, মূল্য, ডেলিভারি অথবা অর্ডার
-                    সম্পর্কে জানতে সরাসরি যোগাযোগ করুন।
-                </p>
+            WhatsApp
 
-
-            </div>
-
-
-
-            <div class="contact-cta-actions">
-
-
-                <a
-                    href="tel:+8801303679189"
-                    class="btn btn-white">
-
-                    <i class="fa-solid fa-phone"></i>
-
-                    +880 1303-679189
-
-                </a>
-
-
-                <a
-                    href="contact.html"
-                    class="btn btn-light-outline">
-
-                    যোগাযোগ করুন
-
-                    <i class="fa-solid fa-arrow-right"></i>
-
-                </a>
-
-
-            </div>
-
-
-        </div>
+        </a>
 
 
     </div>
 
-</section>
-
-
-
-<!-- =========================================================
-     LOCATION
-========================================================= -->
-
-<section class="location-section section-padding">
-
-    <div class="container">
-
-
-        <div class="section-heading">
-
-            <span class="section-kicker">
-                FIND US
-            </span>
-
-            <h2>
-                আমাদের অবস্থান
-            </h2>
-
-            <p>
-                ইসলামপুর, কানসাট, শিবগঞ্জ,
-                চাঁপাইনবাবগঞ্জ।
-            </p>
-
-        </div>
-
-
-        <div class="map-wrapper">
-
-            <iframe
-                src="https://www.google.com/maps?q=Kansat+Shibganj+Chapainawabganj&output=embed"
-                loading="lazy"
-                allowfullscreen
-                title="Maliha Agro Industry Location">
-            </iframe>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =========================================================
-     SOCIAL
-========================================================= -->
-
-<section class="social-section section-padding">
-
-    <div class="container">
-
-
-        <div class="section-heading">
-
-            <span class="section-kicker">
-                CONNECT WITH US
-            </span>
-
-            <h2>
-                আমাদের সাথে যুক্ত থাকুন
-            </h2>
-
-        </div>
-
-
-
-        <div class="social-grid">
-
-
-            <a
-                href="#"
-                class="social-card facebook"
-                aria-label="Facebook">
-
-                <i class="fa-brands fa-facebook-f"></i>
-
-                <span>
-                    Facebook
-                </span>
-
-            </a>
-
-
-            <a
-                href="#"
-                class="social-card youtube"
-                aria-label="YouTube">
-
-                <i class="fa-brands fa-youtube"></i>
-
-                <span>
-                    YouTube
-                </span>
-
-            </a>
-
-
-            <a
-                href="https://wa.me/8801303679189"
-                target="_blank"
-                rel="noopener"
-                class="social-card whatsapp"
-                aria-label="WhatsApp">
-
-                <i class="fa-brands fa-whatsapp"></i>
-
-                <span>
-                    WhatsApp
-                </span>
-
-            </a>
-
-
-            <a
-                href="https://malihaagroindustry.github.io/contact/"
-                target="_blank"
-                rel="noopener"
-                class="social-card website"
-                aria-label="Official Website">
-
-                <i class="fa-solid fa-globe"></i>
-
-                <span>
-                    Official Website
-                </span>
-
-            </a>
-
-
-        </div>
-
-
-    </div>
 
 </section>
 
@@ -1261,7 +1423,8 @@
 
 <footer class="site-footer">
 
-    <div class="container footer-grid">
+
+    <div class="footer-grid">
 
 
         <div class="footer-brand">
@@ -1273,31 +1436,64 @@
 
                 <img
                     src="images/logo.png"
-                    alt="Maliha Agro Industry">
+                    alt="Maliha Agro Market">
+
+                <strong>
+                    Maliha Agro Market
+                </strong>
 
             </a>
 
 
-            <h3>
-                মালিহা এগ্রো ইন্ডাস্ট্রি
-            </h3>
-
-
             <p>
-                ১০০% খাঁটি ও নিরাপদ জৈব সার প্রস্তুতকারক।
+                কৃষকের প্রয়োজনীয় কৃষি পণ্য সহজে
+                কেনাবেচার একটি আধুনিক মার্কেটপ্লেস।
             </p>
+
+
+            <div class="footer-social">
+
+
+                <a
+                    href="#"
+                    aria-label="Facebook">
+
+                    <i class="fa-brands fa-facebook-f"></i>
+
+                </a>
+
+
+                <a
+                    href="#"
+                    aria-label="YouTube">
+
+                    <i class="fa-brands fa-youtube"></i>
+
+                </a>
+
+
+                <a
+                    href="https://wa.me/8801303679189"
+                    target="_blank"
+                    rel="noopener"
+                    aria-label="WhatsApp">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                </a>
+
+
+            </div>
 
 
         </div>
 
 
+        <div class="footer-column">
 
-        <div class="footer-links">
-
-
-            <h4>
+            <h3>
                 দ্রুত লিংক
-            </h4>
+            </h3>
 
 
             <a href="index.html">
@@ -1305,7 +1501,11 @@
             </a>
 
             <a href="products.html">
-                প্রোডাক্ট
+                সকল পণ্য
+            </a>
+
+            <a href="vendors.html">
+                বিক্রেতা
             </a>
 
             <a href="about.html">
@@ -1316,17 +1516,54 @@
                 যোগাযোগ
             </a>
 
+        </div>
+
+
+        <div class="footer-column">
+
+            <h3>
+                ক্যাটাগরি
+            </h3>
+
+
+            <a href="products.html?category=fertilizer&subcategory=organic">
+                জৈব সার
+            </a>
+
+            <a href="products.html?category=fertilizer&subcategory=chemical">
+                রাসায়নিক সার
+            </a>
+
+            <a href="products.html?category=fertilizer&subcategory=pesticide">
+                কীটনাশক
+            </a>
+
+            <a href="products.html?category=fertilizer&subcategory=seed">
+                বীজ
+            </a>
+
+            <a href="products.html?category=fertilizer&subcategory=other">
+                অন্যান্য কৃষি উপকরণ
+            </a>
 
         </div>
 
 
+        <div class="footer-column">
 
-        <div class="footer-contact">
-
-
-            <h4>
+            <h3>
                 যোগাযোগ
-            </h4>
+            </h3>
+
+
+            <p>
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                ইসলামপুর, কানসাট,
+                শিবগঞ্জ, চাঁপাইনবাবগঞ্জ
+
+            </p>
 
 
             <a href="tel:+8801303679189">
@@ -1347,94 +1584,39 @@
             </a>
 
 
-            <p>
-
-                <i class="fa-solid fa-location-dot"></i>
-
-                ইসলামপুর, কানসাট,
-                শিবগঞ্জ, চাঁপাইনবাবগঞ্জ
-
-            </p>
-
-
         </div>
 
 
     </div>
 
 
-
-    <div class="container footer-bottom">
+    <div class="footer-bottom">
 
 
         <p>
-
-            © 2026
-            <strong>
-                Maliha Agro Industry
-            </strong>
-
-            — All Rights Reserved.
-
+            © 2026 Maliha Agro Market. All Rights Reserved.
         </p>
 
 
-        <a
-            href="https://malihaagroindustry.github.io/contact/"
-            target="_blank"
-            rel="noopener">
-
-            Official Website
-
-        </a>
+        <p>
+            A Maliha Agro Industry Initiative
+        </p>
 
 
     </div>
+
 
 </footer>
 
 
 
 <!-- =========================================================
-     FLOATING WHATSAPP
-========================================================= -->
-
-<a
-    href="https://wa.me/8801303679189"
-    class="whatsapp-float"
-    target="_blank"
-    rel="noopener"
-    aria-label="WhatsApp">
-
-    <i class="fa-brands fa-whatsapp"></i>
-
-</a>
-
-
-
-<!-- =========================================================
-     BACK TO TOP
-========================================================= -->
-
-<button
-    id="backToTop"
-    class="back-to-top"
-    type="button"
-    aria-label="উপরে যান">
-
-    <i class="fa-solid fa-arrow-up"></i>
-
-</button>
-
-
-
-<!-- =========================================================
-     MOBILE BOTTOM NAVIGATION
+     MOBILE BOTTOM NAV
 ========================================================= -->
 
 <nav
-    class="bottom-nav"
-    aria-label="মোবাইল নেভিগেশন">
+    class="mobile-bottom-nav"
+    aria-label="Mobile Navigation">
 
 
     <a
@@ -1450,40 +1632,44 @@
     </a>
 
 
-    <a href="products.html">
+    <a
+        href="products.html">
 
         <i class="fa-solid fa-box-open"></i>
 
         <span>
-            প্রোডাক্ট
+            পণ্য
         </span>
 
     </a>
 
 
-    <a href="wishlist.html">
+    <a
+        href="wishlist.html">
 
-        <i class="fa-solid fa-heart"></i>
-
-        <span id="wishlistCounter">
-            Wishlist (0)
-        </span>
-
-    </a>
-
-
-    <a href="about.html">
-
-        <i class="fa-solid fa-building"></i>
+        <i class="fa-regular fa-heart"></i>
 
         <span>
-            সম্পর্কে
+            Wishlist
         </span>
 
     </a>
 
 
-    <a href="contact.html">
+    <a
+        href="cart.html">
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+        <span>
+            Cart
+        </span>
+
+    </a>
+
+
+    <a
+        href="contact.html">
 
         <i class="fa-solid fa-phone"></i>
 
@@ -1495,6 +1681,39 @@
 
 
 </nav>
+
+
+
+<!-- =========================================================
+     FLOATING WHATSAPP
+========================================================= -->
+
+<a
+    href="https://wa.me/8801303679189"
+    class="floating-whatsapp"
+    target="_blank"
+    rel="noopener"
+    aria-label="WhatsApp">
+
+    <i class="fa-brands fa-whatsapp"></i>
+
+</a>
+
+
+
+<!-- =========================================================
+     BACK TO TOP
+========================================================= -->
+
+<button
+    type="button"
+    id="backToTop"
+    class="back-to-top"
+    aria-label="উপরে যান">
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+</button>
 
 
 
@@ -1511,9 +1730,10 @@
     <button
         type="button"
         class="close-modal"
+        id="closeModal"
         aria-label="বন্ধ করুন">
 
-        &times;
+        <i class="fa-solid fa-xmark"></i>
 
     </button>
 
@@ -1521,7 +1741,7 @@
     <img
         id="modalImage"
         src=""
-        alt="Image Preview">
+        alt="Product Preview">
 
 
 </div>
@@ -1529,10 +1749,12 @@
 
 
 <!-- =========================================================
-     JAVASCRIPT
+     SCRIPT
 ========================================================= -->
 
-<script src="script.js?v=6.0"></script>
+<script
+    src="script.js?v=7.0">
+</script>
 
 
 </body>
