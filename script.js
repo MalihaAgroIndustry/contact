@@ -2028,3 +2028,665 @@ function renderCompleteProductDetails(
 
 }
 
+/* ==========================================================
+   DETAIL GALLERY
+========================================================== */
+
+function initDetailGallery() {
+
+    const slider =
+        $("#productSlider");
+
+    if (!slider) {
+        return;
+    }
+
+
+    const images =
+        slider.querySelectorAll(
+            ".product-img"
+        );
+
+
+    if (!images.length) {
+        return;
+    }
+
+
+    const previous =
+        $("#prevImage");
+
+    const next =
+        $("#nextImage");
+
+    const counter =
+        $("#sliderCounter");
+
+
+    function showImage(index) {
+
+        if (
+            index < 0
+        ) {
+
+            index =
+                images.length - 1;
+
+        }
+
+
+        if (
+            index >= images.length
+        ) {
+
+            index = 0;
+
+        }
+
+
+        images.forEach(
+            image => {
+
+                image.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        images[index]
+            ?.classList.add(
+                "active"
+            );
+
+
+        detailSliderIndex =
+            index;
+
+
+        if (counter) {
+
+            counter.textContent =
+                `${index + 1} / ${images.length}`;
+
+        }
+
+    }
+
+
+    detailSliderIndex = 0;
+
+
+    if (previous) {
+
+        previous.onclick =
+            event => {
+
+                event.preventDefault();
+
+                showImage(
+                    detailSliderIndex - 1
+                );
+
+            };
+
+    }
+
+
+    if (next) {
+
+        next.onclick =
+            event => {
+
+                event.preventDefault();
+
+                showImage(
+                    detailSliderIndex + 1
+                );
+
+            };
+
+    }
+
+
+    images.forEach(
+        image => {
+
+            image.onclick =
+                () => {
+
+                    openImageModal(
+                        image.src
+                    );
+
+                };
+
+
+            image.onerror =
+                function() {
+
+                    this.style.display =
+                        "none";
+
+                };
+
+        }
+    );
+
+
+    showImage(0);
+
+}
+
+
+/* ==========================================================
+   QUANTITY SYSTEM
+========================================================== */
+
+function initQuantity() {
+
+    const input =
+        $("#qty");
+
+    const plus =
+        $("#plusQty");
+
+    const minus =
+        $("#minusQty");
+
+    const total =
+        $("#totalPrice");
+
+
+    if (
+        !input ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    function updateQuantity() {
+
+        let quantity =
+            parseInt(
+                input.value,
+                10
+            );
+
+
+        if (
+            !Number.isFinite(
+                quantity
+            ) ||
+            quantity < 1
+        ) {
+
+            quantity = 1;
+
+        }
+
+
+        input.value =
+            quantity;
+
+
+        const price =
+            Number(
+                currentProduct.price || 0
+            );
+
+
+        const totalPrice =
+            price * quantity;
+
+
+        if (total) {
+
+            total.textContent =
+                formatPrice(
+                    totalPrice
+                );
+
+        }
+
+
+        updateOrderLink(
+            quantity
+        );
+
+    }
+
+
+    if (
+        plus &&
+        !plus.dataset.bound
+    ) {
+
+        plus.dataset.bound =
+            "true";
+
+
+        plus.addEventListener(
+            "click",
+            () => {
+
+                const current =
+                    Number(
+                        input.value
+                    ) || 1;
+
+
+                input.value =
+                    current + 1;
+
+
+                updateQuantity();
+
+            }
+        );
+
+    }
+
+
+    if (
+        minus &&
+        !minus.dataset.bound
+    ) {
+
+        minus.dataset.bound =
+            "true";
+
+
+        minus.addEventListener(
+            "click",
+            () => {
+
+                const current =
+                    Number(
+                        input.value
+                    ) || 1;
+
+
+                if (
+                    current > 1
+                ) {
+
+                    input.value =
+                        current - 1;
+
+                }
+
+
+                updateQuantity();
+
+            }
+        );
+
+    }
+
+
+    if (
+        !input.dataset.bound
+    ) {
+
+        input.dataset.bound =
+            "true";
+
+
+        input.addEventListener(
+            "input",
+            updateQuantity
+        );
+
+    }
+
+
+    updateQuantity();
+
+}
+
+
+/* ==========================================================
+   WHATSAPP ORDER LINK
+========================================================== */
+
+function updateOrderLink(
+    quantity = 1
+) {
+
+    const button =
+        $("#orderNow");
+
+
+    if (
+        !button ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    quantity =
+        Math.max(
+            1,
+            Number(quantity) || 1
+        );
+
+
+    const price =
+        Number(
+            currentProduct.price || 0
+        );
+
+
+    const total =
+        price * quantity;
+
+
+    const categoryName =
+        currentProduct.categoryName ||
+        getCategoryName(
+            currentProduct.category
+        );
+
+
+    const subCategoryName =
+        currentProduct.subCategoryName ||
+        getSubCategoryName(
+            currentProduct.category,
+            currentProduct.subCategory
+        );
+
+
+    const productName =
+        currentProduct.name ||
+        "পণ্য";
+
+
+    const sku =
+        currentProduct.sku ||
+        "-";
+
+
+    const message =
+
+`🌿 ${SITE_CONFIG.companyName}
+
+আমি নিচের পণ্যটি অর্ডার করতে চাই।
+
+━━━━━━━━━━━━━━━━━━
+
+📦 পণ্যের নাম:
+${productName}
+
+📂 ক্যাটাগরি:
+${categoryName || "-"}
+
+📁 সাব-ক্যাটাগরি:
+${subCategoryName || "-"}
+
+🔖 SKU:
+${sku}
+
+💰 একক মূল্য:
+${formatPrice(price)}
+
+🔢 পরিমাণ:
+${quantity}
+
+💵 মোট মূল্য:
+${formatPrice(total)}
+
+━━━━━━━━━━━━━━━━━━
+
+🔗 পণ্যের লিংক:
+${window.location.href}
+
+দয়া করে অর্ডারটি গ্রহণ করার জন্য যোগাযোগ করুন।`;
+
+
+    button.href =
+        "https://wa.me/" +
+        SITE_CONFIG.whatsapp +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    button.target =
+        "_blank";
+
+
+    button.rel =
+        "noopener noreferrer";
+
+}
+
+
+/* ==========================================================
+   ORDER BUTTON INITIALIZATION
+========================================================== */
+
+function initOrderButton() {
+
+    const input =
+        $("#qty");
+
+
+    updateOrderLink(
+        Number(
+            input?.value || 1
+        )
+    );
+
+}
+
+
+/* ==========================================================
+   PRODUCT SHARE
+========================================================== */
+
+function initShareProduct() {
+
+    const button =
+        $("#shareProduct");
+
+
+    if (
+        !button ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        button.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.bound =
+        "true";
+
+
+    button.addEventListener(
+        "click",
+        async () => {
+
+            const shareData = {
+
+                title:
+                    currentProduct.name ||
+                    SITE_CONFIG.companyName,
+
+
+                text:
+                    currentProduct.shortDescription ||
+                    currentProduct.description ||
+                    "Maliha Agro Industry",
+
+
+                url:
+                    window.location.href
+
+            };
+
+
+            try {
+
+                if (
+                    navigator.share
+                ) {
+
+                    await navigator.share(
+                        shareData
+                    );
+
+                }
+                else if (
+                    navigator.clipboard
+                ) {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+
+                    alert(
+                        "✅ পণ্যের লিংক কপি হয়েছে।"
+                    );
+
+                }
+                else {
+
+                    alert(
+                        "🔗 এই লিংকটি শেয়ার করুন:\n\n" +
+                        window.location.href
+                    );
+
+                }
+
+            }
+            catch (error) {
+
+                console.log(
+                    "Share cancelled:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   DETAIL WISHLIST
+========================================================== */
+
+function initDetailWishlist() {
+
+    const button =
+        $("#detailWishlist");
+
+
+    if (
+        !button ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        button.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.bound =
+        "true";
+
+
+    function updateButton() {
+
+        const active =
+            wishlist.includes(
+                Number(
+                    currentProduct.id
+                )
+            );
+
+
+        button.textContent =
+            active
+                ? "❤️ Wishlist থেকে বাদ দিন"
+                : "🤍 Wishlist-এ রাখুন";
+
+
+        button.classList.toggle(
+            "active",
+            active
+        );
+
+    }
+
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            toggleWishlist(
+                currentProduct.id
+            );
+
+
+            updateButton();
+
+        }
+    );
+
+
+    updateButton();
+
+}
+
+
+/* ==========================================================
+   PRODUCT DETAIL INITIALIZATION
+========================================================== */
+
+function initProductDetailControls() {
+
+    initDetailGallery();
+
+    initQuantity();
+
+    initOrderButton();
+
+    initShareProduct();
+
+    initDetailWishlist();
+
+}
+
