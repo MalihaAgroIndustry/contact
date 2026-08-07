@@ -1174,59 +1174,6 @@ async function loadProductDetails() {
             }
 
 
-            showProductNotFound(
-                details,
-                "সঠিক Product ID পাওয়া যায়নি।"
-            );
-
-            return;
-
-        }
-
-
-        /* ------------------------------------------
-           LOAD PRODUCTS
-        ------------------------------------------ */
-
-        await ensureProductsLoaded();
-
-
-        /* ------------------------------------------
-           FIND PRODUCT
-        ------------------------------------------ */
-
-        currentProduct =
-            products.find(
-                product =>
-                    Number(
-                        product.id
-                    ) ===
-                    Number(
-                        productId
-                    )
-            );
-
-
-        if (!currentProduct) {
-
-            if (loading) {
-
-                loading.style.display =
-                    "none";
-
-            }
-
-
-            showProductNotFound(
-                details,
-                "এই পণ্যটি পাওয়া যায়নি।"
-            );
-
-            return;
-
-        }
-
-
 /* ==========================================================
    PRODUCT DETAILS RENDER
 ========================================================== */
