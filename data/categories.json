@@ -1,62 +1,45 @@
 [
   {
-    "id": "sar",
-    "name": "সার",
+    "id": "fertilizer",
+    "name": "সার, ইত্যাদি",
     "icon": "🌱",
     "status": "active",
     "sortOrder": 1,
-
     "subCategories": [
       {
-        "id": "organic-fertilizer",
+        "id": "organic",
         "name": "জৈব সার",
         "icon": "🌿",
         "status": "active",
         "sortOrder": 1
-      }
-    ]
-  },
-
-  {
-    "id": "bij",
-    "name": "বীজ",
-    "icon": "🌾",
-    "status": "active",
-    "sortOrder": 2,
-
-    "subCategories": [
-      {
-        "id": "vegetable-seeds",
-        "name": "সবজির বীজ",
-        "icon": "🥬",
-        "status": "active",
-        "sortOrder": 1
       },
-
       {
-        "id": "fruit-seeds",
-        "name": "ফল ও অন্যান্য বীজ",
-        "icon": "🍅",
+        "id": "chemical",
+        "name": "রাসায়নিক সার",
+        "icon": "🧪",
         "status": "active",
         "sortOrder": 2
-      }
-    ]
-  },
-
-  {
-    "id": "agriculture",
-    "name": "কৃষি সামগ্রী",
-    "icon": "🚜",
-    "status": "active",
-    "sortOrder": 3,
-
-    "subCategories": [
+      },
       {
-        "id": "agricultural-equipment",
-        "name": "কৃষি সরঞ্জাম",
-        "icon": "🛠️",
+        "id": "pesticide",
+        "name": "কীটনাশক",
+        "icon": "🐛",
         "status": "active",
-        "sortOrder": 1
+        "sortOrder": 3
+      },
+      {
+        "id": "seed",
+        "name": "বীজ",
+        "icon": "🌾",
+        "status": "active",
+        "sortOrder": 4
+      },
+      {
+        "id": "other",
+        "name": "অন্যান্য কৃষি উপকরণ",
+        "icon": "📦",
+        "status": "active",
+        "sortOrder": 5
       }
     ]
   }
