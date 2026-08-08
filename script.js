@@ -2903,3 +2903,1238 @@ console.log(
     "📦 Part 3/8 — Product & Category Data System Loaded."
 );
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — PART 4/8
+
+   PRODUCT CARD
+   PRODUCT LIST RENDER
+   PRODUCT FILTER
+   PRODUCT SORT
+   ========================================================== */
+
+
+/* ==========================================================
+   CREATE PRODUCT CARD
+========================================================== */
+
+function createProductCard(product) {
+
+    if (!product) {
+
+        return null;
+
+    }
+
+
+    const id =
+        Number(
+            product.id
+        );
+
+
+    if (
+        !Number.isFinite(id)
+    ) {
+
+        return null;
+
+    }
+
+
+    const gallery =
+        getGallery(
+            product
+        );
+
+
+    const images =
+        gallery.length
+            ? gallery
+            : [""];
+
+
+    const price =
+        Number(
+            product.price || 0
+        );
+
+
+    const oldPrice =
+        Number(
+            product.oldPrice || 0
+        );
+
+
+    /* ======================================================
+       DISCOUNT
+    ====================================================== */
+
+    let discount = 0;
+
+
+    if (
+        oldPrice > price &&
+        price > 0
+    ) {
+
+        discount =
+            Math.round(
+                (
+                    (
+                        oldPrice -
+                        price
+                    ) /
+                    oldPrice
+                ) * 100
+            );
+
+    }
+
+
+    /* ======================================================
+       RATING
+    ====================================================== */
+
+    const rating =
+        Math.max(
+            0,
+            Math.min(
+                5,
+                Math.round(
+                    Number(
+                        product.rating || 0
+                    )
+                )
+            )
+        );
+
+
+    const reviewCount =
+        Number(
+            product.reviewCount || 0
+        );
+
+
+    /* ======================================================
+       CATEGORY
+    ====================================================== */
+
+    const categoryName =
+        product.categoryName ||
+        getCategoryName(
+            product.category
+        );
+
+
+    const subCategoryName =
+        product.subCategoryName ||
+        getSubCategoryName(
+            product.category,
+            product.subCategory
+        );
+
+
+    /* ======================================================
+       CARD
+    ====================================================== */
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "product-card";
+
+
+    card.dataset.id =
+        String(id);
+
+
+    card.dataset.category =
+        normalizeCategory(
+            product.category
+        );
+
+
+    card.dataset.subcategory =
+        normalizeCategory(
+            product.subCategory
+        );
+
+
+    /* ======================================================
+       CARD HTML
+    ====================================================== */
+
+    card.innerHTML = `
+
+        <div
+            class="product-card-inner"
+        >
+
+            <!-- ==========================================
+                 IMAGE AREA
+            =========================================== -->
+
+            <div
+                class="product-card-image"
+            >
+
+                <!-- OFFER -->
+
+                ${
+                    product.offer
+                        ?
+
+                    `
+                        <span
+                            class="product-badge offer-badge"
+                        >
+                            🔥 অফার
+                        </span>
+                    `
+
+                        :
+
+                    ""
+                }
+
+
+                <!-- NEW ARRIVAL -->
+
+                ${
+                    product.newArrival
+                        ?
+
+                    `
+                        <span
+                            class="product-badge new-badge"
+                        >
+                            🆕 নতুন
+                        </span>
+                    `
+
+                        :
+
+                    ""
+                }
+
+
+                <!-- BEST SELLER -->
+
+                ${
+                    product.bestSeller
+                        ?
+
+                    `
+                        <span
+                            class="product-badge best-badge"
+                        >
+                            ⭐ বেস্ট সেলার
+                        </span>
+                    `
+
+                        :
+
+                    ""
+                }
+
+
+                <!-- DISCOUNT -->
+
+                ${
+                    discount > 0
+                        ?
+
+                    `
+                        <span
+                            class="product-badge discount-badge"
+                        >
+                            ${discount}% OFF
+                        </span>
+                    `
+
+                        :
+
+                    ""
+                }
+
+
+                <!-- WISHLIST -->
+
+                <button
+                    type="button"
+                    class="wishlist-btn"
+                    data-id="${id}"
+                    aria-label="Wishlist"
+                    aria-pressed="false"
+                >
+                    🤍
+                </button>
+
+
+                <!-- IMAGE SLIDER -->
+
+                <div
+                    class="slider"
+                    data-product-id="${id}"
+                >
+
+                    ${
+                        images
+                            .map(
+                                (
+                                    src,
+                                    index
+                                ) => `
+
+                                    <img
+                                        src="${escapeHTML(
+                                            src
+                                        )}"
+                                        class="product-img ${
+                                            index === 0
+                                                ? "active"
+                                                : ""
+                                        }"
+                                        alt="${escapeHTML(
+                                            product.name ||
+                                            "Maliha Agro Industry Product"
+                                        )}"
+                                        ${
+                                            index === 0
+                                                ? ""
+                                                : 'loading="lazy"'
+                                        }
+                                    >
+
+                                `
+                            )
+                            .join("")
+                    }
+
+                </div>
+
+            </div>
+
+
+            <!-- ==========================================
+                 PRODUCT CONTENT
+            =========================================== -->
+
+            <div
+                class="product-card-content"
+            >
+
+                <!-- CATEGORY -->
+
+                <div
+                    class="product-category"
+                >
+
+                    ${escapeHTML(
+                        categoryName ||
+                        "অন্যান্য"
+                    )}
+
+                    ${
+                        subCategoryName
+                            ?
+
+                        `
+                            <span>
+                                → ${escapeHTML(
+                                    subCategoryName
+                                )}
+                            </span>
+                        `
+
+                            :
+
+                        ""
+                    }
+
+                </div>
+
+
+                <!-- PRODUCT NAME -->
+
+                <h3
+                    class="product-title"
+                >
+
+                    <a
+                        href="product.html?id=${encodeURIComponent(
+                            id
+                        )}"
+                    >
+
+                        ${escapeHTML(
+                            product.name ||
+                            "পণ্য"
+                        )}
+
+                    </a>
+
+                </h3>
+
+
+                <!-- BRAND -->
+
+                ${
+                    product.brand
+                        ?
+
+                    `
+                        <div
+                            class="product-brand"
+                        >
+                            প্রস্তুতকারক:
+                            ${escapeHTML(
+                                product.brand
+                            )}
+                        </div>
+                    `
+
+                        :
+
+                    ""
+                }
+
+
+                <!-- RATING -->
+
+                <div
+                    class="product-rating"
+                >
+
+                    <span>
+                        ${
+                            "⭐".repeat(
+                                rating
+                            )
+                        }${
+                            "☆".repeat(
+                                5 - rating
+                            )
+                        }
+                    </span>
+
+                    <small>
+                        (${reviewCount})
+                    </small>
+
+                </div>
+
+
+                <!-- SHORT DESCRIPTION -->
+
+                ${
+                    product.shortDescription
+                        ?
+
+                    `
+                        <p
+                            class="product-short-description"
+                        >
+                            ${escapeHTML(
+                                product.shortDescription
+                            )}
+                        </p>
+                    `
+
+                        :
+
+                    ""
+                }
+
+
+                <!-- PRICE -->
+
+                <div
+                    class="product-price-area"
+                >
+
+                    <strong
+                        class="product-price"
+                    >
+                        ${formatPrice(
+                            price
+                        )}
+                    </strong>
+
+
+                    ${
+                        oldPrice > price
+                            ?
+
+                        `
+                            <span
+                                class="product-old-price"
+                            >
+                                ${formatPrice(
+                                    oldPrice
+                                )}
+                            </span>
+                        `
+
+                            :
+
+                        ""
+                    }
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div
+                    class="product-stock"
+                >
+
+                    🟢 ${escapeHTML(
+                        product.stock ||
+                        "স্টকে আছে"
+                    )}
+
+                </div>
+
+
+                <!-- ACTION BUTTONS -->
+
+                <div
+                    class="product-actions"
+                >
+
+                    <a
+                        href="product.html?id=${encodeURIComponent(
+                            id
+                        )}"
+                        class="btn product-details-btn"
+                    >
+                        👁️ বিস্তারিত
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="btn product-whatsapp-btn"
+                        data-id="${id}"
+                    >
+                        <i
+                            class="fa-brands fa-whatsapp"
+                        ></i>
+                        অর্ডার
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /* ======================================================
+       WISHLIST BUTTON
+    ====================================================== */
+
+    const wishlistButton =
+        card.querySelector(
+            ".wishlist-btn"
+        );
+
+
+    if (
+        wishlistButton
+    ) {
+
+        updateWishlistButton(
+            wishlistButton,
+            id
+        );
+
+
+        wishlistButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                toggleWishlist(
+                    id
+                );
+
+
+                updateWishlistButton(
+                    wishlistButton,
+                    id
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ======================================================
+       WHATSAPP ORDER
+    ====================================================== */
+
+    const whatsappButton =
+        card.querySelector(
+            ".product-whatsapp-btn"
+        );
+
+
+    if (
+        whatsappButton
+    ) {
+
+        whatsappButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                const productId =
+                    Number(
+                        whatsappButton.dataset.id
+                    );
+
+
+                const selectedProduct =
+                    findProduct(
+                        productId
+                    );
+
+
+                if (
+                    selectedProduct
+                ) {
+
+                    openWhatsAppOrder(
+                        selectedProduct
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    return card;
+
+}
+
+
+/* ==========================================================
+   RENDER PRODUCT LIST
+========================================================== */
+
+function renderProducts(
+    list,
+    container
+) {
+
+    if (
+        !container
+    ) {
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    /* ======================================================
+       EMPTY RESULT
+    ====================================================== */
+
+    if (
+        !Array.isArray(list) ||
+        !list.length
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="card product-empty-state"
+            >
+
+                <div
+                    class="empty-icon"
+                >
+                    🌱
+                </div>
+
+
+                <h2>
+                    কোনো পণ্য পাওয়া যায়নি
+                </h2>
+
+
+                <p>
+                    আপনার অনুসন্ধান বা
+                    নির্বাচিত ক্যাটাগরির সাথে
+                    মিল থাকা কোনো পণ্য নেই।
+                </p>
+
+
+                <button
+                    type="button"
+                    id="resetProductSearchBtn"
+                    class="btn"
+                >
+                    🔄 ফিল্টার রিসেট করুন
+                </button>
+
+            </div>
+
+        `;
+
+
+        const resetButton =
+            $(
+                "#resetProductSearchBtn"
+            );
+
+
+        resetButton
+            ?.addEventListener(
+                "click",
+                resetProductSearch
+            );
+
+
+        updateProductResultCount(
+            0
+        );
+
+
+        return;
+
+    }
+
+
+    /* ======================================================
+       DOCUMENT FRAGMENT
+    ====================================================== */
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    list.forEach(
+        product => {
+
+            const card =
+                createProductCard(
+                    product
+                );
+
+
+            if (
+                card
+            ) {
+
+                fragment.appendChild(
+                    card
+                );
+
+            }
+
+        }
+    );
+
+
+    container.appendChild(
+        fragment
+    );
+
+
+    /* ======================================================
+       WISHLIST
+    ====================================================== */
+
+    updateWishlistCounter();
+
+
+    /* ======================================================
+       SLIDERS
+    ====================================================== */
+
+    startSliders();
+
+}
+
+
+/* ==========================================================
+   FILTER PRODUCTS
+========================================================== */
+
+function filterProducts(
+    list,
+    category = "",
+    subCategory = "",
+    searchTerm = ""
+) {
+
+    if (
+        !Array.isArray(list)
+    ) {
+
+        return [];
+
+    }
+
+
+    const normalizedCategory =
+        normalizeCategory(
+            category
+        );
+
+
+    const normalizedSubCategory =
+        normalizeCategory(
+            subCategory
+        );
+
+
+    const search =
+        String(
+            searchTerm || ""
+        )
+            .trim()
+            .toLowerCase();
+
+
+    return list.filter(
+        product => {
+
+            if (
+                !product
+            ) {
+
+                return false;
+
+            }
+
+
+            /* ==========================================
+               CATEGORY
+            =========================================== */
+
+            if (
+                normalizedCategory &&
+                normalizeCategory(
+                    product.category
+                ) !==
+                normalizedCategory
+            ) {
+
+                return false;
+
+            }
+
+
+            /* ==========================================
+               SUB CATEGORY
+            =========================================== */
+
+            if (
+                normalizedSubCategory &&
+                normalizeCategory(
+                    product.subCategory
+                ) !==
+                normalizedSubCategory
+            ) {
+
+                return false;
+
+            }
+
+
+            /* ==========================================
+               SEARCH
+            =========================================== */
+
+            if (
+                search
+            ) {
+
+                const searchableText =
+                    [
+
+                        product.name,
+
+                        product.description,
+
+                        product.shortDescription,
+
+                        product.brand,
+
+                        product.sku,
+
+                        product.type,
+
+                        product.categoryName,
+
+                        product.subCategoryName
+
+                    ]
+                        .filter(Boolean)
+                        .join(" ")
+                        .toLowerCase();
+
+
+                if (
+                    !searchableText.includes(
+                        search
+                    )
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            return true;
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   SORT PRODUCTS
+========================================================== */
+
+function sortProducts(
+    list,
+    sortType = "default"
+) {
+
+    if (
+        !Array.isArray(list)
+    ) {
+
+        return [];
+
+    }
+
+
+    const result =
+        [...list];
+
+
+    switch (
+        String(
+            sortType || "default"
+        )
+            .trim()
+            .toLowerCase()
+    ) {
+
+
+        /* ==========================================
+           PRICE LOW → HIGH
+        =========================================== */
+
+        case "price-low":
+
+        case "price-low-high":
+
+        case "low-high":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) =>
+
+                    Number(
+                        a.price || 0
+                    ) -
+
+                    Number(
+                        b.price || 0
+                    )
+            );
+
+            break;
+
+
+        /* ==========================================
+           PRICE HIGH → LOW
+        =========================================== */
+
+        case "price-high":
+
+        case "price-high-low":
+
+        case "high-low":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) =>
+
+                    Number(
+                        b.price || 0
+                    ) -
+
+                    Number(
+                        a.price || 0
+                    )
+            );
+
+            break;
+
+
+        /* ==========================================
+           RATING
+        =========================================== */
+
+        case "rating":
+
+        case "top-rated":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) => {
+
+                    const ratingA =
+                        Number(
+                            a.rating || 0
+                        );
+
+
+                    const ratingB =
+                        Number(
+                            b.rating || 0
+                        );
+
+
+                    if (
+                        ratingA !==
+                        ratingB
+                    ) {
+
+                        return (
+                            ratingB -
+                            ratingA
+                        );
+
+                    }
+
+
+                    return (
+                        Number(
+                            b.reviewCount ||
+                            0
+                        ) -
+
+                        Number(
+                            a.reviewCount ||
+                            0
+                        )
+                    );
+
+                }
+            );
+
+            break;
+
+
+        /* ==========================================
+           NEWEST
+        =========================================== */
+
+        case "newest":
+
+        case "new":
+
+        case "latest":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) => {
+
+                    const dateA =
+                        new Date(
+                            a.createdAt ||
+                            a.date ||
+                            0
+                        ).getTime();
+
+
+                    const dateB =
+                        new Date(
+                            b.createdAt ||
+                            b.date ||
+                            0
+                        ).getTime();
+
+
+                    /*
+                       যদি date না থাকে,
+                       ID দিয়ে fallback
+                    */
+
+                    if (
+                        dateA ===
+                        dateB
+                    ) {
+
+                        return (
+                            Number(
+                                b.id || 0
+                            ) -
+
+                            Number(
+                                a.id || 0
+                            )
+                        );
+
+                    }
+
+
+                    return (
+                        dateB -
+                        dateA
+                    );
+
+                }
+            );
+
+            break;
+
+
+        /* ==========================================
+           NAME A-Z
+        =========================================== */
+
+        case "name":
+
+        case "name-az":
+
+        case "a-z":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) =>
+
+                    String(
+                        a.name || ""
+                    ).localeCompare(
+                        String(
+                            b.name || ""
+                        ),
+                        "bn"
+                    )
+            );
+
+            break;
+
+
+        /* ==========================================
+           DEFAULT
+        =========================================== */
+
+        default:
+
+            break;
+
+    }
+
+
+    return result;
+
+}
+
+
+/* ==========================================================
+   PRODUCT RESULT COUNT
+========================================================== */
+
+function updateProductResultCount(
+    count
+) {
+
+    const value =
+        Number(
+            count
+        ) || 0;
+
+
+    const elements =
+        [
+
+            $("#productResultCount"),
+
+            $("#productCount"),
+
+            $("#resultCount"),
+
+            $("#productsCount"),
+
+            $("#searchResultCount")
+
+        ];
+
+
+    elements.forEach(
+        element => {
+
+            if (
+                !element
+            ) {
+
+                return;
+
+            }
+
+
+            element.textContent =
+                `${value} টি পণ্য`;
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   PART 4 COMPLETE
+========================================================== */
+
+console.log(
+    "🛍️ Part 4/8 — Product Card & Product Rendering System Loaded."
+);
+
