@@ -3567,3 +3567,816 @@ console.log(
     "🛍️ Part 4/8 — Product Card & Image Slider Loaded."
 );
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — FINAL VERSION
+   PART 5/8
+
+   PRODUCT LIST
+   SEARCH
+   SORT
+   RESULT COUNT
+========================================================== */
+
+
+/* ==========================================================
+   RENDER PRODUCT LIST
+========================================================== */
+
+function renderProductList(
+    list,
+    container
+) {
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    /* Clear old products */
+
+    container.innerHTML = "";
+
+
+    /* Empty result */
+
+    if (
+        !Array.isArray(list) ||
+        !list.length
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:45px 20px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:50px;
+                        margin-bottom:10px;
+                    "
+                >
+                    🌱
+                </div>
+
+
+                <h2>
+                    কোনো পণ্য পাওয়া যায়নি
+                </h2>
+
+
+                <p
+                    style="
+                        color:#777;
+                        margin-top:8px;
+                        line-height:1.7;
+                    "
+                >
+                    আপনার অনুসন্ধান বা
+                    নির্বাচিত ক্যাটাগরির সাথে
+                    মিল থাকা কোনো পণ্য নেই।
+                </p>
+
+
+                <button
+                    type="button"
+                    id="resetProductFilters"
+                    class="btn"
+                    style="
+                        border:0;
+                        cursor:pointer;
+                        width:auto;
+                        margin:15px auto 0;
+                    "
+                >
+                    🔄 ফিল্টার রিসেট করুন
+                </button>
+
+            </div>
+
+        `;
+
+
+        $("#resetProductFilters")
+            ?.addEventListener(
+                "click",
+                resetProductSearch
+            );
+
+
+        updateProductResultCount(
+            0
+        );
+
+
+        return;
+
+    }
+
+
+    /* ======================================================
+       DOCUMENT FRAGMENT
+    ====================================================== */
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    list.forEach(
+        product => {
+
+            const card =
+                createProductCard(
+                    product
+                );
+
+
+            if (card) {
+
+                fragment.appendChild(
+                    card
+                );
+
+            }
+
+        }
+    );
+
+
+    container.appendChild(
+        fragment
+    );
+
+
+    /* ======================================================
+       UPDATE WISHLIST BUTTONS
+    ====================================================== */
+
+    $$(".wishlist-btn")
+        .forEach(
+            button => {
+
+                const id =
+                    Number(
+                        button.dataset.id
+                    );
+
+
+                if (
+                    Number.isFinite(id)
+                ) {
+
+                    updateWishlistButton(
+                        button,
+                        id
+                    );
+
+                }
+
+            }
+        );
+
+
+    /* ======================================================
+       START SLIDERS
+    ====================================================== */
+
+    startSliders();
+
+
+    /* ======================================================
+       UPDATE WISHLIST COUNTER
+    ====================================================== */
+
+    updateWishlistCounter();
+
+}
+
+
+/* ==========================================================
+   FILTER PRODUCTS
+========================================================== */
+
+function filterProducts(
+    list,
+    category = "",
+    subCategory = "",
+    searchTerm = ""
+) {
+
+    if (
+        !Array.isArray(list)
+    ) {
+
+        return [];
+
+    }
+
+
+    const normalizedCategory =
+        normalizeCategory(
+            category
+        );
+
+
+    const normalizedSubCategory =
+        normalizeCategory(
+            subCategory
+        );
+
+
+    const search =
+        String(
+            searchTerm || ""
+        )
+        .trim()
+        .toLowerCase();
+
+
+    return list.filter(
+        product => {
+
+            if (!product) {
+
+                return false;
+
+            }
+
+
+            /* ==================================================
+               CATEGORY
+            ================================================== */
+
+            if (
+                normalizedCategory &&
+                normalizeCategory(
+                    product.category
+                ) !==
+                normalizedCategory
+            ) {
+
+                return false;
+
+            }
+
+
+            /* ==================================================
+               SUB CATEGORY
+            ================================================== */
+
+            if (
+                normalizedSubCategory &&
+                normalizeCategory(
+                    product.subCategory
+                ) !==
+                normalizedSubCategory
+            ) {
+
+                return false;
+
+            }
+
+
+            /* ==================================================
+               SEARCH
+            ================================================== */
+
+            if (search) {
+
+                const searchableText = [
+
+                    product.name,
+
+                    product.description,
+
+                    product.shortDescription,
+
+                    product.brand,
+
+                    product.sku,
+
+                    product.type,
+
+                    product.category,
+
+                    product.categoryName,
+
+                    product.subCategory,
+
+                    product.subCategoryName
+
+                ]
+                .filter(
+                    Boolean
+                )
+                .join(
+                    " "
+                )
+                .toLowerCase();
+
+
+                if (
+                    !searchableText.includes(
+                        search
+                    )
+                ) {
+
+                    return false;
+
+                }
+
+            }
+
+
+            return true;
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   SORT PRODUCTS
+========================================================== */
+
+function sortProducts(
+    list,
+    sortValue = "default"
+) {
+
+    if (
+        !Array.isArray(list)
+    ) {
+
+        return [];
+
+    }
+
+
+    const result =
+        [...list];
+
+
+    const sort =
+        String(
+            sortValue || "default"
+        )
+        .trim()
+        .toLowerCase();
+
+
+    switch (
+        sort
+    ) {
+
+
+        /* ==================================================
+           PRICE LOW → HIGH
+        ================================================== */
+
+        case "price-low":
+        case "price-low-high":
+        case "low-high":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) =>
+
+                    Number(
+                        a.price || 0
+                    )
+
+                    -
+
+                    Number(
+                        b.price || 0
+                    )
+            );
+
+            break;
+
+
+        /* ==================================================
+           PRICE HIGH → LOW
+        ================================================== */
+
+        case "price-high":
+        case "price-high-low":
+        case "high-low":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) =>
+
+                    Number(
+                        b.price || 0
+                    )
+
+                    -
+
+                    Number(
+                        a.price || 0
+                    )
+            );
+
+            break;
+
+
+        /* ==================================================
+           RATING
+        ================================================== */
+
+        case "rating":
+        case "top-rated":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) => {
+
+                    const ratingA =
+                        Number(
+                            a.rating || 0
+                        );
+
+
+                    const ratingB =
+                        Number(
+                            b.rating || 0
+                        );
+
+
+                    if (
+                        ratingA !==
+                        ratingB
+                    ) {
+
+                        return (
+                            ratingB -
+                            ratingA
+                        );
+
+                    }
+
+
+                    return (
+
+                        Number(
+                            b.reviewCount || 0
+                        )
+
+                        -
+
+                        Number(
+                            a.reviewCount || 0
+                        )
+
+                    );
+
+                }
+            );
+
+            break;
+
+
+        /* ==================================================
+           NEWEST
+        ================================================== */
+
+        case "newest":
+        case "new":
+        case "latest":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) => {
+
+                    const idA =
+                        Number(
+                            a.id || 0
+                        );
+
+
+                    const idB =
+                        Number(
+                            b.id || 0
+                        );
+
+
+                    /*
+                       createdAt থাকলে date অনুযায়ী,
+                       না থাকলে ID অনুযায়ী।
+                    */
+
+                    const dateA =
+                        a.createdAt ||
+                        a.date;
+
+
+                    const dateB =
+                        b.createdAt ||
+                        b.date;
+
+
+                    if (
+                        dateA &&
+                        dateB
+                    ) {
+
+                        const timeA =
+                            new Date(
+                                dateA
+                            ).getTime();
+
+
+                        const timeB =
+                            new Date(
+                                dateB
+                            ).getTime();
+
+
+                        if (
+                            Number.isFinite(
+                                timeA
+                            ) &&
+                            Number.isFinite(
+                                timeB
+                            )
+                        ) {
+
+                            return (
+                                timeB -
+                                timeA
+                            );
+
+                        }
+
+                    }
+
+
+                    return (
+                        idB -
+                        idA
+                    );
+
+                }
+            );
+
+            break;
+
+
+        /* ==================================================
+           NAME A-Z
+        ================================================== */
+
+        case "name":
+        case "name-az":
+        case "a-z":
+
+            result.sort(
+                (
+                    a,
+                    b
+                ) =>
+
+                    String(
+                        a.name || ""
+                    )
+                    .localeCompare(
+                        String(
+                            b.name || ""
+                        ),
+                        "bn"
+                    )
+            );
+
+            break;
+
+
+        /* ==================================================
+           DEFAULT
+        ================================================== */
+
+        default:
+
+            break;
+
+    }
+
+
+    return result;
+
+}
+
+
+/* ==========================================================
+   UPDATE PRODUCT RESULT COUNT
+========================================================== */
+
+function updateProductResultCount(
+    count
+) {
+
+    const total =
+        Number(
+            count || 0
+        );
+
+
+    const text =
+        `${formatNumber(
+            total
+        )} টি পণ্য পাওয়া গেছে`;
+
+
+    const elements = [
+
+        $("#productResultCount"),
+
+        $("#productCount"),
+
+        $("#resultCount"),
+
+        $("#productsCount"),
+
+        $("#searchResultCount")
+
+    ];
+
+
+    elements.forEach(
+        element => {
+
+            if (!element) {
+
+                return;
+
+            }
+
+
+            element.textContent =
+                text;
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   SEARCH INITIALIZATION
+========================================================== */
+
+function initSearch() {
+
+    const input =
+        $("#searchProduct");
+
+
+    if (
+        !input ||
+        input.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    input.dataset.bound =
+        "true";
+
+
+    let searchTimer =
+        null;
+
+
+    input.addEventListener(
+        "input",
+        () => {
+
+            clearTimeout(
+                searchTimer
+            );
+
+
+            searchTimer =
+                setTimeout(
+                    () => {
+
+                        loadProducts(
+                            getActiveCategory(),
+                            getActiveSubCategory()
+                        );
+
+                    },
+                    250
+                );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   SORT INITIALIZATION
+========================================================== */
+
+function initSort() {
+
+    const select =
+        $("#sortProducts");
+
+
+    if (
+        !select ||
+        select.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    select.dataset.bound =
+        "true";
+
+
+    select.addEventListener(
+        "change",
+        () => {
+
+            loadProducts(
+                getActiveCategory(),
+                getActiveSubCategory()
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   RESET PRODUCT SEARCH
+========================================================== */
+
+function resetProductSearch() {
+
+    const searchInput =
+        $("#searchProduct");
+
+
+    if (searchInput) {
+
+        searchInput.value =
+            "";
+
+    }
+
+
+    const sortSelect =
+        $("#sortProducts");
+
+
+    if (sortSelect) {
+
+        sortSelect.value =
+            "default";
+
+    }
+
+
+    loadProducts(
+        getActiveCategory(),
+        getActiveSubCategory()
+    );
+
+}
+
+
+/* ==========================================================
+   PART 5 COMPLETE
+========================================================== */
+
+console.log(
+    "🔎 Part 5/8 — Product List, Search & Sort Loaded."
+);
+
