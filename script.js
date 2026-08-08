@@ -1886,3 +1886,1020 @@ console.log(
     "📦 Maliha Agro Industry — script.js Part 2/8 Ready"
 );
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — PART 3/8
+
+   PRODUCT DATA
+   CATEGORY DATA
+   DATA LOADING SYSTEM
+   ========================================================== */
+
+
+/* ==========================================================
+   PRODUCT & CATEGORY DATA
+========================================================== */
+
+let products = [];
+
+let categories = [];
+
+let currentProduct = null;
+
+
+/* ==========================================================
+   DATA LOADING STATE
+========================================================== */
+
+let productsLoaded = false;
+
+let categoriesLoaded = false;
+
+let productsLoadingPromise = null;
+
+let categoriesLoadingPromise = null;
+
+
+/* ==========================================================
+   DATA FILE PATH
+========================================================== */
+
+const PRODUCT_DATA_URL =
+    "data/products.json";
+
+const CATEGORY_DATA_URL =
+    "data/categories.json";
+
+
+/* ==========================================================
+   FETCH PRODUCTS
+========================================================== */
+
+async function fetchProducts() {
+
+    try {
+
+        const response =
+            await fetch(
+                PRODUCT_DATA_URL,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                `Products HTTP Error: ${response.status}`
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            Array.isArray(data)
+        ) {
+
+            return data;
+
+        }
+
+
+        /*
+           যদি JSON-এর মধ্যে products
+           নামে array থাকে
+        */
+
+        if (
+            data &&
+            Array.isArray(
+                data.products
+            )
+        ) {
+
+            return data.products;
+
+        }
+
+
+        return [];
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Fetch Products Error:",
+            error
+        );
+
+
+        throw error;
+
+    }
+
+}
+
+
+/* ==========================================================
+   FETCH CATEGORIES
+========================================================== */
+
+async function fetchCategories() {
+
+    try {
+
+        const response =
+            await fetch(
+                CATEGORY_DATA_URL,
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                `Categories HTTP Error: ${response.status}`
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            Array.isArray(data)
+        ) {
+
+            return data;
+
+        }
+
+
+        /*
+           যদি JSON-এর মধ্যে categories
+           নামে array থাকে
+        */
+
+        if (
+            data &&
+            Array.isArray(
+                data.categories
+            )
+        ) {
+
+            return data.categories;
+
+        }
+
+
+        return [];
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Fetch Categories Error:",
+            error
+        );
+
+
+        throw error;
+
+    }
+
+}
+
+
+/* ==========================================================
+   NORMALIZE PRODUCT
+========================================================== */
+
+function normalizeProduct(
+    product
+) {
+
+    if (
+        !product ||
+        typeof product !== "object"
+    ) {
+
+        return null;
+
+    }
+
+
+    const normalized =
+        {
+            ...product
+        };
+
+
+    /*
+       Product ID
+    */
+
+    normalized.id =
+        Number(
+            product.id
+        );
+
+
+    /*
+       Basic Text
+    */
+
+    normalized.name =
+        String(
+            product.name ||
+            "পণ্য"
+        ).trim();
+
+
+    normalized.description =
+        String(
+            product.description ||
+            ""
+        ).trim();
+
+
+    normalized.shortDescription =
+        String(
+            product.shortDescription ||
+            ""
+        ).trim();
+
+
+    normalized.brand =
+        String(
+            product.brand ||
+            ""
+        ).trim();
+
+
+    normalized.sku =
+        String(
+            product.sku ||
+            ""
+        ).trim();
+
+
+    normalized.type =
+        String(
+            product.type ||
+            ""
+        ).trim();
+
+
+    /*
+       Category
+    */
+
+    normalized.category =
+        String(
+            product.category ||
+            ""
+        ).trim();
+
+
+    normalized.subCategory =
+        String(
+            product.subCategory ||
+            ""
+        ).trim();
+
+
+    normalized.categoryName =
+        String(
+            product.categoryName ||
+            ""
+        ).trim();
+
+
+    normalized.subCategoryName =
+        String(
+            product.subCategoryName ||
+            ""
+        ).trim();
+
+
+    /*
+       Price
+    */
+
+    normalized.price =
+        Number(
+            product.price || 0
+        );
+
+
+    normalized.oldPrice =
+        Number(
+            product.oldPrice || 0
+        );
+
+
+    /*
+       Rating
+    */
+
+    normalized.rating =
+        Math.max(
+            0,
+            Math.min(
+                5,
+                Number(
+                    product.rating || 0
+                )
+            )
+        );
+
+
+    normalized.reviewCount =
+        Number(
+            product.reviewCount || 0
+        );
+
+
+    /*
+       Stock
+    */
+
+    normalized.stock =
+        String(
+            product.stock ||
+            "স্টকে আছে"
+        ).trim();
+
+
+    /*
+       Boolean Values
+    */
+
+    normalized.offer =
+        Boolean(
+            product.offer
+        );
+
+
+    normalized.newArrival =
+        Boolean(
+            product.newArrival
+        );
+
+
+    normalized.bestSeller =
+        Boolean(
+            product.bestSeller
+        );
+
+
+    /*
+       Gallery
+    */
+
+    if (
+        Array.isArray(
+            product.images
+        )
+    ) {
+
+        normalized.images =
+            product.images
+                .filter(Boolean)
+                .map(
+                    image =>
+                        String(
+                            image
+                        ).trim()
+                );
+
+    }
+    else {
+
+        normalized.images =
+            [];
+
+    }
+
+
+    return normalized;
+
+}
+
+
+/* ==========================================================
+   NORMALIZE CATEGORY
+========================================================== */
+
+function normalizeCategoryData(
+    category
+) {
+
+    if (
+        !category ||
+        typeof category !== "object"
+    ) {
+
+        return null;
+
+    }
+
+
+    const normalized =
+        {
+            ...category
+        };
+
+
+    normalized.id =
+        String(
+            category.id ||
+            category.slug ||
+            category.name ||
+            ""
+        ).trim();
+
+
+    normalized.name =
+        String(
+            category.name ||
+            category.title ||
+            category.id ||
+            "অন্যান্য"
+        ).trim();
+
+
+    /*
+       Sub Categories
+    */
+
+    if (
+        Array.isArray(
+            category.subCategories
+        )
+    ) {
+
+        normalized.subCategories =
+            category.subCategories
+                .filter(Boolean)
+                .map(
+                    subCategory => {
+
+                        if (
+                            typeof subCategory ===
+                            "string"
+                        ) {
+
+                            return {
+
+                                id:
+                                    subCategory,
+
+                                name:
+                                    subCategory
+
+                            };
+
+                        }
+
+
+                        return {
+
+                            ...subCategory,
+
+                            id:
+                                String(
+                                    subCategory.id ||
+                                    subCategory.slug ||
+                                    subCategory.name ||
+                                    ""
+                                ).trim(),
+
+                            name:
+                                String(
+                                    subCategory.name ||
+                                    subCategory.title ||
+                                    subCategory.id ||
+                                    "অন্যান্য"
+                                ).trim()
+
+                        };
+
+                    }
+                );
+
+    }
+    else {
+
+        normalized.subCategories =
+            [];
+
+    }
+
+
+    return normalized;
+
+}
+
+
+/* ==========================================================
+   ENSURE PRODUCTS LOADED
+========================================================== */
+
+async function ensureProductsLoaded() {
+
+    if (
+        productsLoaded
+    ) {
+
+        return products;
+
+    }
+
+
+    if (
+        productsLoadingPromise
+    ) {
+
+        return productsLoadingPromise;
+
+    }
+
+
+    productsLoadingPromise =
+        fetchProducts()
+            .then(
+                data => {
+
+                    products =
+                        data
+                            .map(
+                                normalizeProduct
+                            )
+                            .filter(
+                                Boolean
+                            );
+
+
+                    productsLoaded =
+                        true;
+
+
+                    console.log(
+                        "✅ Products Loaded:",
+                        products.length
+                    );
+
+
+                    return products;
+
+                }
+            )
+            .catch(
+                error => {
+
+                    productsLoaded =
+                        false;
+
+
+                    products =
+                        [];
+
+
+                    console.error(
+                        "❌ Products Loading Failed:",
+                        error
+                    );
+
+
+                    throw error;
+
+                }
+            )
+            .finally(
+                () => {
+
+                    productsLoadingPromise =
+                        null;
+
+                }
+            );
+
+
+    return productsLoadingPromise;
+
+}
+
+
+/* ==========================================================
+   ENSURE CATEGORIES LOADED
+========================================================== */
+
+async function ensureCategoriesLoaded() {
+
+    if (
+        categoriesLoaded
+    ) {
+
+        return categories;
+
+    }
+
+
+    if (
+        categoriesLoadingPromise
+    ) {
+
+        return categoriesLoadingPromise;
+
+    }
+
+
+    categoriesLoadingPromise =
+        fetchCategories()
+            .then(
+                data => {
+
+                    categories =
+                        data
+                            .map(
+                                normalizeCategoryData
+                            )
+                            .filter(
+                                Boolean
+                            );
+
+
+                    categoriesLoaded =
+                        true;
+
+
+                    console.log(
+                        "✅ Categories Loaded:",
+                        categories.length
+                    );
+
+
+                    return categories;
+
+                }
+            )
+            .catch(
+                error => {
+
+                    categoriesLoaded =
+                        false;
+
+
+                    categories =
+                        [];
+
+
+                    console.warn(
+                        "⚠️ Categories JSON পাওয়া যায়নি। Product data থেকে category তৈরি করা যাবে।"
+                    );
+
+
+                    return [];
+
+                }
+            )
+            .finally(
+                () => {
+
+                    categoriesLoadingPromise =
+                        null;
+
+                }
+            );
+
+
+    return categoriesLoadingPromise;
+
+}
+
+
+/* ==========================================================
+   FIND PRODUCT
+========================================================== */
+
+function findProduct(
+    productId
+) {
+
+    const id =
+        Number(
+            productId
+        );
+
+
+    if (
+        !Number.isFinite(id)
+    ) {
+
+        return null;
+
+    }
+
+
+    return (
+        products.find(
+            product =>
+                Number(
+                    product.id
+                ) === id
+        ) ||
+        null
+    );
+
+}
+
+
+/* ==========================================================
+   FIND CATEGORY
+========================================================== */
+
+function findCategory(
+    categoryId
+) {
+
+    const target =
+        normalizeCategory(
+            categoryId
+        );
+
+
+    if (!target) {
+
+        return null;
+
+    }
+
+
+    return (
+        categories.find(
+            category => {
+
+                return (
+                    normalizeCategory(
+                        category.id
+                    ) === target
+                );
+
+            }
+        ) ||
+        null
+    );
+
+}
+
+
+/* ==========================================================
+   GET CATEGORY NAME
+========================================================== */
+
+function getCategoryName(
+    categoryId
+) {
+
+    const category =
+        findCategory(
+            categoryId
+        );
+
+
+    if (
+        category
+    ) {
+
+        return (
+            category.name ||
+            "অন্যান্য"
+        );
+
+    }
+
+
+    const product =
+        products.find(
+            item =>
+                normalizeCategory(
+                    item.category
+                ) ===
+                normalizeCategory(
+                    categoryId
+                )
+        );
+
+
+    return (
+        product?.categoryName ||
+        String(
+            categoryId ||
+            "অন্যান্য"
+        )
+    );
+
+}
+
+
+/* ==========================================================
+   GET SUB CATEGORY NAME
+========================================================== */
+
+function getSubCategoryName(
+    categoryId,
+    subCategoryId
+) {
+
+    const category =
+        findCategory(
+            categoryId
+        );
+
+
+    if (
+        category &&
+        Array.isArray(
+            category.subCategories
+        )
+    ) {
+
+        const target =
+            normalizeCategory(
+                subCategoryId
+            );
+
+
+        const subCategory =
+            category.subCategories.find(
+                item =>
+                    normalizeCategory(
+                        item.id
+                    ) === target
+            );
+
+
+        if (
+            subCategory
+        ) {
+
+            return (
+                subCategory.name ||
+                "অন্যান্য"
+            );
+
+        }
+
+    }
+
+
+    const product =
+        products.find(
+            item =>
+
+                normalizeCategory(
+                    item.category
+                ) ===
+                normalizeCategory(
+                    categoryId
+                )
+
+                &&
+
+                normalizeCategory(
+                    item.subCategory
+                ) ===
+                normalizeCategory(
+                    subCategoryId
+                )
+        );
+
+
+    return (
+        product?.subCategoryName ||
+        String(
+            subCategoryId ||
+            ""
+        )
+    );
+
+}
+
+
+/* ==========================================================
+   GET PRODUCT GALLERY
+========================================================== */
+
+function getGallery(
+    product
+) {
+
+    if (
+        !product
+    ) {
+
+        return [];
+
+    }
+
+
+    /*
+       images array
+    */
+
+    if (
+        Array.isArray(
+            product.images
+        )
+    ) {
+
+        const gallery =
+            product.images
+                .filter(Boolean)
+                .map(
+                    image =>
+                        String(
+                            image
+                        ).trim()
+                )
+                .filter(Boolean);
+
+
+        if (
+            gallery.length
+        ) {
+
+            return gallery;
+
+        }
+
+    }
+
+
+    /*
+       gallery array
+    */
+
+    if (
+        Array.isArray(
+            product.gallery
+        )
+    ) {
+
+        return product.gallery
+            .filter(Boolean)
+            .map(
+                image =>
+                    String(
+                        image
+                    ).trim()
+            )
+            .filter(Boolean);
+
+    }
+
+
+    /*
+       single image
+    */
+
+    if (
+        product.image
+    ) {
+
+        return [
+            String(
+                product.image
+            ).trim()
+        ];
+
+    }
+
+
+    return [];
+
+}
+
+
+/* ==========================================================
+   PRODUCT DATA READY
+========================================================== */
+
+console.log(
+    "📦 Part 3/8 — Product & Category Data System Loaded."
+);
+
