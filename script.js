@@ -1691,3 +1691,1025 @@ console.log(
     "🌱 Part 2/8 — Product & Category Data System Loaded."
 );
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — FINAL VERSION
+   PART 3/8
+   PRODUCT DATA + CATEGORY DATA
+========================================================== */
+
+
+/* ==========================================================
+   PRODUCT DATA STATE
+========================================================== */
+
+let products = [];
+
+let categories = [];
+
+let currentProduct = null;
+
+let wishlist = [];
+
+let sliderTimers = [];
+
+
+/* ==========================================================
+   WISHLIST STORAGE KEY
+========================================================== */
+
+const WISHLIST_KEY =
+    "maliha_agro_wishlist";
+
+
+/* ==========================================================
+   LOAD WISHLIST FROM LOCAL STORAGE
+========================================================== */
+
+function loadWishlist() {
+
+    try {
+
+        const saved =
+            localStorage.getItem(
+                WISHLIST_KEY
+            );
+
+
+        if (!saved) {
+
+            wishlist = [];
+
+            return;
+
+        }
+
+
+        const parsed =
+            JSON.parse(
+                saved
+            );
+
+
+        if (
+            Array.isArray(parsed)
+        ) {
+
+            wishlist =
+                parsed
+                    .map(
+                        id => Number(id)
+                    )
+                    .filter(
+                        id =>
+                            Number.isFinite(id) &&
+                            id > 0
+                    );
+
+        }
+        else {
+
+            wishlist = [];
+
+        }
+
+    }
+    catch (error) {
+
+        console.error(
+            "Wishlist Load Error:",
+            error
+        );
+
+
+        wishlist = [];
+
+    }
+
+}
+
+
+/* ==========================================================
+   SAVE WISHLIST
+========================================================== */
+
+function saveWishlist() {
+
+    try {
+
+        localStorage.setItem(
+            WISHLIST_KEY,
+            JSON.stringify(
+                wishlist
+            )
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Wishlist Save Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   WISHLIST COUNTER
+========================================================== */
+
+function updateWishlistCounter() {
+
+    const counters =
+        [
+
+            $("#wishlistCount"),
+
+            $("#wishlistCounter"),
+
+            $("#wishlistBadge"),
+
+            $(".wishlist-count")
+
+        ];
+
+
+    counters.forEach(
+        counter => {
+
+            if (!counter) {
+
+                return;
+
+            }
+
+
+            counter.textContent =
+                String(
+                    wishlist.length
+                );
+
+
+            counter.style.display =
+                wishlist.length
+                    ? ""
+                    : "";
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   UPDATE WISHLIST BUTTON
+========================================================== */
+
+function updateWishlistButton(
+    button,
+    productId
+) {
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    const id =
+        Number(productId);
+
+
+    const active =
+        wishlist.includes(
+            id
+        );
+
+
+    button.textContent =
+        active
+            ? "❤️"
+            : "🤍";
+
+
+    button.classList.toggle(
+        "active",
+        active
+    );
+
+
+    button.setAttribute(
+        "aria-pressed",
+        active
+            ? "true"
+            : "false"
+    );
+
+
+    button.setAttribute(
+        "aria-label",
+        active
+            ? "Wishlist থেকে বাদ দিন"
+            : "Wishlist-এ রাখুন"
+    );
+
+}
+
+
+/* ==========================================================
+   TOGGLE WISHLIST
+========================================================== */
+
+function toggleWishlist(
+    productId
+) {
+
+    const id =
+        Number(productId);
+
+
+    if (
+        !Number.isFinite(id) ||
+        id <= 0
+    ) {
+
+        return false;
+
+    }
+
+
+    const index =
+        wishlist.indexOf(
+            id
+        );
+
+
+    if (
+        index >= 0
+    ) {
+
+        wishlist.splice(
+            index,
+            1
+        );
+
+    }
+    else {
+
+        wishlist.push(
+            id
+        );
+
+    }
+
+
+    saveWishlist();
+
+    updateWishlistCounter();
+
+
+    /* Update every visible wishlist button */
+
+    $$(
+        ".wishlist-btn"
+    ).forEach(
+        button => {
+
+            if (
+                Number(
+                    button.dataset.id
+                ) === id
+            ) {
+
+                updateWishlistButton(
+                    button,
+                    id
+                );
+
+            }
+
+        }
+    );
+
+
+    /* Refresh wishlist page if currently open */
+
+    if (
+        $("#wishlistProducts")
+    ) {
+
+        renderWishlistPage();
+
+    }
+
+
+    return (
+        index < 0
+    );
+
+}
+
+
+/* ==========================================================
+   GET GALLERY
+========================================================== */
+
+function getGallery(
+    product
+) {
+
+    if (!product) {
+
+        return [];
+
+    }
+
+
+    let gallery = [];
+
+
+    /* gallery array */
+
+    if (
+        Array.isArray(
+            product.gallery
+        )
+    ) {
+
+        gallery =
+            product.gallery;
+
+    }
+
+
+    /* images array */
+
+    else if (
+        Array.isArray(
+            product.images
+        )
+    ) {
+
+        gallery =
+            product.images;
+
+    }
+
+
+    /* image string */
+
+    else if (
+        typeof product.image ===
+        "string"
+    ) {
+
+        gallery =
+            [
+                product.image
+            ];
+
+    }
+
+
+    /* image URL variants */
+
+    else {
+
+        gallery =
+            [
+
+                product.image1,
+
+                product.image2,
+
+                product.image3,
+
+                product.image4,
+
+                product.image5
+
+            ];
+
+    }
+
+
+    return gallery
+        .filter(
+            image =>
+                typeof image ===
+                    "string" &&
+                image.trim()
+        )
+        .map(
+            image =>
+                image.trim()
+        );
+
+}
+
+
+/* ==========================================================
+   FIND PRODUCT
+========================================================== */
+
+function findProduct(
+    productId
+) {
+
+    const id =
+        Number(productId);
+
+
+    if (
+        !Number.isFinite(id)
+    ) {
+
+        return null;
+
+    }
+
+
+    return (
+        products.find(
+            product =>
+                Number(
+                    product.id
+                ) === id
+        ) ||
+        null
+    );
+
+}
+
+
+/* ==========================================================
+   FIND CATEGORY
+========================================================== */
+
+function findCategory(
+    categoryId
+) {
+
+    const normalized =
+        normalizeCategory(
+            categoryId
+        );
+
+
+    if (!normalized) {
+
+        return null;
+
+    }
+
+
+    return (
+        categories.find(
+            category => {
+
+                return (
+                    normalizeCategory(
+                        category.id ||
+                        category.slug ||
+                        category.name
+                    ) === normalized
+                );
+
+            }
+        ) ||
+        null
+    );
+
+}
+
+
+/* ==========================================================
+   GET CATEGORY NAME
+========================================================== */
+
+function getCategoryName(
+    categoryId
+) {
+
+    const category =
+        findCategory(
+            categoryId
+        );
+
+
+    if (category) {
+
+        return (
+            category.name ||
+            category.title ||
+            category.id ||
+            ""
+        );
+
+    }
+
+
+    const product =
+        products.find(
+            item =>
+                normalizeCategory(
+                    item.category
+                ) ===
+                normalizeCategory(
+                    categoryId
+                )
+        );
+
+
+    return (
+        product?.categoryName ||
+        product?.category ||
+        ""
+    );
+
+}
+
+
+/* ==========================================================
+   GET SUB CATEGORY NAME
+========================================================== */
+
+function getSubCategoryName(
+    categoryId,
+    subCategoryId
+) {
+
+    const category =
+        findCategory(
+            categoryId
+        );
+
+
+    if (
+        !category ||
+        !Array.isArray(
+            category.subCategories
+        )
+    ) {
+
+        return "";
+
+    }
+
+
+    const normalized =
+        normalizeCategory(
+            subCategoryId
+        );
+
+
+    const subCategory =
+        category.subCategories.find(
+            item => {
+
+                return (
+                    normalizeCategory(
+                        item.id ||
+                        item.slug ||
+                        item.name
+                    ) === normalized
+                );
+
+            }
+        );
+
+
+    return (
+        subCategory?.name ||
+        subCategory?.title ||
+        subCategory?.id ||
+        ""
+    );
+
+}
+
+
+/* ==========================================================
+   FETCH PRODUCTS
+========================================================== */
+
+async function fetchProducts() {
+
+    const response =
+        await fetch(
+            "data/products.json",
+            {
+                cache: "no-cache"
+            }
+        );
+
+
+    if (
+        !response.ok
+    ) {
+
+        throw new Error(
+            `Products HTTP Error: ${response.status}`
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    if (
+        Array.isArray(data)
+    ) {
+
+        return data;
+
+    }
+
+
+    if (
+        Array.isArray(
+            data.products
+        )
+    ) {
+
+        return data.products;
+
+    }
+
+
+    return [];
+
+}
+
+
+/* ==========================================================
+   FETCH CATEGORIES
+========================================================== */
+
+async function fetchCategories() {
+
+    const response =
+        await fetch(
+            "data/categories.json",
+            {
+                cache: "no-cache"
+            }
+        );
+
+
+    if (
+        !response.ok
+    ) {
+
+        throw new Error(
+            `Categories HTTP Error: ${response.status}`
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    if (
+        Array.isArray(data)
+    ) {
+
+        return data;
+
+    }
+
+
+    if (
+        Array.isArray(
+            data.categories
+        )
+    ) {
+
+        return data.categories;
+
+    }
+
+
+    return [];
+
+}
+
+
+/* ==========================================================
+   ENSURE PRODUCTS LOADED
+========================================================== */
+
+let productsLoadingPromise =
+    null;
+
+
+async function ensureProductsLoaded() {
+
+    if (
+        Array.isArray(
+            products
+        ) &&
+        products.length
+    ) {
+
+        return products;
+
+    }
+
+
+    if (
+        productsLoadingPromise
+    ) {
+
+        return productsLoadingPromise;
+
+    }
+
+
+    productsLoadingPromise =
+        fetchProducts()
+            .then(
+                data => {
+
+                    products =
+                        Array.isArray(data)
+                            ? data
+                            : [];
+
+
+                    return products;
+
+                }
+            )
+            .catch(
+                error => {
+
+                    products =
+                        [];
+
+
+                    throw error;
+
+                }
+            )
+            .finally(
+                () => {
+
+                    productsLoadingPromise =
+                        null;
+
+                }
+            );
+
+
+    return productsLoadingPromise;
+
+}
+
+
+/* ==========================================================
+   ENSURE CATEGORIES LOADED
+========================================================== */
+
+let categoriesLoadingPromise =
+    null;
+
+
+async function ensureCategoriesLoaded() {
+
+    if (
+        Array.isArray(
+            categories
+        ) &&
+        categories.length
+    ) {
+
+        return categories;
+
+    }
+
+
+    if (
+        categoriesLoadingPromise
+    ) {
+
+        return categoriesLoadingPromise;
+
+    }
+
+
+    categoriesLoadingPromise =
+        fetchCategories()
+            .then(
+                data => {
+
+                    categories =
+                        Array.isArray(data)
+                            ? data
+                            : [];
+
+
+                    return categories;
+
+                }
+            )
+            .catch(
+                error => {
+
+                    /*
+                       categories.json না থাকলেও
+                       পরে products.json থেকে
+                       category তৈরি করা যাবে।
+                    */
+
+                    categories =
+                        [];
+
+
+                    console.warn(
+                        "Categories could not be loaded:",
+                        error
+                    );
+
+
+                    return categories;
+
+                }
+            )
+            .finally(
+                () => {
+
+                    categoriesLoadingPromise =
+                        null;
+
+                }
+            );
+
+
+    return categoriesLoadingPromise;
+
+}
+
+
+/* ==========================================================
+   LOAD PRODUCT FROM URL
+========================================================== */
+
+async function loadProductFromURL() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const productId =
+        params.get(
+            "id"
+        );
+
+
+    if (!productId) {
+
+        return null;
+
+    }
+
+
+    await ensureProductsLoaded();
+
+
+    currentProduct =
+        findProduct(
+            productId
+        );
+
+
+    return currentProduct;
+
+}
+
+
+/* ==========================================================
+   FORMAT PRICE
+========================================================== */
+
+function formatPrice(
+    price
+) {
+
+    const amount =
+        Number(
+            price || 0
+        );
+
+
+    if (
+        !Number.isFinite(
+            amount
+        )
+    ) {
+
+        return "৳0";
+
+    }
+
+
+    try {
+
+        return (
+            "৳" +
+            new Intl.NumberFormat(
+                "bn-BD"
+            ).format(
+                amount
+            )
+        );
+
+    }
+    catch (error) {
+
+        return (
+            "৳" +
+            amount.toLocaleString(
+                "bn-BD"
+            )
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   PRODUCT STOCK STATUS
+========================================================== */
+
+function getStockStatus(
+    product
+) {
+
+    if (!product) {
+
+        return "স্টক তথ্য নেই";
+
+    }
+
+
+    if (
+        typeof product.stock ===
+        "string"
+    ) {
+
+        return product.stock;
+
+    }
+
+
+    const quantity =
+        Number(
+            product.stockQuantity
+        );
+
+
+    if (
+        Number.isFinite(
+            quantity
+        )
+    ) {
+
+        if (
+            quantity <= 0
+        ) {
+
+            return "স্টক শেষ";
+
+        }
+
+
+        return `স্টকে আছে — ${quantity} টি`;
+
+    }
+
+
+    return "স্টকে আছে";
+
+}
+
+
+/* ==========================================================
+   PART 3 COMPLETE
+========================================================== */
+
+console.log(
+    "📦 Part 3/8 — Product Data & Wishlist System Loaded."
+);
+
