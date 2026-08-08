@@ -1,46 +1,80 @@
 [
   {
-    "id": "fertilizer",
-    "name": "সার, ইত্যাদি",
+    "id": "sar",
+    "name": "সার",
     "icon": "🌱",
     "status": "active",
     "sortOrder": 1,
     "subCategories": [
       {
-        "id": "organic",
+        "id": "organic-fertilizer",
         "name": "জৈব সার",
         "icon": "🌿",
         "status": "active",
         "sortOrder": 1
       },
       {
-        "id": "chemical",
+        "id": "chemical-fertilizer",
         "name": "রাসায়নিক সার",
         "icon": "🧪",
         "status": "active",
         "sortOrder": 2
-      },
-      {
-        "id": "pesticide",
-        "name": "কীটনাশক",
-        "icon": "🐛",
-        "status": "active",
-        "sortOrder": 3
-      },
-      {
-        "id": "seed",
-        "name": "বীজ",
-        "icon": "🌾",
-        "status": "active",
-        "sortOrder": 4
-      },
-      {
-        "id": "other",
-        "name": "অন্যান্য কৃষি উপকরণ",
-        "icon": "📦",
-        "status": "active",
-        "sortOrder": 5
       }
     ]
+  },
+  {
+    "id": "pesticide",
+    "name": "কীটনাশক",
+    "icon": "🐛",
+    "status": "active",
+    "sortOrder": 2,
+    "subCategories": []
+  },
+  {
+    "id": "bij",
+    "name": "বীজ",
+    "icon": "🌾",
+    "status": "active",
+    "sortOrder": 3,
+    "subCategories": [
+      {
+        "id": "vegetable-seeds",
+        "name": "সবজির বীজ",
+        "icon": "🥬",
+        "status": "active",
+        "sortOrder": 1
+      },
+      {
+        "id": "fruit-seeds",
+        "name": "ফল ও অন্যান্য বীজ",
+        "icon": "🍅",
+        "status": "active",
+        "sortOrder": 2
+      }
+    ]
+  },
+  {
+    "id": "agriculture",
+    "name": "কৃষি সরঞ্জাম",
+    "icon": "🛠️",
+    "status": "active",
+    "sortOrder": 4,
+    "subCategories": []
+  },
+  {
+    "id": "nursery",
+    "name": "নার্সারি ও গাছ",
+    "icon": "🌳",
+    "status": "active",
+    "sortOrder": 5,
+    "subCategories": []
+  },
+  {
+    "id": "other",
+    "name": "অন্যান্য",
+    "icon": "📦",
+    "status": "active",
+    "sortOrder": 6,
+    "subCategories": []
   }
 ]
