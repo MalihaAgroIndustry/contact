@@ -1,52 +1,603 @@
 [
   {
     "id": 1,
-    "name": "মালিহা জৈব সার — ভার্মি কম্পোস্ট কেঁচো সার",
-    "brand": "Maliha Agro Industry",
-
-    "category": "fertilizer",
-    "categoryName": "সার, ইত্যাদি",
-    "categoryIcon": "🌱",
-
-    "subCategory": "organic",
+    "name": "মালিহা জৈব সার",
+    "slug": "maliha-organic-fertilizer",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "organic-fertilizer",
     "subCategoryName": "জৈব সার",
-    "subCategoryIcon": "🌿",
+    "type": "Organic Fertilizer",
 
-    "type": "ভার্মি কম্পোস্ট",
-    "sku": "MAI-VC-001",
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-OF-001",
 
-    "weight": "১ কেজি",
+    "price": 0,
+    "oldPrice": 0,
 
-    "price": 15,
-    "oldPrice": 20,
+    "unit": "কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
 
     "rating": 5,
     "reviewCount": 0,
 
-    "stock": "স্টকে আছে",
+    "offer": false,
+    "newArrival": true,
+    "bestSeller": false,
 
-    "offer": true,
+    "shortDescription": "মাটির উর্বরতা বৃদ্ধি ও গাছের সুস্থ বৃদ্ধির জন্য প্রাকৃতিক জৈব সার।",
+
+    "description": "মালিহা জৈব সার কৃষি জমি, সবজি বাগান, ফলের গাছ ও বিভিন্ন ধরনের গাছপালার জন্য উপযোগী একটি জৈব সার। এটি মাটির জৈব গুণাগুণ উন্নত করতে এবং গাছের স্বাভাবিক বৃদ্ধিতে সহায়তা করে।",
+
+    "benefits": [
+      "মাটির উর্বরতা বৃদ্ধিতে সহায়তা করে",
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়তা করে",
+      "গাছের স্বাভাবিক বৃদ্ধিতে সহায়তা করে",
+      "মাটির পানি ধারণক্ষমতা উন্নত করতে সহায়তা করে",
+      "কৃষিতে জৈব উপাদানের ব্যবহার বাড়াতে সহায়তা করে"
+    ],
+
+    "usage": [
+      "জমি প্রস্তুতের সময় মাটির সাথে মিশিয়ে ব্যবহার করা যায়",
+      "গাছের গোড়ায় প্রয়োজন অনুযায়ী ব্যবহার করা যায়",
+      "সবজি, ফল ও ফুলের গাছে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/maliha-organic-fertilizer-1.jpg",
+      "assets/images/products/maliha-organic-fertilizer-2.jpg",
+      "assets/images/products/maliha-organic-fertilizer-3.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+  {
+    "id": 2,
+    "name": "মালিহা ভার্মি কম্পোস্ট কেঁচো সার",
+    "slug": "maliha-vermi-compost",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "vermi-compost",
+    "subCategoryName": "ভার্মি কম্পোস্ট কেঁচো সার",
+    "type": "Vermicompost",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-VC-001",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
     "newArrival": true,
     "bestSeller": true,
 
-    "description": "মালিহা এগ্রো ইন্ডাস্ট্রির প্রাকৃতিক ভার্মি কম্পোস্ট কেঁচো সার। মাটির উর্বরতা ও জৈব গুণাগুণ বৃদ্ধিতে সহায়ক। সবজি, ফলজ, ফুল ও বিভিন্ন কৃষি কাজে ব্যবহারযোগ্য।",
+    "shortDescription": "কেঁচোর মাধ্যমে প্রক্রিয়াজাত প্রাকৃতিক ভার্মি কম্পোস্ট, যা মাটির গুণাগুণ উন্নত করতে সহায়তা করে।",
 
-    "shortDescription": "১০০% প্রাকৃতিক ভার্মি কম্পোস্ট কেঁচো সার।",
+    "description": "মালিহা ভার্মি কম্পোস্ট কেঁচো সার একটি প্রাকৃতিক জৈব সার। কেঁচোর মাধ্যমে জৈব উপাদান প্রক্রিয়াজাত করে এই সার প্রস্তুত করা হয়। এটি বিভিন্ন ফসল, সবজি, ফলের গাছ, ফুলের গাছ এবং বাগানে ব্যবহার করা যায়।",
 
-    "gallery": [
-      "images/product1.jpg",
-      "images/product1-2.jpg",
-      "images/product1-3.jpg"
+    "benefits": [
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়তা করে",
+      "মাটির উর্বরতা বৃদ্ধিতে সহায়তা করে",
+      "গাছের শিকড়ের পরিবেশ উন্নত করতে সহায়তা করে",
+      "গাছের স্বাভাবিক বৃদ্ধি ও বিকাশে সহায়তা করে",
+      "মাটির গঠন উন্নত করতে সহায়তা করে"
     ],
 
-    "features": [
-      "১০০% প্রাকৃতিক জৈব সার",
-      "মাটির উর্বরতা বৃদ্ধিতে সহায়ক",
-      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়ক",
-      "সবজি, ফল ও ফুলের গাছে ব্যবহারযোগ্য",
-      "বাগান ও কৃষি কাজে ব্যবহারযোগ্য"
+    "usage": [
+      "সবজি চাষে ব্যবহার করা যায়",
+      "ফলদ গাছের গোড়ায় ব্যবহার করা যায়",
+      "ফুলের গাছ ও টবের গাছে ব্যবহার করা যায়",
+      "কৃষি জমি ও বাগানে মাটির সাথে মিশিয়ে ব্যবহার করা যায়"
     ],
 
-    "active": true
+    "images": [
+      "assets/images/products/vermi-compost-1.jpg",
+      "assets/images/products/vermi-compost-2.jpg",
+      "assets/images/products/vermi-compost-3.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+
+  {
+    "id": 3,
+    "name": "মালিহা ট্রাইকো কম্পোস্ট সার",
+    "slug": "maliha-tricho-compost",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "tricho-compost",
+    "subCategoryName": "ট্রাইকো কম্পোস্ট",
+    "type": "Tricho Compost",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-TC-001",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
+    "newArrival": true,
+    "bestSeller": false,
+
+    "shortDescription": "ট্রাইকোডার্মা সমৃদ্ধ জৈব কম্পোস্ট, যা মাটির স্বাস্থ্য ও গাছের স্বাভাবিক বৃদ্ধিতে সহায়তা করে।",
+
+    "description": "মালিহা ট্রাইকো কম্পোস্ট সার জৈব উপাদান থেকে প্রস্তুত একটি বিশেষায়িত কম্পোস্ট সার। এতে উপকারী ট্রাইকোডার্মা ব্যবহারের মাধ্যমে মাটির পরিবেশ উন্নত করতে এবং গাছের সুস্থ বৃদ্ধিতে সহায়তা করার উদ্দেশ্যে প্রস্তুত করা হয়েছে।",
+
+    "benefits": [
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়তা করে",
+      "মাটির স্বাস্থ্য ভালো রাখতে সহায়তা করে",
+      "গাছের শিকড়ের অনুকূল পরিবেশ তৈরিতে সহায়তা করে",
+      "গাছের স্বাভাবিক বৃদ্ধি ও বিকাশে সহায়তা করে",
+      "জৈব কৃষিতে ব্যবহার উপযোগী"
+    ],
+
+    "usage": [
+      "জমি প্রস্তুতের সময় মাটির সাথে মিশিয়ে ব্যবহার করা যায়",
+      "গাছের গোড়ায় প্রয়োজন অনুযায়ী ব্যবহার করা যায়",
+      "সবজি ও ফলের গাছে ব্যবহার করা যায়",
+      "বাগান ও নার্সারিতে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/tricho-compost-1.jpg",
+      "assets/images/products/tricho-compost-2.jpg",
+      "assets/images/products/tricho-compost-3.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+
+  {
+    "id": 4,
+    "name": "মালিহা এগ শেল পাউডার",
+    "slug": "maliha-egg-shell-powder",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "egg-shell-powder",
+    "subCategoryName": "এগ শেল পাউডার",
+    "type": "Egg Shell Powder",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-ESP-001",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
+    "newArrival": true,
+    "bestSeller": false,
+
+    "shortDescription": "প্রক্রিয়াজাত ডিমের খোসার গুঁড়া, বাগান ও কৃষিতে মাটির ব্যবস্থাপনায় ব্যবহারযোগ্য।",
+
+    "description": "মালিহা এগ শেল পাউডার পরিষ্কার ও প্রক্রিয়াজাত ডিমের খোসা থেকে প্রস্তুত করা হয়। ডিমের খোসায় থাকা ক্যালসিয়ামসমৃদ্ধ উপাদানকে কাজে লাগিয়ে এটি বিভিন্ন ধরনের গাছ, টব, বাগান ও কৃষিকাজে ব্যবহার করা যায়।",
+
+    "benefits": [
+      "মাটিতে ক্যালসিয়াম সরবরাহে সহায়তা করতে পারে",
+      "মাটির গুণাগুণ উন্নত করতে সহায়তা করে",
+      "গাছের স্বাভাবিক বৃদ্ধিতে সহায়তা করে",
+      "বাগান ও টবের গাছে ব্যবহার করা যায়",
+      "জৈব উপাদানের পুনর্ব্যবহারে সহায়তা করে"
+    ],
+
+    "usage": [
+      "টবের গাছের মাটিতে ব্যবহার করা যায়",
+      "সবজি বাগানে ব্যবহার করা যায়",
+      "ফুল ও ফলের গাছে ব্যবহার করা যায়",
+      "মাটির সাথে মিশিয়ে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/egg-shell-powder-1.jpg",
+      "assets/images/products/egg-shell-powder-2.jpg",
+      "assets/images/products/egg-shell-powder-3.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+
+  {
+    "id": 5,
+    "name": "মালিহা জৈব সার — ৫ কেজি",
+    "slug": "maliha-organic-fertilizer-5kg",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "organic-fertilizer",
+    "subCategoryName": "জৈব সার",
+    "type": "Organic Fertilizer",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-OF-005KG",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "৫ কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
+    "newArrival": false,
+    "bestSeller": false,
+
+    "shortDescription": "বাড়ির বাগান, টব ও ছোট পরিসরের চাষাবাদের জন্য সুবিধাজনক প্যাকেজ।",
+
+    "description": "মালিহা জৈব সার-এর ৫ কেজি প্যাকেজটি বাড়ির বাগান, ছাদবাগান, টবের গাছ, ফুল ও সবজি চাষের জন্য সুবিধাজনক।",
+
+    "benefits": [
+      "বাগানের গাছের জন্য ব্যবহার উপযোগী",
+      "টবের গাছে ব্যবহার করা যায়",
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়তা করে",
+      "ছোট পরিসরে ব্যবহার করা সহজ"
+    ],
+
+    "usage": [
+      "টবের মাটির সাথে মিশিয়ে ব্যবহার করা যায়",
+      "বাগানের গাছের গোড়ায় ব্যবহার করা যায়",
+      "সবজি ও ফুলের গাছে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/maliha-organic-fertilizer-5kg-1.jpg",
+      "assets/images/products/maliha-organic-fertilizer-5kg-2.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+
+  {
+    "id": 6,
+    "name": "মালিহা ভার্মি কম্পোস্ট — ৫ কেজি",
+    "slug": "maliha-vermi-compost-5kg",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "vermi-compost",
+    "subCategoryName": "ভার্মি কম্পোস্ট কেঁচো সার",
+    "type": "Vermicompost",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-VC-005KG",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "৫ কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
+    "newArrival": false,
+    "bestSeller": true,
+
+    "shortDescription": "বাড়ির বাগান, টব ও সবজি চাষের জন্য সুবিধাজনক ভার্মি কম্পোস্ট প্যাকেজ।",
+
+    "description": "মালিহা ভার্মি কম্পোস্ট কেঁচো সার-এর ৫ কেজি প্যাকেজটি বাড়ির বাগান, ছাদবাগান, টব, ফুল ও সবজি চাষে সহজে ব্যবহার করার জন্য উপযোগী।",
+
+    "benefits": [
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়তা করে",
+      "টবের গাছের জন্য ব্যবহার উপযোগী",
+      "বাগানের গাছের জন্য ব্যবহার করা যায়",
+      "সবজি ও ফুলের গাছে ব্যবহার করা যায়"
+    ],
+
+    "usage": [
+      "টবের মাটির সাথে মিশিয়ে ব্যবহার করা যায়",
+      "গাছের গোড়ায় ব্যবহার করা যায়",
+      "সবজি বাগানে ব্যবহার করা যায়",
+      "ফুল ও ফলের গাছে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/vermi-compost-5kg-1.jpg",
+      "assets/images/products/vermi-compost-5kg-2.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+  {
+    "id": 7,
+    "name": "মালিহা ট্রাইকো কম্পোস্ট — ৫ কেজি",
+    "slug": "maliha-tricho-compost-5kg",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "tricho-compost",
+    "subCategoryName": "ট্রাইকো কম্পোস্ট",
+    "type": "Tricho Compost",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-TC-005KG",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "৫ কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
+    "newArrival": false,
+    "bestSeller": false,
+
+    "shortDescription": "বাগান, টব ও ছোট পরিসরের চাষাবাদের জন্য সুবিধাজনক ট্রাইকো কম্পোস্ট প্যাকেজ।",
+
+    "description": "মালিহা ট্রাইকো কম্পোস্ট-এর ৫ কেজি প্যাকেজটি বাড়ির বাগান, টব, ফুল ও সবজি চাষের জন্য সহজে ব্যবহারযোগ্য।",
+
+    "benefits": [
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়তা করে",
+      "গাছের শিকড়ের অনুকূল পরিবেশ তৈরিতে সহায়তা করে",
+      "গাছের স্বাভাবিক বৃদ্ধিতে সহায়তা করে",
+      "বাগান ও টবের গাছে ব্যবহার করা যায়"
+    ],
+
+    "usage": [
+      "টবের মাটির সাথে মিশিয়ে ব্যবহার করা যায়",
+      "গাছের গোড়ায় ব্যবহার করা যায়",
+      "সবজি ও ফুলের গাছে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/tricho-compost-5kg-1.jpg",
+      "assets/images/products/tricho-compost-5kg-2.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+
+  {
+    "id": 8,
+    "name": "মালিহা এগ শেল পাউডার — ১ কেজি",
+    "slug": "maliha-egg-shell-powder-1kg",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "egg-shell-powder",
+    "subCategoryName": "এগ শেল পাউডার",
+    "type": "Egg Shell Powder",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-ESP-001KG",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "১ কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
+    "newArrival": false,
+    "bestSeller": false,
+
+    "shortDescription": "টব, ছাদবাগান ও ছোট পরিসরের গাছের জন্য সুবিধাজনক এগ শেল পাউডার।",
+
+    "description": "মালিহা এগ শেল পাউডার পরিষ্কার ও প্রক্রিয়াজাত ডিমের খোসা থেকে প্রস্তুত করা হয়। ছোট পরিসরে গাছ ও বাগানে ব্যবহারের জন্য ১ কেজি প্যাকেজটি সুবিধাজনক।",
+
+    "benefits": [
+      "মাটিতে ক্যালসিয়াম সরবরাহে সহায়তা করতে পারে",
+      "টবের গাছে ব্যবহার করা যায়",
+      "বাগানের মাটিতে ব্যবহার করা যায়",
+      "জৈব উপাদানের পুনর্ব্যবহারে সহায়তা করে"
+    ],
+
+    "usage": [
+      "টবের মাটির সাথে মিশিয়ে ব্যবহার করা যায়",
+      "ফুল ও ফলের গাছে ব্যবহার করা যায়",
+      "সবজি বাগানে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/egg-shell-powder-1kg-1.jpg",
+      "assets/images/products/egg-shell-powder-1kg-2.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+
+  {
+    "id": 9,
+    "name": "মালিহা ভার্মি কম্পোস্ট — ২৫ কেজি",
+    "slug": "maliha-vermi-compost-25kg",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "vermi-compost",
+    "subCategoryName": "ভার্মি কম্পোস্ট কেঁচো সার",
+    "type": "Vermicompost",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-VC-025KG",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "২৫ কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
+    "newArrival": false,
+    "bestSeller": true,
+
+    "shortDescription": "কৃষি জমি, বাগান ও তুলনামূলক বড় পরিসরের চাষাবাদের জন্য ভার্মি কম্পোস্ট।",
+
+    "description": "মালিহা ভার্মি কম্পোস্ট কেঁচো সার-এর ২৫ কেজি প্যাকেজটি কৃষি জমি, সবজি চাষ, ফলের বাগান ও বড় পরিসরের বাগান ব্যবহারের জন্য উপযোগী।",
+
+    "benefits": [
+      "মাটির উর্বরতা বৃদ্ধিতে সহায়তা করে",
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়তা করে",
+      "গাছের শিকড়ের পরিবেশ উন্নত করতে সহায়তা করে",
+      "মাটির গঠন উন্নত করতে সহায়তা করে",
+      "বড় পরিসরের চাষাবাদে ব্যবহার করা যায়"
+    ],
+
+    "usage": [
+      "কৃষি জমিতে ব্যবহার করা যায়",
+      "সবজি চাষে ব্যবহার করা যায়",
+      "ফলের বাগানে ব্যবহার করা যায়",
+      "বাগানের মাটির সাথে মিশিয়ে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/vermi-compost-25kg-1.jpg",
+      "assets/images/products/vermi-compost-25kg-2.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
+  },
+
+
+  {
+    "id": 10,
+    "name": "মালিহা জৈব সার — ২৫ কেজি",
+    "slug": "maliha-organic-fertilizer-25kg",
+    "category": "organic-fertilizer",
+    "categoryName": "জৈব সার",
+    "subCategory": "organic-fertilizer",
+    "subCategoryName": "জৈব সার",
+    "type": "Organic Fertilizer",
+
+    "brand": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+    "sku": "MAI-OF-025KG",
+
+    "price": 0,
+    "oldPrice": 0,
+
+    "unit": "২৫ কেজি",
+
+    "stock": "স্টকে আছে",
+    "stockQuantity": 0,
+
+    "rating": 5,
+    "reviewCount": 0,
+
+    "offer": false,
+    "newArrival": false,
+    "bestSeller": false,
+
+    "shortDescription": "কৃষি জমি ও বড় পরিসরের বাগানের জন্য সুবিধাজনক জৈব সার প্যাকেজ।",
+
+    "description": "মালিহা জৈব সার-এর ২৫ কেজি প্যাকেজটি কৃষি জমি, সবজি, ফলের বাগান এবং বড় পরিসরের চাষাবাদে ব্যবহারের জন্য উপযোগী।",
+
+    "benefits": [
+      "মাটির উর্বরতা বৃদ্ধিতে সহায়তা করে",
+      "মাটির জৈব গুণাগুণ উন্নত করতে সহায়তা করে",
+      "গাছের স্বাভাবিক বৃদ্ধিতে সহায়তা করে",
+      "বড় পরিসরের চাষাবাদে ব্যবহার করা যায়"
+    ],
+
+    "usage": [
+      "কৃষি জমিতে ব্যবহার করা যায়",
+      "সবজি চাষে ব্যবহার করা যায়",
+      "ফলের বাগানে ব্যবহার করা যায়",
+      "মাটির সাথে মিশিয়ে ব্যবহার করা যায়"
+    ],
+
+    "images": [
+      "assets/images/products/maliha-organic-fertilizer-25kg-1.jpg",
+      "assets/images/products/maliha-organic-fertilizer-25kg-2.jpg"
+    ],
+
+    "createdAt": "2026-08-01",
+
+    "manufacturer": {
+      "name": "মালিহা এগ্রো ইন্ডাস্ট্রি",
+      "location": "ইসলামপুর, কানসাট, শিবগঞ্জ, চাঁপাইনবাবগঞ্জ"
+    }
   }
 ]
