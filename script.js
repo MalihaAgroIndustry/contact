@@ -5276,3 +5276,794 @@ console.log(
     "📂 Part 5/8 — Category & Sub-category System Loaded."
 );
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — PART 6/8
+
+   RELATED PRODUCTS
+   WISHLIST PAGE
+   IMAGE MODAL
+   PRODUCT IMAGE ERROR
+   PRODUCT QUICK OPEN
+   SEARCH RESET
+========================================================== */
+
+
+/* ==========================================================
+   RELATED PRODUCTS
+========================================================== */
+
+function loadRelatedProducts() {
+
+    const container =
+        $("#relatedProducts");
+
+
+    if (
+        !container ||
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    const currentId =
+        Number(
+            currentProduct.id
+        );
+
+
+    const currentCategory =
+        normalizeCategory(
+            currentProduct.category
+        );
+
+
+    let related =
+        products.filter(
+            product => {
+
+                if (
+                    !product
+                ) {
+
+                    return false;
+
+                }
+
+
+                const productId =
+                    Number(
+                        product.id
+                    );
+
+
+                const productCategory =
+                    normalizeCategory(
+                        product.category
+                    );
+
+
+                return (
+                    productId !== currentId &&
+                    productCategory ===
+                        currentCategory
+                );
+
+            }
+        );
+
+
+    /*
+       সর্বোচ্চ ৪টি Related Product
+    */
+
+    related =
+        related.slice(
+            0,
+            4
+        );
+
+
+    container.innerHTML =
+        "";
+
+
+    /*
+       Related Product না থাকলে
+    */
+
+    if (
+        !related.length
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:25px 20px;
+                    color:#666;
+                "
+            >
+
+                এই ক্যাটাগরিতে বর্তমানে
+                অন্য কোনো পণ্য নেই।
+
+            </div>
+
+        `;
+
+
+        return;
+
+    }
+
+
+    /*
+       Related Product Render
+    */
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    related.forEach(
+        product => {
+
+            const card =
+                createProductCard(
+                    product
+                );
+
+
+            if (
+                card
+            ) {
+
+                fragment.appendChild(
+                    card
+                );
+
+            }
+
+        }
+    );
+
+
+    container.appendChild(
+        fragment
+    );
+
+
+    /*
+       Related product slider
+    */
+
+    startSliders();
+
+}
+
+
+/* ==========================================================
+   WISHLIST PAGE
+========================================================== */
+
+async function renderWishlistPage() {
+
+    const container =
+        $("#wishlistProducts");
+
+
+    if (
+        !container
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        await ensureProductsLoaded();
+
+
+        /*
+           Wishlist-এর product বের করা
+        */
+
+        const items =
+            products.filter(
+                product => {
+
+                    if (
+                        !product
+                    ) {
+
+                        return false;
+
+                    }
+
+
+                    return wishlist.includes(
+                        Number(
+                            product.id
+                        )
+                    );
+
+                }
+            );
+
+
+        /*
+           Wishlist Summary
+        */
+
+        const summary =
+            $("#wishlistSummary");
+
+
+        if (
+            summary
+        ) {
+
+            summary.textContent =
+                `❤️ আপনার Wishlist-এ ${items.length} টি পণ্য আছে।`;
+
+        }
+
+
+        container.innerHTML =
+            "";
+
+
+        /*
+           Wishlist Empty
+        */
+
+        if (
+            !items.length
+        ) {
+
+            container.innerHTML = `
+
+                <div
+                    class="card"
+                    style="
+                        grid-column:1/-1;
+                        text-align:center;
+                        padding:45px 20px;
+                    "
+                >
+
+                    <div
+                        style="
+                            font-size:50px;
+                            margin-bottom:10px;
+                        "
+                    >
+                        🤍
+                    </div>
+
+
+                    <h2>
+                        আপনার Wishlist খালি
+                    </h2>
+
+
+                    <p
+                        style="
+                            color:#666;
+                            margin-top:8px;
+                            line-height:1.7;
+                        "
+                    >
+                        পছন্দের পণ্যের ❤️ বাটনে ক্লিক করলে
+                        এখানে দেখা যাবে।
+                    </p>
+
+
+                    <a
+                        href="products.html"
+                        class="btn"
+                        style="
+                            display:block;
+                            max-width:200px;
+                            margin:15px auto 0;
+                            text-align:center;
+                        "
+                    >
+                        🛍️ পণ্য দেখুন
+                    </a>
+
+                </div>
+
+            `;
+
+
+            updateWishlistCounter();
+
+
+            return;
+
+        }
+
+
+        /*
+           Wishlist Products
+        */
+
+        const fragment =
+            document.createDocumentFragment();
+
+
+        items.forEach(
+            product => {
+
+                const card =
+                    createProductCard(
+                        product
+                    );
+
+
+                if (
+                    card
+                ) {
+
+                    fragment.appendChild(
+                        card
+                    );
+
+                }
+
+            }
+        );
+
+
+        container.appendChild(
+            fragment
+        );
+
+
+        updateWishlistCounter();
+
+
+        startSliders();
+
+    }
+    catch (
+        error
+    ) {
+
+        console.error(
+            "Wishlist Error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:30px 20px;
+                "
+            >
+
+                ❌ Wishlist লোড করা যায়নি।
+
+                <br>
+
+                অনুগ্রহ করে আবার চেষ্টা করুন।
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* ==========================================================
+   IMAGE MODAL — OPEN
+========================================================== */
+
+function openImageModal(
+    src
+) {
+
+    const modal =
+        $("#imageModal");
+
+
+    const image =
+        $("#modalImage");
+
+
+    if (
+        !modal ||
+        !image ||
+        !src
+    ) {
+
+        return;
+
+    }
+
+
+    image.src =
+        src;
+
+
+    image.alt =
+        currentProduct?.name ||
+        "Maliha Agro Industry Product";
+
+
+    modal.style.display =
+        "flex";
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+/* ==========================================================
+   IMAGE MODAL — CLOSE
+========================================================== */
+
+function closeImageModal() {
+
+    const modal =
+        $("#imageModal");
+
+
+    const image =
+        $("#modalImage");
+
+
+    if (
+        modal
+    ) {
+
+        modal.style.display =
+            "none";
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+
+    if (
+        image
+    ) {
+
+        image.src =
+            "";
+
+    }
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+/* ==========================================================
+   IMAGE MODAL INITIALIZATION
+========================================================== */
+
+function initImagePreview() {
+
+    const modal =
+        $("#imageModal");
+
+
+    if (
+        !modal
+    ) {
+
+        return;
+
+    }
+
+
+    /*
+       Close button
+    */
+
+    const close =
+        modal.querySelector(
+            ".close-modal"
+        );
+
+
+    if (
+        close &&
+        !close.dataset.bound
+    ) {
+
+        close.dataset.bound =
+            "true";
+
+
+        close.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                closeImageModal();
+
+            }
+        );
+
+    }
+
+
+    /*
+       Background click
+    */
+
+    if (
+        !modal.dataset.bound
+    ) {
+
+        modal.dataset.bound =
+            "true";
+
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    modal
+                ) {
+
+                    closeImageModal();
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   PRODUCT CARD IMAGE CLICK
+========================================================== */
+
+document.addEventListener(
+    "click",
+    event => {
+
+        const image =
+            event.target.closest(
+                ".product-card .product-img"
+            );
+
+
+        if (
+            !image ||
+            !image.src
+        ) {
+
+            return;
+
+        }
+
+
+        event.preventDefault();
+
+
+        event.stopPropagation();
+
+
+        openImageModal(
+            image.src
+        );
+
+    }
+);
+
+
+/* ==========================================================
+   ESCAPE KEY — CLOSE IMAGE MODAL
+========================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeImageModal();
+
+        }
+
+    }
+);
+
+
+/* ==========================================================
+   IMAGE ERROR HANDLER
+========================================================== */
+
+document.addEventListener(
+    "error",
+    event => {
+
+        const target =
+            event.target;
+
+
+        if (
+            !target ||
+            target.tagName !==
+                "IMG"
+        ) {
+
+            return;
+
+        }
+
+
+        target.classList.add(
+            "image-load-error"
+        );
+
+    },
+    true
+);
+
+
+/* ==========================================================
+   PRODUCT QUICK OPEN
+========================================================== */
+
+function openProduct(
+    productId
+) {
+
+    const id =
+        Number(
+            productId
+        );
+
+
+    if (
+        !Number.isFinite(id) ||
+        id <= 0
+    ) {
+
+        return;
+
+    }
+
+
+    window.location.href =
+        "product.html?id=" +
+        encodeURIComponent(
+            id
+        );
+
+}
+
+
+/* ==========================================================
+   PRODUCT SEARCH RESET
+========================================================== */
+
+function resetProductSearch() {
+
+    const search =
+        $("#searchProduct");
+
+
+    if (
+        search
+    ) {
+
+        search.value =
+            "";
+
+    }
+
+
+    const sort =
+        $("#sortProducts");
+
+
+    if (
+        sort
+    ) {
+
+        sort.value =
+            "default";
+
+    }
+
+
+    loadProducts(
+        getActiveCategory(),
+        getActiveSubCategory()
+    );
+
+}
+
+
+/* ==========================================================
+   WISHLIST PAGE AUTO INITIALIZATION
+========================================================== */
+
+async function initWishlistPage() {
+
+    const container =
+        $("#wishlistProducts");
+
+
+    if (
+        !container
+    ) {
+
+        return;
+
+    }
+
+
+    await renderWishlistPage();
+
+}
+
+
+/* ==========================================================
+   IMAGE PREVIEW AUTO INITIALIZATION
+========================================================== */
+
+function initImageModalSystem() {
+
+    initImagePreview();
+
+}
+
+
+/* ==========================================================
+   PART 6 COMPLETE
+========================================================== */
+
+console.log(
+    "❤️ Part 6/8 — Wishlist, Related Products & Image Modal Loaded."
+);
+
