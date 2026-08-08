@@ -8588,3 +8588,1185 @@ console.log(
     "📂 Part 7/8 — Category & Subcategory System Loaded."
 );
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — FINAL A-Z VERSION
+   PART 8/8
+
+   LOAD PRODUCTS
+   SORT
+   SEARCH
+   RESULT COUNT
+   DETAIL CONTROLS
+   VISIBILITY
+   GLOBAL API
+   FINAL VALIDATION
+========================================================== */
+
+
+/* ==========================================================
+   SORT PRODUCTS
+========================================================== */
+
+function sortProducts(
+    list,
+    sortType = "default"
+) {
+
+    if (
+        !Array.isArray(list)
+    ) {
+
+        return [];
+
+    }
+
+
+    const result =
+        [...list];
+
+
+    switch (
+        String(
+            sortType || "default"
+        )
+            .trim()
+            .toLowerCase()
+    ) {
+
+
+        /* ------------------------------------------
+           PRICE LOW → HIGH
+        ------------------------------------------ */
+
+        case "price-low":
+        case "price-low-high":
+        case "low-high":
+
+            result.sort(
+                (a, b) =>
+                    Number(
+                        a.price || 0
+                    ) -
+                    Number(
+                        b.price || 0
+                    )
+            );
+
+            break;
+
+
+        /* ------------------------------------------
+           PRICE HIGH → LOW
+        ------------------------------------------ */
+
+        case "price-high":
+        case "price-high-low":
+        case "high-low":
+
+            result.sort(
+                (a, b) =>
+                    Number(
+                        b.price || 0
+                    ) -
+                    Number(
+                        a.price || 0
+                    )
+            );
+
+            break;
+
+
+        /* ------------------------------------------
+           RATING
+        ------------------------------------------ */
+
+        case "rating":
+        case "top-rated":
+
+            result.sort(
+                (a, b) => {
+
+                    const ratingA =
+                        Number(
+                            a.rating || 0
+                        );
+
+
+                    const ratingB =
+                        Number(
+                            b.rating || 0
+                        );
+
+
+                    if (
+                        ratingB !==
+                        ratingA
+                    ) {
+
+                        return (
+                            ratingB -
+                            ratingA
+                        );
+
+                    }
+
+
+                    return (
+                        Number(
+                            b.reviewCount || 0
+                        ) -
+                        Number(
+                            a.reviewCount || 0
+                        )
+                    );
+
+                }
+            );
+
+            break;
+
+
+        /* ------------------------------------------
+           NEWEST
+        ------------------------------------------ */
+
+        case "newest":
+        case "new":
+        case "latest":
+
+            result.sort(
+                (a, b) => {
+
+                    const dateA =
+                        new Date(
+                            a.createdAt ||
+                            a.date ||
+                            0
+                        ).getTime();
+
+
+                    const dateB =
+                        new Date(
+                            b.createdAt ||
+                            b.date ||
+                            0
+                        ).getTime();
+
+
+                    /*
+                       Date না থাকলে ID fallback
+                    */
+
+                    if (
+                        Number.isNaN(dateA) ||
+                        Number.isNaN(dateB)
+                    ) {
+
+                        return (
+                            Number(
+                                b.id || 0
+                            ) -
+                            Number(
+                                a.id || 0
+                            )
+                        );
+
+                    }
+
+
+                    return (
+                        dateB -
+                        dateA
+                    );
+
+                }
+            );
+
+            break;
+
+
+        /* ------------------------------------------
+           NAME A-Z
+        ------------------------------------------ */
+
+        case "name":
+        case "name-az":
+        case "a-z":
+
+            result.sort(
+                (a, b) =>
+                    String(
+                        a.name || ""
+                    ).localeCompare(
+                        String(
+                            b.name || ""
+                        ),
+                        "bn",
+                        {
+                            sensitivity:
+                                "base"
+                        }
+                    )
+            );
+
+            break;
+
+
+        /* ------------------------------------------
+           DEFAULT
+        ------------------------------------------ */
+
+        default:
+
+            break;
+
+    }
+
+
+    return result;
+
+}
+
+
+/* ==========================================================
+   UPDATE PRODUCT RESULT COUNT
+========================================================== */
+
+function updateProductResultCount(
+    count
+) {
+
+    const total =
+        Number(
+            count
+        ) || 0;
+
+
+    const text =
+        `${total} টি পণ্য পাওয়া গেছে`;
+
+
+    const elements =
+        [
+
+            $("#productResultCount"),
+
+            $("#productCount"),
+
+            $("#resultCount"),
+
+            $("#productsCount"),
+
+            $("#searchResultCount")
+
+        ];
+
+
+    elements.forEach(
+        element => {
+
+            if (!element) {
+
+                return;
+
+            }
+
+
+            element.textContent =
+                text;
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   RENDER PRODUCTS
+========================================================== */
+
+function renderProducts(
+    list,
+    container
+) {
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    /*
+       EMPTY
+    */
+
+    if (
+        !Array.isArray(list) ||
+        !list.length
+    ) {
+
+        container.innerHTML = `
+
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:45px 20px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:50px;
+                        margin-bottom:10px;
+                    "
+                >
+                    🌱
+                </div>
+
+
+                <h2>
+                    কোনো পণ্য পাওয়া যায়নি
+                </h2>
+
+
+                <p
+                    style="
+                        color:#777;
+                        margin-top:8px;
+                        line-height:1.7;
+                    "
+                >
+                    আপনার অনুসন্ধান বা
+                    নির্বাচিত ক্যাটাগরি পরিবর্তন
+                    করে আবার চেষ্টা করুন।
+                </p>
+
+
+                <button
+                    type="button"
+                    id="resetProductSearchBtn"
+                    class="btn"
+                    style="
+                        border:0;
+                        cursor:pointer;
+                        max-width:220px;
+                        margin:15px auto 0;
+                    "
+                >
+                    🔄 ফিল্টার রিসেট করুন
+                </button>
+
+            </div>
+
+        `;
+
+
+        $("#resetProductSearchBtn")
+            ?.addEventListener(
+                "click",
+                resetProductSearch
+            );
+
+
+        updateProductResultCount(
+            0
+        );
+
+
+        return;
+
+    }
+
+
+    const fragment =
+        document.createDocumentFragment();
+
+
+    list.forEach(
+        product => {
+
+            const card =
+                createProductCard(
+                    product
+                );
+
+
+            if (card) {
+
+                fragment.appendChild(
+                    card
+                );
+
+            }
+
+        }
+    );
+
+
+    container.appendChild(
+        fragment
+    );
+
+
+    updateProductResultCount(
+        list.length
+    );
+
+
+    /*
+       Wishlist buttons update
+    */
+
+    $$(".wishlist-btn")
+        .forEach(
+            button => {
+
+                const id =
+                    Number(
+                        button.dataset.id
+                    );
+
+
+                if (
+                    Number.isFinite(id)
+                ) {
+
+                    updateWishlistButton(
+                        button,
+                        id
+                    );
+
+                }
+
+            }
+        );
+
+
+    /*
+       Slider restart
+    */
+
+    refreshSliders();
+
+}
+
+
+/* ==========================================================
+   LOAD PRODUCTS
+========================================================== */
+
+async function loadProducts(
+    category = "",
+    subCategory = ""
+) {
+
+    const container =
+        $("#productList");
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    const loading =
+        $("#productsLoading");
+
+
+    if (loading) {
+
+        loading.style.display =
+            "block";
+
+    }
+
+
+    try {
+
+        await ensureProductsLoaded();
+
+
+        /* ------------------------------------------
+           SEARCH
+        ------------------------------------------ */
+
+        const searchInput =
+            $("#searchProduct");
+
+
+        const searchTerm =
+            searchInput?.value ||
+            "";
+
+
+        /* ------------------------------------------
+           FILTER
+        ------------------------------------------ */
+
+        let filtered =
+            filterProducts(
+                products,
+                category,
+                subCategory,
+                searchTerm
+            );
+
+
+        /* ------------------------------------------
+           SORT
+        ------------------------------------------ */
+
+        const sortSelect =
+            $("#sortProducts");
+
+
+        const sortValue =
+            sortSelect?.value ||
+            "default";
+
+
+        filtered =
+            sortProducts(
+                filtered,
+                sortValue
+            );
+
+
+        /* ------------------------------------------
+           RENDER
+        ------------------------------------------ */
+
+        renderProducts(
+            filtered,
+            container
+        );
+
+
+        console.log(
+            "✅ Products Rendered:",
+            filtered.length
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "❌ Products Load Error:",
+            error
+        );
+
+
+        container.innerHTML = `
+
+            <div
+                class="card"
+                style="
+                    grid-column:1/-1;
+                    text-align:center;
+                    padding:35px 20px;
+                "
+            >
+
+                <div
+                    style="
+                        font-size:50px;
+                        margin-bottom:10px;
+                    "
+                >
+                    ❌
+                </div>
+
+
+                <h2>
+                    পণ্য লোড করা যায়নি
+                </h2>
+
+
+                <p
+                    style="
+                        color:#777;
+                        margin-top:8px;
+                        line-height:1.7;
+                    "
+                >
+                    পণ্যের তথ্য বর্তমানে
+                    লোড করা সম্ভব হচ্ছে না।
+                    <br>
+                    কিছুক্ষণ পর আবার চেষ্টা করুন।
+                </p>
+
+
+                <button
+                    type="button"
+                    id="reloadProducts"
+                    class="btn"
+                    style="
+                        border:0;
+                        cursor:pointer;
+                        max-width:200px;
+                        margin:15px auto 0;
+                    "
+                >
+                    🔄 আবার চেষ্টা করুন
+                </button>
+
+            </div>
+
+        `;
+
+
+        $("#reloadProducts")
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    loadProducts(
+                        category,
+                        subCategory
+                    );
+
+                }
+            );
+
+    }
+    finally {
+
+        if (loading) {
+
+            loading.style.display =
+                "none";
+
+        }
+
+    }
+
+}
+
+
+/* ==========================================================
+   SEARCH INITIALIZATION
+========================================================== */
+
+function initSearch() {
+
+    const input =
+        $("#searchProduct");
+
+
+    if (
+        !input ||
+        input.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    input.dataset.bound =
+        "true";
+
+
+    let searchTimer =
+        null;
+
+
+    input.addEventListener(
+        "input",
+        () => {
+
+            clearTimeout(
+                searchTimer
+            );
+
+
+            searchTimer =
+                setTimeout(
+                    () => {
+
+                        loadProducts(
+                            getActiveCategory(),
+                            getActiveSubCategory()
+                        );
+
+                    },
+                    250
+                );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   SORT INITIALIZATION
+========================================================== */
+
+function initSort() {
+
+    const select =
+        $("#sortProducts");
+
+
+    if (
+        !select ||
+        select.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    select.dataset.bound =
+        "true";
+
+
+    select.addEventListener(
+        "change",
+        () => {
+
+            loadProducts(
+                getActiveCategory(),
+                getActiveSubCategory()
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   PRODUCT DETAIL CONTROLS
+========================================================== */
+
+function initProductDetailControls() {
+
+    /*
+       প্রতিটি function নিজে নিজে
+       duplicate binding আটকাবে।
+    */
+
+    if (
+        typeof initDetailGallery ===
+        "function"
+    ) {
+
+        initDetailGallery();
+
+    }
+
+
+    if (
+        typeof initQuantity ===
+        "function"
+    ) {
+
+        initQuantity();
+
+    }
+
+
+    if (
+        typeof initOrderButton ===
+        "function"
+    ) {
+
+        initOrderButton();
+
+    }
+
+
+    if (
+        typeof initShareProduct ===
+        "function"
+    ) {
+
+        initShareProduct();
+
+    }
+
+
+    if (
+        typeof initDetailWishlist ===
+        "function"
+    ) {
+
+        initDetailWishlist();
+
+    }
+
+
+    if (
+        typeof initImagePreview ===
+        "function"
+    ) {
+
+        initImagePreview();
+
+    }
+
+
+    if (
+        typeof initDetailGallerySwipe ===
+        "function"
+    ) {
+
+        initDetailGallerySwipe();
+
+    }
+
+}
+
+
+/* ==========================================================
+   PRODUCT DETAIL FINAL PATCH
+========================================================== */
+
+function initProductDetailFinalPatch() {
+
+    if (
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        typeof initDetailGallerySwipe ===
+        "function"
+    ) {
+
+        initDetailGallerySwipe();
+
+    }
+
+
+    if (
+        typeof updateOrderLink ===
+        "function"
+    ) {
+
+        updateOrderLink(
+            Number(
+                $("#qty")?.value ||
+                1
+            )
+        );
+
+    }
+
+
+    if (
+        typeof updateWishlistCounter ===
+        "function"
+    ) {
+
+        updateWishlistCounter();
+
+    }
+
+}
+
+
+/* ==========================================================
+   RESET PRODUCTS
+========================================================== */
+
+function refreshProducts() {
+
+    return loadProducts(
+        getActiveCategory(),
+        getActiveSubCategory()
+    );
+
+}
+
+
+/* ==========================================================
+   REFRESH WISHLIST
+========================================================== */
+
+function refreshWishlist() {
+
+    if (
+        typeof renderWishlistPage ===
+        "function"
+    ) {
+
+        return renderWishlistPage();
+
+    }
+
+}
+
+
+/* ==========================================================
+   PAGE VISIBILITY — SLIDER CONTROL
+========================================================== */
+
+if (
+    !document.documentElement.dataset
+        .malihaVisibilityBound
+) {
+
+    document.documentElement.dataset
+        .malihaVisibilityBound =
+        "true";
+
+
+    document.addEventListener(
+        "visibilitychange",
+        () => {
+
+            if (
+                document.hidden
+            ) {
+
+                stopSliders();
+
+            }
+            else {
+
+                refreshSliders();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   BEFORE UNLOAD
+========================================================== */
+
+if (
+    !document.documentElement.dataset
+        .malihaBeforeUnloadBound
+) {
+
+    document.documentElement.dataset
+        .malihaBeforeUnloadBound =
+        "true";
+
+
+    window.addEventListener(
+        "beforeunload",
+        () => {
+
+            stopSliders();
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   GLOBAL API
+========================================================== */
+
+window.MalihaAgro =
+    {
+
+        config:
+            typeof SITE_CONFIG !==
+            "undefined"
+                ? SITE_CONFIG
+                : {},
+
+
+        getProducts:
+            () =>
+                Array.isArray(products)
+                    ? products
+                    : [],
+
+
+        getCategories:
+            () =>
+                Array.isArray(categories)
+                    ? categories
+                    : [],
+
+
+        getWishlist:
+            () =>
+                Array.isArray(wishlist)
+                    ? wishlist
+                    : [],
+
+
+        openProduct:
+            productId =>
+                openProduct(
+                    productId
+                ),
+
+
+        refreshProducts:
+            () =>
+                refreshProducts(),
+
+
+        refreshWishlist:
+            () =>
+                refreshWishlist(),
+
+
+        resetSearch:
+            () =>
+                resetProductSearch()
+
+    };
+
+
+/* ==========================================================
+   FINAL VALIDATION
+========================================================== */
+
+(function finalValidation() {
+
+    const requiredFunctions =
+        [
+
+            "fetchProducts",
+
+            "fetchCategories",
+
+            "loadProducts",
+
+            "renderProducts",
+
+            "createProductCard",
+
+            "loadProductDetails",
+
+            "renderCompleteProductDetails",
+
+            "initProductDetailControls",
+
+            "toggleWishlist",
+
+            "renderWishlistPage",
+
+            "initSearch",
+
+            "initSort",
+
+            "sortProducts",
+
+            "filterProducts"
+
+        ];
+
+
+    requiredFunctions.forEach(
+        functionName => {
+
+            try {
+
+                if (
+                    typeof window[
+                        functionName
+                    ] !== "function" &&
+                    typeof eval(
+                        `typeof ${functionName}`
+                    ) === "undefined"
+                ) {
+
+                    console.warn(
+                        `⚠️ Function missing: ${functionName}`
+                    );
+
+                }
+
+            }
+            catch (error) {
+
+                console.warn(
+                    `⚠️ Validation failed: ${functionName}`,
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    console.log(
+        "🌱 Maliha Agro Industry — Final Script Validation Complete"
+    );
+
+})();
+
+
+/* ==========================================================
+   FINAL READY LOG
+========================================================== */
+
+console.log(
+    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+);
+
+
+console.log(
+    "🌱 Maliha Agro Industry"
+);
+
+
+console.log(
+    "✅ script.js — PART 8/8 loaded"
+);
+
+
+console.log(
+    "🛍️ Product System Ready"
+);
+
+
+console.log(
+    "❤️ Wishlist System Ready"
+);
+
+
+console.log(
+    "🔎 Search System Ready"
+);
+
+
+console.log(
+    "↕️ Sort System Ready"
+);
+
+
+console.log(
+    "📱 Mobile Friendly Logic Ready"
+);
+
+
+console.log(
+    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+);
+
+
+/* ==========================================================
+   PART 8 COMPLETE
+========================================================== */
