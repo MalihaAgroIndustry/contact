@@ -2543,3 +2543,1068 @@ console.log(
     "🛍️ Part 2/8 — Search, Slider & Product Details Loaded."
 );
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — FINAL A-Z VERSION
+   PART 3/8
+
+   PRODUCT DETAIL
+   GALLERY
+   QUANTITY
+   WHATSAPP ORDER
+   SHARE
+   WISHLIST
+========================================================== */
+
+
+/* ==========================================================
+   PRODUCT DETAIL — GALLERY
+========================================================== */
+
+function initDetailGallery() {
+
+    const slider =
+        $("#productSlider");
+
+    if (
+        !slider ||
+        slider.dataset.galleryBound
+    ) {
+        return;
+    }
+
+    slider.dataset.galleryBound =
+        "true";
+
+
+    const images =
+        slider.querySelectorAll(
+            ".product-img"
+        );
+
+    if (!images.length) {
+        return;
+    }
+
+
+    let currentIndex = 0;
+
+
+    function showImage(index) {
+
+        if (!images.length) {
+            return;
+        }
+
+
+        currentIndex =
+            (
+                index +
+                images.length
+            ) %
+            images.length;
+
+
+        images.forEach(
+            (image, i) => {
+
+                image.classList.toggle(
+                    "active",
+                    i === currentIndex
+                );
+
+            }
+        );
+
+
+        const counter =
+            $("#imageCounter");
+
+        if (counter) {
+
+            counter.textContent =
+                `${currentIndex + 1} / ${images.length}`;
+
+        }
+
+    }
+
+
+    $("#prevImage")
+        ?.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                showImage(
+                    currentIndex - 1
+                );
+
+            }
+        );
+
+
+    $("#nextImage")
+        ?.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                showImage(
+                    currentIndex + 1
+                );
+
+            }
+        );
+
+
+    images.forEach(
+        (image, index) => {
+
+            image.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+                    openImageModal(
+                        image.src
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    showImage(0);
+
+}
+
+
+/* ==========================================================
+   QUANTITY CONTROL
+========================================================== */
+
+function initQuantity() {
+
+    const input =
+        $("#qty");
+
+
+    if (
+        !input ||
+        input.dataset.quantityBound
+    ) {
+
+        return;
+
+    }
+
+
+    input.dataset.quantityBound =
+        "true";
+
+
+    function normalizeQuantity() {
+
+        let quantity =
+            parseInt(
+                input.value,
+                10
+            );
+
+
+        if (
+            !Number.isFinite(
+                quantity
+            ) ||
+            quantity < 1
+        ) {
+
+            quantity = 1;
+
+        }
+
+
+        const max =
+            parseInt(
+                input.max,
+                10
+            );
+
+
+        if (
+            Number.isFinite(max) &&
+            max > 0 &&
+            quantity > max
+        ) {
+
+            quantity = max;
+
+        }
+
+
+        input.value =
+            String(quantity);
+
+
+        updateOrderLink(
+            quantity
+        );
+
+    }
+
+
+    input.addEventListener(
+        "input",
+        normalizeQuantity
+    );
+
+
+    input.addEventListener(
+        "change",
+        normalizeQuantity
+    );
+
+
+    $("#qtyMinus")
+        ?.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                let quantity =
+                    parseInt(
+                        input.value,
+                        10
+                    ) || 1;
+
+
+                quantity =
+                    Math.max(
+                        1,
+                        quantity - 1
+                    );
+
+
+                input.value =
+                    String(quantity);
+
+
+                updateOrderLink(
+                    quantity
+                );
+
+            }
+        );
+
+
+    $("#qtyPlus")
+        ?.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+
+                let quantity =
+                    parseInt(
+                        input.value,
+                        10
+                    ) || 1;
+
+
+                const max =
+                    parseInt(
+                        input.max,
+                        10
+                    );
+
+
+                quantity++;
+
+
+                if (
+                    Number.isFinite(max) &&
+                    max > 0
+                ) {
+
+                    quantity =
+                        Math.min(
+                            quantity,
+                            max
+                        );
+
+                }
+
+
+                input.value =
+                    String(quantity);
+
+
+                updateOrderLink(
+                    quantity
+                );
+
+            }
+        );
+
+
+    normalizeQuantity();
+
+}
+
+
+/* ==========================================================
+   WHATSAPP ORDER LINK
+========================================================== */
+
+function updateOrderLink(
+    quantity = 1
+) {
+
+    const button =
+        $("#orderWhatsApp");
+
+
+    if (!button) {
+        return;
+    }
+
+
+    if (!currentProduct) {
+
+        button.href =
+            "#";
+
+        return;
+
+    }
+
+
+    let qty =
+        parseInt(
+            quantity,
+            10
+        );
+
+
+    if (
+        !Number.isFinite(qty) ||
+        qty < 1
+    ) {
+
+        qty = 1;
+
+    }
+
+
+    const productName =
+        currentProduct.name ||
+        "পণ্য";
+
+
+    const productPrice =
+        Number(
+            currentProduct.price || 0
+        );
+
+
+    const total =
+        productPrice *
+        qty;
+
+
+    const productUrl =
+        window.location.href;
+
+
+    const message =
+        [
+            "🌱 *মালিহা এগ্রো ইন্ডাস্ট্রি*",
+            "",
+            "🛍️ *পণ্য অর্ডার*",
+            "",
+            `📦 পণ্য: ${productName}`,
+            `🔢 পরিমাণ: ${qty}`,
+            `💰 একক মূল্য: ${formatPrice(productPrice)}`,
+            `💵 মোট মূল্য: ${formatPrice(total)}`,
+            "",
+            `🔗 পণ্য লিংক: ${productUrl}`,
+            "",
+            "আমি এই পণ্যটি অর্ডার করতে চাই।"
+        ]
+            .join("\n");
+
+
+    const whatsappNumber =
+        String(
+            SITE_CONFIG?.whatsapp ||
+            SITE_CONFIG?.phone ||
+            "8801303679189"
+        )
+            .replace(
+                /[^0-9]/g,
+                ""
+            );
+
+
+    button.href =
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+            message
+        )}`;
+
+
+    button.target =
+        "_blank";
+
+
+    button.rel =
+        "noopener noreferrer";
+
+
+    button.dataset.orderReady =
+        "true";
+
+}
+
+
+/* ==========================================================
+   ORDER BUTTON
+========================================================== */
+
+function initOrderButton() {
+
+    const button =
+        $("#orderWhatsApp");
+
+
+    if (
+        !button ||
+        button.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.bound =
+        "true";
+
+
+    button.addEventListener(
+        "click",
+        event => {
+
+            if (
+                !currentProduct
+            ) {
+
+                event.preventDefault();
+
+                return;
+
+            }
+
+
+            const quantity =
+                parseInt(
+                    $("#qty")?.value ||
+                    1,
+                    10
+                );
+
+
+            updateOrderLink(
+                quantity
+            );
+
+        }
+    );
+
+
+    updateOrderLink(
+        Number(
+            $("#qty")?.value ||
+            1
+        )
+    );
+
+}
+
+
+/* ==========================================================
+   SHARE PRODUCT
+========================================================== */
+
+function initShareProduct() {
+
+    const button =
+        $("#shareProduct");
+
+
+    if (
+        !button ||
+        button.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.bound =
+        "true";
+
+
+    button.addEventListener(
+        "click",
+        async event => {
+
+            event.preventDefault();
+
+
+            if (
+                !currentProduct
+            ) {
+
+                return;
+
+            }
+
+
+            const shareData =
+                {
+
+                    title:
+                        currentProduct.name ||
+                        "Maliha Agro Industry",
+
+                    text:
+                        currentProduct.name ||
+                        "Maliha Agro Industry Product",
+
+                    url:
+                        window.location.href
+
+                };
+
+
+            try {
+
+                if (
+                    navigator.share
+                ) {
+
+                    await navigator.share(
+                        shareData
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    navigator.clipboard
+                ) {
+
+                    await navigator.clipboard.writeText(
+                        window.location.href
+                    );
+
+
+                    button.textContent =
+                        "✅ লিংক কপি হয়েছে";
+
+
+                    setTimeout(
+                        () => {
+
+                            button.textContent =
+                                "🔗 শেয়ার করুন";
+
+                        },
+                        2000
+                    );
+
+                    return;
+
+                }
+
+
+                window.prompt(
+                    "পণ্য লিংক কপি করুন:",
+                    window.location.href
+                );
+
+            }
+            catch (error) {
+
+                if (
+                    error?.name ===
+                    "AbortError"
+                ) {
+
+                    return;
+
+                }
+
+
+                console.error(
+                    "Share Error:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   DETAIL WISHLIST
+========================================================== */
+
+function initDetailWishlist() {
+
+    const button =
+        $("#detailWishlist");
+
+
+    if (
+        !button ||
+        button.dataset.bound
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.bound =
+        "true";
+
+
+    function updateButton() {
+
+        if (
+            !currentProduct
+        ) {
+
+            return;
+
+        }
+
+
+        const active =
+            wishlist.includes(
+                Number(
+                    currentProduct.id
+                )
+            );
+
+
+        button.textContent =
+            active
+                ? "❤️ Wishlist থেকে বাদ দিন"
+                : "🤍 Wishlist-এ রাখুন";
+
+
+        button.classList.toggle(
+            "active",
+            active
+        );
+
+
+        button.setAttribute(
+            "aria-pressed",
+            active
+                ? "true"
+                : "false"
+        );
+
+    }
+
+
+    button.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+
+
+            if (
+                !currentProduct
+            ) {
+
+                return;
+
+            }
+
+
+            toggleWishlist(
+                currentProduct.id
+            );
+
+
+            updateButton();
+
+        }
+    );
+
+
+    updateButton();
+
+}
+
+
+/* ==========================================================
+   IMAGE MODAL
+========================================================== */
+
+function openImageModal(
+    src
+) {
+
+    const modal =
+        $("#imageModal");
+
+
+    const image =
+        $("#modalImage");
+
+
+    if (
+        !modal ||
+        !image ||
+        !src
+    ) {
+
+        return;
+
+    }
+
+
+    image.src =
+        src;
+
+
+    image.alt =
+        currentProduct?.name ||
+        "Product Image";
+
+
+    modal.style.display =
+        "flex";
+
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+
+    document.body.classList.add(
+        "modal-open"
+    );
+
+}
+
+
+/* ==========================================================
+   CLOSE IMAGE MODAL
+========================================================== */
+
+function closeImageModal() {
+
+    const modal =
+        $("#imageModal");
+
+
+    const image =
+        $("#modalImage");
+
+
+    if (modal) {
+
+        modal.style.display =
+            "none";
+
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+    }
+
+
+    if (image) {
+
+        image.src =
+            "";
+
+    }
+
+
+    document.body.classList.remove(
+        "modal-open"
+    );
+
+}
+
+
+/* ==========================================================
+   IMAGE PREVIEW INITIALIZATION
+========================================================== */
+
+function initImagePreview() {
+
+    const modal =
+        $("#imageModal");
+
+
+    if (!modal) {
+
+        return;
+
+    }
+
+
+    const close =
+        modal.querySelector(
+            ".close-modal"
+        );
+
+
+    if (
+        close &&
+        !close.dataset.bound
+    ) {
+
+        close.dataset.bound =
+            "true";
+
+
+        close.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                closeImageModal();
+
+            }
+        );
+
+    }
+
+
+    if (
+        !modal.dataset.bound
+    ) {
+
+        modal.dataset.bound =
+            "true";
+
+
+        modal.addEventListener(
+            "click",
+            event => {
+
+                if (
+                    event.target ===
+                    modal
+                ) {
+
+                    closeImageModal();
+
+                }
+
+            }
+        );
+
+    }
+
+}
+
+
+/* ==========================================================
+   ESCAPE KEY
+========================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeImageModal();
+
+        }
+
+    }
+);
+
+
+/* ==========================================================
+   TOUCH / SWIPE SUPPORT
+========================================================== */
+
+function initDetailGallerySwipe() {
+
+    const slider =
+        $("#productSlider");
+
+
+    if (
+        !slider ||
+        slider.dataset.swipeBound
+    ) {
+
+        return;
+
+    }
+
+
+    const images =
+        slider.querySelectorAll(
+            ".product-img"
+        );
+
+
+    if (
+        images.length <= 1
+    ) {
+
+        return;
+
+    }
+
+
+    slider.dataset.swipeBound =
+        "true";
+
+
+    let startX =
+        0;
+
+
+    let endX =
+        0;
+
+
+    slider.addEventListener(
+        "touchstart",
+        event => {
+
+            startX =
+                event.touches[0]?.clientX ||
+                0;
+
+        },
+        {
+            passive: true
+        }
+    );
+
+
+    slider.addEventListener(
+        "touchend",
+        event => {
+
+            endX =
+                event.changedTouches[0]?.clientX ||
+                0;
+
+
+            const distance =
+                endX - startX;
+
+
+            if (
+                Math.abs(distance) <
+                50
+            ) {
+
+                return;
+
+            }
+
+
+            if (
+                distance < 0
+            ) {
+
+                $("#nextImage")
+                    ?.click();
+
+            }
+            else {
+
+                $("#prevImage")
+                    ?.click();
+
+            }
+
+        },
+        {
+            passive: true
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   DETAIL CONTROL PATCH
+========================================================== */
+
+function initProductDetailFinalPatch() {
+
+    if (
+        !currentProduct
+    ) {
+
+        return;
+
+    }
+
+
+    initDetailGallerySwipe();
+
+
+    updateOrderLink(
+        Number(
+            $("#qty")?.value ||
+            1
+        )
+    );
+
+
+    updateWishlistCounter();
+
+}
+
+
+/* ==========================================================
+   PART 3 COMPLETE
+========================================================== */
+
+console.log(
+    "🛍️ Part 3/8 — Product Detail Controls Loaded."
+);
+
