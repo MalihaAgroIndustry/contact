@@ -922,3 +922,967 @@ else {
 console.log(
     "🌱 Maliha Agro Industry — script.js Part 1/8 Ready"
 );
+
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — FINAL VERSION
+   PART 2/8
+
+   PRODUCT DATA
+   CATEGORY DATA
+   JSON LOADER
+   DATA NORMALIZATION
+========================================================== */
+
+
+/* ==========================================================
+   FETCH JSON HELPER
+========================================================== */
+
+async function fetchJSON(
+    url
+) {
+
+    const response =
+        await fetch(
+            url,
+            {
+                cache: "no-store"
+            }
+        );
+
+
+    if (
+        !response.ok
+    ) {
+
+        throw new Error(
+            `HTTP ${response.status} — ${url}`
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    return data;
+
+}
+
+
+/* ==========================================================
+   NORMALIZE PRODUCT
+========================================================== */
+
+function normalizeProduct(
+    product,
+    index = 0
+) {
+
+    if (
+        !product ||
+        typeof product !== "object"
+    ) {
+
+        return null;
+
+    }
+
+
+    const id =
+        Number(
+            product.id
+        );
+
+
+    const safeId =
+        Number.isFinite(id) &&
+        id > 0
+
+            ? id
+
+            : index + 1;
+
+
+    const category =
+        normalizeCategory(
+            product.category ||
+            product.categoryId ||
+            ""
+        );
+
+
+    const subCategory =
+        normalizeCategory(
+            product.subCategory ||
+            product.subcategory ||
+            product.subCategoryId ||
+            ""
+        );
+
+
+    const images =
+        getGallery(
+            product
+        );
+
+
+    const normalized = {
+
+        ...product,
+
+        id:
+            safeId,
+
+
+        name:
+            toText(
+                product.name ||
+                product.title ||
+                "পণ্য"
+            ).trim(),
+
+
+        category:
+            category,
+
+
+        subCategory:
+            subCategory,
+
+
+        categoryName:
+            toText(
+                product.categoryName ||
+                product.categoryTitle ||
+                ""
+            ).trim(),
+
+
+        subCategoryName:
+            toText(
+                product.subCategoryName ||
+                product.subcategoryName ||
+                ""
+            ).trim(),
+
+
+        description:
+            toText(
+                product.description ||
+                ""
+            ).trim(),
+
+
+        shortDescription:
+            toText(
+                product.shortDescription ||
+                product.short_description ||
+                product.description ||
+                ""
+            ).trim(),
+
+
+        brand:
+            toText(
+                product.brand ||
+                SITE_CONFIG.productBrand
+            ).trim(),
+
+
+        sku:
+            toText(
+                product.sku ||
+                ""
+            ).trim(),
+
+
+        type:
+            toText(
+                product.type ||
+                ""
+            ).trim(),
+
+
+        price:
+            toNumber(
+                product.price,
+                0
+            ),
+
+
+        oldPrice:
+            toNumber(
+                product.oldPrice ||
+                product.old_price,
+                0
+            ),
+
+
+        rating:
+            Math.max(
+                0,
+                Math.min(
+                    5,
+                    toNumber(
+                        product.rating,
+                        0
+                    )
+                )
+            ),
+
+
+        reviewCount:
+            Math.max(
+                0,
+                toNumber(
+                    product.reviewCount ||
+                    product.review_count,
+                    0
+                )
+            ),
+
+
+        stock:
+            toText(
+                product.stock ||
+                "স্টকে আছে"
+            ).trim(),
+
+
+        offer:
+            Boolean(
+                product.offer
+            ),
+
+
+        newArrival:
+            Boolean(
+                product.newArrival ||
+                product.new_arrival
+            ),
+
+
+        bestSeller:
+            Boolean(
+                product.bestSeller ||
+                product.best_seller
+            ),
+
+
+        images:
+            images
+
+    };
+
+
+    /*
+       প্রথম image আলাদা property
+       হিসেবেও রাখা হচ্ছে।
+    */
+
+    normalized.image =
+        images[0] ||
+        toText(
+            product.image ||
+            ""
+        ).trim();
+
+
+    return normalized;
+
+}
+
+
+/* ==========================================================
+   NORMALIZE PRODUCT DATA
+========================================================== */
+
+function normalizeProductData(
+    data
+) {
+
+    let list = [];
+
+
+    /*
+       JSON যদি সরাসরি Array হয়
+    */
+
+    if (
+        Array.isArray(data)
+    ) {
+
+        list =
+            data;
+
+    }
+
+
+    /*
+       JSON যদি { products: [] } হয়
+    */
+
+    else if (
+        Array.isArray(
+            data?.products
+        )
+    ) {
+
+        list =
+            data.products;
+
+    }
+
+
+    /*
+       JSON যদি { data: [] } হয়
+    */
+
+    else if (
+        Array.isArray(
+            data?.data
+        )
+    ) {
+
+        list =
+            data.data;
+
+    }
+
+
+    if (
+        !Array.isArray(list)
+    ) {
+
+        return [];
+
+    }
+
+
+    return list
+        .map(
+            (
+                product,
+                index
+            ) =>
+                normalizeProduct(
+                    product,
+                    index
+                )
+        )
+        .filter(
+            Boolean
+        );
+
+}
+
+
+/* ==========================================================
+   NORMALIZE CATEGORY
+========================================================== */
+
+function normalizeCategoryObject(
+    category,
+    index = 0
+) {
+
+    if (
+        !category ||
+        typeof category !== "object"
+    ) {
+
+        return null;
+
+    }
+
+
+    const rawId =
+        category.id ||
+        category.slug ||
+        category.name ||
+        category.title ||
+        `category-${index + 1}`;
+
+
+    const id =
+        normalizeCategory(
+            rawId
+        );
+
+
+    if (!id) {
+
+        return null;
+
+    }
+
+
+    let subCategories =
+        category.subCategories;
+
+
+    if (
+        !Array.isArray(
+            subCategories
+        )
+    ) {
+
+        subCategories =
+            category.subcategories;
+
+    }
+
+
+    if (
+        !Array.isArray(
+            subCategories
+        )
+    ) {
+
+        subCategories =
+            [];
+
+    }
+
+
+    subCategories =
+        subCategories
+            .map(
+                (
+                    item,
+                    subIndex
+                ) => {
+
+                    if (
+                        typeof item ===
+                        "string"
+                    ) {
+
+                        const subId =
+                            normalizeCategory(
+                                item
+                            );
+
+
+                        if (!subId) {
+
+                            return null;
+
+                        }
+
+
+                        return {
+
+                            id:
+                                subId,
+
+                            name:
+                                item
+
+                        };
+
+                    }
+
+
+                    if (
+                        !item ||
+                        typeof item !==
+                        "object"
+                    ) {
+
+                        return null;
+
+                    }
+
+
+                    const subRawId =
+                        item.id ||
+                        item.slug ||
+                        item.name ||
+                        item.title ||
+                        `subcategory-${subIndex + 1}`;
+
+
+                    const subId =
+                        normalizeCategory(
+                            subRawId
+                        );
+
+
+                    if (!subId) {
+
+                        return null;
+
+                    }
+
+
+                    return {
+
+                        ...item,
+
+                        id:
+                            subId,
+
+                        name:
+                            toText(
+                                item.name ||
+                                item.title ||
+                                item.id ||
+                                "অন্যান্য"
+                            ).trim()
+
+                    };
+
+                }
+            )
+            .filter(
+                Boolean
+            );
+
+
+    return {
+
+        ...category,
+
+        id:
+            id,
+
+        name:
+            toText(
+                category.name ||
+                category.title ||
+                category.id ||
+                "অন্যান্য"
+            ).trim(),
+
+        subCategories:
+            subCategories
+
+    };
+
+}
+
+
+/* ==========================================================
+   NORMALIZE CATEGORY DATA
+========================================================== */
+
+function normalizeCategoryData(
+    data
+) {
+
+    let list = [];
+
+
+    /*
+       JSON যদি Array হয়
+    */
+
+    if (
+        Array.isArray(data)
+    ) {
+
+        list =
+            data;
+
+    }
+
+
+    /*
+       JSON যদি { categories: [] } হয়
+    */
+
+    else if (
+        Array.isArray(
+            data?.categories
+        )
+    ) {
+
+        list =
+            data.categories;
+
+    }
+
+
+    /*
+       JSON যদি { data: [] } হয়
+    */
+
+    else if (
+        Array.isArray(
+            data?.data
+        )
+    ) {
+
+        list =
+            data.data;
+
+    }
+
+
+    if (
+        !Array.isArray(list)
+    ) {
+
+        return [];
+
+    }
+
+
+    return list
+        .map(
+            (
+                category,
+                index
+            ) =>
+                normalizeCategoryObject(
+                    category,
+                    index
+                )
+        )
+        .filter(
+            Boolean
+        );
+
+}
+
+
+/* ==========================================================
+   FETCH PRODUCTS
+========================================================== */
+
+async function fetchProducts() {
+
+    try {
+
+        const data =
+            await fetchJSON(
+                SITE_CONFIG.productsFile
+            );
+
+
+        const normalized =
+            normalizeProductData(
+                data
+            );
+
+
+        products =
+            normalized;
+
+
+        productsLoaded =
+            true;
+
+
+        console.log(
+            "✅ Products Loaded:",
+            products.length
+        );
+
+
+        return products;
+
+    }
+    catch (error) {
+
+        productsLoaded =
+            false;
+
+
+        console.error(
+            "❌ Products JSON Error:",
+            error
+        );
+
+
+        products =
+            [];
+
+
+        throw error;
+
+    }
+
+}
+
+
+/* ==========================================================
+   FETCH CATEGORIES
+========================================================== */
+
+async function fetchCategories() {
+
+    try {
+
+        const data =
+            await fetchJSON(
+                SITE_CONFIG.categoriesFile
+            );
+
+
+        const normalized =
+            normalizeCategoryData(
+                data
+            );
+
+
+        categories =
+            normalized;
+
+
+        categoriesLoaded =
+            true;
+
+
+        console.log(
+            "✅ Categories Loaded:",
+            categories.length
+        );
+
+
+        return categories;
+
+    }
+    catch (error) {
+
+        categoriesLoaded =
+            false;
+
+
+        console.warn(
+            "⚠️ Categories JSON পাওয়া যায়নি:",
+            error
+        );
+
+
+        categories =
+            [];
+
+
+        /*
+           Category JSON না থাকলেও
+           Product data থেকে পরে
+           category তৈরি করা যাবে।
+        */
+
+        return categories;
+
+    }
+
+}
+
+
+/* ==========================================================
+   ENSURE PRODUCTS LOADED
+========================================================== */
+
+async function ensureProductsLoaded() {
+
+    if (
+        productsLoaded
+    ) {
+
+        return products;
+
+    }
+
+
+    return await fetchProducts();
+
+}
+
+
+/* ==========================================================
+   ENSURE CATEGORIES LOADED
+========================================================== */
+
+async function ensureCategoriesLoaded() {
+
+    if (
+        categoriesLoaded
+    ) {
+
+        return categories;
+
+    }
+
+
+    return await fetchCategories();
+
+}
+
+
+/* ==========================================================
+   BUILD CATEGORIES FROM PRODUCTS
+========================================================== */
+
+function buildCategoriesFromProducts() {
+
+    if (
+        !Array.isArray(products) ||
+        !products.length
+    ) {
+
+        return [];
+
+    }
+
+
+    const categoryMap =
+        new Map();
+
+
+    products.forEach(
+        product => {
+
+            if (!product) {
+
+                return;
+
+            }
+
+
+            const categoryId =
+                normalizeCategory(
+                    product.category
+                );
+
+
+            if (!categoryId) {
+
+                return;
+
+            }
+
+
+            if (
+                !categoryMap.has(
+                    categoryId
+                )
+            ) {
+
+                categoryMap.set(
+                    categoryId,
+                    {
+
+                        id:
+                            categoryId,
+
+                        name:
+                            product.categoryName ||
+                            product.category ||
+                            "অন্যান্য",
+
+                        subCategories:
+                            []
+
+                    }
+                );
+
+            }
+
+
+            const category =
+                categoryMap.get(
+                    categoryId
+                );
+
+
+            const subCategoryId =
+                normalizeCategory(
+                    product.subCategory
+                );
+
+
+            if (
+                !subCategoryId
+            ) {
+
+                return;
+
+            }
+
+
+            const exists =
+                category.subCategories
+                    .some(
+                        item =>
+                            normalizeCategory(
+                                item.id
+                            ) ===
+                            subCategoryId
+                    );
+
+
+            if (
+                !exists
+            ) {
+
+                category.subCategories.push({
+
+                    id:
+                        subCategoryId,
+
+                    name:
+                        product.subCategoryName ||
+                        product.subCategory ||
+                        "অন্যান্য"
+
+                });
+
+            }
+
+        }
+    );
+
+
+    return Array.from(
+        categoryMap.values()
+    );
+
+}
+
+
+/* ==========================================================
+   ENSURE COMPLETE CATEGORY SYSTEM
+========================================================== */
+
+async function ensureCategorySystem() {
+
+    await ensureProductsLoaded();
+
+    await ensureCategoriesLoaded();
+
+
+    /*
+       categories.json না থাকলে
+       products.json থেকে তৈরি হবে।
+    */
+
+    if (
+        !categories.length
+    ) {
+
+        categories =
+            buildCategoriesFromProducts();
+
+    }
+
+
+    return categories;
+
+}
+
+
+/* ==========================================================
+   PART 2 COMPLETE
+========================================================== */
+
+console.log(
+    "📦 Maliha Agro Industry — script.js Part 2/8 Ready"
+);
+
