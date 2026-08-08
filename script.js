@@ -2713,3 +2713,857 @@ console.log(
     "📦 Part 3/8 — Product Data & Wishlist System Loaded."
 );
 
+/* ==========================================================
+   MALIHA AGRO INDUSTRY
+   SCRIPT.JS — FINAL VERSION
+   PART 4/8
+
+   PRODUCT CARD
+   PRODUCT IMAGE SLIDER
+   WISHLIST BUTTON
+========================================================== */
+
+
+/* ==========================================================
+   CREATE PRODUCT CARD
+========================================================== */
+
+function createProductCard(product) {
+
+    if (!product) {
+
+        return null;
+
+    }
+
+
+    const productId =
+        Number(
+            product.id
+        );
+
+
+    if (
+        !Number.isFinite(
+            productId
+        ) ||
+        productId <= 0
+    ) {
+
+        return null;
+
+    }
+
+
+    const gallery =
+        getGallery(
+            product
+        );
+
+
+    const images =
+        gallery.length
+            ? gallery
+            : [
+                SITE_CONFIG.defaultImage
+            ];
+
+
+    const price =
+        Number(
+            product.price || 0
+        );
+
+
+    const oldPrice =
+        Number(
+            product.oldPrice || 0
+        );
+
+
+    const rating =
+        Math.max(
+            0,
+            Math.min(
+                5,
+                Math.round(
+                    Number(
+                        product.rating || 0
+                    )
+                )
+            )
+        );
+
+
+    const reviewCount =
+        Number(
+            product.reviewCount || 0
+        );
+
+
+    let discount = 0;
+
+
+    if (
+        oldPrice > price &&
+        price > 0
+    ) {
+
+        discount =
+            Math.round(
+                (
+                    (
+                        oldPrice -
+                        price
+                    ) /
+                    oldPrice
+                ) * 100
+            );
+
+    }
+
+
+    const categoryName =
+        product.categoryName ||
+        getCategoryName(
+            product.category
+        ) ||
+        "অন্যান্য";
+
+
+    const subCategoryName =
+        product.subCategoryName ||
+        getSubCategoryName(
+            product.category,
+            product.subCategory
+        );
+
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "product-card";
+
+
+    card.dataset.id =
+        String(
+            productId
+        );
+
+
+    card.dataset.category =
+        normalizeCategory(
+            product.category
+        );
+
+
+    card.dataset.subcategory =
+        normalizeCategory(
+            product.subCategory
+        );
+
+
+    card.innerHTML = `
+
+        <div
+            class="product-card-image"
+            style="
+                position:relative;
+            "
+        >
+
+            ${
+                product.offer
+                    ? `
+                        <span
+                            class="product-offer-badge"
+                            style="
+                                position:absolute;
+                                top:10px;
+                                left:10px;
+                                z-index:10;
+                                background:#e53935;
+                                color:#fff;
+                                padding:5px 9px;
+                                border-radius:6px;
+                                font-size:11px;
+                                font-weight:700;
+                            "
+                        >
+                            🔥 অফার
+                        </span>
+                    `
+                    : ""
+            }
+
+
+            ${
+                product.newArrival
+                    ? `
+                        <span
+                            class="product-new-badge"
+                            style="
+                                position:absolute;
+                                top:10px;
+                                left:10px;
+                                z-index:9;
+                                background:#1F8F4D;
+                                color:#fff;
+                                padding:5px 9px;
+                                border-radius:6px;
+                                font-size:11px;
+                                font-weight:700;
+                            "
+                        >
+                            🆕 নতুন
+                        </span>
+                    `
+                    : ""
+            }
+
+
+            ${
+                discount > 0
+                    ? `
+                        <span
+                            class="product-discount-badge"
+                            style="
+                                position:absolute;
+                                top:10px;
+                                right:10px;
+                                z-index:10;
+                                background:#1F8F4D;
+                                color:#fff;
+                                padding:5px 8px;
+                                border-radius:6px;
+                                font-size:11px;
+                                font-weight:700;
+                            "
+                        >
+                            ${discount}% OFF
+                        </span>
+                    `
+                    : ""
+            }
+
+
+            <button
+                type="button"
+                class="wishlist-btn"
+                data-id="${productId}"
+                aria-label="Wishlist"
+                aria-pressed="false"
+                style="
+                    position:absolute;
+                    right:10px;
+                    bottom:10px;
+                    z-index:20;
+                    width:40px;
+                    height:40px;
+                    border:0;
+                    border-radius:50%;
+                    background:#fff;
+                    box-shadow:
+                        0 2px 10px
+                        rgba(0,0,0,.15);
+                    cursor:pointer;
+                    font-size:19px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                "
+            >
+                🤍
+            </button>
+
+
+            <div
+                class="slider"
+                data-product-id="${productId}"
+                style="
+                    position:relative;
+                    width:100%;
+                    overflow:hidden;
+                "
+            >
+
+                ${
+                    images
+                        .map(
+                            (
+                                image,
+                                index
+                            ) => `
+
+                                <img
+                                    src="${escapeHTML(
+                                        image
+                                    )}"
+                                    class="product-img ${
+                                        index === 0
+                                            ? "active"
+                                            : ""
+                                    }"
+                                    alt="${escapeHTML(
+                                        product.name ||
+                                        "Maliha Agro Industry Product"
+                                    )}"
+                                    ${
+                                        index === 0
+                                            ? ""
+                                            : 'loading="lazy"'
+                                    }
+                                >
+
+                            `
+                        )
+                        .join("")
+                }
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="product-card-content"
+        >
+
+            <div
+                class="product-category"
+                style="
+                    color:#1F8F4D;
+                    font-size:12px;
+                    font-weight:600;
+                    margin-bottom:5px;
+                "
+            >
+
+                ${escapeHTML(
+                    categoryName
+                )}
+
+                ${
+                    subCategoryName
+                        ? `
+                            <span
+                                style="
+                                    color:#777;
+                                    font-weight:400;
+                                "
+                            >
+                                → ${escapeHTML(
+                                    subCategoryName
+                                )}
+                            </span>
+                        `
+                        : ""
+                }
+
+            </div>
+
+
+            <h3
+                class="product-title"
+                style="
+                    margin:5px 0;
+                    line-height:1.45;
+                "
+            >
+
+                <a
+                    href="product.html?id=${encodeURIComponent(
+                        productId
+                    )}"
+                    style="
+                        color:inherit;
+                        text-decoration:none;
+                    "
+                >
+
+                    ${escapeHTML(
+                        product.name ||
+                        "পণ্য"
+                    )}
+
+                </a>
+
+            </h3>
+
+
+            ${
+                product.brand
+                    ? `
+                        <div
+                            style="
+                                color:#777;
+                                font-size:11px;
+                                margin:4px 0;
+                            "
+                        >
+                            প্রস্তুতকারক:
+                            ${escapeHTML(
+                                product.brand
+                            )}
+                        </div>
+                    `
+                    : ""
+            }
+
+
+            <div
+                class="product-rating"
+                style="
+                    color:#e5a000;
+                    font-size:13px;
+                    margin:6px 0;
+                "
+            >
+
+                ${
+                    "⭐".repeat(
+                        rating
+                    )
+                }${
+                    "☆".repeat(
+                        5 - rating
+                    )
+                }
+
+                <span
+                    style="
+                        color:#777;
+                        font-size:11px;
+                        margin-left:3px;
+                    "
+                >
+                    (${formatNumber(
+                        reviewCount
+                    )})
+                </span>
+
+            </div>
+
+
+            <div
+                class="product-price"
+                style="
+                    margin:8px 0;
+                "
+            >
+
+                <strong
+                    style="
+                        color:#1F8F4D;
+                        font-size:20px;
+                        font-weight:800;
+                    "
+                >
+
+                    ${formatPrice(
+                        price
+                    )}
+
+                </strong>
+
+
+                ${
+                    oldPrice > price
+                        ? `
+                            <span
+                                style="
+                                    color:#999;
+                                    text-decoration:
+                                        line-through;
+                                    font-size:13px;
+                                    margin-left:6px;
+                                "
+                            >
+                                ${formatPrice(
+                                    oldPrice
+                                )}
+                            </span>
+                        `
+                        : ""
+                }
+
+            </div>
+
+
+            <div
+                class="product-stock"
+                style="
+                    color:#198754;
+                    font-size:12px;
+                    margin-bottom:7px;
+                "
+            >
+
+                🟢 ${escapeHTML(
+                    getStockStatus(
+                        product
+                    )
+                )}
+
+            </div>
+
+
+            ${
+                product.shortDescription ||
+                product.description
+                    ? `
+                        <p
+                            style="
+                                color:#666;
+                                font-size:13px;
+                                line-height:1.6;
+                                margin:5px 0 10px;
+                            "
+                        >
+                            ${escapeHTML(
+                                product.shortDescription ||
+                                product.description
+                            )}
+                        </p>
+                    `
+                    : ""
+            }
+
+
+            <div
+                class="product-card-actions"
+                style="
+                    display:grid;
+                    grid-template-columns:1fr 1fr;
+                    gap:7px;
+                    margin-top:10px;
+                "
+            >
+
+                <a
+                    href="product.html?id=${encodeURIComponent(
+                        productId
+                    )}"
+                    class="btn"
+                    style="
+                        width:100%;
+                        margin:0;
+                        padding:8px 5px;
+                        text-align:center;
+                        font-size:12px;
+                    "
+                >
+                    👁️ বিস্তারিত
+                </a>
+
+
+                <a
+                    href="#"
+                    class="btn product-whatsapp-btn"
+                    data-id="${productId}"
+                    style="
+                        width:100%;
+                        margin:0;
+                        padding:8px 5px;
+                        text-align:center;
+                        font-size:12px;
+                        background:#25D366;
+                        color:#fff;
+                    "
+                >
+                    WhatsApp অর্ডার
+                </a>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /* ======================================================
+       WISHLIST BUTTON
+    ====================================================== */
+
+    const wishlistButton =
+        card.querySelector(
+            ".wishlist-btn"
+        );
+
+
+    updateWishlistButton(
+        wishlistButton,
+        productId
+    );
+
+
+    if (wishlistButton) {
+
+        wishlistButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                toggleWishlist(
+                    productId
+                );
+
+            }
+        );
+
+    }
+
+
+    /* ======================================================
+       WHATSAPP ORDER
+    ====================================================== */
+
+    const whatsappButton =
+        card.querySelector(
+            ".product-whatsapp-btn"
+        );
+
+
+    if (whatsappButton) {
+
+        whatsappButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                openWhatsAppOrder(
+                    product
+                );
+
+            }
+        );
+
+    }
+
+
+    return card;
+
+}
+
+
+/* ==========================================================
+   WHATSAPP ORDER
+========================================================== */
+
+function openWhatsAppOrder(
+    product
+) {
+
+    if (!product) {
+
+        return;
+
+    }
+
+
+    const productName =
+        product.name ||
+        "পণ্য";
+
+
+    const price =
+        formatPrice(
+            product.price
+        );
+
+
+    const message =
+        [
+            "🌱 মালিহা এগ্রো ইন্ডাস্ট্রি",
+            "",
+            "🛍️ পণ্যের অর্ডার করতে চাই",
+            "",
+            `পণ্য: ${productName}`,
+            `মূল্য: ${price}`,
+            `Product ID: ${product.id}`,
+            "",
+            "অনুগ্রহ করে অর্ডারটি গ্রহণ করুন।"
+        ]
+        .join(
+            "\n"
+        );
+
+
+    const phone =
+        String(
+            SITE_CONFIG.whatsapp ||
+            ""
+        )
+        .replace(
+            /\D/g,
+            ""
+        );
+
+
+    if (!phone) {
+
+        return;
+
+    }
+
+
+    const url =
+        "https://wa.me/" +
+        phone +
+        "?text=" +
+        encodeURIComponent(
+            message
+        );
+
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+/* ==========================================================
+   STOP SLIDERS
+========================================================== */
+
+function stopSliders() {
+
+    sliderTimers.forEach(
+        timer => {
+
+            clearInterval(
+                timer
+            );
+
+        }
+    );
+
+
+    sliderTimers = [];
+
+}
+
+
+/* ==========================================================
+   START PRODUCT IMAGE SLIDERS
+========================================================== */
+
+function startSliders() {
+
+    stopSliders();
+
+
+    const sliders =
+        $$(".slider");
+
+
+    sliders.forEach(
+        slider => {
+
+            const images =
+                slider.querySelectorAll(
+                    ".product-img"
+                );
+
+
+            if (
+                images.length <= 1
+            ) {
+
+                return;
+
+            }
+
+
+            let index = 0;
+
+
+            const timer =
+                setInterval(
+                    () => {
+
+                        if (
+                            document.hidden
+                        ) {
+
+                            return;
+
+                        }
+
+
+                        images[index]
+                            ?.classList.remove(
+                                "active"
+                            );
+
+
+                        index =
+                            (
+                                index + 1
+                            ) %
+                            images.length;
+
+
+                        images[index]
+                            ?.classList.add(
+                                "active"
+                            );
+
+                    },
+                    3000
+                );
+
+
+            sliderTimers.push(
+                timer
+            );
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   REFRESH SLIDERS
+========================================================== */
+
+function refreshSliders() {
+
+    stopSliders();
+
+
+    requestAnimationFrame(
+        () => {
+
+            startSliders();
+
+        }
+    );
+
+}
+
+
+/* ==========================================================
+   PART 4 COMPLETE
+========================================================== */
+
+console.log(
+    "🛍️ Part 4/8 — Product Card & Image Slider Loaded."
+);
+
