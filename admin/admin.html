@@ -1,1 +1,270 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Maliha Agro Market — Admin Login</title>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background: #0b1220;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 420px;
+            background: #111827;
+            padding: 30px 24px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(0,0,0,.35);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 15px;
+            object-fit: cover;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9ca3af;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #d1d5db;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 1px solid #374151;
+            border-radius: 10px;
+            background: #1f2937;
+            color: white;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #22c55e;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #16a34a;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #15803d;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 14px;
+            min-height: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <!-- Logo -->
+    <img
+        src="logo.png"
+        alt="Maliha Agro Market"
+        class="logo"
+    >
+
+    <h1>Maliha Agro Market</h1>
+
+    <p class="subtitle">
+        Admin Panel Login
+    </p>
+
+    <form id="adminLoginForm">
+
+        <label for="email">
+            Admin Email
+        </label>
+
+        <input
+            type="email"
+            id="email"
+            placeholder="admin@example.com"
+            required
+        >
+
+        <label for="password">
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+        >
+
+        <button
+            type="submit"
+            id="loginButton"
+        >
+            Login
+        </button>
+
+    </form>
+
+    <div id="message"></div>
+
+    <div class="footer">
+        © Maliha Agro Market
+    </div>
+
+</div>
+
+
+<!-- Admin Authentication -->
+<script src="admin.js"></script>
+
+
+<script>
+
+const form =
+    document.getElementById(
+        "adminLoginForm"
+    );
+
+const button =
+    document.getElementById(
+        "loginButton"
+    );
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+form.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        const email =
+            document
+                .getElementById("email")
+                .value;
+
+        const password =
+            document
+                .getElementById("password")
+                .value;
+
+        button.disabled = true;
+
+        button.textContent =
+            "Logging in...";
+
+        message.textContent = "";
+
+
+        try {
+
+            await window.MalihaAdmin.login(
+                email,
+                password
+            );
+
+            message.style.color =
+                "#22c55e";
+
+            message.textContent =
+                "Login successful...";
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "index.html";
+
+            }, 700);
+
+
+        } catch(error) {
+
+            message.style.color =
+                "#ef4444";
+
+            message.textContent =
+                error.message ||
+                "Login failed.";
+
+            button.disabled = false;
+
+            button.textContent =
+                "Login";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
