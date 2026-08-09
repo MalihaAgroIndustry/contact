@@ -8,7 +8,7 @@ const SUPABASE_URL =
     "https://iixebrufiilooytrbymp.supabase.co";
 
 const SUPABASE_ANON_KEY =
-    "তোমার_SUPABASE_PUBLISHABLE_KEY";
+    "sb_publishable_0ew_b8PD7l3CCdjGBVMgFA_jjARr1y4";
 
 
 /* ==========================================================
