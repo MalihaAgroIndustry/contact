@@ -5,7 +5,7 @@
 ========================================================== */
 
 const SUPABASE_URL =
-    "তোমার_SUPABASE_PROJECT_URL";
+    "https://iixebrufiilooytrbymp.supabase.co";
 
 const SUPABASE_ANON_KEY =
     "তোমার_SUPABASE_PUBLISHABLE_KEY";
