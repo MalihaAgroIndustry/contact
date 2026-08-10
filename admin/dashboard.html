@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Maliha Agro Market — Main Admin Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="admin.js"></script>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6f9;
+            color: #17202a;
+        }
+
+        /* HEADER */
+
+        .header {
+            background: #0f5132;
+            color: white;
+            padding: 15px 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .brand h1 {
+            font-size: 18px;
+        }
+
+        .menu-btn {
+            border: none;
+            background: transparent;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        /* MAIN */
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .welcome {
+            margin-bottom: 20px;
+        }
+
+        .welcome h2 {
+            font-size: 22px;
+        }
+
+        .welcome p {
+            color: #6b7280;
+            margin-top: 5px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,.07);
+        }
+
+        .stat-title {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .stat-value {
+            margin-top: 10px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .income {
+            color: #198754;
+        }
+
+        .expense {
+            color: #dc3545;
+        }
+
+        /* DIRECTORS */
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .director-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+
+            gap: 15px;
+        }
+
+        .director-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,.07);
+        }
+
+        .director-card h3 {
+            margin-bottom: 8px;
+        }
+
+        .director-card p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .manage-btn {
+            margin-top: 15px;
+
+            width: 100%;
+            padding: 11px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: #0f5132;
+            color: white;
+
+            cursor: pointer;
+        }
+
+        /* MENU */
+
+        .side-menu {
+            position: fixed;
+
+            top: 0;
+            right: -320px;
+
+            width: 300px;
+            height: 100vh;
+
+            background: white;
+
+            box-shadow:
+                -5px 0 25px rgba(0,0,0,.2);
+
+            padding: 20px;
+
+            transition: .3s;
+
+            z-index: 1000;
+        }
+
+        .side-menu.open {
+            right: 0;
+        }
+
+        .menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 20px;
+        }
+
+        .close-btn {
+            border: none;
+            background: none;
+
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .menu-item {
+            width: 100%;
+
+            padding: 13px;
+
+            margin-bottom: 8px;
+
+            border: none;
+            border-radius: 8px;
+
+            text-align: left;
+
+            background: #f3f4f6;
+
+            cursor: pointer;
+
+            font-size: 14px;
+        }
+
+        .menu-item:hover {
+            background: #e5e7eb;
+        }
+
+        .future {
+            color: #6b7280;
+        }
+
+        .logout {
+            margin-top: 15px;
+            background: #dc3545;
+            color: white;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            .brand h1 {
+                font-size: 15px;
+            }
+
+            .stat-value {
+                font-size: 22px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+
+        <img
+            src="logo.png"
+            alt="Maliha Agro Market"
+        >
+
+        <h1>
+            Maliha Agro Market
+        </h1>
+
+    </div>
+
+    <button
+        class="menu-btn"
+        onclick="openMenu()"
+    >
+        ⋮
+    </button>
+
+</header>
+
+
+<main class="container">
+
+    <div class="welcome">
+
+        <h2>
+            👑 Main Admin Dashboard
+        </h2>
+
+        <p id="adminName">
+            Loading...
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         DASHBOARD STATS
+    ========================================== -->
+
+    <div class="stats">
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                💰 মোট আয়
+            </div>
+
+            <div
+                class="stat-value income"
+                id="totalIncome"
+            >
+                ৳ 0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                💸 মোট ব্যয়
+            </div>
+
+            <div
+                class="stat-value expense"
+                id="totalExpense"
+            >
+                ৳ 0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                📅 চলতি মাসের আয়
+            </div>
+
+            <div
+                class="stat-value income"
+                id="monthlyIncome"
+            >
+                ৳ 0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                📅 চলতি মাসের ব্যয়
+            </div>
+
+            <div
+                class="stat-value expense"
+                id="monthlyExpense"
+            >
+                ৳ 0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                🛒 মোট অর্ডার
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalOrders"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                📦 মোট প্রডাক্ট
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalProducts"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                🚚 মোট ডেলিভারি
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalDelivery"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-title">
+                📋 মোট বাকি
+            </div>
+
+            <div
+                class="stat-value expense"
+                id="totalDue"
+            >
+                ৳ 0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         DIRECTOR MANAGEMENT
+    ========================================== -->
+
+    <section class="section">
+
+        <h2 class="section-title">
+            Director Management
+        </h2>
+
+
+        <div class="director-grid">
+
+
+            <div class="director-card">
+
+                <h3>
+                    💰 Cashier Director
+                </h3>
+
+                <p>
+                    আয়, ব্যয়, Payment ও Finance Control
+                </p>
+
+                <button
+                    class="manage-btn"
+                    onclick="manageDirector('cashier')"
+                >
+                    Manage
+                </button>
+
+            </div>
+
+
+            <div class="director-card">
+
+                <h3>
+                    🛒 Seller Director
+                </h3>
+
+                <p>
+                    Online ও Offline Sales Control
+                </p>
+
+                <button
+                    class="manage-btn"
+                    onclick="manageDirector('seller')"
+                >
+                    Manage
+                </button>
+
+            </div>
+
+
+            <div class="director-card">
+
+                <h3>
+                    🛍️ Buyer Director
+                </h3>
+
+                <p>
+                    Purchase ও Offline Purchase Control
+                </p>
+
+                <button
+                    class="manage-btn"
+                    onclick="manageDirector('buyer')"
+                >
+                    Manage
+                </button>
+
+            </div>
+
+
+            <div class="director-card">
+
+                <h3>
+                    🖥️ IT Director
+                </h3>
+
+                <p>
+                    Main Admin-এর অনুমতি অনুযায়ী Correction
+                </p>
+
+                <button
+                    class="manage-btn"
+                    onclick="manageDirector('it')"
+                >
+                    Manage
+                </button>
+
+            </div>
+
+
+            <!-- FUTURE -->
+
+            <div class="director-card">
+
+                <h3 class="future">
+                    ➕ Future Director
+                </h3>
+
+                <p>
+                    ভবিষ্যতে নতুন Director এখানে যুক্ত হবে।
+                </p>
+
+                <button
+                    class="manage-btn"
+                    onclick="futureDirector()"
+                >
+                    Coming Soon
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================
+     SIDE MENU
+========================================== -->
+
+<aside
+    id="sideMenu"
+    class="side-menu"
+>
+
+    <div class="menu-header">
+
+        <h2>
+            ⋮ Admin Menu
+        </h2>
+
+        <button
+            class="close-btn"
+            onclick="closeMenu()"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <button
+        class="menu-item"
+        onclick="manageDirectors()"
+    >
+        👥 Director Management
+    </button>
+
+
+    <button
+        class="menu-item"
+        onclick="manageUsers()"
+    >
+        👤 Sector Users
+    </button>
+
+
+    <button
+        class="menu-item"
+        onclick="managePermissions()"
+    >
+        🔐 Permissions
+    </button>
+
+
+    <button
+        class="menu-item"
+        onclick="manageITCorrection()"
+    >
+        🖥️ IT Correction Permission
+    </button>
+
+
+    <button
+        class="menu-item"
+        onclick="auditLogs()"
+    >
+        📋 Audit Logs
+    </button>
+
+
+    <button
+        class="menu-item"
+        onclick="settings()"
+    >
+        ⚙️ Settings
+    </button>
+
+
+    <hr style="margin:15px 0;">
+
+
+    <button
+        class="menu-item future"
+        onclick="futureDirector()"
+    >
+        ➕ Future Director
+    </button>
+
+
+    <button
+        class="menu-item future"
+        onclick="futureSector()"
+    >
+        ➕ Future Sector
+    </button>
+
+
+    <button
+        class="menu-item logout"
+        onclick="logoutAdmin()"
+    >
+        🚪 Logout
+    </button>
+
+</aside>
+
+
+<script>
+
+function openMenu() {
+
+    document
+        .getElementById("sideMenu")
+        .classList
+        .add("open");
+
+}
+
+
+function closeMenu() {
+
+    document
+        .getElementById("sideMenu")
+        .classList
+        .remove("open");
+
+}
+
+
+async function loadAdmin() {
+
+    try {
+
+        const user =
+            await window.MalihaAdmin.getCurrentAdmin();
+
+        if (!user) {
+
+            window.location.href =
+                "admin.html";
+
+            return;
+
+        }
+
+        document
+            .getElementById("adminName")
+            .textContent =
+            user.email || "Main Admin";
+
+    } catch (error) {
+
+        console.error(error);
+
+        window.location.href =
+            "admin.html";
+
+    }
+
+}
+
+
+function manageDirector(sector) {
+
+    alert(
+        "Director Management: " +
+        sector
+    );
+
+}
+
+
+function manageDirectors() {
+
+    alert(
+        "Director Management"
+    );
+
+}
+
+
+function manageUsers() {
+
+    alert(
+        "Sector User Management"
+    );
+
+}
+
+
+function managePermissions() {
+
+    alert(
+        "Permission Management"
+    );
+
+}
+
+
+function manageITCorrection() {
+
+    alert(
+        "IT Correction Permission"
+    );
+
+}
+
+
+function auditLogs() {
+
+    alert(
+        "Audit Logs"
+    );
+
+}
+
+
+function settings() {
+
+    alert(
+        "Settings"
+    );
+
+}
+
+
+function futureDirector() {
+
+    alert(
+        "Future Director — পরে Main Admin এখান থেকে যুক্ত করবে।"
+    );
+
+}
+
+
+function futureSector() {
+
+    alert(
+        "Future Sector — পরে Main Admin এখান থেকে যুক্ত করবে।"
+    );
+
+}
+
+
+async function logoutAdmin() {
+
+    await window.MalihaAdmin.logout();
+
+}
+
+
+loadAdmin();
+
+</script>
+
+</body>
+</html>
