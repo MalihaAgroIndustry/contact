@@ -82,6 +82,28 @@ async function adminLogin(
 
 }
 
+async function githubLogin() {
+
+    const {
+        data,
+        error
+    } = await supabaseClient.auth.signInWithOAuth({
+
+        provider: "github",
+
+        options: {
+            redirectTo:
+                "https://malihaagroindustry.github.io/contact/admin/admin.html"
+        }
+
+    });
+
+    if (error) {
+        throw new Error(error.message);
+    }
+
+    return data;
+}
 
 /* ==========================================================
    CHECK CURRENT SESSION
@@ -219,6 +241,9 @@ window.MalihaAdmin = {
     login:
         adminLogin,
 
+    githubLogin:
+        githubLogin,
+
     logout:
         adminLogout,
 
@@ -229,7 +254,6 @@ window.MalihaAdmin = {
         protectAdminPage
 
 };
-
 
 /* ==========================================================
    READY
