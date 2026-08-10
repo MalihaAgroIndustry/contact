@@ -6,7 +6,6 @@
 
     <title>Maliha Agro Market — Admin Login</title>
 
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <style>
@@ -17,14 +16,14 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
             min-height: 100vh;
+            font-family: Arial, sans-serif;
             background: #0b1220;
+            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            color: #fff;
         }
 
         .login-box {
@@ -39,79 +38,50 @@
         .logo {
             width: 80px;
             height: 80px;
-            border-radius: 50%;
             display: block;
             margin: 0 auto 15px;
+            border-radius: 50%;
             object-fit: cover;
         }
 
         h1 {
             text-align: center;
             font-size: 24px;
-            margin-bottom: 6px;
         }
 
         .subtitle {
             text-align: center;
             color: #9ca3af;
-            margin-bottom: 28px;
+            margin: 8px 0 28px;
             font-size: 14px;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #d1d5db;
-            font-size: 14px;
-        }
-
-        input {
+        .github-btn {
             width: 100%;
             padding: 14px;
-            margin-bottom: 18px;
-            border: 1px solid #374151;
+            border: 0;
             border-radius: 10px;
-            background: #1f2937;
-            color: white;
-            font-size: 15px;
-            outline: none;
-        }
-
-        input:focus {
-            border-color: #22c55e;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            background: #16a34a;
+            background: #24292f;
             color: white;
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
         }
 
-        button:hover {
-            background: #15803d;
-        }
-
-        button:disabled {
+        .github-btn:disabled {
             opacity: .6;
-            cursor: not-allowed;
         }
 
         #message {
-            margin-top: 16px;
+            min-height: 22px;
+            margin-top: 18px;
             text-align: center;
             font-size: 14px;
-            min-height: 20px;
         }
 
         .footer {
-            text-align: center;
             margin-top: 25px;
+            text-align: center;
             color: #6b7280;
             font-size: 12px;
         }
@@ -122,7 +92,6 @@
 
 <div class="login-box">
 
-    <!-- Logo -->
     <img
         src="logo.png"
         alt="Maliha Agro Market"
@@ -135,38 +104,12 @@
         Admin Panel Login
     </p>
 
-    <form id="adminLoginForm">
-
-        <label for="email">
-            Admin Email
-        </label>
-
-        <input
-            type="email"
-            id="email"
-            placeholder="admin@example.com"
-            required
-        >
-
-        <label for="password">
-            Password
-        </label>
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
-        >
-
-        <button
-            type="submit"
-            id="loginButton"
-        >
-            Login
-        </button>
-
-    </form>
+    <button
+        id="githubLogin"
+        class="github-btn"
+    >
+        Continue with GitHub
+    </button>
 
     <div id="message"></div>
 
@@ -176,91 +119,48 @@
 
 </div>
 
-
-<!-- Admin Authentication -->
 <script src="admin.js"></script>
-
 
 <script>
 
-const form =
-    document.getElementById(
-        "adminLoginForm"
-    );
-
 const button =
-    document.getElementById(
-        "loginButton"
-    );
+    document.getElementById("githubLogin");
 
 const message =
-    document.getElementById(
-        "message"
-    );
+    document.getElementById("message");
 
 
-form.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-        const email =
-            document
-                .getElementById("email")
-                .value;
-
-        const password =
-            document
-                .getElementById("password")
-                .value;
+button.addEventListener(
+    "click",
+    async () => {
 
         button.disabled = true;
 
         button.textContent =
-            "Logging in...";
+            "Connecting to GitHub...";
 
         message.textContent = "";
 
-
         try {
 
-            await window.MalihaAdmin.login(
-                email,
-                password
-            );
+            await window.MalihaAdmin.githubLogin();
 
-            message.style.color =
-                "#22c55e";
+        } catch (error) {
 
-            message.textContent =
-                "Login successful...";
-
-
-            setTimeout(() => {
-
-                window.location.href =
-                    "index.html";
-
-            }, 700);
-
-
-        } catch(error) {
+            console.error(error);
 
             message.style.color =
                 "#ef4444";
 
             message.textContent =
                 error.message ||
-                "Login failed.";
+                "GitHub login failed.";
 
             button.disabled = false;
 
             button.textContent =
-                "Login";
-
+                "Continue with GitHub";
         }
-
     }
 );
 
