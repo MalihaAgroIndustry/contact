@@ -4,6 +4,11 @@
    admin.js
 ========================================================== */
 
+
+/* ==========================================================
+   SUPABASE CONFIG
+========================================================== */
+
 const SUPABASE_URL =
     "https://iixebrufiilooytrbymp.supabase.co";
 
@@ -15,255 +20,291 @@ const SUPABASE_ANON_KEY =
    SUPABASE CLIENT
 ========================================================== */
 
-const { createClient } =
-    supabase;
+if (!window.supabase) {
 
-const supabaseClient =
-    createClient(
-        SUPABASE_URL,
-        SUPABASE_ANON_KEY
+    console.error(
+        "❌ Supabase CDN load হয়নি।"
     );
 
+} else {
 
-/* ==========================================================
-   ADMIN LOGIN
-========================================================== */
+    const supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_ANON_KEY
+        );
 
-async function adminLogin(
-    email,
-    password
-) {
 
-    if (
-        !email ||
-        !password
+    /* ------------------------------------------------------
+       GLOBAL SUPABASE CLIENT
+    ------------------------------------------------------ */
+
+    window.supabaseClient =
+        supabaseClient;
+
+
+    /* ======================================================
+       ADMIN LOGIN
+    ====================================================== */
+
+    async function adminLogin(
+        email,
+        password
     ) {
 
-        throw new Error(
-            "Email এবং Password দিতে হবে।"
-        );
+        if (
+            !email ||
+            !password
+        ) {
 
-    }
+            throw new Error(
+                "Email এবং Password দিতে হবে।"
+            );
 
-
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth
-            .signInWithPassword({
-
-                email: email.trim(),
-
-                password: password
-
-            });
-
-
-    if (error) {
-
-        throw new Error(
-            error.message
-        );
-
-    }
-
-
-    if (!data.user) {
-
-        throw new Error(
-            "Login failed."
-        );
-
-    }
-
-
-    return data.user;
-
-}
-
-async function githubLogin() {
-
-    const {
-        data,
-        error
-    } = await supabaseClient.auth.signInWithOAuth({
-
-        provider: "github",
-
-        options: {
-            redirectTo:
-                "https://malihaagroindustry.github.io/contact/admin/admin.html"
         }
 
-    });
 
-    if (error) {
-        throw new Error(error.message);
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .signInWithPassword({
+
+                    email:
+                        email.trim(),
+
+                    password:
+                        password
+
+                });
+
+
+        if (error) {
+
+            throw new Error(
+                error.message
+            );
+
+        }
+
+
+        if (!data.user) {
+
+            throw new Error(
+                "Login failed."
+            );
+
+        }
+
+
+        return data.user;
+
     }
 
-    return data;
-}
 
-/* ==========================================================
-   CHECK CURRENT SESSION
-========================================================== */
+    /* ======================================================
+       GITHUB LOGIN
+    ====================================================== */
 
-async function getCurrentAdmin() {
+    async function githubLogin() {
 
-    const {
-        data,
-        error
-    } =
-        await supabaseClient.auth
-            .getSession();
-
-
-    if (error) {
-
-        console.error(
-            "Session error:",
+        const {
+            data,
             error
+        } =
+            await supabaseClient.auth
+                .signInWithOAuth({
+
+                    provider:
+                        "github",
+
+                    options: {
+
+                        redirectTo:
+                            "https://malihaagroindustry.github.io/contact/admin/admin.html"
+
+                    }
+
+                });
+
+
+        if (error) {
+
+            throw new Error(
+                error.message
+            );
+
+        }
+
+
+        return data;
+
+    }
+
+
+    /* ======================================================
+       GET CURRENT SESSION USER
+    ====================================================== */
+
+    async function getCurrentAdmin() {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .getSession();
+
+
+        if (error) {
+
+            console.error(
+                "Session error:",
+                error
+            );
+
+            return null;
+
+        }
+
+
+        return (
+            data.session?.user ||
+            null
         );
 
-        return null;
-
     }
 
 
-    return data.session?.user || null;
+    /* ======================================================
+       ADMIN LOGOUT
+    ====================================================== */
 
-}
+    async function adminLogout() {
 
-
-/* ==========================================================
-   ADMIN LOGOUT
-========================================================== */
-
-async function adminLogout() {
-
-    const {
-        error
-    } =
-        await supabaseClient.auth
-            .signOut();
-
-
-    if (error) {
-
-        console.error(
-            "Logout error:",
+        const {
             error
-        );
-
-        throw error;
-
-    }
+        } =
+            await supabaseClient.auth
+                .signOut();
 
 
-    window.location.href =
-        "admin.html";
+        if (error) {
 
-}
+            console.error(
+                "Logout error:",
+                error
+            );
 
+            throw error;
 
-/* ==========================================================
-   PROTECT ADMIN PAGE
-========================================================== */
+        }
 
-async function protectAdminPage() {
-
-    const user =
-        await getCurrentAdmin();
-
-
-    if (!user) {
 
         window.location.href =
             "admin.html";
 
-        return null;
+    }
+
+
+    /* ======================================================
+       PROTECT ADMIN PAGE
+    ====================================================== */
+
+    async function protectAdminPage() {
+
+        const user =
+            await getCurrentAdmin();
+
+
+        if (!user) {
+
+            window.location.href =
+                "admin.html";
+
+            return null;
+
+        }
+
+
+        return user;
 
     }
 
 
-    return user;
+    /* ======================================================
+       AUTH STATE LISTENER
+    ====================================================== */
 
-}
+    supabaseClient.auth
+        .onAuthStateChange(
 
+            (
+                event,
+                session
+            ) => {
 
-/* ==========================================================
-   AUTH STATE LISTENER
-========================================================== */
+                console.log(
+                    "Auth event:",
+                    event
+                );
 
-supabaseClient.auth
-    .onAuthStateChange(
-        (
-            event,
-            session
-        ) => {
-
-            console.log(
-                "Auth event:",
-                event
-            );
-
-
-            if (
-                event ===
-                "SIGNED_OUT"
-            ) {
 
                 if (
-                    !window.location.pathname
-                        .endsWith(
-                            "admin.html"
-                        )
+                    event ===
+                    "SIGNED_OUT"
                 ) {
 
-                    window.location.href =
-                        "admin.html";
+                    if (
+                        !window.location.pathname
+                            .endsWith(
+                                "admin.html"
+                            )
+                    ) {
+
+                        window.location.href =
+                            "admin.html";
+
+                    }
 
                 }
 
             }
 
-        }
+        );
+
+
+    /* ======================================================
+       GLOBAL ADMIN API
+    ====================================================== */
+
+    window.MalihaAdmin = {
+
+        login:
+            adminLogin,
+
+        githubLogin:
+            githubLogin,
+
+        logout:
+            adminLogout,
+
+        getCurrentAdmin:
+            getCurrentAdmin,
+
+        protect:
+            protectAdminPage
+
+    };
+
+
+    /* ======================================================
+       READY
+    ====================================================== */
+
+    console.log(
+        "🔐 Maliha Agro Market — Admin Auth Loaded."
     );
 
-
-/* ==========================================================
-   EXPORT
-========================================================== */
-
-window.MalihaAdmin = {
-
-    login:
-        adminLogin,
-
-    githubLogin:
-        githubLogin,
-
-    logout:
-        adminLogout,
-
-    getCurrentAdmin:
-        getCurrentAdmin,
-
-    protect:
-        protectAdminPage
-
-};
-
-window.supabaseClient =
-    supabaseClient;
-
-/* ==========================================================
-   READY
-========================================================== */
-
-console.log(
-    "🔐 Maliha Agro Market — Admin Auth Loaded."
-);
-
-
+}
