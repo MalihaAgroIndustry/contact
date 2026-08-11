@@ -694,9 +694,17 @@ function closeMenu() {
 }
 
 
+/* ==========================================================
+   LOAD MAIN ADMIN + DASHBOARD SUMMARY
+========================================================== */
+
 async function loadAdmin() {
 
     try {
+
+        /* ------------------------------------------
+           1. Check logged-in user
+        ------------------------------------------ */
 
         const user =
             await window.MalihaAdmin.getCurrentAdmin();
@@ -710,19 +718,168 @@ async function loadAdmin() {
 
         }
 
+
+        /* ------------------------------------------
+           2. Show Admin Email
+        ------------------------------------------ */
+
         document
             .getElementById("adminName")
             .textContent =
             user.email || "Main Admin";
 
+
+        /* ------------------------------------------
+           3. Load Dashboard Summary
+        ------------------------------------------ */
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient
+                .from(
+                    "main_admin_dashboard_summary"
+                )
+                .select("*")
+                .single();
+
+
+        if (error) {
+
+            console.error(
+                "Dashboard summary error:",
+                error
+            );
+
+            return;
+
+        }
+
+
+        if (!data) {
+
+            console.error(
+                "Dashboard summary data not found."
+            );
+
+            return;
+
+        }
+
+
+        /* ------------------------------------------
+           4. Update Dashboard Cards
+        ------------------------------------------ */
+
+        document
+            .getElementById("totalIncome")
+            .textContent =
+            formatMoney(
+                data.total_income
+            );
+
+
+        document
+            .getElementById("totalExpense")
+            .textContent =
+            formatMoney(
+                data.total_expense
+            );
+
+
+        document
+            .getElementById("monthlyIncome")
+            .textContent =
+            formatMoney(
+                data.monthly_income
+            );
+
+
+        document
+            .getElementById("monthlyExpense")
+            .textContent =
+            formatMoney(
+                data.monthly_expense
+            );
+
+
+        document
+            .getElementById("totalOrders")
+            .textContent =
+            formatNumber(
+                data.total_orders
+            );
+
+
+        document
+            .getElementById("totalProducts")
+            .textContent =
+            formatNumber(
+                data.total_products
+            );
+
+
+        document
+            .getElementById("totalDelivery")
+            .textContent =
+            formatNumber(
+                data.total_delivery
+            );
+
+
+        document
+            .getElementById("totalDue")
+            .textContent =
+            formatMoney(
+                data.total_due
+            );
+
+
     } catch (error) {
 
-        console.error(error);
-
-        window.location.href =
-            "admin.html";
+        console.error(
+            "Admin dashboard error:",
+            error
+        );
 
     }
+
+}
+
+
+/* ==========================================================
+   MONEY FORMAT
+========================================================== */
+
+function formatMoney(value) {
+
+    const amount =
+        Number(value || 0);
+
+    return (
+        "৳ " +
+        amount.toLocaleString(
+            "en-BD",
+            {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            }
+        )
+    );
+
+}
+
+
+/* ==========================================================
+   NUMBER FORMAT
+========================================================== */
+
+function formatNumber(value) {
+
+    return Number(
+        value || 0
+    ).toLocaleString("en-BD");
 
 }
 
