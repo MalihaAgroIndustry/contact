@@ -130,6 +130,10 @@ const message =
     document.getElementById("message");
 
 
+/* ==========================================================
+   GITHUB LOGIN
+========================================================== */
+
 button.addEventListener(
     "click",
     async () => {
@@ -144,11 +148,18 @@ button.addEventListener(
         try {
 
             await window.MalihaAdmin.githubLogin();
-            window.location.href = "dashboard.html";
+
+            /*
+             * Supabase এখন GitHub Login page-এ redirect করবে।
+             * Login সফল হলে আবার admin.html-এ ফিরে আসবে।
+             */
 
         } catch (error) {
 
-            console.error(error);
+            console.error(
+                "GitHub login error:",
+                error
+            );
 
             message.style.color =
                 "#ef4444";
@@ -161,10 +172,54 @@ button.addEventListener(
 
             button.textContent =
                 "Continue with GitHub";
+
         }
+
     }
 );
 
+
+/* ==========================================================
+   CHECK GITHUB SESSION AFTER REDIRECT
+========================================================== */
+
+async function checkAdminSession() {
+
+    try {
+
+        const user =
+            await window.MalihaAdmin.getCurrentAdmin();
+
+        if (user) {
+
+            console.log(
+                "Admin session found:",
+                user.email
+            );
+
+            window.location.href =
+                "dashboard.html";
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Session check error:",
+            error
+        );
+
+    }
+
+}
+
+
+/*
+ * Important:
+ * GitHub থেকে ফিরে আসার পর session check করবে।
+ */
+
+checkAdminSession();
 </script>
 
 </body>
