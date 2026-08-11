@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Maliha Agro Market — Director Control</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6f9;
+            color: #17202a;
+        }
+
+        .header {
+            background: #0f5132;
+            color: white;
+            padding: 15px 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header h1 {
+            font-size: 18px;
+        }
+
+        .back-btn {
+            border: none;
+            background: rgba(255,255,255,.15);
+            color: white;
+            padding: 9px 13px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .title-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,.07);
+        }
+
+        .title-box h2 {
+            font-size: 22px;
+        }
+
+        .title-box p {
+            color: #6b7280;
+            margin-top: 7px;
+        }
+
+        .add-box {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,.07);
+        }
+
+        .add-box h3 {
+            margin-bottom: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+
+            font-size: 14px;
+        }
+
+        .add-btn {
+            width: 100%;
+            padding: 12px;
+
+            border: none;
+            border-radius: 9px;
+
+            background: #0f5132;
+            color: white;
+
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .control-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .control-card {
+            background: white;
+            padding: 18px;
+            border-radius: 13px;
+
+            box-shadow:
+                0 4px 15px rgba(0,0,0,.06);
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .control-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .control-info p {
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 7px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            background: #e8f5e9;
+            color: #0f5132;
+            font-size: 11px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 7px;
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 7px;
+            padding: 8px 10px;
+            cursor: pointer;
+        }
+
+        .edit {
+            background: #e9ecef;
+        }
+
+        .remove {
+            background: #dc3545;
+            color: white;
+        }
+
+        .empty {
+            background: white;
+            padding: 25px;
+            border-radius: 13px;
+            text-align: center;
+            color: #6b7280;
+        }
+
+        #message {
+            margin-bottom: 15px;
+            padding: 11px;
+            border-radius: 8px;
+            display: none;
+            background: #fff3cd;
+            color: #664d03;
+        }
+
+        @media(max-width:600px) {
+
+            .container {
+                padding: 15px;
+            }
+
+            .control-card {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .actions {
+                width: 100%;
+            }
+
+            .action-btn {
+                flex: 1;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <h1>
+        👑 Maliha Agro Market
+    </h1>
+
+    <button
+        class="back-btn"
+        onclick="goBack()"
+    >
+        ← Back
+    </button>
+
+</header>
+
+
+<main class="container">
+
+
+    <div class="title-box">
+
+        <h2 id="directorTitle">
+            Director Control
+        </h2>
+
+        <p id="directorDescription">
+            Loading...
+        </p>
+
+    </div>
+
+
+    <div id="message"></div>
+
+
+    <!-- ADD CONTROL -->
+
+    <div class="add-box">
+
+        <h3>
+            ➕ নতুন Control যোগ করুন
+        </h3>
+
+        <div class="form-group">
+
+            <label>
+                Control-এর নাম
+            </label>
+
+            <input
+                type="text"
+                id="controlName"
+                placeholder="যেমন: Cash Expense"
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Control-এর ধরন
+            </label>
+
+            <select id="controlType">
+
+                <option value="finance">
+                    Finance
+                </option>
+
+                <option value="sales">
+                    Sales
+                </option>
+
+                <option value="purchase">
+                    Purchase
+                </option>
+
+                <option value="correction">
+                    Correction
+                </option>
+
+                <option value="other">
+                    Other
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <button
+            class="add-btn"
+            onclick="addControl()"
+        >
+            ➕ Control যোগ করুন
+        </button>
+
+    </div>
+
+
+    <!-- CONTROL LIST -->
+
+    <div class="add-box">
+
+        <h3>
+            📋 বর্তমান Control
+        </h3>
+
+        <div
+            id="controlList"
+            class="control-list"
+        ></div>
+
+    </div>
+
+
+</main>
+
+
+<script>
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const sector =
+    params.get("sector") || "cashier";
+
+
+const directorInfo = {
+
+    cashier: {
+
+        title:
+            "💰 Cashier Director Control",
+
+        description:
+            "আয়, ব্যয়, Payment ও Finance সংক্রান্ত Control।"
+
+    },
+
+    seller: {
+
+        title:
+            "🛒 Seller Director Control",
+
+        description:
+            "Online ও Offline Sales সংক্রান্ত Control।"
+
+    },
+
+    buyer: {
+
+        title:
+            "🛍️ Buyer Director Control",
+
+        description:
+            "Online ও Offline Purchase সংক্রান্ত Control।"
+
+    },
+
+    it: {
+
+        title:
+            "🖥️ IT Director Control",
+
+        description:
+            "Main Admin যে Permission দেবে, IT Director শুধু সেই অনুযায়ী Correction করতে পারবে।"
+
+    }
+
+};
+
+
+function goBack() {
+
+    window.location.href =
+        "director-management.html";
+
+}
+
+
+function showMessage(text) {
+
+    const message =
+        document.getElementById("message");
+
+    message.style.display =
+        "block";
+
+    message.textContent =
+        text;
+
+}
+
+
+function loadDirectorInfo() {
+
+    const info =
+        directorInfo[sector];
+
+    if (!info) {
+
+        showMessage(
+            "Director sector পাওয়া যায়নি।"
+        );
+
+        return;
+
+    }
+
+    document
+        .getElementById("directorTitle")
+        .textContent =
+        info.title;
+
+    document
+        .getElementById("directorDescription")
+        .textContent =
+        info.description;
+
+}
+
+
+function addControl() {
+
+    const name =
+        document
+            .getElementById("controlName")
+            .value
+            .trim();
+
+    const type =
+        document
+            .getElementById("controlType")
+            .value;
+
+
+    if (!name) {
+
+        showMessage(
+            "Control-এর নাম লিখুন।"
+        );
+
+        return;
+
+    }
+
+
+    /*
+       এখন শুধু UI Preview।
+       পরের ধাপে Supabase Database-এর
+       admin_controls table-এ Save করা হবে।
+    */
+
+    const list =
+        document.getElementById(
+            "controlList"
+        );
+
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "control-card";
+
+
+    card.innerHTML = `
+
+        <div class="control-info">
+
+            <h3>
+                ${escapeHtml(name)}
+            </h3>
+
+            <p>
+                Director:
+                ${escapeHtml(sector)}
+            </p>
+
+            <span class="badge">
+                ${escapeHtml(type)}
+            </span>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                class="action-btn edit"
+                onclick="editControl(this)"
+            >
+                ✏️ Edit
+            </button>
+
+            <button
+                class="action-btn remove"
+                onclick="removeControl(this)"
+            >
+                🗑️ Remove
+            </button>
+
+        </div>
+
+    `;
+
+
+    list.appendChild(card);
+
+
+    document
+        .getElementById("controlName")
+        .value = "";
+
+}
+
+
+function editControl(button) {
+
+    const card =
+        button.closest(
+            ".control-card"
+        );
+
+    const name =
+        card.querySelector(
+            ".control-info h3"
+        ).textContent;
+
+
+    const newName =
+        prompt(
+            "Control-এর নতুন নাম দিন:",
+            name
+        );
+
+
+    if (
+        newName &&
+        newName.trim()
+    ) {
+
+        card.querySelector(
+            ".control-info h3"
+        ).textContent =
+            newName.trim();
+
+    }
+
+}
+
+
+function removeControl(button) {
+
+    const card =
+        button.closest(
+            ".control-card"
+        );
+
+
+    if (
+        confirm(
+            "এই Control মুছে ফেলতে চান?"
+        )
+    ) {
+
+        card.remove();
+
+    }
+
+}
+
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value;
+
+    return div.innerHTML;
+
+}
+
+
+loadDirectorInfo();
+
+</script>
+
+</body>
+</html>
