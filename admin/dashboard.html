@@ -886,19 +886,17 @@ function formatNumber(value) {
 
 function manageDirector(sector) {
 
-    alert(
-        "Director Management: " +
-        sector
-    );
+    window.location.href =
+        "director-control.html?sector=" +
+        encodeURIComponent(sector);
 
 }
 
 
 function manageDirectors() {
 
-    alert(
-        "Director Management"
-    );
+    window.location.href =
+        "director-management.html";
 
 }
 
