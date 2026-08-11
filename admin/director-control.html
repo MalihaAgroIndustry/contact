@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="bn">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Maliha Agro Market — Director Control</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>
+        Maliha Agro Market — Director Control
+    </title>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
     <script src="admin.js"></script>
 
     <style>
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -52,7 +64,8 @@
             padding: 20px;
         }
 
-        .title-box {
+        .title-box,
+        .add-box {
             background: white;
             padding: 20px;
             border-radius: 15px;
@@ -69,16 +82,7 @@
         .title-box p {
             color: #6b7280;
             margin-top: 7px;
-        }
-
-        .add-box {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-
-            box-shadow:
-                0 5px 20px rgba(0,0,0,.07);
+            line-height: 1.5;
         }
 
         .add-box h3 {
@@ -97,47 +101,77 @@
         }
 
         input,
+        textarea,
         select {
+
             width: 100%;
+
             padding: 12px;
 
             border: 1px solid #d1d5db;
+
             border-radius: 8px;
 
             font-size: 14px;
         }
 
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
         .add-btn {
+
             width: 100%;
+
             padding: 12px;
 
             border: none;
+
             border-radius: 9px;
 
             background: #0f5132;
+
             color: white;
 
             font-weight: bold;
+
             cursor: pointer;
         }
 
+        .add-btn:disabled {
+            opacity: .6;
+        }
+
         .control-list {
+
             display: grid;
+
             gap: 12px;
         }
 
         .control-card {
+
             background: white;
+
             padding: 18px;
+
             border-radius: 13px;
 
             box-shadow:
                 0 4px 15px rgba(0,0,0,.06);
 
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
+
             gap: 15px;
+        }
+
+        .control-info {
+            flex: 1;
         }
 
         .control-info h3 {
@@ -145,30 +179,41 @@
             margin-bottom: 5px;
         }
 
-        .control-info p {
-            color: #6b7280;
-            font-size: 13px;
+        .control-key {
+
+            color: #0f5132;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
         }
 
-        .badge {
-            display: inline-block;
-            margin-top: 7px;
-            padding: 4px 8px;
-            border-radius: 20px;
-            background: #e8f5e9;
-            color: #0f5132;
-            font-size: 11px;
+        .control-info p {
+
+            color: #6b7280;
+
+            font-size: 13px;
+
+            line-height: 1.4;
         }
 
         .actions {
+
             display: flex;
+
             gap: 7px;
         }
 
         .action-btn {
+
             border: none;
+
             border-radius: 7px;
+
             padding: 8px 10px;
+
             cursor: pointer;
         }
 
@@ -177,25 +222,47 @@
         }
 
         .remove {
+
             background: #dc3545;
+
             color: white;
         }
 
         .empty {
+
             background: white;
+
             padding: 25px;
+
             border-radius: 13px;
+
             text-align: center;
+
             color: #6b7280;
         }
 
         #message {
+
             margin-bottom: 15px;
+
             padding: 11px;
+
             border-radius: 8px;
+
             display: none;
+
             background: #fff3cd;
+
             color: #664d03;
+        }
+
+        .loading {
+
+            text-align: center;
+
+            color: #6b7280;
+
+            padding: 20px;
         }
 
         @media(max-width:600px) {
@@ -205,23 +272,31 @@
             }
 
             .control-card {
+
                 align-items: flex-start;
+
                 flex-direction: column;
             }
 
             .actions {
+
                 width: 100%;
             }
 
             .action-btn {
+
                 flex: 1;
             }
 
         }
+
     </style>
+
 </head>
 
+
 <body>
+
 
 <header class="header">
 
@@ -258,13 +333,16 @@
     <div id="message"></div>
 
 
-    <!-- ADD CONTROL -->
+    <!-- =========================================
+         ADD CONTROL
+    ========================================== -->
 
     <div class="add-box">
 
         <h3>
             ➕ নতুন Control যোগ করুন
         </h3>
+
 
         <div class="form-group">
 
@@ -284,37 +362,34 @@
         <div class="form-group">
 
             <label>
-                Control-এর ধরন
+                Control Key
             </label>
 
-            <select id="controlType">
+            <input
+                type="text"
+                id="controlKey"
+                placeholder="যেমন: cashier.expense"
+            >
 
-                <option value="finance">
-                    Finance
-                </option>
+        </div>
 
-                <option value="sales">
-                    Sales
-                </option>
 
-                <option value="purchase">
-                    Purchase
-                </option>
+        <div class="form-group">
 
-                <option value="correction">
-                    Correction
-                </option>
+            <label>
+                Description
+            </label>
 
-                <option value="other">
-                    Other
-                </option>
-
-            </select>
+            <textarea
+                id="controlDescription"
+                placeholder="এই Control কী কাজ করবে লিখুন"
+            ></textarea>
 
         </div>
 
 
         <button
+            id="addButton"
             class="add-btn"
             onclick="addControl()"
         >
@@ -324,7 +399,9 @@
     </div>
 
 
-    <!-- CONTROL LIST -->
+    <!-- =========================================
+         CONTROL LIST
+    ========================================== -->
 
     <div class="add-box">
 
@@ -335,7 +412,13 @@
         <div
             id="controlList"
             class="control-list"
-        ></div>
+        >
+
+            <div class="loading">
+                Control Loading...
+            </div>
+
+        </div>
 
     </div>
 
@@ -345,14 +428,24 @@
 
 <script>
 
+
+/* ==========================================================
+   SECTOR
+========================================================== */
+
 const params =
     new URLSearchParams(
         window.location.search
     );
 
+
 const sector =
     params.get("sector") || "cashier";
 
+
+/* ==========================================================
+   DIRECTOR INFORMATION
+========================================================== */
 
 const directorInfo = {
 
@@ -399,6 +492,10 @@ const directorInfo = {
 };
 
 
+/* ==========================================================
+   BACK
+========================================================== */
+
 function goBack() {
 
     window.location.href =
@@ -407,10 +504,19 @@ function goBack() {
 }
 
 
-function showMessage(text) {
+/* ==========================================================
+   MESSAGE
+========================================================== */
+
+function showMessage(
+    text,
+    success = false
+) {
 
     const message =
-        document.getElementById("message");
+        document.getElementById(
+            "message"
+        );
 
     message.style.display =
         "block";
@@ -418,8 +524,30 @@ function showMessage(text) {
     message.textContent =
         text;
 
+    if (success) {
+
+        message.style.background =
+            "#d1e7dd";
+
+        message.style.color =
+            "#0f5132";
+
+    } else {
+
+        message.style.background =
+            "#fff3cd";
+
+        message.style.color =
+            "#664d03";
+
+    }
+
 }
 
+
+/* ==========================================================
+   DIRECTOR INFO
+========================================================== */
 
 function loadDirectorInfo() {
 
@@ -436,31 +564,258 @@ function loadDirectorInfo() {
 
     }
 
+
     document
-        .getElementById("directorTitle")
+        .getElementById(
+            "directorTitle"
+        )
         .textContent =
         info.title;
 
+
     document
-        .getElementById("directorDescription")
+        .getElementById(
+            "directorDescription"
+        )
         .textContent =
         info.description;
 
 }
 
 
-function addControl() {
+/* ==========================================================
+   LOAD CONTROLS FROM SUPABASE
+========================================================== */
+
+async function loadControls() {
+
+    const list =
+        document.getElementById(
+            "controlList"
+        );
+
+
+    list.innerHTML = `
+
+        <div class="loading">
+            Control Loading...
+        </div>
+
+    `;
+
+
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await window.supabaseClient
+
+                .from("admin_controls")
+
+                .select("*")
+
+                .ilike(
+                    "control_key",
+                    sector + ".%"
+                )
+
+                .order(
+                    "id",
+                    {
+                        ascending: true
+                    }
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Control loading error:",
+                error
+            );
+
+            list.innerHTML = `
+
+                <div class="empty">
+
+                    ❌ Control load করা যায়নি।
+
+                    <br><br>
+
+                    ${escapeHtml(
+                        error.message
+                    )}
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        if (
+            !data ||
+            data.length === 0
+        ) {
+
+            list.innerHTML = `
+
+                <div class="empty">
+
+                    এই Director-এর কোনো Control পাওয়া যায়নি।
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        list.innerHTML = "";
+
+
+        data.forEach(
+            control => {
+
+                const card =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                card.className =
+                    "control-card";
+
+
+                card.innerHTML = `
+
+                    <div class="control-info">
+
+                        <h3>
+                            ${escapeHtml(
+                                control.control_name
+                            )}
+                        </h3>
+
+                        <div class="control-key">
+
+                            ${escapeHtml(
+                                control.control_key
+                            )}
+
+                        </div>
+
+                        <p>
+
+                            ${escapeHtml(
+                                control.description ||
+                                ""
+                            )}
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="actions">
+
+                        <button
+                            class="action-btn edit"
+                            onclick="editControl(
+                                '${control.id}',
+                                ${JSON.stringify(
+                                    control.control_name
+                                )},
+                                ${JSON.stringify(
+                                    control.control_key
+                                )},
+                                ${JSON.stringify(
+                                    control.description || ""
+                                )}
+                            )"
+                        >
+                            ✏️ Edit
+                        </button>
+
+
+                        <button
+                            class="action-btn remove"
+                            onclick="removeControl(
+                                '${control.id}'
+                            )"
+                        >
+                            🗑️ Remove
+                        </button>
+
+                    </div>
+
+                `;
+
+
+                list.appendChild(
+                    card
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                ❌ Unexpected error হয়েছে।
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* ==========================================================
+   ADD CONTROL
+========================================================== */
+
+async function addControl() {
 
     const name =
         document
-            .getElementById("controlName")
+            .getElementById(
+                "controlName"
+            )
             .value
             .trim();
 
-    const type =
+
+    const key =
         document
-            .getElementById("controlType")
-            .value;
+            .getElementById(
+                "controlKey"
+            )
+            .value
+            .trim();
+
+
+    const description =
+        document
+            .getElementById(
+                "controlDescription"
+            )
+            .value
+            .trim();
 
 
     if (!name) {
@@ -474,147 +829,390 @@ function addControl() {
     }
 
 
-    /*
-       এখন শুধু UI Preview।
-       পরের ধাপে Supabase Database-এর
-       admin_controls table-এ Save করা হবে।
-    */
+    if (!key) {
 
-    const list =
+        showMessage(
+            "Control Key দিন।"
+        );
+
+        return;
+
+    }
+
+
+    if (!key.startsWith(
+        sector + "."
+    )) {
+
+        showMessage(
+            "Control Key অবশ্যই " +
+            sector +
+            ". দিয়ে শুরু হতে হবে।"
+        );
+
+        return;
+
+    }
+
+
+    const button =
         document.getElementById(
-            "controlList"
+            "addButton"
         );
 
 
-    const card =
-        document.createElement("div");
+    button.disabled =
+        true;
 
-    card.className =
-        "control-card";
-
-
-    card.innerHTML = `
-
-        <div class="control-info">
-
-            <h3>
-                ${escapeHtml(name)}
-            </h3>
-
-            <p>
-                Director:
-                ${escapeHtml(sector)}
-            </p>
-
-            <span class="badge">
-                ${escapeHtml(type)}
-            </span>
-
-        </div>
-
-        <div class="actions">
-
-            <button
-                class="action-btn edit"
-                onclick="editControl(this)"
-            >
-                ✏️ Edit
-            </button>
-
-            <button
-                class="action-btn remove"
-                onclick="removeControl(this)"
-            >
-                🗑️ Remove
-            </button>
-
-        </div>
-
-    `;
+    button.textContent =
+        "Saving...";
 
 
-    list.appendChild(card);
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await window.supabaseClient
+
+                .from("admin_controls")
+
+                .insert({
+
+                    control_name:
+                        name,
+
+                    control_key:
+                        key,
+
+                    description:
+                        description
+
+                })
+
+                .select()
+                .single();
 
 
-    document
-        .getElementById("controlName")
-        .value = "";
+        if (error) {
+
+            console.error(
+                "Control insert error:",
+                error
+            );
+
+            showMessage(
+                "Control Save হয়নি: " +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        showMessage(
+            "✅ Control সফলভাবে Save হয়েছে।",
+            true
+        );
+
+
+        document
+            .getElementById(
+                "controlName"
+            )
+            .value = "";
+
+
+        document
+            .getElementById(
+                "controlKey"
+            )
+            .value = "";
+
+
+        document
+            .getElementById(
+                "controlDescription"
+            )
+            .value = "";
+
+
+        await loadControls();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "Control Save করতে সমস্যা হয়েছে।"
+        );
+
+    } finally {
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "➕ Control যোগ করুন";
+
+    }
 
 }
 
 
-function editControl(button) {
+/* ==========================================================
+   EDIT CONTROL
+========================================================== */
 
-    const card =
-        button.closest(
-            ".control-card"
-        );
-
-    const name =
-        card.querySelector(
-            ".control-info h3"
-        ).textContent;
-
+async function editControl(
+    id,
+    oldName,
+    oldKey,
+    oldDescription
+) {
 
     const newName =
         prompt(
-            "Control-এর নতুন নাম দিন:",
-            name
+            "Control-এর নতুন নাম:",
+            oldName
         );
 
 
     if (
-        newName &&
-        newName.trim()
+        newName === null ||
+        !newName.trim()
     ) {
 
-        card.querySelector(
-            ".control-info h3"
-        ).textContent =
-            newName.trim();
+        return;
+
+    }
+
+
+    const newKey =
+        prompt(
+            "Control Key:",
+            oldKey
+        );
+
+
+    if (
+        newKey === null ||
+        !newKey.trim()
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !newKey.trim()
+            .startsWith(
+                sector + "."
+            )
+    ) {
+
+        showMessage(
+            "Control Key অবশ্যই " +
+            sector +
+            ". দিয়ে শুরু হতে হবে।"
+        );
+
+        return;
+
+    }
+
+
+    const newDescription =
+        prompt(
+            "Description:",
+            oldDescription
+        );
+
+
+    if (newDescription === null) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            error
+        } =
+            await window.supabaseClient
+
+                .from("admin_controls")
+
+                .update({
+
+                    control_name:
+                        newName.trim(),
+
+                    control_key:
+                        newKey.trim(),
+
+                    description:
+                        newDescription.trim()
+
+                })
+
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Control update error:",
+                error
+            );
+
+            showMessage(
+                "Update হয়নি: " +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        showMessage(
+            "✅ Control সফলভাবে Update হয়েছে।",
+            true
+        );
+
+
+        await loadControls();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "Control Update করতে সমস্যা হয়েছে।"
+        );
 
     }
 
 }
 
 
-function removeControl(button) {
+/* ==========================================================
+   REMOVE CONTROL
+========================================================== */
 
-    const card =
-        button.closest(
-            ".control-card"
-        );
+async function removeControl(id) {
 
-
-    if (
+    const confirmed =
         confirm(
-            "এই Control মুছে ফেলতে চান?"
-        )
-    ) {
+            "এই Control Database থেকে মুছে ফেলতে চান?"
+        );
 
-        card.remove();
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    try {
+
+        const {
+            error
+        } =
+            await window.supabaseClient
+
+                .from("admin_controls")
+
+                .delete()
+
+                .eq(
+                    "id",
+                    id
+                );
+
+
+        if (error) {
+
+            console.error(
+                "Control delete error:",
+                error
+            );
+
+            showMessage(
+                "Delete হয়নি: " +
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        showMessage(
+            "✅ Control মুছে ফেলা হয়েছে।",
+            true
+        );
+
+
+        await loadControls();
+
+
+    } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "Control Delete করতে সমস্যা হয়েছে।"
+        );
 
     }
 
 }
 
+
+/* ==========================================================
+   ESCAPE HTML
+========================================================== */
 
 function escapeHtml(value) {
 
     const div =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     div.textContent =
-        value;
+        value == null
+            ? ""
+            : String(value);
 
     return div.innerHTML;
 
 }
 
 
+/* ==========================================================
+   START
+========================================================== */
+
 loadDirectorInfo();
+
+loadControls();
 
 </script>
 
 </body>
+
 </html>
