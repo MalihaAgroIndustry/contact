@@ -737,7 +737,7 @@ async function loadAdmin() {
             data,
             error
         } =
-            await supabaseClient
+            await window.supabaseClient
                 .from(
                     "main_admin_dashboard_summary"
                 )
